@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Grow.Server.Controllers
+namespace Grow.Server.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]

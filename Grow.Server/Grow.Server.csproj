@@ -5,12 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Views\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.1.4" />
   </ItemGroup>
 
 </Project>

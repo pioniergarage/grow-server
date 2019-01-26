@@ -41,6 +41,7 @@ namespace Grow.Server
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Grow.Server.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Grow.Server
 {
@@ -26,6 +21,13 @@ namespace Grow.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
+            // DB setup
+            services.AddDbContext<GrowDbContext>(
+                options => options.UseSqlServer(
+                    Configuration.GetConnectionString("GrowDbContext")
+                )
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +42,12 @@ namespace Grow.Server
                 app.UseHsts();
             }
 
+            // Run migration
+            var context = app.ApplicationServices.GetService<GrowDbContext>();
+            if (!context.Database.EnsureCreated())
+                context.Database.Migrate();
+
+            // Setup MVC pipeline
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseMvc();

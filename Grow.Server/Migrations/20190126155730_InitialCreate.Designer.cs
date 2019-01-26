@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grow.Server.Migrations
 {
     [DbContext(typeof(GrowDbContext))]
-    [Migration("20190126152825_InitialCreate")]
+    [Migration("20190126155730_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,6 +70,8 @@ namespace Grow.Server.Migrations
 
                     b.Property<bool>("HasTimesSet");
 
+                    b.Property<int?>("HeldById");
+
                     b.Property<bool>("IsMandatory");
 
                     b.Property<string>("Location");
@@ -89,6 +91,8 @@ namespace Grow.Server.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContestId");
+
+                    b.HasIndex("HeldById");
 
                     b.ToTable("Events");
                 });
@@ -291,6 +295,10 @@ namespace Grow.Server.Migrations
                     b.HasOne("Grow.Server.Model.Entities.Contest")
                         .WithMany("Events")
                         .HasForeignKey("ContestId");
+
+                    b.HasOne("Grow.Server.Model.Entities.Partner", "HeldBy")
+                        .WithMany()
+                        .HasForeignKey("HeldById");
                 });
 
             modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.JudgeToContest", b =>

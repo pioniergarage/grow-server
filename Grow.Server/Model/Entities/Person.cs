@@ -19,6 +19,6 @@ namespace Grow.Server.Model.Entities
 
         public string Email { get; set; }
 
-        public string LinkedInUrl { get; set; }
+        public string WebsiteUrl { get; set; }
     }
 }

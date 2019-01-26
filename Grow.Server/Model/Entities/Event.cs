@@ -29,6 +29,8 @@ namespace Grow.Server.Model.Entities
 
         public bool IsMandatory { get; set; }
 
+        public Partner HeldBy { get; set; }
+
 
         public enum EventVisibility
         {

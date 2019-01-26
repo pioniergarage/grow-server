@@ -30,8 +30,6 @@ namespace Grow.Server.Model.Entities
 
         public bool IsActive { get; set; }
         
-        public Contest Contest { get; set; }
-        
         public string MembersAsString
         {
             get => string.Join(", ", Members);

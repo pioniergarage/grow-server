@@ -94,11 +94,18 @@ namespace Grow.Server.Migrations
                     Type = table.Column<int>(nullable: false),
                     HasTimesSet = table.Column<bool>(nullable: false),
                     IsMandatory = table.Column<bool>(nullable: false),
+                    HeldById = table.Column<int>(nullable: true),
                     ContestId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_Partners_HeldById",
+                        column: x => x.HeldById,
+                        principalTable: "Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,6 +295,11 @@ namespace Grow.Server.Migrations
                 column: "ContestId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Events_HeldById",
+                table: "Events",
+                column: "HeldById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_JudgeToContest_ContestId",
                 table: "JudgeToContest",
                 column: "ContestId");
@@ -370,16 +382,16 @@ namespace Grow.Server.Migrations
                 name: "Persons");
 
             migrationBuilder.DropTable(
-                name: "Partners");
-
-            migrationBuilder.DropTable(
-                name: "Images");
-
-            migrationBuilder.DropTable(
                 name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Contests");
+
+            migrationBuilder.DropTable(
+                name: "Partners");
+
+            migrationBuilder.DropTable(
+                name: "Images");
         }
     }
 }

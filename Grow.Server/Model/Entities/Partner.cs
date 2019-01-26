@@ -11,8 +11,6 @@ namespace Grow.Server.Model.Entities
 
         public string Description { get; set; }
 
-        public string Contribution { get; set; }
-
         public Image Image { get; set; }
     }
 }

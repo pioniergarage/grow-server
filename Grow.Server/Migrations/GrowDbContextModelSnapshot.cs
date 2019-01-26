@@ -68,6 +68,8 @@ namespace Grow.Server.Migrations
 
                     b.Property<bool>("HasTimesSet");
 
+                    b.Property<int?>("HeldById");
+
                     b.Property<bool>("IsMandatory");
 
                     b.Property<string>("Location");
@@ -87,6 +89,8 @@ namespace Grow.Server.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContestId");
+
+                    b.HasIndex("HeldById");
 
                     b.ToTable("Events");
                 });
@@ -289,6 +293,10 @@ namespace Grow.Server.Migrations
                     b.HasOne("Grow.Server.Model.Entities.Contest")
                         .WithMany("Events")
                         .HasForeignKey("ContestId");
+
+                    b.HasOne("Grow.Server.Model.Entities.Partner", "HeldBy")
+                        .WithMany()
+                        .HasForeignKey("HeldById");
                 });
 
             modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.JudgeToContest", b =>

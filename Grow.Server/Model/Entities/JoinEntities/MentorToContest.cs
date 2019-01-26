@@ -5,12 +5,7 @@ using System.Threading.Tasks;
 
 namespace Grow.Server.Model.Entities.JoinEntities
 {
-    public class MentorToContest
+    public class MentorToContest : PersonToContest
     {
-        public Person Person { get; set; }
-        public int PersonId { get; set; }
-
-        public Contest Contest { get; set; }
-        public int ContestId { get; set; }
     }
 }

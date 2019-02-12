@@ -520,18 +520,498 @@ namespace Grow.Server.Model.Utils
                 new Team
                 {
                     Id = NextId<Team>(),
+                    TeamName = "3K",
+                    ActiveSince = null,
+                    Description = "A series of new-generation furniture, which focuses on fitness monitoring.One of series we first product is the intellectual toilet, which has a talent of stool test. ",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Zeming Leng",
+                    IsActive = false
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Acces Medecins",
+                    ActiveSince = "2017",
+                    Description = "Acces Medecins is a website and application on which people who lives in medical deserts can have access to medical care via teleconsulations. It’s like a medical skype. The patient just have to connect himself on the app to contact their doctor or other health professionals. They will be able to see their medical datas and to share them with their doctor. Teleconsultation can for example save emergency services time and ressources by taking care of people who doesn’t have urgency case.This platform can also improve the patients quality of life with health and dietary advices. We can also imagine mental health support and consultations.My app will be available on app store and google play.This application concern all the european countries.  I want also use connected object to improve the results of the diagnostic.",
+                    Email = "contactaccesmedecins@gmail.com",
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = "accesmedecins",
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Fatimata Toure, Amir Akbari",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "alloPI",
+                    ActiveSince = null,
+                    Description = "Home automation reduces the resident’s workload of domestic work and improves life quality. However, the installation,  the maintenance and even the application of Smart Home devices are complex operations that require technical knowledge. However, especially people without technical knowledge or with physical impairments would benefit the most by automating their environment. Therefore, we integrate an adaptive and intuitive human-machine interface system into the Smart Home that exceeds the capabilities of common mobile apps. The system adapts to preferences and existing handicaps of the user by using user profiles. We provide counseling, installation and remote maintenance for Smart Homes. No maintenance, no limits – just act your way!",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Daniel David, Christian Fleiner, Arjun Rai Gupta, Marvin Okoh, Brian Sailer",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "AR.K.I.T",
+                    ActiveSince = "Oct 2018",
+                    Description = "AR-App for Museum",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Walid Elleuch, Kutay Yüksel",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
                     TeamName = "Bavest",
                     ActiveSince = "Spring 2018",
                     Description = "Bavest ist ein Fintech, also ein Unternehmen das technologische Finanzinnovationen anbietet, die auf neusten Technologien basieren. Bavest sammelt Daten mit Hilfe von Data Crawlern und APIs. Die Daten werden mit künstlicher Intelligenz (Machine Learning im Fall von Horizon) analysiert. Maschinelles Lernen ist ein Oberbegriff für die „künstliche“ Generierung von Wissen aus Erfahrung. Durch die intelligenten Algorithmen und deren Analyse kann Horizon, unsere erste Innovation, Fundamentaldaten analysieren und intelligente Investmentstrategien darlegen. Später möchten wir bei Bavest weitere intelligente Produkte anbieten, die das Investieren vereinfachen. Dabei wollen wir Produkte schaffen, die es ermöglichen, Anlegern einen guten Einblick zu geben, unabhängig von Banken (Bank Beratern) oder anderen Institutionen. Dabei sollen unsere Kunden auf möglichst neueste Technologien Zugriff haben, wie z.B Machine Learning etc.",
                     Email = "support@bavest.org",
                     WebsiteUrl = "https://www.bavest.org/",
-                    FacebookUrl = "https://www.facebook.com/BavestDE",
-                    InstagramUrl = null,
+                    FacebookUrl = "BavestDE",
+                    InstagramUrl = "bavest.de",
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Ramtin Babaei, Pedram Babaei",
                     IsActive = true
                 },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "can",
+                    ActiveSince = "Oct 2018",
+                    Description = "can - the health mediation, a mediation between customers and companies.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Kai Can Bilbixun Avci",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Circle",
+                    ActiveSince = "Oct 2018",
+                    Description = "The vision behind Circle is to build a bridge between the digital and the real world. Nowadays it's very simple to communicate over the Internet and therefore technology has become a huge part of our lives.But did it ever struck your mind that all these digital relations we have built over time impact our social life on a huge scale?Loneliness caused by communication is what many of us experience daily. When did our smartphone replace the contact with a real human being, face to face?Circle wants to change that.Our goal is to build an App capable of connecting people to others around them that share the same spontaneous interests.Circle is an assistant to let you rediscover reality.",
+                    Email = "team@circleco.de",
+                    WebsiteUrl = null,
+                    FacebookUrl = "Circle-350104552390103",
+                    InstagramUrl = "circlemediaco",
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Alexandre Lehr, Finn von Lauppert, Lukas Wipf, Kai Firschau",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = null,
+                    ActiveSince = null,
+                    Description = "Main question: How do companies develop strategies and how do they implement them into their organization?",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Julian Seidel, Christian Zimmermann",
+                    IsActive = false
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "DIGETECH",
+                    ActiveSince = "Jul 18",
+                    Description = "We aim to use virtual reality in health care. For this, we currently focus on two segments: 1) Nursing schools asked us if we could create a VR tool for them to teach the nursing students more uncommon cases and make those situations repeatable. 2) In general, our intention is to create VR solutions to optimize physiotherapy and to motivate patients to train more regularly in order to improve their healing process.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Frederik Grösche, Tobias Buchwald",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "EBARA",
+                    ActiveSince = null,
+                    Description = "Digitalisierung von Kleinunternehmen ",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Yanis Fallah, Marco Ezzy",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Eshr",
+                    ActiveSince = null,
+                    Description = "Wir schlagen ein Framework für ein dezentrales, kontinuierlich lernendes AIaaS-System vor. Um den Beitrag von technischem und wissenschaftlichen Know-How sowie der nötigen Rechenkraft anzuregen entwerfen wir einen auf kryptographischen Methoden basierenden Sozialvertag, der Beiträge zu dem Projekt mit veräußerlichen Rechten zur Nutzung des Systems kompensiert.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Chris Hiatt, Eugen Götz, Matthias Schedel, Marin Vlastelica P.",
+                    IsActive = false
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Falafel Fuego ",
+                    ActiveSince = "Sep 18",
+                    Description = "New food start up ... creative food with original taste",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Abdallatif Ali, Ihab Awad",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Gimmickgott",
+                    ActiveSince = "2017",
+                    Description = "Hey there! We are Gimmickgott! A young team of 2 professional magicians who's mission is to make magic better. Gimmickgott is not only for magicians but also for those who are interested and want to bring their message or product to the next level. One part of GG-Magic is the online shop where magicians can buy new and modern magic tricks created by our team. On the other hand we do Consulting for speakers,  magicians , CEOs and everyone who is on stage or want to make an impact on their clients. What does it mean? We construct the technique and methods behind magic ideas that someone has! Or we think about a way to make messages of companies and speakers connect with the audience through magic. Our goal is to change the art of magic!",
+                    Email = "info@ggmagic.de",
+                    WebsiteUrl = null,
+                    FacebookUrl = "gimmickgott",
+                    InstagramUrl = "gimmickgott",
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Madou Mann, Daniel Hank, Eike Dahle ",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "HANG",
+                    ActiveSince = null,
+                    Description = "HIFI SPEAKERS",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Giorgi Tsutskiridze",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "HelioPas AI",
+                    ActiveSince = "Mar 2018",
+                    Description = "The increasing weather extremes such as droughts take its toll on farmers and lead to growing financial losses. Crop failure of 30% in Germany, in some regions 100%, due to drought in 2018. We collect worldwide many different data pools such as in-situ data from farmers, satellite data, soil moisture data, weather data and process, combine or refine these data to provide cutting-edge environmental insights for the risk modelling of a new drought insurance product. Only when data is fused and interpreted by artificial intelligence, drought can be automatically and objectively determined at a field-level - worldwide. ",
+                    Email = "info@heliopas.com",
+                    WebsiteUrl = "http://www.heliopas.com",
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Ingmar Wolff, Benno Ommerborn, Vladyslav Shapran",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "HIRSCH Clothing & Apparel",
+                    ActiveSince = "Oct 2018",
+                    Description = "Clothing and Apparel from the heart of the Black Forest. The company aims to engage the customer in the design process and provide an experience that goes beyond just buying the product. With ecommerce and serivce models in mind, the aim is to create business models that disrupt the outdated and wasteful nature of most brick-and-mortar clothing companies, all at a lower cost.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Omar Abousena",
+                    IsActive = false
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Jacks Handy",
+                    ActiveSince = "2016",
+                    Description = "Repair, just works! ",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Yekta Görkem Baysan",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Kbox",
+                    ActiveSince = "Dec 2017",
+                    Description = "Kbox is a multi-lingual collaborative e-learning platform. It has been launched with a focus to promote vernacular learning keeping in mind the global linguistic diversity. It's the first such MOOC platform of its kind to provide all in one services right from skilling, re-skilling, job mapping to peer connection forum.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Saksham Gupta, Ishita Gupta",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = null,
+                    ActiveSince = null,
+                    Description = "LED lamp controlled by WIFI and Alexa",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Sebastian Braun",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "MangoLearn",
+                    ActiveSince = null,
+                    Description = "We develop a mobile app which enables you to go through interactive courses on your phone in comfortable way. We provide a variety of topics which you can experience in a playful environment with your friends and other like-minded people.",
+                    Email = "mail@mangolearn.com",
+                    WebsiteUrl = "https://mangolearn.com/",
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Danil Fedorovsky, Fabian Illner",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Move Lines",
+                    ActiveSince = "Jun 18",
+                    Description = "At the moment the research for interesting travel destinations that align with the personal taste takes a lot of effort. Browsing through different sources like TripAdvisor, Travelblogs and Travelguides can be a very time-consuming task. We provide a mobile app to discover interesting travel routes through people that share similar interests.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Lukas Klinzing, Marcus Zanquila",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Project Hayek",
+                    ActiveSince = "Nov 18",
+                    Description = "A crowdfunding platform for small- and mid-scale businesses.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Lennard Böhnke, Alexander Völker",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Read!",
+                    ActiveSince = "Oct 2018",
+                    Description = "Read! provides AR glasses for reading to make reading books more comfortable, better accessible and digitizing the reading experience.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Reyhan Düzgün, David Puljiz",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Recipe Me",
+                    ActiveSince = "Nov 18",
+                    Description = "The Idea is a platform where members can share their own recipes and simply use any one of them for free. What we will offer is a service that will deliver the exact amounts of the ingredients of the recipe when someone makes an order on demand. We are also thinking of taking special orders for a larger group (15-20 people) that plans to cook together.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Abdallah Alshanawani, Hanna Choi",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "SecureRadiationLab",
+                    ActiveSince = "Aug 18",
+                    Description = "We want to found a company developing and producing tools for radiometric measurements. Our long term goal is to develop specialized measurement solutions for industrial partners but to get into this market we want to start simple by producing contamination monitors for emergency response teams. Therefore our unique selling point will be simplicity in use without reducing functionality and using state of the art technology.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Aaron Griesbaum, Felix Stengel, Johannes Neumaier, Dominic Kis",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Studentenfutter",
+                    ActiveSince = "Jan 18",
+                    Description = "We believe that everyone benefits from a strong community. That's why we aim to bring people together on a daily basis. We want to integrate this thought into an already existing routine we all have: Having lunch. We establish an environment where almost everyone can afford having lunch in a restaurant and provide social functionalities which ease setting up an appointment. Throughout the project, we focus on students first and plan to expand our target group within three years to city-offices.We generate revenue by monthly fees for restaurants. These restaurants can promote their dishes on our platform and get insights into customer engagement and menu acceptance in order to improve their business.",
+                    Email = "friends@studentenfutter-app.com",
+                    WebsiteUrl = "http://www.studentenfutter-app.com",
+                    FacebookUrl = "Studentenfutter-262434551132887",
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Giorgio Groß, Mustafa Cint, Kevin Steinbach, Fabian Wenzel",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Syncosync",
+                    ActiveSince = "2016",
+                    Description = "Backups für Jedermann ohne großen Aufwand mit relativ kurzer Wiederherstellungsdauer im worst-case",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Till Skrodzki, Stephan Skrodzki",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "TortenGlück",
+                    ActiveSince = "Nov 18",
+                    Description = "Have you ever baked a layer-cake - with dogh, cream and decoration? Do you still stick with the ready-baking mixture-Brownies? We think that it shouldn't be that hard to create a torte and we guarantee you to succed baking your very first layer-cake by TortenGlück. TortenGlück is a contruction kit, containing everythink you need to start baking. We developed dry mixtures for dogh, stuffing and decoration in any possible flavor. Our Vision is that you can combine your very individual layer-cake and with a step-by-step instuction we guarantee your success to 100%. ",
+                    Email = "e.goebel@t-online.de",
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Elisabeth Goebel, Tobias Budig, Patrick Theobalt, Leander Märkisch",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "udentme",
+                    ActiveSince = "Nov 18",
+                    Description = "At the moment identification process is done via Postident or Videoident. Our idea is to provide a solution for identification as an app, so that it is possible to do it in every location which is taking part as a identificator. The bigger the network of identificators the easier is the process.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Dmitriy Shibayev, Ilya Shibayev, Burak Atay",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "VallerVentures",
+                    ActiveSince = null,
+                    Description = "We create a venture capitalist whose investment decision-making is executed solely by algorithms. ",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Leander Märkisch, Paul Kathmann, Hauke Reunitz",
+                    IsActive = false
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "WeTakeHealthCare",
+                    ActiveSince = "Oct 2018",
+                    Description = "We support the foreign medical tourists in the choice of the treated hospital and in the implementation of the medical treatment in Germany. With the help of the internet platform WeTakeHealthCare we would like to expand the medical tourism in Germany.",
+                    Email = "wetakehealthcare@gmail.com",
+                    WebsiteUrl = "https://www.wetakehealthcare.de",
+                    FacebookUrl = "WeTakeHealthCare",
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Peter Krieger, Yannick Pietschmann, Marta Golabek",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Winter Team VT",
+                    ActiveSince = "Oct 2018",
+                    Description = "Enhancing the readability of written Text in lectures in diverse situations, using modern light-technology and chemistry",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Christian Winter",
+                    IsActive = true
+                },
+                new Team
+                {
+                    Id = NextId<Team>(),
+                    TeamName = "Zircle",
+                    ActiveSince = "Oct 2018",
+                    Description = "We know that we cannot continue with the wasteful use of resources, we have to apply a new behaviour in our lifestyle - it's called sharing. The sharing economy leader is BlaBlaCar as Uber and Airbnb are no players in the sharing economy. There are some platforms trying to enable sharing goods between people - but most of them are not good at all. As timing is the main factor whether a idea is going to fail or succeed, we think the time has come to make sharing great again! Focusing on students in the beginning and moving on to other target groups, our slightly different approach how sharing could be done in the future will make it more attractive to people to share. An intuitive progressive web application will be the entry point to a market where we see lots of potential to make a meaningful impact in sharing resources. Together. We share.",
+                    Email = null,
+                    WebsiteUrl = null,
+                    FacebookUrl = null,
+                    InstagramUrl = null,
+                    LogoImage = null,
+                    TeamPhoto = null,
+                    MembersAsString = "Jayesh, Arthur, Enxhi, Andy, Frederik, Mario, Sven",
+                    IsActive = true
+                }
             };
         }
 

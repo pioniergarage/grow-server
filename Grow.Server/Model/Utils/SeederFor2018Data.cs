@@ -17,7 +17,11 @@ namespace Grow.Server.Model.Utils
         public static Person[] mentors { get; private set; }
         public static Event[] events { get; private set; }
         public static Partner[] partners { get; private set; }
-        public static Image[] images { get; private set; }
+        public static Image[] orga_images { get; private set; }
+        public static Image[] judge_images { get; private set; }
+        public static Image[] mentor_images { get; private set; }
+        public static Image[] team_images { get; private set; }
+        public static Image[] partner_images { get; private set; }
         public static Team[] teams { get; private set; }
         public static Contest[] contests { get; private set; }
 
@@ -43,14 +47,12 @@ namespace Grow.Server.Model.Utils
             if (!IsEnabled)
                 return;
 
-            modelBuilder.Entity<Image>().HasData(images);
+            modelBuilder.Entity<Image>().HasData(judge_images, mentor_images, team_images, orga_images, partner_images);
             modelBuilder.Entity<Person>().HasData(mentors, judges, organizers);
             modelBuilder.Entity<Event>().HasData(events);
             modelBuilder.Entity<Partner>().HasData(partners);
             modelBuilder.Entity<Team>().HasData(teams);
-
-            modelBuilder.Entity<Contest>().HasData(
-            );
+            modelBuilder.Entity<Contest>().HasData(contests);
         }
 
         private static void AddPeople()
@@ -62,42 +64,42 @@ namespace Grow.Server.Model.Utils
                     Id = NextId<Person>(),
                     Name = "Holger Kujath",
                     Description = "Founder and CEO of the online chat community Knuddels",
-                    Image = null
+                    Image = judge_images[2]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Orestis Terzidis",
                     Description = "Professor and head of the entrepreneurial institute EnTechnon",
-                    Image = null
+                    Image = judge_images[5]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Michael Kimmig",
                     Description = "Head of Corporate Process Management at GRENKE digital",
-                    Image = null
+                    Image = judge_images[4]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Bernhard Janke",
                     Description = "Principal at the VC company LEA Partners",
-                    Image = null
+                    Image = judge_images[0]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Martin Trenkle",
                     Description = "Founder and CEO of the job placement service Campusjäger",
-                    Image = null
+                    Image = judge_images[3]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Daniel Stammler",
                     Description = "Co-Founder and Co-CEO of the mobile game company Kolibri Games",
-                    Image = null
+                    Image = judge_images[1]
                 }
             };
 
@@ -108,42 +110,42 @@ namespace Grow.Server.Model.Utils
                     Id = NextId<Person>(),
                     Name = "Dominik Doerner",
                     JobTitle = "Main Coordination",
-                    Image = null
+                    Image = orga_images[3]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Anne-Cathrine Eimer",
                     JobTitle = "Workshop Program",
-                    Image = null
+                    Image = orga_images[0]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Christian Wiegand",
                     JobTitle = "Fundraising",
-                    Image = null
+                    Image = orga_images[2]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Jasmin Riedel",
                     JobTitle = "Event Management",
-                    Image = null
+                    Image = orga_images[4]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Martin Thoma",
                     JobTitle = "Mentoring Program",
-                    Image = null
+                    Image = orga_images[5]
                 },
                 new Person
                 {
                     Id = NextId<Person>(),
                     Name = "Antonia Lorenz",
                     JobTitle = "Marketing",
-                    Image = null
+                    Image = orga_images[1]
                 }
             };
 
@@ -157,7 +159,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Venture capital, business development, finance, legal",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/sebastianboehmer/",
-                    Image = null
+                    Image = mentor_images[15]
                 },
                 new Person
                 {
@@ -167,7 +169,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Acquisition of industry projects, marketing, leadership, purchasing",
                     Description = null,
                     WebsiteUrl = "https://www.mehr-industrieprojekte.de/%C3%BCber-mich/",
-                    Image = null
+                    Image = mentor_images[4]
                 },
                 new Person
                 {
@@ -177,7 +179,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Online Marketing, Performance Marketing, Social Media, Webdesign and Sales ",
                     Description = null,
                     WebsiteUrl = null,
-                    Image = null
+                    Image = mentor_images[12]
                 },
                 new Person
                 {
@@ -187,7 +189,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Idea validation, strategy, financing ",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/afischerfmv/",
-                    Image = null
+                    Image = mentor_images[0]
                 },
                 new Person
                 {
@@ -197,7 +199,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Student perspective, MVPs, networking, company culture, sales ",
                     Description = null,
                     WebsiteUrl = null,
-                    Image = null
+                    Image = mentor_images[7]
                 },
                 new Person
                 {
@@ -207,7 +209,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Business modelling, founding, organizational design, financing, sales ",
                     Description = null,
                     WebsiteUrl = "https://www.xing.com/profile/Peter_Greiner25",
-                    Image = null
+                    Image = mentor_images[14]
                 },
                 new Person
                 {
@@ -217,7 +219,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Finance, salaries, organization, strategy ",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/c%C3%A9cile-f-heger-1593a062",
-                    Image = null
+                    Image = mentor_images[2]
                 },
                 new Person
                 {
@@ -227,7 +229,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Organizational design, market analysis, product development, strategy ",
                     Description = null,
                     WebsiteUrl = null,
-                    Image = null
+                    Image = mentor_images[10]
                 },
                 new Person
                 {
@@ -237,7 +239,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Scraping, machine learning, MVP, web development, financing ",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/karllorey/",
-                    Image = null
+                    Image = mentor_images[8]
                 },
                 new Person
                 {
@@ -247,7 +249,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Business modelling, design thinking, client communication, prototyping",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/maja-malovic-a5095b163/",
-                    Image = null
+                    Image = mentor_images[9]
                 },
                 new Person
                 {
@@ -257,7 +259,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Startup ecosystem, business modelling, entrepeneurship basics ",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/neffi97/",
-                    Image = null
+                    Image = mentor_images[6]
                 },
                 new Person
                 {
@@ -267,7 +269,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Strategy, market entry, mobility, B2B ",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/martin-rammensee-a7860398/",
-                    Image = null
+                    Image = mentor_images[11]
                 },
                 new Person
                 {
@@ -277,7 +279,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Market, startup scene, business development, inspiration ",
                     Description = null,
                     WebsiteUrl = "https://www.xing.com/profile/Nestor_Rodriguez",
-                    Image = null
+                    Image = mentor_images[13]
                 },
                 new Person
                 {
@@ -287,7 +289,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Bootstrapping, lean startup, continuous delivery, business modelling, Y Combinator \"philosophy\"",
                     Description = null,
                     WebsiteUrl = "https://www.xing.com/profile/Ben_Romberg",
-                    Image = null
+                    Image = mentor_images[1]
                 },
                 new Person
                 {
@@ -297,7 +299,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "Business planning, strategy, venture capital, marketing, communication ",
                     Description = null,
                     WebsiteUrl = "https://www.xing.com/profile/Heinz_Rothermel/",
-                    Image = null
+                    Image = mentor_images[5]
                 },
                 new Person
                 {
@@ -307,7 +309,7 @@ namespace Grow.Server.Model.Utils
                     Expertise = "AI, software development, bootstrapping, founding, student perspective ",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/frederic-tausch/",
-                    Image = null
+                    Image = mentor_images[3]
                 }
             };
         }
@@ -320,56 +322,56 @@ namespace Grow.Server.Model.Utils
                     Id = NextId<Partner>(),
                     Name = "Knuddels",
                     Description = "Online chat community",
-                    Image = null
+                    Image = partner_images[9]
                 },
                 new Partner
                 {
                     Id = NextId<Partner>(),
                     Name = "LEA Partners",
                     Description = "Local VC company",
-                    Image = null
+                    Image = partner_images[7]
                 },
                 new Partner
                 {
                     Id = NextId<Partner>(),
                     Name = "GRENKE Digital",
                     Description = "Financial service provider",
-                    Image = null
+                    Image = partner_images[2]
                 },
                 new Partner
                 {
                     Id = NextId<Partner>(),
                     Name = "Karlshochschule",
                     Description = "Private international university",
-                    Image = null
+                    Image = partner_images[4]
                 },
                 new Partner
                 {
                     Id = NextId<Partner>(),
                     Name = "First Momentum Ventures",
                     Description = "VC company founded by students",
-                    Image = null
+                    Image = partner_images[1]
                 },
                 new Partner
                 {
                     Id = NextId<Partner>(),
                     Name = "KIT Gründerschmiede",
                     Description = "Project of the KIT supporting R2B",
-                    Image = null
+                    Image = partner_images[5]
                 },
                 new Partner
                 {
                     Id = NextId<Partner>(),
                     Name = "EnTechnon",
                     Description = "Entrepreneurial institute at the KIT",
-                    Image = null
+                    Image = partner_images[0]
                 },
                 new Partner
                 {
                     Id = NextId<Partner>(),
                     Name = "Kolibri Games",
                     Description = "Mobile game developer",
-                    Image = null
+                    Image = partner_images[6]
                 }
             };
         }
@@ -510,7 +512,385 @@ namespace Grow.Server.Model.Utils
 
         private static void AddImages()
         {
+            judge_images = new[]
+            {
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/jury/bernhard.jpg",
+                    AltText = "The judge Bernhard Janke"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/jury/daniel.jpg",
+                    AltText = "The judge Daniel Stammler"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/jury/holger.jpg",
+                    AltText = "The judge Holger Kujath"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/jury/martin.jpg",
+                    AltText = "The judge Martin Trenkle"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/jury/michael.jpg",
+                    AltText = "The judge Michael Kimmig"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/jury/orestis.jpg",
+                    AltText = "The judge Orestis Terzidis"
+                },
+            };
 
+            mentor_images = new[]
+            {
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/andreas_fischer.jpg",
+                    AltText = "The mentor Andreas Fischer"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/ben_romberg.jpg",
+                    AltText = "The mentor Ben Romberg"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/cecile_heger.jpg",
+                    AltText = "The mentor Cecile Heger"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/frederic_tausch.jpg",
+                    AltText = "The mentor Frederic Tausch"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/hans_busch.jpg",
+                    AltText = "The mentor Hans Busch"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/heinz_rothermel.jpg",
+                    AltText = "The mentor Heinz Rothermel"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/jannik_nefferdorf.jpg",
+                    AltText = "The mentor Jannik Nefferdorf"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/jonas_fuchs.jpg",
+                    AltText = "The mentor Jonas Fuchs"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/karl_lorey.jpg",
+                    AltText = "The mentor Karl Lorey"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/maja_malovic.jpg",
+                    AltText = "The mentor Maja Malovic"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/manuel_koecher.jpg",
+                    AltText = "The mentor Manuel Köcher"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/martin_rammensee.jpg",
+                    AltText = "The mentor Martin Rammensee"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/murat_ercan.jpg",
+                    AltText = "The mentor Murat Ercan"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/nestor_rodriguez.jpg",
+                    AltText = "The mentor Nestor Rodriguez"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/peter_greiner.jpg",
+                    AltText = "The mentor Peter Greiner"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/mentors/sebastian_boehmer.jpg",
+                    AltText = "The mentor Sebastian Böhmer"
+                },
+            };
+
+            team_images = new[]
+            {
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/accesmed_team.jpg",
+                    AltText = "Team photo of Acces Medecins"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/accessmed.png",
+                    AltText = "Logo of Acces Medecins"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/allopi.png",
+                    AltText = "Logo of AlloPI"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/bavest.png",
+                    AltText = "Logo of Bavest"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/bavest_team.png",
+                    AltText = "Team photo of Bavest"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/circle.png",
+                    AltText = "Logo of Circle"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/circle_team.jpg",
+                    AltText = "Team photo of Circle"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/gimmickgott.png",
+                    AltText = "Team photo of GimmickGott"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/gimmickgott_logo.png",
+                    AltText = "Logo of GimmickGott"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/heliopas.svg",
+                    AltText = "Logo of HelioPas AI"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/heliopas_team.jpg",
+                    AltText = "Team photo of HelioPas AI"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/kbox.png",
+                    AltText = "Logo of Kbox"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/mangolearn.jpg",
+                    AltText = "Team photo of MangoLearn"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/mangolearn.png",
+                    AltText = "Logo of MangoLearn"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/read.png",
+                    AltText = "Logo of Read!"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/secureradiationlab.png",
+                    AltText = "Logo of SecureRadiationLab"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/studentenfutter.png",
+                    AltText = "Logo of StudentenFutter"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/studentenfutter_team.jpg",
+                    AltText = "Team photo of Studentenfutter"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/tortenglueck.png",
+                    AltText = "Logo of Tortenglück"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/wetakehealthcare_team.jpg",
+                    AltText = "Team photo of WeTakeHealthCare"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/wthc.png",
+                    AltText = "Logo of WeTakeHealthCare"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/teams/zircle.png",
+                    AltText = "Logo of Zircle"
+                },
+            };
+
+            orga_images = new[]
+            {
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/team/anne.jpg",
+                    AltText = "The team member Anne Eimer"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/team/antonia.jpg",
+                    AltText = "The team member Antonia Lorenz"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/team/chris.jpg",
+                    AltText = "The team member Christian Wiegand"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/team/dominik.jpg",
+                    AltText = "The team member Dominik Doerner"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/team/jasmin.jpg",
+                    AltText = "The team member Jasmin Riedel"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/team/martin.jpg",
+                    AltText = "The team member Martin Thoma"
+                },
+            };
+
+            partner_images = new[]
+            {
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/entechnon.png",
+                    AltText = "Logo of the EnTechnon"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/fmvc.png",
+                    AltText = "Logo of First Momentum ventures"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/grenke.png",
+                    AltText = "Logo of GRENKE"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/gruenderwoche.png",
+                    AltText = "Logo of the Deutsche Gründerwoche"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/karlshochschule.png",
+                    AltText = "Logo of the Karlshochschule"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/KGS_transparent.png",
+                    AltText = "Logo of the KIT Gründerschmiede"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/kolibri.png",
+                    AltText = "Logo of Kolibri Games"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/lea_partners.png",
+                    AltText = "Logo of LEA Partners"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/logo_cyb.png",
+                    AltText = "Logo of the CyberForum"
+                },
+                new Image
+                {
+                    Id = NextId<Image>(),
+                    Url = "/Images/2018/partner/logo_knuddel_big.png",
+                    AltText = "Logo of Knuddels"
+                },
+            };
         }
 
         private static void AddTeams()
@@ -542,8 +922,8 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = "accesmedecins",
-                    LogoImage = null,
-                    TeamPhoto = null,
+                    LogoImage = team_images[1],
+                    TeamPhoto = team_images[0],
                     MembersAsString = "Fatimata Toure, Amir Akbari",
                     IsActive = true
                 },
@@ -557,7 +937,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = null,
+                    LogoImage = team_images[2],
                     TeamPhoto = null,
                     MembersAsString = "Daniel David, Christian Fleiner, Arjun Rai Gupta, Marvin Okoh, Brian Sailer",
                     IsActive = true
@@ -587,8 +967,8 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.bavest.org/",
                     FacebookUrl = "BavestDE",
                     InstagramUrl = "bavest.de",
-                    LogoImage = null,
-                    TeamPhoto = null,
+                    LogoImage = team_images[3],
+                    TeamPhoto = team_images[4],
                     MembersAsString = "Ramtin Babaei, Pedram Babaei",
                     IsActive = true
                 },
@@ -617,8 +997,8 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = "Circle-350104552390103",
                     InstagramUrl = "circlemediaco",
-                    LogoImage = null,
-                    TeamPhoto = null,
+                    LogoImage = team_images[5],
+                    TeamPhoto = team_images[6],
                     MembersAsString = "Alexandre Lehr, Finn von Lauppert, Lukas Wipf, Kai Firschau",
                     IsActive = true
                 },
@@ -707,8 +1087,8 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = "gimmickgott",
                     InstagramUrl = "gimmickgott",
-                    LogoImage = null,
-                    TeamPhoto = null,
+                    LogoImage = team_images[8],
+                    TeamPhoto = team_images[7],
                     MembersAsString = "Madou Mann, Daniel Hank, Eike Dahle ",
                     IsActive = true
                 },
@@ -737,8 +1117,8 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "http://www.heliopas.com",
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = null,
-                    TeamPhoto = null,
+                    LogoImage = team_images[9],
+                    TeamPhoto = team_images[10],
                     MembersAsString = "Ingmar Wolff, Benno Ommerborn, Vladyslav Shapran",
                     IsActive = true
                 },
@@ -782,7 +1162,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = null,
+                    LogoImage = team_images[11],
                     TeamPhoto = null,
                     MembersAsString = "Saksham Gupta, Ishita Gupta",
                     IsActive = true
@@ -812,8 +1192,8 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://mangolearn.com/",
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = null,
-                    TeamPhoto = null,
+                    LogoImage = team_images[13],
+                    TeamPhoto = team_images[12],
                     MembersAsString = "Danil Fedorovsky, Fabian Illner",
                     IsActive = true
                 },
@@ -857,7 +1237,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = null,
+                    LogoImage = team_images[14],
                     TeamPhoto = null,
                     MembersAsString = "Reyhan Düzgün, David Puljiz",
                     IsActive = true
@@ -887,7 +1267,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = null,
+                    LogoImage = team_images[15],
                     TeamPhoto = null,
                     MembersAsString = "Aaron Griesbaum, Felix Stengel, Johannes Neumaier, Dominic Kis",
                     IsActive = true
@@ -902,8 +1282,8 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "http://www.studentenfutter-app.com",
                     FacebookUrl = "Studentenfutter-262434551132887",
                     InstagramUrl = null,
-                    LogoImage = null,
-                    TeamPhoto = null,
+                    LogoImage = team_images[16],
+                    TeamPhoto = team_images[17],
                     MembersAsString = "Giorgio Groß, Mustafa Cint, Kevin Steinbach, Fabian Wenzel",
                     IsActive = true
                 },
@@ -932,7 +1312,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = null,
+                    LogoImage = team_images[18],
                     TeamPhoto = null,
                     MembersAsString = "Elisabeth Goebel, Tobias Budig, Patrick Theobalt, Leander Märkisch",
                     IsActive = true
@@ -977,8 +1357,8 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.wetakehealthcare.de",
                     FacebookUrl = "WeTakeHealthCare",
                     InstagramUrl = null,
-                    LogoImage = null,
-                    TeamPhoto = null,
+                    LogoImage = team_images[20],
+                    TeamPhoto = team_images[19],
                     MembersAsString = "Peter Krieger, Yannick Pietschmann, Marta Golabek",
                     IsActive = true
                 },
@@ -1007,7 +1387,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = null,
+                    LogoImage = team_images[21],
                     TeamPhoto = null,
                     MembersAsString = "Jayesh, Arthur, Enxhi, Andy, Frederik, Mario, Sven",
                     IsActive = true

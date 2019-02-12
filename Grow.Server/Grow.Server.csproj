@@ -13,7 +13,6 @@
     <Folder Include="Areas\Team\Data\" />
     <Folder Include="Areas\Team\Models\" />
     <Folder Include="Areas\Team\Views\" />
-    <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\Styles\" />
     <Folder Include="wwwroot\Scripts\" />
   </ItemGroup>

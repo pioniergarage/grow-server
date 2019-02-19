@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Grow.Server.Model.Entities;
 using Grow.Server.Model.Entities.JoinEntities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Grow.Server.Model.Utils
 {
@@ -30,7 +34,7 @@ namespace Grow.Server.Model.Utils
 
         static SeederFor2018Data()
         {
-            IsEnabled = false;
+            IsEnabled = true;
             CurrentIds = new Dictionary<Type, int>();
 
             AddImages();
@@ -42,17 +46,38 @@ namespace Grow.Server.Model.Utils
         }
 
 
-        public static void SeedDataFrom2018(this ModelBuilder modelBuilder)
+
+        public static void ResetDatabase(this GrowDbContext context)
+        {
+            context.GetService<IMigrator>().Migrate(Migration.InitialDatabase);
+            context.Database.Migrate();
+        }
+
+        public static void SeedDataFrom2018(this GrowDbContext context)
         {
             if (!IsEnabled)
                 return;
 
-            modelBuilder.Entity<Image>().HasData(judge_images, mentor_images, team_images, orga_images, partner_images);
-            modelBuilder.Entity<Person>().HasData(mentors, judges, organizers);
-            modelBuilder.Entity<Event>().HasData(events);
-            modelBuilder.Entity<Partner>().HasData(partners);
-            modelBuilder.Entity<Team>().HasData(teams);
-            modelBuilder.Entity<Contest>().HasData(contests);
+            if (context.Images.Any())
+            {
+                Debug.WriteLine("Could not seed database - database is not empty");
+                return;
+            }
+
+            context.Images.AddRange(judge_images);
+            context.Images.AddRange(mentor_images);
+            context.Images.AddRange(team_images);
+            context.Images.AddRange(orga_images);
+            context.Images.AddRange(partner_images);
+
+            context.Persons.AddRange(mentors);
+            context.Persons.AddRange(judges);
+            context.Persons.AddRange(organizers);
+
+            context.Events.AddRange(events);
+            context.Partners.AddRange(partners);
+            context.Teams.AddRange(teams);
+            context.Contests.AddRange(contests);
         }
 
         private static void AddPeople()
@@ -517,37 +542,37 @@ namespace Grow.Server.Model.Utils
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/jury/bernhard.jpg",
+                    Url = "/img/2018/jury/bernhard.jpg",
                     AltText = "The judge Bernhard Janke"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/jury/daniel.jpg",
+                    Url = "/img/2018/jury/daniel.jpg",
                     AltText = "The judge Daniel Stammler"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/jury/holger.jpg",
+                    Url = "/img/2018/jury/holger.jpg",
                     AltText = "The judge Holger Kujath"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/jury/martin.jpg",
+                    Url = "/img/2018/jury/martin.jpg",
                     AltText = "The judge Martin Trenkle"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/jury/michael.jpg",
+                    Url = "/img/2018/jury/michael.jpg",
                     AltText = "The judge Michael Kimmig"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/jury/orestis.jpg",
+                    Url = "/img/2018/jury/orestis.jpg",
                     AltText = "The judge Orestis Terzidis"
                 },
             };
@@ -557,97 +582,97 @@ namespace Grow.Server.Model.Utils
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/andreas_fischer.jpg",
+                    Url = "/img/2018/mentors/andreas_fischer.jpg",
                     AltText = "The mentor Andreas Fischer"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/ben_romberg.jpg",
+                    Url = "/img/2018/mentors/ben_romberg.jpg",
                     AltText = "The mentor Ben Romberg"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/cecile_heger.jpg",
+                    Url = "/img/2018/mentors/cecile_heger.jpg",
                     AltText = "The mentor Cecile Heger"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/frederic_tausch.jpg",
+                    Url = "/img/2018/mentors/frederic_tausch.jpg",
                     AltText = "The mentor Frederic Tausch"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/hans_busch.jpg",
+                    Url = "/img/2018/mentors/hans_busch.jpg",
                     AltText = "The mentor Hans Busch"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/heinz_rothermel.jpg",
+                    Url = "/img/2018/mentors/heinz_rothermel.jpg",
                     AltText = "The mentor Heinz Rothermel"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/jannik_nefferdorf.jpg",
+                    Url = "/img/2018/mentors/jannik_nefferdorf.jpg",
                     AltText = "The mentor Jannik Nefferdorf"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/jonas_fuchs.jpg",
+                    Url = "/img/2018/mentors/jonas_fuchs.jpg",
                     AltText = "The mentor Jonas Fuchs"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/karl_lorey.jpg",
+                    Url = "/img/2018/mentors/karl_lorey.jpg",
                     AltText = "The mentor Karl Lorey"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/maja_malovic.jpg",
+                    Url = "/img/2018/mentors/maja_malovic.jpg",
                     AltText = "The mentor Maja Malovic"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/manuel_koecher.jpg",
+                    Url = "/img/2018/mentors/manuel_koecher.jpg",
                     AltText = "The mentor Manuel Köcher"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/martin_rammensee.jpg",
+                    Url = "/img/2018/mentors/martin_rammensee.jpg",
                     AltText = "The mentor Martin Rammensee"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/murat_ercan.jpg",
+                    Url = "/img/2018/mentors/murat_ercan.jpg",
                     AltText = "The mentor Murat Ercan"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/nestor_rodriguez.jpg",
+                    Url = "/img/2018/mentors/nestor_rodriguez.jpg",
                     AltText = "The mentor Nestor Rodriguez"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/peter_greiner.jpg",
+                    Url = "/img/2018/mentors/peter_greiner.jpg",
                     AltText = "The mentor Peter Greiner"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/mentors/sebastian_boehmer.jpg",
+                    Url = "/img/2018/mentors/sebastian_boehmer.jpg",
                     AltText = "The mentor Sebastian Böhmer"
                 },
             };
@@ -657,133 +682,133 @@ namespace Grow.Server.Model.Utils
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/accesmed_team.jpg",
+                    Url = "/img/2018/teams/accesmed_team.jpg",
                     AltText = "Team photo of Acces Medecins"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/accessmed.png",
+                    Url = "/img/2018/teams/accessmed.png",
                     AltText = "Logo of Acces Medecins"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/allopi.png",
+                    Url = "/img/2018/teams/allopi.png",
                     AltText = "Logo of AlloPI"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/bavest.png",
+                    Url = "/img/2018/teams/bavest.png",
                     AltText = "Logo of Bavest"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/bavest_team.png",
+                    Url = "/img/2018/teams/bavest_team.png",
                     AltText = "Team photo of Bavest"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/circle.png",
+                    Url = "/img/2018/teams/circle.png",
                     AltText = "Logo of Circle"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/circle_team.jpg",
+                    Url = "/img/2018/teams/circle_team.jpg",
                     AltText = "Team photo of Circle"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/gimmickgott.png",
+                    Url = "/img/2018/teams/gimmickgott.png",
                     AltText = "Team photo of GimmickGott"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/gimmickgott_logo.png",
+                    Url = "/img/2018/teams/gimmickgott_logo.png",
                     AltText = "Logo of GimmickGott"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/heliopas.svg",
+                    Url = "/img/2018/teams/heliopas.svg",
                     AltText = "Logo of HelioPas AI"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/heliopas_team.jpg",
+                    Url = "/img/2018/teams/heliopas_team.jpg",
                     AltText = "Team photo of HelioPas AI"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/kbox.png",
+                    Url = "/img/2018/teams/kbox.png",
                     AltText = "Logo of Kbox"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/mangolearn.jpg",
+                    Url = "/img/2018/teams/mangolearn.jpg",
                     AltText = "Team photo of MangoLearn"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/mangolearn.png",
+                    Url = "/img/2018/teams/mangolearn.png",
                     AltText = "Logo of MangoLearn"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/read.png",
+                    Url = "/img/2018/teams/read.png",
                     AltText = "Logo of Read!"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/secureradiationlab.png",
+                    Url = "/img/2018/teams/secureradiationlab.png",
                     AltText = "Logo of SecureRadiationLab"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/studentenfutter.png",
+                    Url = "/img/2018/teams/studentenfutter.png",
                     AltText = "Logo of StudentenFutter"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/studentenfutter_team.jpg",
+                    Url = "/img/2018/teams/studentenfutter_team.jpg",
                     AltText = "Team photo of Studentenfutter"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/tortenglueck.png",
+                    Url = "/img/2018/teams/tortenglueck.png",
                     AltText = "Logo of Tortenglück"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/wetakehealthcare_team.jpg",
+                    Url = "/img/2018/teams/wetakehealthcare_team.jpg",
                     AltText = "Team photo of WeTakeHealthCare"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/wthc.png",
+                    Url = "/img/2018/teams/wthc.png",
                     AltText = "Logo of WeTakeHealthCare"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/teams/zircle.png",
+                    Url = "/img/2018/teams/zircle.png",
                     AltText = "Logo of Zircle"
                 },
             };
@@ -793,37 +818,37 @@ namespace Grow.Server.Model.Utils
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/team/anne.jpg",
+                    Url = "/img/2018/team/anne.jpg",
                     AltText = "The team member Anne Eimer"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/team/antonia.jpg",
+                    Url = "/img/2018/team/antonia.jpg",
                     AltText = "The team member Antonia Lorenz"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/team/chris.jpg",
+                    Url = "/img/2018/team/chris.jpg",
                     AltText = "The team member Christian Wiegand"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/team/dominik.jpg",
+                    Url = "/img/2018/team/dominik.jpg",
                     AltText = "The team member Dominik Doerner"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/team/jasmin.jpg",
+                    Url = "/img/2018/team/jasmin.jpg",
                     AltText = "The team member Jasmin Riedel"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/team/martin.jpg",
+                    Url = "/img/2018/team/martin.jpg",
                     AltText = "The team member Martin Thoma"
                 },
             };
@@ -833,61 +858,61 @@ namespace Grow.Server.Model.Utils
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/entechnon.png",
+                    Url = "/img/2018/partner/entechnon.png",
                     AltText = "Logo of the EnTechnon"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/fmvc.png",
+                    Url = "/img/2018/partner/fmvc.png",
                     AltText = "Logo of First Momentum ventures"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/grenke.png",
+                    Url = "/img/2018/partner/grenke.png",
                     AltText = "Logo of GRENKE"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/gruenderwoche.png",
+                    Url = "/img/2018/partner/gruenderwoche.png",
                     AltText = "Logo of the Deutsche Gründerwoche"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/karlshochschule.png",
+                    Url = "/img/2018/partner/karlshochschule.png",
                     AltText = "Logo of the Karlshochschule"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/KGS_transparent.png",
+                    Url = "/img/2018/partner/KGS_transparent.png",
                     AltText = "Logo of the KIT Gründerschmiede"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/kolibri.png",
+                    Url = "/img/2018/partner/kolibri.png",
                     AltText = "Logo of Kolibri Games"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/lea_partners.png",
+                    Url = "/img/2018/partner/lea_partners.png",
                     AltText = "Logo of LEA Partners"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/logo_cyb.png",
+                    Url = "/img/2018/partner/logo_cyb.png",
                     AltText = "Logo of the CyberForum"
                 },
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/Images/2018/partner/logo_knuddel_big.png",
+                    Url = "/img/2018/partner/logo_knuddel_big.png",
                     AltText = "Logo of Knuddels"
                 },
             };
@@ -1403,11 +1428,11 @@ namespace Grow.Server.Model.Utils
                 Name = "GROW 2018/19",
                 Language = "English",
                 Teams = teams,
-                Events = events,
                 KickoffEvent = events.First(),
                 FinalEvent = events.Last()
             };
 
+            contest.Events = AddReferencesInCollection(contest, events, (e, c) => { e.Contest = c; });
             contest.Mentors = TransformToJoinEntities<MentorToContest>(contest, mentors);
             contest.Judges = TransformToJoinEntities<JudgeToContest>(contest, judges);
             contest.Organizers = TransformToJoinEntities<OrganizerToContest>(contest, organizers);
@@ -1416,6 +1441,13 @@ namespace Grow.Server.Model.Utils
             contests = new[] { contest };
         }
 
+        
+        private static TNavigation[] AddReferencesInCollection<TEntity, TNavigation>(TEntity entity, TNavigation[] navigations, Action<TNavigation, TEntity> linkingFunction)
+        {
+            foreach (var navEntity in navigations)
+                linkingFunction(navEntity, entity);
+            return navigations;
+        }
 
         private static TJoin[] TransformToJoinEntities<TJoin>(Contest contest, Person[] people) where TJoin : PersonToContest, new()
         {

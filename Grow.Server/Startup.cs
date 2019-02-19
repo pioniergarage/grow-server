@@ -1,4 +1,5 @@
 ﻿using Grow.Server.Model;
+using Grow.Server.Model.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,12 @@ namespace Grow.Server
             
             // DB setup
             services.AddDbContext<GrowDbContext>(
-                options => options.UseSqlServer(
-                    Configuration.GetConnectionString("GrowDbContext")
-                )
+                options => {
+                    options.EnableSensitiveDataLogging(true);
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("GrowDbContext")
+                    );
+                }
             );
         }
 
@@ -42,10 +46,13 @@ namespace Grow.Server
                 app.UseHsts();
             }
 
-            // Run migration
-            var context = app.ApplicationServices.GetService<GrowDbContext>();
-            if (!context.Database.EnsureCreated())
-                context.Database.Migrate();
+            // Run migration and seeding
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<GrowDbContext>();
+                context.ResetDatabase();
+                context.SeedDataFrom2018();
+            }
 
             // Setup MVC pipeline
             app.UseHttpsRedirection();

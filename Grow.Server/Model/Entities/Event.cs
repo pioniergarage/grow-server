@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,6 +31,9 @@ namespace Grow.Server.Model.Entities
         public bool IsMandatory { get; set; }
 
         public Partner HeldBy { get; set; }
+
+        [InverseProperty(nameof(Entities.Contest.Events))]
+        public Contest Contest { get; set; }
 
 
         public enum EventVisibility

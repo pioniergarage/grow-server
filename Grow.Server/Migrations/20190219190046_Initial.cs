@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Grow.Server.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,7 +34,6 @@ namespace Grow.Server.Migrations
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Contribution = table.Column<string>(nullable: true),
                     ImageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -62,7 +61,7 @@ namespace Grow.Server.Migrations
                     ImageId = table.Column<int>(nullable: true),
                     Expertise = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    LinkedInUrl = table.Column<string>(nullable: true)
+                    WebsiteUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -253,8 +252,8 @@ namespace Grow.Server.Migrations
                     FacebookUrl = table.Column<string>(nullable: true),
                     InstagramUrl = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    ContestId = table.Column<int>(nullable: true),
-                    MembersAsString = table.Column<string>(nullable: true)
+                    MembersAsString = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

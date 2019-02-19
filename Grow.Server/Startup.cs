@@ -46,14 +46,6 @@ namespace Grow.Server
                 app.UseHsts();
             }
 
-            // Run migration and seeding
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<GrowDbContext>();
-                context.ResetDatabase();
-                context.SeedDataFrom2018();
-            }
-
             // Setup MVC pipeline
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grow.Server.Migrations
 {
     [DbContext(typeof(GrowDbContext))]
-    [Migration("20190126155730_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190219190046_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,8 @@ namespace Grow.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("FinalEventId");
 
@@ -60,7 +61,8 @@ namespace Grow.Server.Migrations
 
                     b.Property<int?>("ContestId");
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
@@ -105,7 +107,8 @@ namespace Grow.Server.Migrations
 
                     b.Property<string>("AltText");
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("UpdatedAt")
                         .IsConcurrencyToken()
@@ -176,9 +179,8 @@ namespace Grow.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Contribution");
-
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
@@ -203,7 +205,8 @@ namespace Grow.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
@@ -215,13 +218,13 @@ namespace Grow.Server.Migrations
 
                     b.Property<string>("JobTitle");
 
-                    b.Property<string>("LinkedInUrl");
-
                     b.Property<string>("Name");
 
                     b.Property<DateTime>("UpdatedAt")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("WebsiteUrl");
 
                     b.HasKey("Id");
 
@@ -240,7 +243,8 @@ namespace Grow.Server.Migrations
 
                     b.Property<int?>("ContestId");
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
@@ -292,7 +296,7 @@ namespace Grow.Server.Migrations
 
             modelBuilder.Entity("Grow.Server.Model.Entities.Event", b =>
                 {
-                    b.HasOne("Grow.Server.Model.Entities.Contest")
+                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
                         .WithMany("Events")
                         .HasForeignKey("ContestId");
 
@@ -369,7 +373,7 @@ namespace Grow.Server.Migrations
 
             modelBuilder.Entity("Grow.Server.Model.Entities.Team", b =>
                 {
-                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
+                    b.HasOne("Grow.Server.Model.Entities.Contest")
                         .WithMany("Teams")
                         .HasForeignKey("ContestId");
 

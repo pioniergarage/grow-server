@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Grow.Server.Model.Entities;
 using Grow.Server.Model.Entities.JoinEntities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -27,7 +28,6 @@ namespace Grow.Server.Model.Utils
         public static Image[] team_images { get; private set; }
         public static Image[] partner_images { get; private set; }
         public static Team[] teams { get; private set; }
-        public static Contest[] contests { get; private set; }
 
         private static readonly IDictionary<Type, int> CurrentIds;
 
@@ -42,11 +42,9 @@ namespace Grow.Server.Model.Utils
             AddPartners();
             AddPeople();
             AddTeams();
-            AddContests();
         }
 
-
-
+        
         public static void ResetDatabase(this GrowDbContext context)
         {
             context.GetService<IMigrator>().Migrate(Migration.InitialDatabase);
@@ -64,6 +62,7 @@ namespace Grow.Server.Model.Utils
                 return;
             }
 
+            // Add pre-defined data
             context.Images.AddRange(judge_images);
             context.Images.AddRange(mentor_images);
             context.Images.AddRange(team_images);
@@ -77,8 +76,33 @@ namespace Grow.Server.Model.Utils
             context.Events.AddRange(events);
             context.Partners.AddRange(partners);
             context.Teams.AddRange(teams);
-            context.Contests.AddRange(contests);
+
+            context.SaveChanges();
+
+            // Add contest
+            var contest = new Contest
+            {
+                Id = NextId<Contest>(),
+                Name = "GROW 2018/19",
+                Language = "English",
+                Teams = teams
+            };
+
+            contest.Events = AddReferencesInCollection(contest, events, (e, c) => { e.Contest = c; });
+            contest.Mentors = TransformToJoinEntities<MentorToContest>(contest, mentors);
+            contest.Judges = TransformToJoinEntities<JudgeToContest>(contest, judges);
+            contest.Organizers = TransformToJoinEntities<OrganizerToContest>(contest, organizers);
+            contest.Partners = TransformToJoinEntities<PartnerToContest>(contest, partners);
+            
+            context.SaveChanges();
+
+            // Special additional properties to avoid circular references
+            contest.KickoffEvent = contest.Events.First();
+            contest.FinalEvent = contest.Events.Last();
+
+            context.SaveChanges();
         }
+
 
         private static void AddPeople()
         {
@@ -1420,27 +1444,6 @@ namespace Grow.Server.Model.Utils
             };
         }
 
-        private static void AddContests()
-        {
-            var contest = new Contest
-            {
-                Id = NextId<Contest>(),
-                Name = "GROW 2018/19",
-                Language = "English",
-                Teams = teams,
-                KickoffEvent = events.First(),
-                FinalEvent = events.Last()
-            };
-
-            contest.Events = AddReferencesInCollection(contest, events, (e, c) => { e.Contest = c; });
-            contest.Mentors = TransformToJoinEntities<MentorToContest>(contest, mentors);
-            contest.Judges = TransformToJoinEntities<JudgeToContest>(contest, judges);
-            contest.Organizers = TransformToJoinEntities<OrganizerToContest>(contest, organizers);
-            contest.Partners = TransformToJoinEntities<PartnerToContest>(contest, partners);
-
-            contests = new[] { contest };
-        }
-
         
         private static TNavigation[] AddReferencesInCollection<TEntity, TNavigation>(TEntity entity, TNavigation[] navigations, Action<TNavigation, TEntity> linkingFunction)
         {
@@ -1489,6 +1492,8 @@ namespace Grow.Server.Model.Utils
 
         private static int NextId<TType>()
         {
+            return 0;
+
             if (!CurrentIds.ContainsKey(typeof(TType)))
                 CurrentIds.Add(typeof(TType), 0);
 
@@ -1496,5 +1501,6 @@ namespace Grow.Server.Model.Utils
 
             return CurrentIds[typeof(TType)];
         }
+        
     }
 }

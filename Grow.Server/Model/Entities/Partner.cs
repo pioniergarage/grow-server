@@ -11,6 +11,6 @@ namespace Grow.Server.Model.Entities
 
         public string Description { get; set; }
 
-        public Image Image { get; set; }
+        public virtual Image Image { get; set; }
     }
 }

@@ -25,12 +25,11 @@ namespace Grow.Server
             
             // DB setup
             services.AddDbContext<GrowDbContext>(
-                options => {
-                    options.EnableSensitiveDataLogging(true);
-                    options.UseSqlServer(
+                options => options
+                    .EnableSensitiveDataLogging(true)
+                    .UseSqlServer(
                         Configuration.GetConnectionString("GrowDbContext")
-                    );
-                }
+                    )
             );
         }
 

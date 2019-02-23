@@ -7,10 +7,10 @@ namespace Grow.Server.Model.Entities.JoinEntities
 {
     public abstract class PersonToContest
     {
-        public Person Person { get; set; }
+        public virtual Person Person { get; set; }
         public int PersonId { get; set; }
 
-        public Contest Contest { get; set; }
+        public virtual Contest Contest { get; set; }
         public int ContestId { get; set; }
     }
 }

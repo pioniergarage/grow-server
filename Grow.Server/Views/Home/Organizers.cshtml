@@ -1,0 +1,41 @@
+﻿@model ICollection<Grow.Server.Model.Entities.Person>
+
+@{
+    ViewBag.Title = "Organizers";
+}
+
+@section Styles {
+    <style>
+        .image-block {
+            display: inline-block;
+            padding: 30px 20px;
+            margin-right: -5px;
+            box-sizing: border-box;
+        }
+
+        .image-block img {
+            width: 100%;
+        }
+    </style>
+}
+
+<article id="main">
+
+    <header class="special container">
+        <span class="icon fa-male"></span>
+        <h2>GROW can only exist due to a strong <strong>Team</strong></h2>
+    </header>
+
+    <section class="wrapper style4 container">
+        <div class="content">
+            @foreach (var orga in Model)
+            {
+                <div class="3u 12u(narrower) image-block">
+                    <h3>@orga.Name</h3>
+                    <h4>@orga.JobTitle</h4>
+                    <img src="@orga.Image.Url" />
+                </div>
+            }
+        </div>
+    </section>
+</article>

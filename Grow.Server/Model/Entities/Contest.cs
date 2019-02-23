@@ -10,9 +10,9 @@ namespace Grow.Server.Model.Entities
     {
         public string Name { get; set; }
 
-        public Event KickoffEvent { get; set; }
+        public virtual Event KickoffEvent { get; set; }
 
-        public Event FinalEvent { get; set; }
+        public virtual Event FinalEvent { get; set; }
 
         public string Language { get; set; }
 

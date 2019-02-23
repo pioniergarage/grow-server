@@ -1,0 +1,183 @@
+﻿@model ICollection<Grow.Server.Model.Entities.Team>
+
+@{
+    ViewBag.Title = "Teams";
+}
+
+@section Styles {
+    <style>
+        img.with-text {
+            float: left;
+            margin: 10px;
+            width: 100%;
+        }
+
+        img.logo {
+            float: right;
+            max-width: 100%;
+            max-height: 150px;
+        }
+
+        .content h3 {
+            font-size: 100%;
+        }
+
+        .content h2 + h3 {
+            margin-top: -20px;
+        }
+
+        .icons {
+            text-align: center;
+        }
+
+            .icons img {
+                max-height: 30px;
+                margin: 5px 10px;
+                vertical-align: center;
+                opacity: 0.6;
+            }
+
+                .icons img:hover {
+                    opacity: 0.4;
+                }
+
+            .icons a {
+                border: 0 !important;
+            }
+
+        .out {
+            font-style: italic;
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+    </style>
+}
+<article id="main">
+
+    <header class="special container">
+        <span class="icon fa-user"></span>
+        <h2>
+            <strong>Teams</strong> of 2018/19
+        </h2>
+        <br />
+        <h6 style="font-style: italic; text-transform: inherit">
+            The participants may be at different points in their development.
+            <br /> Here you can read about what they do.
+        </h6>
+    </header>
+
+    <section id="toc" class="wrapper style4 container">
+        <div class="content">
+            <section>
+                <header>
+                    <h2>Team overview</h2>
+                </header>
+                <b>Winners of 2018/19</b><br />
+                <ul>
+                    <li>
+                        1st place: <a href="#21">Tortenglück</a>
+                    </li>
+                    <li>
+                        2nd place: <a href="#22">Studentenfutter</a>
+                    </li>
+                    <li>
+                        3rd place: <a href="#23">SecureRadiationLab</a>
+                    </li>
+                    <li>
+                        Best Product: <a href="#21">Tortenglück</a>
+                    </li>
+                    <li>
+                        Most Scalable: <a href="#27">HelioPas AI</a>
+                    </li>
+                    <li>
+                        Most Investment-Ready:
+                        <a href="#24">Read!</a>,
+                        <a href="#23">SecureRadiationLab</a>,
+                        <a href="#22">Studentenfutter</a>
+                    </li>
+                </ul>
+                <b>Finalists</b><br />
+                <ul>
+                    @foreach (var team in Model.Where(t => t.IsActive))
+                    {
+                        <li><a href="#@team.Id">@team.TeamName</a></li>
+                    }
+                </ul>
+                <b>Drop Outs</b><br />
+                <ul style="font-style: italic; opacity: 0.7;">
+                    @foreach (var team in Model.Where(t => !t.IsActive))
+                    {
+                        <li><a href="#@team.Id">@team.TeamName</a></li>
+                    }
+                </ul>
+            </section>
+        </div>
+    </section>
+
+    @foreach (var team in Model)
+    {
+        <section class="wrapper style4 container">
+            <div class="content" id="@team.Id">
+                <div class="row">
+                    <header class="10u 12u(narrower)">
+                        <h2>
+                            @if (string.IsNullOrEmpty(team.WebsiteUrl))
+                            {
+                                @team.TeamName
+                            }
+                            else
+                            {
+                                <a href="@team.WebsiteUrl">@team.TeamName</a>
+                            }
+                        </h2>
+                        <h3>
+                            @team.MembersAsString
+                            @if (!string.IsNullOrEmpty(team.ActiveSince))
+                            {
+                                <span>(* @team.ActiveSince)</span>
+                            }
+                        </h3>
+                    </header>
+                    @if (team.LogoImage != null)
+                    {
+                        <div class="2u 12u(narrower)">
+                            <img class="logo" src="@team.LogoImage.Url" />
+                        </div>
+                    }
+                </div>
+                <div style="clear: both;"></div>
+                <p>
+                    @if (team.TeamPhoto != null)
+                    {
+                        <div class="3u 12u(narrower)">
+                            <img class="with-text" src="@team.TeamPhoto.Url" />
+                        </div>
+                    }
+                    @team.Description
+                </p>
+                <div style="clear: both;"></div>
+                <div class="icons">
+                    @if (!string.IsNullOrEmpty(team.WebsiteUrl))
+                    {
+                        <a href="@team.WebsiteUrl">
+                            <img src="/img/icon/www.png" />
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(team.WebsiteUrl))
+                    {
+                        <a href="mailto:@team.Email">
+                            <img src="/img/icon/mail.png" />
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(team.WebsiteUrl))
+                    {
+                        <a href="https://www.facebook.com/@team.FacebookUrl">
+                            <img src="/img/icon/fb.png" />
+                        </a>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+
+</article>

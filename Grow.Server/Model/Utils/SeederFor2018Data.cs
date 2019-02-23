@@ -204,7 +204,7 @@ namespace Grow.Server.Model.Utils
                 {
                     Id = NextId<Person>(),
                     Name = "Sebastian Böhmer",
-                    JobTitle = "Mentoring Program",
+                    JobTitle = "Founding Partner at First Momentum Ventures",
                     Expertise = "Venture capital, business development, finance, legal",
                     Description = null,
                     WebsiteUrl = "https://www.linkedin.com/in/sebastianboehmer/",
@@ -630,7 +630,7 @@ namespace Grow.Server.Model.Utils
                 new Image
                 {
                     Id = NextId<Image>(),
-                    Url = "/img/2018/mentors/hans_busch.jpg",
+                    Url = "/img/2018/mentors/hans_busch.png",
                     AltText = "The mentor Hans Busch"
                 },
                 new Image
@@ -974,7 +974,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = team_images[1],
                     TeamPhoto = team_images[0],
                     MembersAsString = "Fatimata Toure, Amir Akbari",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -989,7 +989,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = team_images[2],
                     TeamPhoto = null,
                     MembersAsString = "Daniel David, Christian Fleiner, Arjun Rai Gupta, Marvin Okoh, Brian Sailer",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1004,7 +1004,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Walid Elleuch, Kutay Yüksel",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1034,7 +1034,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Kai Can Bilbixun Avci",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1054,7 +1054,7 @@ namespace Grow.Server.Model.Utils
                 new Team
                 {
                     Id = NextId<Team>(),
-                    TeamName = null,
+                    TeamName = "No Name - [Design Thinking]",
                     ActiveSince = null,
                     Description = "Main question: How do companies develop strategies and how do they implement them into their organization?",
                     Email = null,
@@ -1079,7 +1079,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Frederik Grösche, Tobias Buchwald",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1094,7 +1094,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Yanis Fallah, Marco Ezzy",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1124,7 +1124,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Abdallatif Ali, Ihab Awad",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1154,7 +1154,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Giorgi Tsutskiridze",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1199,7 +1199,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Yekta Görkem Baysan",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1219,7 +1219,7 @@ namespace Grow.Server.Model.Utils
                 new Team
                 {
                     Id = NextId<Team>(),
-                    TeamName = null,
+                    TeamName = "No Name - [LED Lamps]",
                     ActiveSince = null,
                     Description = "LED lamp controlled by WIFI and Alexa",
                     Email = null,
@@ -1229,7 +1229,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Sebastian Braun",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1259,7 +1259,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Lukas Klinzing, Marcus Zanquila",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1274,7 +1274,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Lennard Böhnke, Alexander Völker",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1304,7 +1304,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Abdallah Alshanawani, Hanna Choi",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1349,7 +1349,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Till Skrodzki, Stephan Skrodzki",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1379,7 +1379,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Dmitriy Shibayev, Ilya Shibayev, Burak Atay",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1409,7 +1409,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = team_images[20],
                     TeamPhoto = team_images[19],
                     MembersAsString = "Peter Krieger, Yannick Pietschmann, Marta Golabek",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1424,7 +1424,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Christian Winter",
-                    IsActive = true
+                    IsActive = false
                 },
                 new Team
                 {
@@ -1439,7 +1439,7 @@ namespace Grow.Server.Model.Utils
                     LogoImage = team_images[21],
                     TeamPhoto = null,
                     MembersAsString = "Jayesh, Arthur, Enxhi, Andy, Frederik, Mario, Sven",
-                    IsActive = true
+                    IsActive = false
                 }
             };
         }

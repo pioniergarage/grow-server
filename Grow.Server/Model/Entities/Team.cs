@@ -14,9 +14,9 @@ namespace Grow.Server.Model.Entities
 
         public string Description { get; set; }
 
-        public Image LogoImage { get; set; }
+        public virtual Image LogoImage { get; set; }
 
-        public Image TeamPhoto { get; set; }
+        public virtual Image TeamPhoto { get; set; }
 
         public string ActiveSince { get; set; }
 
@@ -29,6 +29,8 @@ namespace Grow.Server.Model.Entities
         public string InstagramUrl { get; set; }
 
         public bool IsActive { get; set; }
+
+        public Contest Contest { get; set; }
         
         public string MembersAsString
         {
@@ -37,6 +39,6 @@ namespace Grow.Server.Model.Entities
         }
 
         [NotMapped]
-        public ICollection<string> Members { get; set; }
+        public virtual ICollection<string> Members { get; set; }
     }
 }

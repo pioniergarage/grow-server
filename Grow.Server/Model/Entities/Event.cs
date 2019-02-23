@@ -30,10 +30,9 @@ namespace Grow.Server.Model.Entities
 
         public bool IsMandatory { get; set; }
 
-        public Partner HeldBy { get; set; }
-
-        [InverseProperty(nameof(Entities.Contest.Events))]
-        public Contest Contest { get; set; }
+        public virtual Partner HeldBy { get; set; }
+        
+        public virtual Contest Contest { get; set; }
 
 
         public enum EventVisibility

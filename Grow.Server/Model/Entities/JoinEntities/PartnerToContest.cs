@@ -7,10 +7,10 @@ namespace Grow.Server.Model.Entities.JoinEntities
 {
     public class PartnerToContest
     {
-        public Partner Partner { get; set; }
+        public virtual Partner Partner { get; set; }
         public int PartnerId { get; set; }
 
-        public Contest Contest { get; set; }
+        public virtual Contest Contest { get; set; }
         public int ContestId { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Grow.Server.Model.Entities
 {
     public class Team : BaseEntity
     {
-        public string TeamName { get; set; }
+        public string Name { get; set; }
 
         public string TagLine { get; set; }
 

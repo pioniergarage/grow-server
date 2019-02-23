@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grow.Server.Migrations
 {
     [DbContext(typeof(GrowDbContext))]
-    [Migration("20190219190046_Initial")]
+    [Migration("20190223182337_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,7 @@ namespace Grow.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd();
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<int?>("FinalEventId");
 
@@ -38,9 +37,7 @@ namespace Grow.Server.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -61,8 +58,7 @@ namespace Grow.Server.Migrations
 
                     b.Property<int?>("ContestId");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd();
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
 
@@ -84,9 +80,7 @@ namespace Grow.Server.Migrations
 
                     b.Property<int>("Type");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.Property<int>("Visibility");
 
@@ -107,12 +101,9 @@ namespace Grow.Server.Migrations
 
                     b.Property<string>("AltText");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd();
+                    b.Property<DateTime>("CreatedAt");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.Property<string>("Url");
 
@@ -179,8 +170,7 @@ namespace Grow.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd();
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
 
@@ -188,9 +178,7 @@ namespace Grow.Server.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.HasKey("Id");
 
@@ -205,8 +193,7 @@ namespace Grow.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd();
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
 
@@ -220,9 +207,7 @@ namespace Grow.Server.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.Property<string>("WebsiteUrl");
 
@@ -231,6 +216,43 @@ namespace Grow.Server.Migrations
                     b.HasIndex("ImageId");
 
                     b.ToTable("Persons");
+                });
+
+            modelBuilder.Entity("Grow.Server.Model.Entities.Prize", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ContestId");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int?>("GivenById");
+
+                    b.Property<bool>("IsPublic");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Reward");
+
+                    b.Property<int>("RewardValue");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<int?>("WinnerId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContestId");
+
+                    b.HasIndex("GivenById");
+
+                    b.HasIndex("WinnerId");
+
+                    b.ToTable("Prizes");
                 });
 
             modelBuilder.Entity("Grow.Server.Model.Entities.Team", b =>
@@ -243,8 +265,7 @@ namespace Grow.Server.Migrations
 
                     b.Property<int?>("ContestId");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd();
+                    b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
 
@@ -260,15 +281,13 @@ namespace Grow.Server.Migrations
 
                     b.Property<string>("MembersAsString");
 
-                    b.Property<string>("TagLine");
+                    b.Property<string>("Name");
 
-                    b.Property<string>("TeamName");
+                    b.Property<string>("TagLine");
 
                     b.Property<int?>("TeamPhotoId");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<DateTime>("UpdatedAt");
 
                     b.Property<string>("WebsiteUrl");
 
@@ -371,9 +390,24 @@ namespace Grow.Server.Migrations
                         .HasForeignKey("ImageId");
                 });
 
+            modelBuilder.Entity("Grow.Server.Model.Entities.Prize", b =>
+                {
+                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
+                        .WithMany("Prizes")
+                        .HasForeignKey("ContestId");
+
+                    b.HasOne("Grow.Server.Model.Entities.Partner", "GivenBy")
+                        .WithMany()
+                        .HasForeignKey("GivenById");
+
+                    b.HasOne("Grow.Server.Model.Entities.Team", "Winner")
+                        .WithMany()
+                        .HasForeignKey("WinnerId");
+                });
+
             modelBuilder.Entity("Grow.Server.Model.Entities.Team", b =>
                 {
-                    b.HasOne("Grow.Server.Model.Entities.Contest")
+                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
                         .WithMany("Teams")
                         .HasForeignKey("ContestId");
 

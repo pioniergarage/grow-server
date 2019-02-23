@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Grow.Server.Model;
+using Grow.Server.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,19 +18,33 @@ namespace Grow.Server.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = DbContext.Partners
+                .Where(p => DbContext.Contests.Any(c => c.Id == CurrentContestId && c.Partners.Any(l => l.Partner.Equals(p))))
+                .Include(t => t.Image)
+                .ToList();
+            return View(model);
         }
 
         public IActionResult Teams()
         {
-            var model = DbContext.Teams
+            var teams = DbContext.Teams
                 .Where(t => t.Contest.Id == CurrentContestId)
                 .Include(t => t.LogoImage)
                 .Include(t => t.TeamPhoto)
                 .OrderByDescending(t => t.IsActive)
-                    .ThenBy(t=> t.TeamName)
+                    .ThenBy(t=> t.Name)
                 .ToList();
-            return View(model);
+
+            var prizes = DbContext.Prizes
+                .Where(p => p.Contest.Id == CurrentContestId)
+                .Include(p => p.Winner)
+                .Include(p => p.GivenBy)
+                    .ThenInclude(p => p.Image)
+                .OrderByDescending(p => p.GivenBy == null)
+                    .ThenByDescending(p => p.RewardValue)
+                .ToList();
+
+            return View(new TeamsViewModel() { Teams = teams, Prizes = prizes });
         }
 
         public IActionResult Judges()

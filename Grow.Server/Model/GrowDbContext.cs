@@ -30,6 +30,8 @@ namespace Grow.Server.Model
 
         public DbSet<Team> Teams { get; set; }
 
+        public DbSet<Prize> Prizes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -58,7 +60,6 @@ namespace Grow.Server.Model
 
             modelBuilder.Entity<JudgeToContest>()
                 .HasKey(t => new { t.PersonId, t.ContestId });
-            
         }
 
 

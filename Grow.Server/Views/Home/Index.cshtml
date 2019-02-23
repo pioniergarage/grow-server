@@ -1,4 +1,5 @@
-﻿
+﻿@model ICollection<Grow.Server.Model.Entities.Partner>
+
 @{
     ViewBag.Title = "Welcome to GROW";
     ViewBag.TransparentNavbar = true;
@@ -170,38 +171,12 @@
             <h2>Made possible thanks to</h2>
         </header>
         <div class="row logos">
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/logo_knuddel_big.png" />
-            </div>
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/lea_partners.png" />
-            </div>
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/grenke.png" />
-            </div>
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/karlshochschule.png" />
-            </div>
-        </div>
-        <div class="row logos">
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/fmvc.png" />
-            </div>
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/KGS_transparent.png" />
-            </div>
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/entechnon.png" />
-            </div>
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/kolibri.png" />
-            </div>
-        </div>
-        <div class="row logos">
-            <div class="4u"></div>
-            <div class="3u 6u(narrower)">
-                <img src="/img/2018/partner/gruenderwoche.png" />
-            </div>
+            @foreach (var partner in Model)
+            {
+                <div class="3u 6u(narrower)">
+                    <img src="@partner.Image.Url" />
+                </div>
+            }
         </div>
     </section>
 </article>

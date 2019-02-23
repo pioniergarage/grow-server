@@ -28,5 +28,7 @@ namespace Grow.Server.Model.Entities
         public virtual ICollection<JudgeToContest> Judges { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; }
+
+        public virtual ICollection<Prize> Prizes { get; set; }
     }
 }

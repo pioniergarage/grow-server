@@ -241,7 +241,7 @@ namespace Grow.Server.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    TeamName = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     TagLine = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     LogoImageId = table.Column<int>(nullable: true),
@@ -252,8 +252,8 @@ namespace Grow.Server.Migrations
                     FacebookUrl = table.Column<string>(nullable: true),
                     InstagramUrl = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    MembersAsString = table.Column<string>(nullable: true),
-                    ContestId = table.Column<int>(nullable: true)
+                    ContestId = table.Column<int>(nullable: true),
+                    MembersAsString = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -274,6 +274,46 @@ namespace Grow.Server.Migrations
                         name: "FK_Teams_Images_TeamPhotoId",
                         column: x => x.TeamPhotoId,
                         principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Prizes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Reward = table.Column<string>(nullable: true),
+                    RewardValue = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    IsPublic = table.Column<bool>(nullable: false),
+                    WinnerId = table.Column<int>(nullable: true),
+                    GivenById = table.Column<int>(nullable: true),
+                    ContestId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prizes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Prizes_Contests_ContestId",
+                        column: x => x.ContestId,
+                        principalTable: "Contests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Prizes_Partners_GivenById",
+                        column: x => x.GivenById,
+                        principalTable: "Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Prizes_Teams_WinnerId",
+                        column: x => x.WinnerId,
+                        principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -329,6 +369,21 @@ namespace Grow.Server.Migrations
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Prizes_ContestId",
+                table: "Prizes",
+                column: "ContestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prizes_GivenById",
+                table: "Prizes",
+                column: "GivenById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prizes_WinnerId",
+                table: "Prizes",
+                column: "WinnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teams_ContestId",
                 table: "Teams",
                 column: "ContestId");
@@ -375,10 +430,13 @@ namespace Grow.Server.Migrations
                 name: "PartnerToContest");
 
             migrationBuilder.DropTable(
-                name: "Teams");
+                name: "Prizes");
 
             migrationBuilder.DropTable(
                 name: "Persons");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "Events");

@@ -1,4 +1,5 @@
-﻿@model ICollection<Grow.Server.Model.Entities.Team>
+﻿@using Grow.Server.Model.Entities
+@model Grow.Server.Model.ViewModels.TeamsViewModel
 
 @{
     ViewBag.Title = "Teams";
@@ -74,47 +75,30 @@
                 </header>
                 <b>Winners of 2018/19</b><br />
                 <ul>
-                    <li>
-                        1st place: <a href="#21">Tortenglück</a>
-                    </li>
-                    <li>
-                        2nd place: <a href="#22">Studentenfutter</a>
-                    </li>
-                    <li>
-                        3rd place: <a href="#23">SecureRadiationLab</a>
-                    </li>
-                    <li>
-                        Best Product: <a href="#21">Tortenglück</a>
-                    </li>
-                    <li>
-                        Most Scalable: <a href="#27">HelioPas AI</a>
-                    </li>
-                    <li>
-                        Most Investment-Ready:
-                        <a href="#24">Read!</a>,
-                        <a href="#23">SecureRadiationLab</a>,
-                        <a href="#22">Studentenfutter</a>
-                    </li>
+                    @foreach (var prize in Model.Prizes)
+                    {
+                        <li>@prize.Name: <a href="#@prize.Winner.Id">@prize.Winner.Name</a></li>
+                    }
                 </ul>
                 <b>Finalists</b><br />
                 <ul>
-                    @foreach (var team in Model.Where(t => t.IsActive))
+                    @foreach (var team in Model.Teams.Where(t => t.IsActive))
                     {
-                        <li><a href="#@team.Id">@team.TeamName</a></li>
+                        <li><a href="#@team.Id">@team.Name</a></li>
                     }
                 </ul>
                 <b>Drop Outs</b><br />
                 <ul style="font-style: italic; opacity: 0.7;">
-                    @foreach (var team in Model.Where(t => !t.IsActive))
+                    @foreach (var team in Model.Teams.Where(t => !t.IsActive))
                     {
-                        <li><a href="#@team.Id">@team.TeamName</a></li>
+                        <li><a href="#@team.Id">@team.Name</a></li>
                     }
                 </ul>
             </section>
         </div>
     </section>
 
-    @foreach (var team in Model)
+    @foreach (var team in Model.Teams)
     {
         <section class="wrapper style4 container">
             <div class="content" id="@team.Id">
@@ -123,11 +107,11 @@
                         <h2>
                             @if (string.IsNullOrEmpty(team.WebsiteUrl))
                             {
-                                @team.TeamName
+                                @team.Name
                             }
                             else
                             {
-                                <a href="@team.WebsiteUrl">@team.TeamName</a>
+                                <a href="@team.WebsiteUrl">@team.Name</a>
                             }
                         </h2>
                         <h3>

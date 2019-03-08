@@ -40,6 +40,7 @@ namespace Grow.Server
                 var context = serviceScope.ServiceProvider.GetService<GrowDbContext>();
                 context.ResetDatabase();
                 context.SeedDataFrom2018();
+                context.SeedDataFrom2017();
             }
 
             return webHost;

@@ -10,7 +10,7 @@
 
     <header class="special container">
         <span class="icon fa-calendar-o"></span>
-        <h2>Here's the <strong>Agenda</strong> of 2018/19</h2>
+        <h2>Here's the <strong>Agenda</strong> of @ViewBag.CurrentContestName</h2>
     </header>
 
     <section id="calendar" class="wrapper style4 container">
@@ -50,7 +50,7 @@
 
     @foreach (var evnt in Model)
     {
-        @if (evnt.Visibility == Event.EventVisibility.Public)
+        @if (evnt.Type == Event.EventType.MainEvent)
         {
             <a name="@evnt.Name.Replace(" ", String.Empty).ToLower()"></a>
         }
@@ -68,13 +68,36 @@
                     <div class="row">
                         <div class="2u 5u(narrower)"><img src="/img/icon/eventdate.png" width="50%" /></div>
                         <div class="3u 10u(narrower)" align="left" style="font-weight: 400;">
-                            @string.Format("{0:MMMM dd}{1}, {0:yyyy}", evnt.Start, evnt.Start.GetDayExtension())<br> 
-                            @evnt.Start.ToShortTimeString() - @evnt.End.ToShortTimeString()
+                            @{
+                                string formatString = string.Empty;
+                                if (evnt.Start.Month == evnt.End.Month)
+                                {
+                                    formatString = (evnt.Start.DayOfYear == evnt.Start.DayOfYear)
+                                        ? "{0:MMMM dd}{1}, {0:yyyy}"
+                                        : "{0:MMMM dd}{1} - {2:dd}{3}, {0:yyyy}";
+                                }
+                                else if (evnt.Start.Year == evnt.End.Year)
+                                {
+                                    formatString = "{0:MM dd}{1} - {2:MM dd}{3}, {0:yyyy}";
+                                }
+                                else
+                                {
+                                    formatString = "{0:MM dd yy} - {2:MM dd yy}";
+                                }
+                            }
+                            @string.Format(formatString, evnt.Start, evnt.Start.GetDayExtension(), evnt.End, evnt.End.GetDayExtension())
+                            @if (evnt.HasTimesSet)
+                            {
+                                <br />
+                                @(evnt.Start.ToShortTimeString()) @:- @(evnt.End.ToShortTimeString())
+                            }
                         </div>
                     </div>
                     <div class="row">
                         <div class="2u 5u(narrower)"><img src="/img/icon/placeholder.png" width="50%" /></div>
-                        <div class="10u 10u(narrower)" align="left" style="font-weight: 400; white-space: pre-line">@evnt.Address</div>
+                        <div class="10u 10u(narrower)" align="left" style="font-weight: 400">
+                            @evnt.Location<br />@evnt.Address
+                        </div>
                     </div>
                     <div class="row">
                         <div class="2u 5u(narrower)"><img src="/img/icon/visibility.png" width="50%" /></div>

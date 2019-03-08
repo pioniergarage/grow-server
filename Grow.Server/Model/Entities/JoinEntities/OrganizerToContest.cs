@@ -7,5 +7,6 @@ namespace Grow.Server.Model.Entities.JoinEntities
 {
     public class OrganizerToContest : PersonToContest
     {
+        public string Contribution { get; set; }
     }
 }

@@ -37,11 +37,15 @@ namespace Grow.Server.Migrations
 
                     b.Property<DateTime>("UpdatedAt");
 
+                    b.Property<string>("Year");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FinalEventId");
 
                     b.HasIndex("KickoffEventId");
+
+                    b.HasIndex("Year");
 
                     b.ToTable("Contests");
                 });
@@ -142,6 +146,8 @@ namespace Grow.Server.Migrations
 
                     b.Property<int>("ContestId");
 
+                    b.Property<string>("Contribution");
+
                     b.HasKey("PersonId", "ContestId");
 
                     b.HasIndex("ContestId");
@@ -237,6 +243,8 @@ namespace Grow.Server.Migrations
                     b.Property<string>("Reward");
 
                     b.Property<int>("RewardValue");
+
+                    b.Property<int>("Type");
 
                     b.Property<DateTime>("UpdatedAt");
 

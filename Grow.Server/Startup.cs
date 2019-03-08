@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Grow.Server
 {
@@ -31,6 +32,9 @@ namespace Grow.Server
                         Configuration.GetConnectionString("GrowDbContext")
                     )
             );
+
+            // App settings
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,9 +55,17 @@ namespace Grow.Server
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
+                    name: "year-selection default",
+                    template: "{year}/{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index", year = "" },
+                    constraints: new { year = @"\d{4}" }
+                );
+
+                routes.MapRoute(
+                    name: "current year default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults: new { controller = "Home", action = "Index", year = "" }
+                );
 
                 routes.MapRoute(
                     name: "areas",

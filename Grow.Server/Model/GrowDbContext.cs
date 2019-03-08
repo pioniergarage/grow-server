@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Grow.Server.Model.Utils;
 using System.Threading;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Grow.Server.Model
 {
@@ -35,6 +37,9 @@ namespace Grow.Server.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Contest>()
+                .HasIndex(c => c.Year);
+
             // Adjust Contest navigation properties
             modelBuilder.Entity<Contest>()
                 .HasOne(c => c.KickoffEvent)
@@ -102,6 +107,13 @@ namespace Grow.Server.Model
                 }
                 entity.CurrentValues[nameof(BaseEntity.UpdatedAt)] = now;
             }
+        }
+
+
+        public void ResetDatabase()
+        {
+            this.GetService<IMigrator>().Migrate(Migration.InitialDatabase);
+            Database.Migrate();
         }
     }
 }

@@ -17,10 +17,19 @@ namespace Grow.Server.Model.Entities
 
         public bool IsPublic { get; set; }
 
+        public PrizeType Type { get; set; }
+
         public Team Winner { get; set; }
 
         public Partner GivenBy { get; set; }
 
         public Contest Contest { get; set; }
+
+
+        public enum PrizeType
+        {
+            MainPrize,
+            SpecialPrize
+        }
     }
 }

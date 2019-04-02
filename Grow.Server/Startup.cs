@@ -62,14 +62,14 @@ namespace Grow.Server
                 );
 
                 routes.MapRoute(
-                    name: "current year default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index", year = "" }
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
 
                 routes.MapRoute(
-                    name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    name: "current year default",
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index", year = "" }
                 );
             });
         }

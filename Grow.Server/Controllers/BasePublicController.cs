@@ -56,11 +56,16 @@ namespace Grow.Server.Controllers
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             CurrentContestYear = AppSettings.CurrentContestYear;
-            if (context.RouteData.Values.TryGetValue("year", out object value) && value is string year)
+            if (context.RouteData.Values.TryGetValue("year", out object value) && value is string year && !string.IsNullOrEmpty(year))
             {
                 CurrentContestYear = year;
             }
-            CurrentContestName = DbContext.Contests.Where(c => c.Year == CurrentContestYear).Select(c => c.Name).Single();
+            CurrentContestName = DbContext.Contests.Where(c => c.Year == CurrentContestYear).Select(c => c.Name).SingleOrDefault();
+            if (CurrentContestName == null)
+            {
+                context.Result = new StatusCodeResult(404);
+                return;
+            }
 
             // Default values for all controller actions
             ViewBag.TransparentNavbar = false;

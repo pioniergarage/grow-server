@@ -1,0 +1,30 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>@ViewBag.Title - GROW by PionierGarage</title>
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header>
+        <h1 id="logo"><a href="@Url.Action("Index", "Home", new { area = "Admin" })">Grow <span>by PionierGarage</span></a></h1>
+        <nav>
+            <ul>
+                <li><a asp-controller="Contests"   asp-action="Index" asp-area="Admin">Contests</a></li>
+                <li><a asp-controller="Program"    asp-action="Index" asp-area="Admin">Events</a></li>
+                <li><a asp-controller="Teams"      asp-action="Index" asp-area="Admin">Teams</a></li>
+                <li><a asp-controller="Mentors"    asp-action="Index" asp-area="Admin">Mentors</a></li>
+                <li><a asp-controller="Judges"     asp-action="Index" asp-area="Admin">Judges</a></li>
+                <li><a asp-controller="Organizers" asp-action="Index" asp-area="Admin">Organizers</a></li>
+                <li><a asp-controller="Prizes"     asp-action="Index" asp-area="Admin">Prizes</a></li>
+                <li><a asp-controller="Partners"   asp-action="Index" asp-area="Admin">Partners</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    @RenderBody()
+
+</body>
+</html>

@@ -1,30 +1,182 @@
 ﻿<!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+
     <title>@ViewBag.Title - GROW by PionierGarage</title>
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/plugins/paper-dashboard/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/plugins/paper-dashboard/css/paper-dashboard.min.css" rel="stylesheet" />
 
     @RenderSection("Styles", required: false)
 </head>
 <body>
-    <header>
-        <h1 id="logo"><a href="@Url.Action("Index", "Home", new { area = "Admin" })">Grow <span>by PionierGarage</span></a></h1>
-        <nav>
-            <ul>
-                <li><a asp-controller="Contests"   asp-action="Index" asp-area="Admin">Contests</a></li>
-                <li><a asp-controller="Program"    asp-action="Index" asp-area="Admin">Events</a></li>
-                <li><a asp-controller="Teams"      asp-action="Index" asp-area="Admin">Teams</a></li>
-                <li><a asp-controller="Mentors"    asp-action="Index" asp-area="Admin">Mentors</a></li>
-                <li><a asp-controller="Judges"     asp-action="Index" asp-area="Admin">Judges</a></li>
-                <li><a asp-controller="Organizers" asp-action="Index" asp-area="Admin">Organizers</a></li>
-                <li><a asp-controller="Prizes"     asp-action="Index" asp-area="Admin">Prizes</a></li>
-                <li><a asp-controller="Partners"   asp-action="Index" asp-area="Admin">Partners</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="wrapper ">
 
-    @RenderBody()
+        <!-- Side bar for navigation -->
+        <div class="sidebar" data-color="red" data-active-color="danger">
+            <div class="logo">
+                <a asp-controller="Home" asp-action="Index" class="simple-text logo-normal">
+                    <div class="logo-image-big">
+                        <img src="~/img/grow_logo.png">
+                    </div>
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="active ">
+                        <a asp-controller="Contests" asp-action="Index" asp-area="Admin">
+                            <i class="nc-icon nc-bank"></i>
+                            Contests
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Program" asp-action="Index" asp-area="Admin">
+                            <i class="nc-icon nc-pin-3"></i>
+                            Events
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Teams" asp-action="Index" asp-area="Admin">
+                            <i class="nc-icon nc-bulb-63"></i>
+                            Teams
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Mentors" asp-action="Index" asp-area="Admin">
+                            <i class="nc-icon nc-chat-33"></i>
+                            Mentors
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Judges" asp-action="Index" asp-area="Admin">
+                            <i class="nc-icon nc-glasses-2"></i>
+                            Judges
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Organizers" asp-action="Index" asp-area="Admin">
+                            <i class="nc-icon nc-tie-bow"></i>
+                            Organizers
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Prizes" asp-action="Index" asp-area="Admin">
+                            <i class="nc-icon nc-trophy"></i>
+                            Prizes
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Partners" asp-action="Index" asp-area="Admin">
+                            <i class="nc-icon nc-support-17"></i>
+                            Partners
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-panel">
+
+            <a name="top"></a>
+
+            <!-- Top bar for title and global actions -->
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+
+                        <!-- Hamburger menu for mobile (opens/closes navbar above) -->
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+
+                        <!-- Page title -->
+                        <a class="navbar-brand" href="#top">@ViewData["Title"]</a>
+                    </div>
+
+                    <!-- Collapsable three-dot-menu for mobile (opens/closes navigation below) -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+
+                    <!-- Space for global actions -->
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link btn-magnify" asp-controller="Account" asp-action="Logout">
+                                    <i class="nc-icon nc-share-66 rotate-180"></i>
+                                    <p>
+                                        <span class="d-lg-none d-md-block">Logout</span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn-rotate" asp-controller="Account" asp-action="Index">
+                                    <i class="nc-icon nc-settings-gear-65"></i>
+                                    <p>
+                                        <span class="d-lg-none d-md-block">Account</span>
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="content">
+                @RenderBody()
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer footer-black footer-white ">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <!-- Left-adjusted links -->
+                        <nav class="footer-nav">
+                            <ul>
+                                <li>
+                                    <a asp-action="Index" asp-controller="Home" asp-area="">Back to main page</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Logout" asp-controller="Account" asp-area="Admin">Logout</a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <!-- Right-adjusted copyright -->
+                        <div class="credits ml-auto">
+                            <span class="copyright">
+                                ©
+                                <script>document.write(new Date().getFullYear())</script> PionierGarage, Design by Creative Tim
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="./plugins/paper-dashboard/js/core/popper.min.js"></script>
+    <script src="./plugins/paper-dashboard/js/core/bootstrap.min.js"></script>
+    <script src="./plugins/paper-dashboard/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="./plugins/paper-dashboard/js/plugins/chartjs.min.js"></script>
+    <script src="./plugins/paper-dashboard/js/plugins/bootstrap-notify.js"></script>
+    <script src="./plugins/paper-dashboard/js/paper-dashboard.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>

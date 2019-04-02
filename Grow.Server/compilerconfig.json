@@ -1,0 +1,13 @@
+﻿[
+  {
+    "inputFile": "Styles/main.scss",
+    "outputFile": "wwwroot/css/main.css"
+  },
+  {
+    "inputFile": "Styles/paper-dashboard.scss",
+    "outputFile": "wwwroot/plugins/paper-dashboard/css/paper-dashboard.css",
+    "options": {
+      "relativeUrls": false
+    }
+  }
+]

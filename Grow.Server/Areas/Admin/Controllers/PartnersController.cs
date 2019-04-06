@@ -11,19 +11,16 @@ using Grow.Server.Model.Entities;
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PartnersController : Controller
+    public class PartnersController : BaseAdminController
     {
-        private readonly GrowDbContext _context;
-
-        public PartnersController(GrowDbContext context)
+        public PartnersController(GrowDbContext context) : base(context)
         {
-            _context = context;
         }
 
         // GET: Admin/Partners
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Partners.ToListAsync());
+            return View(await Context.Partners.ToListAsync().ConfigureAwait(false));
         }
 
         // GET: Admin/Partners/Details/5
@@ -34,8 +31,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var partner = await _context.Partners
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var partner = await Context.Partners
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (partner == null)
             {
                 return NotFound();
@@ -59,8 +56,8 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(partner);
-                await _context.SaveChangesAsync();
+                Context.Add(partner);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(partner);
@@ -74,7 +71,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var partner = await _context.Partners.FindAsync(id);
+            var partner = await Context.Partners.FindAsync(id).ConfigureAwait(false);
             if (partner == null)
             {
                 return NotFound();
@@ -98,8 +95,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(partner);
-                    await _context.SaveChangesAsync();
+                    Context.Update(partner);
+                    await Context.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,8 +122,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var partner = await _context.Partners
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var partner = await Context.Partners
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (partner == null)
             {
                 return NotFound();
@@ -140,15 +137,15 @@ namespace Grow.Server.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var partner = await _context.Partners.FindAsync(id);
-            _context.Partners.Remove(partner);
-            await _context.SaveChangesAsync();
+            var partner = await Context.Partners.FindAsync(id).ConfigureAwait(false);
+            Context.Partners.Remove(partner);
+            await Context.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction(nameof(Index));
         }
 
         private bool PartnerExists(int id)
         {
-            return _context.Partners.Any(e => e.Id == id);
+            return Context.Partners.Any(e => e.Id == id);
         }
     }
 }

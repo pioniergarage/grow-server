@@ -8,17 +8,14 @@ using System.Threading.Tasks;
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class HomeController : Controller
+    public class HomeController : BaseAdminController
     {
-        private readonly GrowDbContext _context;
-
-        public HomeController(GrowDbContext context)
+        public HomeController(GrowDbContext context) : base(context)
         {
-            _context = context;
         }
 
         // GET: Admin/Home
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }

@@ -16,7 +16,6 @@ namespace Grow.Server.Controllers
         {
         }
 
-
         public IActionResult Index()
         {
             var model = CurrentPartners

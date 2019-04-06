@@ -10,15 +10,16 @@ using System.Threading;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Grow.Server.Model
 {
-    public class GrowDbContext : DbContext
+    public class GrowDbContext : IdentityDbContext<Account, IdentityRole, string>
     {
         public GrowDbContext(DbContextOptions<GrowDbContext> options)
             : base(options)
         { }
-
 
         public DbSet<Contest> Contests { get; set; }
 
@@ -33,40 +34,40 @@ namespace Grow.Server.Model
         public DbSet<Team> Teams { get; set; }
 
         public DbSet<Prize> Prizes { get; set; }
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<Contest>()
+            base.OnModelCreating(builder);
+
+            builder.Entity<Contest>()
                 .HasIndex(c => c.Year);
 
             // Adjust Contest navigation properties
-            modelBuilder.Entity<Contest>()
+            builder.Entity<Contest>()
                 .HasOne(c => c.KickoffEvent)
                 .WithMany();
 
-            modelBuilder.Entity<Contest>()
+            builder.Entity<Contest>()
                 .HasOne(c => c.FinalEvent)
                 .WithMany();
 
-            modelBuilder.Entity<Event>()
+            builder.Entity<Event>()
                 .HasOne(e => e.Contest)
                 .WithMany(c => c.Events);
-            
+
             // Adjust many-to-many relationships
-            modelBuilder.Entity<PartnerToContest>()
+            builder.Entity<PartnerToContest>()
                 .HasKey(t => new { t.PartnerId, t.ContestId });
 
-            modelBuilder.Entity<MentorToContest>()
+            builder.Entity<MentorToContest>()
                 .HasKey(t => new { t.PersonId, t.ContestId });
 
-            modelBuilder.Entity<OrganizerToContest>()
+            builder.Entity<OrganizerToContest>()
                 .HasKey(t => new { t.PersonId, t.ContestId });
 
-            modelBuilder.Entity<JudgeToContest>()
+            builder.Entity<JudgeToContest>()
                 .HasKey(t => new { t.PersonId, t.ContestId });
         }
-
 
         public override int SaveChanges()
         {
@@ -82,8 +83,16 @@ namespace Grow.Server.Model
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            AddTimestamps();
-            return await base.SaveChangesAsync(cancellationToken);
+            try
+            {
+                AddTimestamps();
+                return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            }
+            catch (DbUpdateException e)
+            {
+                Debug.WriteLine(e);
+                throw e;
+            }
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
@@ -108,7 +117,6 @@ namespace Grow.Server.Model
                 entity.CurrentValues[nameof(BaseEntity.UpdatedAt)] = now;
             }
         }
-
 
         public void ResetDatabase()
         {

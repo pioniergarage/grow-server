@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190403192542_AddIdentity.cs" />
+    <Compile Remove="Migrations\20190403192542_AddIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20190403192918_AddIdentity.cs" />
+    <Compile Remove="Migrations\20190403192918_AddIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20190403193020_AddIdentity.cs" />
+    <Compile Remove="Migrations\20190403193020_AddIdentity.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
@@ -25,7 +34,6 @@
     <Folder Include="Areas\Team\Data\" />
     <Folder Include="Areas\Team\Models\" />
     <Folder Include="Areas\Team\Views\" />
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\img\2017\" />
     <Folder Include="wwwroot\js\" />
@@ -38,6 +46,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.1.4" />
@@ -78,6 +87,12 @@
     <Content Update="Areas\Admin\Views\Organizers\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Account\Login.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Account\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\Program.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -90,7 +105,10 @@
     <Content Update="Views\Home\Organizers.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\Layouts\_BackendSingleCardLayout.cshtml">
+    <Content Update="Views\Shared\Layouts\_AdminSingleCardLayout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Layouts\_AdminLayout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Layouts\_BackendLayout.cshtml">

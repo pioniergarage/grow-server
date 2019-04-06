@@ -15,11 +15,10 @@ namespace Grow.Server.Controllers
         protected GrowDbContext DbContext { get; }
 
         protected AppSettings AppSettings { get; }
-        
+
         protected string CurrentContestYear { get; private set; }
 
         protected string CurrentContestName { get; private set; }
-
 
         protected Contest CurrentContest => DbContext.Contests
             .Single(c => c.Year == CurrentContestYear);
@@ -45,13 +44,11 @@ namespace Grow.Server.Controllers
         protected IQueryable<Team> CurrentTeams => DbContext.Teams
             .Where(e => e.Contest.Year == CurrentContestYear);
 
-
         protected BasePublicController(GrowDbContext dbContext, IOptions<AppSettings> appSettings)
         {
             DbContext = dbContext;
             AppSettings = appSettings.Value;
         }
-
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {

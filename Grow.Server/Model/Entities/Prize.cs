@@ -25,7 +25,6 @@ namespace Grow.Server.Model.Entities
 
         public Contest Contest { get; set; }
 
-
         public enum PrizeType
         {
             MainPrize,

@@ -11,19 +11,16 @@ using Grow.Server.Model.Entities;
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PrizesController : Controller
+    public class PrizesController : BaseAdminController
     {
-        private readonly GrowDbContext _context;
-
-        public PrizesController(GrowDbContext context)
+        public PrizesController(GrowDbContext context) : base(context)
         {
-            _context = context;
         }
 
         // GET: Admin/Prizes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Prizes.ToListAsync());
+            return View(await Context.Prizes.ToListAsync().ConfigureAwait(false));
         }
 
         // GET: Admin/Prizes/Details/5
@@ -34,8 +31,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var prize = await _context.Prizes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var prize = await Context.Prizes
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (prize == null)
             {
                 return NotFound();
@@ -59,8 +56,8 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(prize);
-                await _context.SaveChangesAsync();
+                Context.Add(prize);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(prize);
@@ -74,7 +71,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var prize = await _context.Prizes.FindAsync(id);
+            var prize = await Context.Prizes.FindAsync(id).ConfigureAwait(false);
             if (prize == null)
             {
                 return NotFound();
@@ -98,8 +95,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(prize);
-                    await _context.SaveChangesAsync();
+                    Context.Update(prize);
+                    await Context.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,8 +122,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var prize = await _context.Prizes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var prize = await Context.Prizes
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (prize == null)
             {
                 return NotFound();
@@ -140,15 +137,15 @@ namespace Grow.Server.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var prize = await _context.Prizes.FindAsync(id);
-            _context.Prizes.Remove(prize);
-            await _context.SaveChangesAsync();
+            var prize = await Context.Prizes.FindAsync(id).ConfigureAwait(false);
+            Context.Prizes.Remove(prize);
+            await Context.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction(nameof(Index));
         }
 
         private bool PrizeExists(int id)
         {
-            return _context.Prizes.Any(e => e.Id == id);
+            return Context.Prizes.Any(e => e.Id == id);
         }
     }
 }

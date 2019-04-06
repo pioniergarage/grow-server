@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "Layouts/_BackendLayout";
+
+    var Controller = this.ViewContext.RouteData.Values["controller"].ToString();
+
+    string SetActiveIfIsCurrentController(string controller)
+    {
+        return controller == Controller
+            ? "active"
+            : "";
+    }
+}
+
+@section Styles {
+    @RenderSection("Styles", required: false)
+}
+
+@section Navbar {
+
+    <li class="@SetActiveIfIsCurrentController("Contests")">
+        <a asp-controller="Contests" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-bank"></i>
+            Contests
+        </a>
+    </li>
+    <li class="@SetActiveIfIsCurrentController("Program")">
+        <a asp-controller="Events" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-pin-3"></i>
+            Events
+        </a>
+    </li>
+    <li class="@SetActiveIfIsCurrentController("Teams")">
+        <a asp-controller="Teams" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-bulb-63"></i>
+            Teams
+        </a>
+    </li>
+    <li class="@SetActiveIfIsCurrentController("Mentors")">
+        <a asp-controller="Mentors" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-chat-33"></i>
+            Mentors
+        </a>
+    </li>
+    <li class="@SetActiveIfIsCurrentController("Judges")">
+        <a asp-controller="Judges" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-glasses-2"></i>
+            Judges
+        </a>
+    </li>
+    <li class="@SetActiveIfIsCurrentController("Organizers")">
+        <a asp-controller="Organizers" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-tie-bow"></i>
+            Organizers
+        </a>
+    </li>
+    <li class="@SetActiveIfIsCurrentController("Prizes")">
+        <a asp-controller="Prizes" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-trophy"></i>
+            Prizes
+        </a>
+    </li>
+    <li class="@SetActiveIfIsCurrentController("Partners")">
+        <a asp-controller="Partners" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-support-17"></i>
+            Partners
+        </a>
+    </li>
+}
+
+@RenderBody()
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

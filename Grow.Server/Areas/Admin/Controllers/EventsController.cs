@@ -11,19 +11,16 @@ using Grow.Server.Model.Entities;
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class EventsController : Controller
+    public class EventsController : BaseAdminController
     {
-        private readonly GrowDbContext _context;
-
-        public EventsController(GrowDbContext context)
+        public EventsController(GrowDbContext context) : base(context)
         {
-            _context = context;
         }
 
         // GET: Admin/Events
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.ToListAsync());
+            return View(await Context.Events.ToListAsync().ConfigureAwait(false));
         }
 
         // GET: Admin/Events/Details/5
@@ -34,8 +31,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var @event = await Context.Events
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (@event == null)
             {
                 return NotFound();
@@ -59,8 +56,8 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
-                await _context.SaveChangesAsync();
+                Context.Add(@event);
+                await Context.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(@event);
@@ -74,7 +71,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events.FindAsync(id);
+            var @event = await Context.Events.FindAsync(id).ConfigureAwait(false);
             if (@event == null)
             {
                 return NotFound();
@@ -98,8 +95,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(@event);
-                    await _context.SaveChangesAsync();
+                    Context.Update(@event);
+                    await Context.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -125,8 +122,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var @event = await Context.Events
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (@event == null)
             {
                 return NotFound();
@@ -140,15 +137,15 @@ namespace Grow.Server.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var @event = await _context.Events.FindAsync(id);
-            _context.Events.Remove(@event);
-            await _context.SaveChangesAsync();
+            var @event = await Context.Events.FindAsync(id).ConfigureAwait(false);
+            Context.Events.Remove(@event);
+            await Context.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction(nameof(Index));
         }
 
         private bool EventExists(int id)
         {
-            return _context.Events.Any(e => e.Id == id);
+            return Context.Events.Any(e => e.Id == id);
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE HTML>
+﻿@using Microsoft.AspNetCore.Identity
+@using Grow.Server.Model.Entities
+@inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,54 +33,7 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active ">
-                        <a asp-controller="Contests" asp-action="Index" asp-area="Admin">
-                            <i class="nc-icon nc-bank"></i>
-                            Contests
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Program" asp-action="Index" asp-area="Admin">
-                            <i class="nc-icon nc-pin-3"></i>
-                            Events
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Teams" asp-action="Index" asp-area="Admin">
-                            <i class="nc-icon nc-bulb-63"></i>
-                            Teams
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Mentors" asp-action="Index" asp-area="Admin">
-                            <i class="nc-icon nc-chat-33"></i>
-                            Mentors
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Judges" asp-action="Index" asp-area="Admin">
-                            <i class="nc-icon nc-glasses-2"></i>
-                            Judges
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Organizers" asp-action="Index" asp-area="Admin">
-                            <i class="nc-icon nc-tie-bow"></i>
-                            Organizers
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Prizes" asp-action="Index" asp-area="Admin">
-                            <i class="nc-icon nc-trophy"></i>
-                            Prizes
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Partners" asp-action="Index" asp-area="Admin">
-                            <i class="nc-icon nc-support-17"></i>
-                            Partners
-                        </a>
-                    </li>
+                    @RenderSection("Navbar", required: true)
                 </ul>
             </div>
         </div>
@@ -113,22 +70,36 @@
                     <!-- Space for global actions -->
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link btn-magnify" asp-controller="Account" asp-action="Logout">
-                                    <i class="nc-icon nc-share-66 rotate-180"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Logout</span>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn-rotate" asp-controller="Account" asp-action="Index">
-                                    <i class="nc-icon nc-settings-gear-65"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Account</span>
-                                    </p>
-                                </a>
-                            </li>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link btn-rotate" asp-controller="Account" asp-action="Index" asp-area="">
+                                        <i class="nc-icon nc-settings-gear-65"></i>
+                                        <p>
+                                            @UserManager.GetUserName(User)
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link btn-magnify" asp-controller="Account" asp-action="Logout" asp-area="">
+                                        <i class="nc-icon nc-share-66 rotate-90"></i>
+                                        <p>
+                                            Logout
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link btn-magnify" asp-controller="Account" asp-action="Login" asp-area="">
+                                        <i class="nc-icon nc-share-66"></i>
+                                        <p>
+                                            Login
+                                        </p>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -168,13 +139,13 @@
         </div>
     </div>
 
-    <script src="../js/jquery.min.js"></script>
-    <script src="./plugins/paper-dashboard/js/core/popper.min.js"></script>
-    <script src="./plugins/paper-dashboard/js/core/bootstrap.min.js"></script>
-    <script src="./plugins/paper-dashboard/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <script src="./plugins/paper-dashboard/js/plugins/chartjs.min.js"></script>
-    <script src="./plugins/paper-dashboard/js/plugins/bootstrap-notify.js"></script>
-    <script src="./plugins/paper-dashboard/js/paper-dashboard.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/plugins/paper-dashboard/js/core/popper.min.js"></script>
+    <script src="/plugins/paper-dashboard/js/core/bootstrap.min.js"></script>
+    <script src="/plugins/paper-dashboard/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/plugins/paper-dashboard/js/plugins/chartjs.min.js"></script>
+    <script src="/plugins/paper-dashboard/js/plugins/bootstrap-notify.js"></script>
+    <script src="/plugins/paper-dashboard/js/paper-dashboard.min.js"></script>
 
     @RenderSection("Scripts", required: false)
 

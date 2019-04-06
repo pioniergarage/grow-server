@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Grow.Server.Model.Entities;
 using Grow.Server.Model.Entities.JoinEntities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Grow.Server.Model.Utils
 {
@@ -31,7 +24,6 @@ namespace Grow.Server.Model.Utils
         public static Team[] Teams { get; private set; }
         public static Prize[] Prizes { get; private set; }
 
-
         static SeederForOldData()
         {
             IsEnabled = true;
@@ -44,7 +36,6 @@ namespace Grow.Server.Model.Utils
             AddTeams();
             AddPrizes();
         }
-
 
         public static void SeedDataFrom2017(this GrowDbContext context)
         {
@@ -112,8 +103,7 @@ namespace Grow.Server.Model.Utils
 
             context.SaveChanges();
         }
-
-
+        
         private static bool SeedEntities(GrowDbContext context)
         {
             if (!IsEnabled)
@@ -150,7 +140,6 @@ namespace Grow.Server.Model.Utils
 
             return true;
         }
-
 
         private static void AddPeople()
         {
@@ -395,7 +384,6 @@ namespace Grow.Server.Model.Utils
 
                 // 2017
 
-                
                 new Person
                 {
                 Name = "Alexander Glöckner",
@@ -851,7 +839,7 @@ namespace Grow.Server.Model.Utils
                 },
 
                 // 2017
-                
+
                 new Event
                 {
                     Name = "Kickoff",
@@ -2069,7 +2057,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
 
                 // 2017
 
-                
                 new Prize
                 {
                     Name = "1st place",
@@ -2124,7 +2111,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                 },
             };
         }
-
 
         private static TNavigation[] AddReferencesInCollection<TEntity, TNavigation>(TEntity entity, TNavigation[] navigations, Action<TNavigation, TEntity> linkingFunction)
         {

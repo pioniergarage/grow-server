@@ -1,8 +1,43 @@
-﻿@{
+﻿@model Grow.Server.Model.Entities.Contest
+@{
     ViewData["Title"] = "Index";
     Layout = "Layouts/_AdminLayout";
 }
 
+<div class="row">
+    <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="card card-stats">
+            <div class="card-header ">
+                <h5 class="card-title">Current public contest</h5>
+            </div>
+            <div class="card-body ">
+                <h2>@ViewBag.CurrentContestYear<h2>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-refresh"></i> Change via environment variables
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="card card-stats">
+            <div class="card-header ">
+                <h5 class="card-title">Latest contest in DB</h5>
+            </div>
+            <div class="card-body ">
+                <h2>@ViewBag.LatestContestYear<h2>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-refresh"></i> Change in Contest section
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
@@ -15,8 +50,8 @@
                     </div>
                     <div class="col-7 col-md-8">
                         <div class="numbers">
-                            <p class="card-category">Capacity</p>
-                            <p class="card-title">150GB
+                            <p class="card-category">Participants</p>
+                            <p class="card-title">@Model.Teams.Select(t => t.Members?.Count ?? 0).Sum()
                             <p>
                         </div>
                     </div>
@@ -25,7 +60,7 @@
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fa fa-refresh"></i> Update Now
+                    <i class="fa fa-refresh"></i> Incl. inactive ones & dropouts
                 </div>
             </div>
         </div>
@@ -41,8 +76,8 @@
                     </div>
                     <div class="col-7 col-md-8">
                         <div class="numbers">
-                            <p class="card-category">Revenue</p>
-                            <p class="card-title">$ 1,345
+                            <p class="card-category">Total price value</p>
+                            <p class="card-title">@Model.Prizes.Select(p => p.RewardValue).Sum() €
                             <p>
                         </div>
                     </div>
@@ -51,7 +86,7 @@
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fa fa-calendar-o"></i> Last day
+                    <i class="fa fa-calendar-o"></i> Incl. value of services
                 </div>
             </div>
         </div>
@@ -67,8 +102,8 @@
                     </div>
                     <div class="col-7 col-md-8">
                         <div class="numbers">
-                            <p class="card-category">Errors</p>
-                            <p class="card-title">23
+                            <p class="card-category">Mentors</p>
+                            <p class="card-title">@Model.Mentors.Count()
                             <p>
                         </div>
                     </div>
@@ -77,7 +112,7 @@
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fa fa-clock-o"></i> In the last hour
+                    <i class="fa fa-clock-o"></i> Officially registered
                 </div>
             </div>
         </div>

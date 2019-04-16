@@ -10,19 +10,8 @@ using Microsoft.Extensions.Options;
 
 namespace Grow.Server.Controllers
 {
-    public abstract class BasePublicController : Controller
+    public abstract class BasePublicController : BaseController
     {
-        protected GrowDbContext DbContext { get; }
-
-        protected AppSettings AppSettings { get; }
-
-        protected string CurrentContestYear { get; private set; }
-
-        protected string CurrentContestName { get; private set; }
-
-        protected Contest CurrentContest => DbContext.Contests
-            .Single(c => c.Year == CurrentContestYear);
-
         protected IQueryable<Event> CurrentEvents => DbContext.Events
             .Where(e => e.Contest.Year == CurrentContestYear);
 
@@ -44,31 +33,17 @@ namespace Grow.Server.Controllers
         protected IQueryable<Team> CurrentTeams => DbContext.Teams
             .Where(e => e.Contest.Year == CurrentContestYear);
 
-        protected BasePublicController(GrowDbContext dbContext, IOptions<AppSettings> appSettings)
+        protected BasePublicController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
-            DbContext = dbContext;
-            AppSettings = appSettings.Value;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            CurrentContestYear = AppSettings.CurrentContestYear;
-            if (context.RouteData.Values.TryGetValue("year", out object value) && value is string year && !string.IsNullOrEmpty(year))
-            {
-                CurrentContestYear = year;
-            }
-            CurrentContestName = DbContext.Contests.Where(c => c.Year == CurrentContestYear).Select(c => c.Name).SingleOrDefault();
-            if (CurrentContestName == null)
-            {
-                context.Result = new StatusCodeResult(404);
-                return;
-            }
+            base.OnActionExecuting(context);
 
             // Default values for all controller actions
             ViewBag.TransparentNavbar = false;
             ViewBag.CurrentContestName = CurrentContestName;
-
-            base.OnActionExecuting(context);
         }
     }
 }

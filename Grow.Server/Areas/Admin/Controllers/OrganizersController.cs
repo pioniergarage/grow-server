@@ -7,13 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Grow.Server.Model;
 using Grow.Server.Model.Entities;
+using Microsoft.Extensions.Options;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class OrganizersController : BaseAdminController
     {
-        public OrganizersController(GrowDbContext context) : base(context)
+        public OrganizersController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
 

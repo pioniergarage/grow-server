@@ -33,7 +33,7 @@
 		banner: (
 			bg:			#898786,
 			fg:			#fff,
-			inner-bg:	#341b2b,
+			inner-bg:	#b31918,
 			inner-fg:	#fff
 		),
 
@@ -41,6 +41,16 @@
 			bg:			#E8EEF4,
 			fg:			#7c8081
 		),
+
+        pg: (
+            fg:         #b31918,
+            bg:         #fff,
+        ),
+
+        pgInv: (
+            fg:         #000,
+            bg:         #b31918,
+        ),
 
 		one: (
 			bg:			#83d3c9,

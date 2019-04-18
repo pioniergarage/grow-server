@@ -1,14 +1,17 @@
 ﻿using Grow.Server.Model;
 using Grow.Server.Model.Entities;
 using Grow.Server.Model.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Grow.Server.Controllers
 {
+    [Authorize]
     public class AccountController : BasePublicController
     {
         private readonly UserManager<Account> _userManager;
@@ -26,31 +29,86 @@ namespace Grow.Server.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        [AllowAnonymous]
+        public IActionResult Login(string ReturnUrl = null)
         {
-            return View();
+            var model = new LoginViewModel()
+            {
+                ReturnUrl = WebUtility.UrlDecode(ReturnUrl)
+            };
+
+            return View(model);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false).ConfigureAwait(false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false).ConfigureAwait(false);
+
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Account");
+                    var returnUrl = model.ReturnUrl ?? "/Account/Index";
+                    return Redirect(returnUrl);
+                }
+                else if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError("LoginFailed", "The account has been locked");
                 }
                 else
                 {
-                    throw new Exception("Invalid login attempt");
+                    ModelState.AddModelError("LoginFailed", "The email or password was incorrect");
                 }
             }
+
             return View(model);
         }
-
-        public IActionResult Logout()
+        
+        public IActionResult ChangePassword()
         {
+            return View();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword).ConfigureAwait(false);
+            if (!changePasswordResult.Succeeded)
+            {
+                foreach (var error in changePasswordResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model);
+            }
+
+            await _signInManager.RefreshSignInAsync(user).ConfigureAwait(false);
+
+            return View("ChangePasswordConfirmation");
+        }
+
+        public async Task<IActionResult> Logout(string ReturnUrl = null)
+        {
+            await _signInManager.SignOutAsync().ConfigureAwait(false);
+
+            if (ReturnUrl != null)
+            {
+                return Redirect(WebUtility.UrlDecode(ReturnUrl));
+            }
+
             return RedirectToAction("Index", "Home", new { Area = "" });
         }
     }

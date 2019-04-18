@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Grow.Server.Model.Entities
+@inject SignInManager<Account> SignInManager
+@inject UserManager<Account> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link btn-rotate" asp-controller="Account" asp-action="Index" asp-area="">
+                <i class="nc-icon nc-settings-gear-65"></i>
+                <p>
+                    @UserManager.GetUserName(User)
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn-magnify" asp-controller="Account" asp-action="Logout" asp-area="">
+                <i class="nc-icon nc-share-66 rotate-90"></i>
+                <p>
+                    Logout
+                </p>
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link btn-magnify" asp-controller="Account" asp-action="Login" asp-area="">
+                <i class="nc-icon nc-share-66"></i>
+                <p>
+                    Login
+                </p>
+            </a>
+        </li>
+    }
+</ul>

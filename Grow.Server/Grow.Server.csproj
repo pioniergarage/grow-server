@@ -87,6 +87,9 @@
     <Content Update="Areas\Admin\Views\Organizers\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Account\ChangePasswordConfirmation.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Account\Login.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -103,6 +106,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Home\Organizers.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Home\Error.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Layouts\_AdminSingleCardLayout.cshtml">

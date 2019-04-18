@@ -24,6 +24,21 @@ namespace Grow.Server.Controllers
             return View(model);
         }
 
+        public IActionResult Error(string ErrorMessage = null, string ErrorDetails = null)
+        {
+            var model = new ErrorViewModel()
+            {
+                ErrorMessage = ErrorMessage ?? "Unknown Server Error",
+                ErrorDetails = ErrorDetails ?? string.Empty
+            };
+            return View(model);
+        }
+
+        public IActionResult Error(ErrorViewModel model)
+        {
+            return View(model);
+        }
+
         public IActionResult Teams()
         {
             var teams = CurrentTeams

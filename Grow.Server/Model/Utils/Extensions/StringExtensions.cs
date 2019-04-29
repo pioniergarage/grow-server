@@ -18,9 +18,9 @@ namespace Grow.Server.Model.Utils.Extensions
         /// <returns></returns>
         public static string DynamicSubstring(this string text, int limit, params char[] customSplitChars)
         {
-            if (text.Length <= limit)
+            if (text == null || text.Length <= limit)
                 return text;
-            var splitChars = customSplitChars ?? new[] { ' ', '-' };
+            var splitChars = customSplitChars.Length > 0 ? customSplitChars : new[] { ' ', '-' };
 
             var subtext = text.Substring(0, limit);
             var lastSpace = subtext.LastIndexOfAny(splitChars);

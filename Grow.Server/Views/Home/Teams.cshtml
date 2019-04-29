@@ -58,7 +58,7 @@
     <header class="special container">
         <span class="icon fa-user"></span>
         <h2>
-            <strong>Teams</strong> of @ViewBag.CurrentContestName
+            <strong>Teams</strong> of @ViewBag.SelectedContestName
         </h2>
         <br />
         <h6 style="font-style: italic; text-transform: inherit">
@@ -73,7 +73,7 @@
                 <header>
                     <h2>Team overview</h2>
                 </header>
-                <b>Winners of @ViewBag.CurrentContestName</b><br />
+                <b>Winners of @ViewBag.SelectedContestName</b><br />
                 <ul>
                     @foreach (var prize in Model.Prizes)
                     {

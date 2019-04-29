@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Grow.Server.Model.Entities;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Grow.Server.Model.Utils.Extensions
 {
@@ -17,6 +21,31 @@ namespace Grow.Server.Model.Utils.Extensions
                 return textIfEmpty;
 
             return value;
+        }
+
+        public static IHtmlContent ContestSelect(this IHtmlHelper helper, string selectedYear, ICollection<Contest> allContests)
+        {
+            if (allContests == null)
+            {
+                return new HtmlString("<i class='text-danger'>Error: Contests not loaded");
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<select id='contest-selector' class='form-control'>");
+
+            foreach (var contest in allContests)
+            {
+                var selectedString = contest.Year.Equals(selectedYear)
+                    ? " selected='selected' "
+                    : "";
+                var contestName = contest.Year.Equals(selectedYear)
+                    ? "- " + contest.Name + " -"
+                    : contest.Name;
+                sb.AppendLine(string.Format("<option value='{2}' {0}>{1}</option>", selectedString, contestName, contest.Year));
+            }
+
+            sb.AppendLine("</select>");
+            return new HtmlString(sb.ToString());
         }
     }
 }

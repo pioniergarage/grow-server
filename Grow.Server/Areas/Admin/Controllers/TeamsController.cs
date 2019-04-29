@@ -21,7 +21,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // GET: Admin/Teams
         public async Task<IActionResult> Index()
         {
-            return View(await Context.Teams.ToListAsync().ConfigureAwait(false));
+            return View(await DbContext.Teams.ToListAsync().ConfigureAwait(false));
         }
 
         // GET: Admin/Teams/Details/5
@@ -32,7 +32,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var team = await Context.Teams
+            var team = await DbContext.Teams
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (team == null)
             {
@@ -57,8 +57,8 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Context.Add(team);
-                await Context.SaveChangesAsync().ConfigureAwait(false);
+                DbContext.Add(team);
+                await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(team);
@@ -72,7 +72,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var team = await Context.Teams.FindAsync(id).ConfigureAwait(false);
+            var team = await DbContext.Teams.FindAsync(id).ConfigureAwait(false);
             if (team == null)
             {
                 return NotFound();
@@ -96,8 +96,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 try
                 {
-                    Context.Update(team);
-                    await Context.SaveChangesAsync().ConfigureAwait(false);
+                    DbContext.Update(team);
+                    await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -123,7 +123,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var team = await Context.Teams
+            var team = await DbContext.Teams
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (team == null)
             {
@@ -138,15 +138,15 @@ namespace Grow.Server.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var team = await Context.Teams.FindAsync(id).ConfigureAwait(false);
-            Context.Teams.Remove(team);
-            await Context.SaveChangesAsync().ConfigureAwait(false);
+            var team = await DbContext.Teams.FindAsync(id).ConfigureAwait(false);
+            DbContext.Teams.Remove(team);
+            await DbContext.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction(nameof(Index));
         }
 
         private bool TeamExists(int id)
         {
-            return Context.Teams.Any(e => e.Id == id);
+            return DbContext.Teams.Any(e => e.Id == id);
         }
     }
 }

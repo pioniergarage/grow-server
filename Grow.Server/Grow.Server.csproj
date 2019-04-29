@@ -20,10 +20,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Styles\backend.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\backend.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Styles\libs\_functions.scss" />
     <Content Include="Styles\libs\_mixins.scss" />
     <Content Include="Styles\libs\_skel.scss" />
     <Content Include="Styles\libs\_vars.scss" />
+    <Content Include="Styles\backend.scss" />
     <Content Include="Styles\main.scss" />
   </ItemGroup>
 
@@ -34,9 +43,7 @@
     <Folder Include="Areas\Team\Data\" />
     <Folder Include="Areas\Team\Models\" />
     <Folder Include="Areas\Team\Views\" />
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\img\2017\" />
-    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <ItemGroup>

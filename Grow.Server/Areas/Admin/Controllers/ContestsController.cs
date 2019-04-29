@@ -21,7 +21,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // GET: Admin/Contests
         public async Task<IActionResult> Index()
         {
-            return View(await Context.Contests.ToListAsync().ConfigureAwait(false));
+            return View(await DbContext.Contests.ToListAsync().ConfigureAwait(false));
         }
 
         // GET: Admin/Contests/Details/5
@@ -32,7 +32,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var contest = await Context.Contests
+            var contest = await DbContext.Contests
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (contest == null)
             {
@@ -57,8 +57,8 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Context.Add(contest);
-                await Context.SaveChangesAsync().ConfigureAwait(false);
+                DbContext.Add(contest);
+                await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(contest);
@@ -72,7 +72,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var contest = await Context.Contests.FindAsync(id).ConfigureAwait(false);
+            var contest = await DbContext.Contests.FindAsync(id).ConfigureAwait(false);
             if (contest == null)
             {
                 return NotFound();
@@ -96,8 +96,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 try
                 {
-                    Context.Update(contest);
-                    await Context.SaveChangesAsync().ConfigureAwait(false);
+                    DbContext.Update(contest);
+                    await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -123,7 +123,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var contest = await Context.Contests
+            var contest = await DbContext.Contests
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (contest == null)
             {
@@ -138,15 +138,15 @@ namespace Grow.Server.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var contest = await Context.Contests.FindAsync(id).ConfigureAwait(false);
-            Context.Contests.Remove(contest);
-            await Context.SaveChangesAsync().ConfigureAwait(false);
+            var contest = await DbContext.Contests.FindAsync(id).ConfigureAwait(false);
+            DbContext.Contests.Remove(contest);
+            await DbContext.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction(nameof(Index));
         }
 
         private bool ContestExists(int id)
         {
-            return Context.Contests.Any(e => e.Id == id);
+            return DbContext.Contests.Any(e => e.Id == id);
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Grow.Server.Model.Entities.Partner>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Partners | " + ViewBag.SelectedContestYear;
 }
 
-<h2>Index</h2>
+<h2>Partners for @ViewBag.SelectedContestName</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -18,12 +18,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -35,12 +29,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedAt)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

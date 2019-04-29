@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Grow.Server.Model
 {
@@ -101,6 +102,12 @@ namespace Grow.Server.Model
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
+        public void ResetDatabase()
+        {
+            this.GetService<IMigrator>().Migrate(Migration.InitialDatabase);
+            Database.Migrate();
+        }
+        
         private void AddTimestamps()
         {
             var entities = ChangeTracker.Entries()
@@ -118,10 +125,5 @@ namespace Grow.Server.Model
             }
         }
 
-        public void ResetDatabase()
-        {
-            this.GetService<IMigrator>().Migrate(Migration.InitialDatabase);
-            Database.Migrate();
-        }
     }
 }

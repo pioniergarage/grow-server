@@ -28,6 +28,11 @@ namespace Grow.Server.App_Start
                 options.Password.RequiredLength = 8;
             });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Expiration = TimeSpan.FromDays(14);
+            });
+
             services.AddTransient<IAuthDataInitializer, AuthDataInitializer>();
         }
 

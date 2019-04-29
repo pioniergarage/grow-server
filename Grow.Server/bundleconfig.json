@@ -7,6 +7,18 @@
   },
   {
     "inputFiles": [
+      "wwwroot/css/backend.css"
+    ],
+    "outputFileName": "wwwroot/css/backend.min.css"
+  },
+  {
+    "inputFiles": [
+      "wwwroot/js/backend.js"
+    ],
+    "outputFileName": "wwwroot/js/backend.min.js"
+  },
+  {
+    "inputFiles": [
       "wwwroot/plugins/paper-dashboard/css/paper-dashboard.css"
     ],
     "outputFileName": "wwwroot/plugins/paper-dashboard/css/paper-dashboard.min.css"

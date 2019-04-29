@@ -18,7 +18,7 @@ namespace Grow.Server.Controllers
 
         public IActionResult Index()
         {
-            var model = CurrentPartners
+            var model = PartnersInSelectedYear
                 .Include(t => t.Image)
                 .ToList();
             return View(model);
@@ -41,14 +41,14 @@ namespace Grow.Server.Controllers
 
         public IActionResult Teams()
         {
-            var teams = CurrentTeams
+            var teams = TeamsInSelectedYear
                 .Include(t => t.LogoImage)
                 .Include(t => t.TeamPhoto)
                 .OrderByDescending(t => t.IsActive)
                     .ThenBy(t=> t.Name)
                 .ToList();
 
-            var prizes = CurrentPrizes
+            var prizes = PrizesInSelectedYear
                 .Include(p => p.Winner)
                 .Include(p => p.GivenBy)
                     .ThenInclude(p => p.Image)
@@ -61,7 +61,7 @@ namespace Grow.Server.Controllers
 
         public IActionResult Judges()
         {
-            var model = CurrentJudges
+            var model = JudgesInSelectedYear
                 .Include(p => p.Image)
                 .OrderBy(p => p.Name)
                 .ToList();
@@ -70,7 +70,7 @@ namespace Grow.Server.Controllers
 
         public IActionResult Organizers()
         {
-            var model = CurrentOrganizers
+            var model = OrganizersInSelectedYear
                 .Include(p => p.Image)
                 .OrderBy(p => p.Name)
                 .ToList();
@@ -79,7 +79,7 @@ namespace Grow.Server.Controllers
 
         public IActionResult Mentors()
         {
-            var model = CurrentMentors
+            var model = MentorsInSelectedYear
                 .Include(p => p.Image)
                 .OrderBy(p => p.Name)
                 .ToList();
@@ -88,7 +88,7 @@ namespace Grow.Server.Controllers
 
         public IActionResult Program()
         {
-            var model = CurrentEvents
+            var model = EventsInSelectedYear
                 .Include(e => e.HeldBy)
                 .OrderBy(e => e.Start)
                 .ToList();

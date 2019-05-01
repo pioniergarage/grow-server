@@ -17,14 +17,12 @@ namespace Grow.Server.Areas.Admin.Controllers
         public EventsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
-
-        // GET: Admin/Events
+        
         public async Task<IActionResult> Index()
         {
             return View(await EventsInSelectedYear.ToListAsync().ConfigureAwait(false));
         }
-
-        // GET: Admin/Events/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,7 +30,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var @event = await EventsInSelectedYear
+            var @event = await DbContext.Events
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (@event == null)
             {
@@ -41,14 +39,12 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(@event);
         }
-
-        // GET: Admin/Events/Create
+        
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Admin/Events/Create
+        
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -57,14 +53,13 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                DbContext.Add(@event);
+                SelectedContest.Include(c => c.Events).Single().Events.Add(@event);
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(@event);
         }
-
-        // GET: Admin/Events/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,15 +67,14 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var @event = await EventsInSelectedYear.FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
+            var @event = await DbContext.Events.FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (@event == null)
             {
                 return NotFound();
             }
             return View(@event);
         }
-
-        // POST: Admin/Events/Edit/5
+        
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -114,8 +108,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(@event);
         }
-
-        // GET: Admin/Events/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,7 +116,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var @event = await EventsInSelectedYear
+            var @event = await DbContext.Events
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (@event == null)
             {
@@ -132,13 +125,12 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(@event);
         }
-
-        // POST: Admin/Events/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var @event = await EventsInSelectedYear.FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
+            var @event = await DbContext.Events.FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             DbContext.Events.Remove(@event);
             await DbContext.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction(nameof(Index));

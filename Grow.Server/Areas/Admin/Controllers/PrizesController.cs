@@ -17,14 +17,12 @@ namespace Grow.Server.Areas.Admin.Controllers
         public PrizesController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
-
-        // GET: Admin/Prizes
+        
         public async Task<IActionResult> Index()
         {
-            return View(await DbContext.Prizes.ToListAsync().ConfigureAwait(false));
+            return View(await PrizesInSelectedYear.ToListAsync().ConfigureAwait(false));
         }
-
-        // GET: Admin/Prizes/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,14 +39,12 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(prize);
         }
-
-        // GET: Admin/Prizes/Create
+        
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Admin/Prizes/Create
+        
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -57,14 +53,13 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                DbContext.Add(prize);
+                SelectedContest.Include(c => c.Prizes).Single().Prizes.Add(prize);
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(prize);
         }
-
-        // GET: Admin/Prizes/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,8 +74,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(prize);
         }
-
-        // POST: Admin/Prizes/Edit/5
+        
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -114,8 +108,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(prize);
         }
-
-        // GET: Admin/Prizes/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,8 +125,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(prize);
         }
-
-        // POST: Admin/Prizes/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

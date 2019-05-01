@@ -43,6 +43,7 @@
                 <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -51,6 +52,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="@ViewBag.ReturnUrl">Back to List</a>
 </div>
 

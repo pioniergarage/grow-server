@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Grow.Server.Model.Entities;
-using Grow.Server.Model.Entities.JoinEntities;
 using Microsoft.EntityFrameworkCore;
-using Grow.Server.Model.Utils;
 using System.Threading;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -30,12 +27,16 @@ namespace Grow.Server.Model
 
         public DbSet<Partner> Partners { get; set; }
 
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<Organizer> Organizers { get; set; }
+
+        public DbSet<Judge> Judges { get; set; }
+
+        public DbSet<Mentor> Mentors { get; set; }
 
         public DbSet<Team> Teams { get; set; }
 
         public DbSet<Prize> Prizes { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -55,19 +56,6 @@ namespace Grow.Server.Model
             builder.Entity<Event>()
                 .HasOne(e => e.Contest)
                 .WithMany(c => c.Events);
-
-            // Adjust many-to-many relationships
-            builder.Entity<PartnerToContest>()
-                .HasKey(t => new { t.PartnerId, t.ContestId });
-
-            builder.Entity<MentorToContest>()
-                .HasKey(t => new { t.PersonId, t.ContestId });
-
-            builder.Entity<OrganizerToContest>()
-                .HasKey(t => new { t.PersonId, t.ContestId });
-
-            builder.Entity<JudgeToContest>()
-                .HasKey(t => new { t.PersonId, t.ContestId });
         }
 
         public override int SaveChanges()
@@ -92,7 +80,7 @@ namespace Grow.Server.Model
             catch (DbUpdateException e)
             {
                 Debug.WriteLine(e);
-                throw e;
+                throw;
             }
         }
 
@@ -107,7 +95,7 @@ namespace Grow.Server.Model
             this.GetService<IMigrator>().Migrate(Migration.InitialDatabase);
             Database.Migrate();
         }
-        
+
         private void AddTimestamps()
         {
             var entities = ChangeTracker.Entries()
@@ -124,6 +112,5 @@ namespace Grow.Server.Model
                 entity.CurrentValues[nameof(BaseEntity.UpdatedAt)] = now;
             }
         }
-
     }
 }

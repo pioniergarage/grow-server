@@ -9,6 +9,45 @@ namespace Grow.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Images",
                 columns: table => new
                 {
@@ -25,53 +64,109 @@ namespace Grow.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Partners",
+                name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    ImageId = table.Column<int>(nullable: true)
+                    RoleId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Partners", x => x.Id);
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Partners_Images_ImageId",
-                        column: x => x.ImageId,
-                        principalTable: "Images",
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Persons",
+                name: "AspNetUserClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    JobTitle = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    ImageId = table.Column<int>(nullable: true),
-                    Expertise = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    WebsiteUrl = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persons", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Persons_Images_ImageId",
-                        column: x => x.ImageId,
-                        principalTable: "Images",
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
+                    ProviderDisplayName = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,12 +194,6 @@ namespace Grow.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Events_Partners_HeldById",
-                        column: x => x.HeldById,
-                        principalTable: "Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,100 +228,132 @@ namespace Grow.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "JudgeToContest",
+                name: "Judges",
                 columns: table => new
                 {
-                    PersonId = table.Column<int>(nullable: false),
-                    ContestId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    JobTitle = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ImageId = table.Column<int>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: true),
+                    WebsiteUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JudgeToContest", x => new { x.PersonId, x.ContestId });
+                    table.PrimaryKey("PK_Judges", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JudgeToContest_Contests_ContestId",
+                        name: "FK_Judges_Contests_ContestId",
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_JudgeToContest_Persons_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Persons",
+                        name: "FK_Judges_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MentorToContest",
+                name: "Mentors",
                 columns: table => new
                 {
-                    PersonId = table.Column<int>(nullable: false),
-                    ContestId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    JobTitle = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ImageId = table.Column<int>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: true),
+                    Expertise = table.Column<string>(nullable: true),
+                    WebsiteUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MentorToContest", x => new { x.PersonId, x.ContestId });
+                    table.PrimaryKey("PK_Mentors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MentorToContest_Contests_ContestId",
+                        name: "FK_Mentors_Contests_ContestId",
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_MentorToContest_Persons_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Persons",
+                        name: "FK_Mentors_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrganizerToContest",
+                name: "Organizers",
                 columns: table => new
                 {
-                    PersonId = table.Column<int>(nullable: false),
-                    ContestId = table.Column<int>(nullable: false),
-                    Contribution = table.Column<string>(nullable: true)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    JobTitle = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ImageId = table.Column<int>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrganizerToContest", x => new { x.PersonId, x.ContestId });
+                    table.PrimaryKey("PK_Organizers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrganizerToContest_Contests_ContestId",
+                        name: "FK_Organizers_Contests_ContestId",
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrganizerToContest_Persons_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Persons",
+                        name: "FK_Organizers_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PartnerToContest",
+                name: "Partners",
                 columns: table => new
                 {
-                    PartnerId = table.Column<int>(nullable: false),
-                    ContestId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ImageId = table.Column<int>(nullable: true),
+                    ContestId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PartnerToContest", x => new { x.PartnerId, x.ContestId });
+                    table.PrimaryKey("PK_Partners", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PartnerToContest_Contests_ContestId",
+                        name: "FK_Partners_Contests_ContestId",
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PartnerToContest_Partners_PartnerId",
-                        column: x => x.PartnerId,
-                        principalTable: "Partners",
+                        name: "FK_Partners_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -322,6 +443,45 @@ namespace Grow.Server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Contests_FinalEventId",
                 table: "Contests",
                 column: "FinalEventId");
@@ -347,33 +507,43 @@ namespace Grow.Server.Migrations
                 column: "HeldById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JudgeToContest_ContestId",
-                table: "JudgeToContest",
+                name: "IX_Judges_ContestId",
+                table: "Judges",
                 column: "ContestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MentorToContest_ContestId",
-                table: "MentorToContest",
+                name: "IX_Judges_ImageId",
+                table: "Judges",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Mentors_ContestId",
+                table: "Mentors",
                 column: "ContestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrganizerToContest_ContestId",
-                table: "OrganizerToContest",
+                name: "IX_Mentors_ImageId",
+                table: "Mentors",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Organizers_ContestId",
+                table: "Organizers",
+                column: "ContestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Organizers_ImageId",
+                table: "Organizers",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Partners_ContestId",
+                table: "Partners",
                 column: "ContestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Partners_ImageId",
                 table: "Partners",
-                column: "ImageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PartnerToContest_ContestId",
-                table: "PartnerToContest",
-                column: "ContestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Persons_ImageId",
-                table: "Persons",
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
@@ -413,6 +583,14 @@ namespace Grow.Server.Migrations
                 principalTable: "Contests",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Events_Partners_HeldById",
+                table: "Events",
+                column: "HeldById",
+                principalTable: "Partners",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -426,22 +604,37 @@ namespace Grow.Server.Migrations
                 table: "Contests");
 
             migrationBuilder.DropTable(
-                name: "JudgeToContest");
+                name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
-                name: "MentorToContest");
+                name: "AspNetUserClaims");
 
             migrationBuilder.DropTable(
-                name: "OrganizerToContest");
+                name: "AspNetUserLogins");
 
             migrationBuilder.DropTable(
-                name: "PartnerToContest");
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Judges");
+
+            migrationBuilder.DropTable(
+                name: "Mentors");
+
+            migrationBuilder.DropTable(
+                name: "Organizers");
 
             migrationBuilder.DropTable(
                 name: "Prizes");
 
             migrationBuilder.DropTable(
-                name: "Persons");
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Teams");
@@ -450,10 +643,10 @@ namespace Grow.Server.Migrations
                 name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Contests");
+                name: "Partners");
 
             migrationBuilder.DropTable(
-                name: "Partners");
+                name: "Contests");
 
             migrationBuilder.DropTable(
                 name: "Images");

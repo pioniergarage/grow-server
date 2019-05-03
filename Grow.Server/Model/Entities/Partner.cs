@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Grow.Server.Model.Entities
+﻿namespace Grow.Server.Model.Entities
 {
     public class Partner : BaseEntity
     {
@@ -12,5 +7,7 @@ namespace Grow.Server.Model.Entities
         public string Description { get; set; }
 
         public virtual Image Image { get; set; }
+
+        public virtual Contest Contest { get; set; }
     }
 }

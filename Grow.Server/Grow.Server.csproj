@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20190403192918_AddIdentity.Designer.cs" />
     <Compile Remove="Migrations\20190403193020_AddIdentity.cs" />
     <Compile Remove="Migrations\20190403193020_AddIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20190403195540_AddIdentity.cs" />
+    <Compile Remove="Migrations\20190403195540_AddIdentity.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +45,7 @@
     <Folder Include="Areas\Team\Data\" />
     <Folder Include="Areas\Team\Models\" />
     <Folder Include="Areas\Team\Views\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\img\2017\" />
   </ItemGroup>
 
@@ -62,27 +65,6 @@
 
   <ItemGroup>
     <Content Update="Areas\Admin\Views\Home\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\People\Delete.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\People\Details.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\People\Edit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Mentors\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Mentors\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Organizers\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Areas\Admin\Views\Organizers\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Account\ChangePasswordConfirmation.cshtml">

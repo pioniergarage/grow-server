@@ -15,7 +15,7 @@ namespace Grow.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -165,88 +165,46 @@ namespace Grow.Server.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.JudgeToContest", b =>
-                {
-                    b.Property<int>("PersonId");
-
-                    b.Property<int>("ContestId");
-
-                    b.HasKey("PersonId", "ContestId");
-
-                    b.HasIndex("ContestId");
-
-                    b.ToTable("JudgeToContest");
-                });
-
-            modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.MentorToContest", b =>
-                {
-                    b.Property<int>("PersonId");
-
-                    b.Property<int>("ContestId");
-
-                    b.HasKey("PersonId", "ContestId");
-
-                    b.HasIndex("ContestId");
-
-                    b.ToTable("MentorToContest");
-                });
-
-            modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.OrganizerToContest", b =>
-                {
-                    b.Property<int>("PersonId");
-
-                    b.Property<int>("ContestId");
-
-                    b.Property<string>("Contribution");
-
-                    b.HasKey("PersonId", "ContestId");
-
-                    b.HasIndex("ContestId");
-
-                    b.ToTable("OrganizerToContest");
-                });
-
-            modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.PartnerToContest", b =>
-                {
-                    b.Property<int>("PartnerId");
-
-                    b.Property<int>("ContestId");
-
-                    b.HasKey("PartnerId", "ContestId");
-
-                    b.HasIndex("ContestId");
-
-                    b.ToTable("PartnerToContest");
-                });
-
-            modelBuilder.Entity("Grow.Server.Model.Entities.Partner", b =>
+            modelBuilder.Entity("Grow.Server.Model.Entities.Judge", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("Email");
+
                     b.Property<int?>("ImageId");
+
+                    b.Property<string>("JobTitle");
 
                     b.Property<string>("Name");
 
                     b.Property<DateTime>("UpdatedAt");
 
+                    b.Property<string>("WebsiteUrl");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ContestId");
 
                     b.HasIndex("ImageId");
 
-                    b.ToTable("Partners");
+                    b.ToTable("Judges");
                 });
 
-            modelBuilder.Entity("Grow.Server.Model.Entities.Person", b =>
+            modelBuilder.Entity("Grow.Server.Model.Entities.Mentor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -268,9 +226,69 @@ namespace Grow.Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ContestId");
+
                     b.HasIndex("ImageId");
 
-                    b.ToTable("Persons");
+                    b.ToTable("Mentors");
+                });
+
+            modelBuilder.Entity("Grow.Server.Model.Entities.Organizer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ContestId");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Email");
+
+                    b.Property<int?>("ImageId");
+
+                    b.Property<string>("JobTitle");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContestId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("Organizers");
+                });
+
+            modelBuilder.Entity("Grow.Server.Model.Entities.Partner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ContestId");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int?>("ImageId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContestId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("Partners");
                 });
 
             modelBuilder.Entity("Grow.Server.Model.Entities.Prize", b =>
@@ -491,67 +509,45 @@ namespace Grow.Server.Migrations
                         .HasForeignKey("HeldById");
                 });
 
-            modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.JudgeToContest", b =>
+            modelBuilder.Entity("Grow.Server.Model.Entities.Judge", b =>
                 {
                     b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
                         .WithMany("Judges")
-                        .HasForeignKey("ContestId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ContestId");
 
-                    b.HasOne("Grow.Server.Model.Entities.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.MentorToContest", b =>
-                {
-                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
-                        .WithMany("Mentors")
-                        .HasForeignKey("ContestId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Grow.Server.Model.Entities.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.OrganizerToContest", b =>
-                {
-                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
-                        .WithMany("Organizers")
-                        .HasForeignKey("ContestId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Grow.Server.Model.Entities.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Grow.Server.Model.Entities.JoinEntities.PartnerToContest", b =>
-                {
-                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
-                        .WithMany("Partners")
-                        .HasForeignKey("ContestId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Grow.Server.Model.Entities.Partner", "Partner")
-                        .WithMany()
-                        .HasForeignKey("PartnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Grow.Server.Model.Entities.Partner", b =>
-                {
                     b.HasOne("Grow.Server.Model.Entities.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
                 });
 
-            modelBuilder.Entity("Grow.Server.Model.Entities.Person", b =>
+            modelBuilder.Entity("Grow.Server.Model.Entities.Mentor", b =>
                 {
+                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
+                        .WithMany("Mentors")
+                        .HasForeignKey("ContestId");
+
+                    b.HasOne("Grow.Server.Model.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+                });
+
+            modelBuilder.Entity("Grow.Server.Model.Entities.Organizer", b =>
+                {
+                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
+                        .WithMany("Organizers")
+                        .HasForeignKey("ContestId");
+
+                    b.HasOne("Grow.Server.Model.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+                });
+
+            modelBuilder.Entity("Grow.Server.Model.Entities.Partner", b =>
+                {
+                    b.HasOne("Grow.Server.Model.Entities.Contest", "Contest")
+                        .WithMany("Partners")
+                        .HasForeignKey("ContestId");
+
                     b.HasOne("Grow.Server.Model.Entities.Image", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");

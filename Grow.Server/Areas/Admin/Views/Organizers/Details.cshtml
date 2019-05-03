@@ -1,14 +1,13 @@
-﻿@model Grow.Server.Model.Entities.Person
+﻿@model Grow.Server.Model.Entities.Organizer
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Details";
 }
 
-<h2>Delete</h2>
+<h2>Details</h2>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Person</h4>
+    <h4>Organizer</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -30,22 +29,10 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Expertise)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Expertise)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WebsiteUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WebsiteUrl)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CreatedAt)
@@ -60,11 +47,8 @@
             @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a href="@ViewBag.ReturnUrl">Back to List</a>
-    </form>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

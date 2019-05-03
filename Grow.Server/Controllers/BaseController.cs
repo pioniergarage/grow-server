@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Grow.Server.Model;
 using Grow.Server.Model.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -27,22 +24,22 @@ namespace Grow.Server.Controllers
             .Where(e => e.Contest.Year == SelectedContestYear);
 
         protected IQueryable<Partner> PartnersInSelectedYear => DbContext.Partners
-            .Where(p => DbContext.Contests.Any(c => c.Year == SelectedContestYear && c.Partners.Any(l => l.Partner.Equals(p))));
+            .Where(p => p.Contest.Year == SelectedContestYear);
 
-        protected IQueryable<Person> MentorsInSelectedYear => DbContext.Persons
-            .Where(p => DbContext.Contests.Any(c => c.Year == SelectedContestYear && c.Mentors.Any(l => l.Person.Equals(p))));
+        protected IQueryable<Mentor> MentorsInSelectedYear => DbContext.Mentors
+            .Where(m => m.Contest.Year == SelectedContestYear);
 
-        protected IQueryable<Person> OrganizersInSelectedYear => DbContext.Persons
-            .Where(p => DbContext.Contests.Any(c => c.Year == SelectedContestYear && c.Organizers.Any(l => l.Person.Equals(p))));
+        protected IQueryable<Organizer> OrganizersInSelectedYear => DbContext.Organizers
+            .Where(o => o.Contest.Year == SelectedContestYear);
 
-        protected IQueryable<Person> JudgesInSelectedYear => DbContext.Persons
-            .Where(p => DbContext.Contests.Any(c => c.Year == SelectedContestYear && c.Judges.Any(l => l.Person.Equals(p))));
+        protected IQueryable<Judge> JudgesInSelectedYear => DbContext.Judges
+            .Where(j => j.Contest.Year == SelectedContestYear);
 
         protected IQueryable<Prize> PrizesInSelectedYear => DbContext.Prizes
-            .Where(e => e.Contest.Year == SelectedContestYear);
+            .Where(p => p.Contest.Year == SelectedContestYear);
 
         protected IQueryable<Team> TeamsInSelectedYear => DbContext.Teams
-            .Where(e => e.Contest.Year == SelectedContestYear);
+            .Where(t => t.Contest.Year == SelectedContestYear);
 
         protected BaseController(GrowDbContext dbContext, IOptions<AppSettings> appSettings)
         {

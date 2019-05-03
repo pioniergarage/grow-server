@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Grow.Server.Model.Entities.Person>
+﻿@model IEnumerable<Grow.Server.Model.Entities.Organizer>
 
 @{
     ViewData["Title"] = "Organizers | " + ViewBag.SelectedContestYear;
@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.JobTitle)
             </th>
             <th></th>
         </tr>
@@ -29,12 +29,12 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @Html.DisplayFor(modelItem => item.JobTitle)
                 </td>
                 <td>
-                    <a asp-controller="People" asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Edit</a> |
-                    <a asp-controller="People" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Details</a> |
-                    <a asp-controller="People" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

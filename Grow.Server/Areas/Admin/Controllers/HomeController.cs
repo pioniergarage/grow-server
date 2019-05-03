@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -24,7 +22,6 @@ namespace Grow.Server.Areas.Admin.Controllers
             query = query
                 .Include(c => c.Events)
                 .Include(c => c.Mentors)
-                    .ThenInclude(m => m.Person)
                 .Include(c => c.Prizes)
                 .Include(c => c.Teams);
             var contest = query.Single();

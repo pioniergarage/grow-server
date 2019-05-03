@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Grow.Server.Model.Entities.Person>
+﻿@model IEnumerable<Grow.Server.Model.Entities.Mentor>
 
 @{
     ViewData["Title"] = "Mentors | " + ViewBag.SelectedContestYear;
@@ -16,10 +16,13 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Expertise)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.JobTitle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Expertise)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -30,25 +33,28 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.JobTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Expertise)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    <a asp-controller="People" asp-action="Edit" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Edit</a> |
-                    <a asp-controller="People" asp-action="Details" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Details</a> |
-                    <a asp-controller="People" asp-action="Delete" asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expertise)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td title="@item.Description">
+                @item.Description.DynamicSubstring(120)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

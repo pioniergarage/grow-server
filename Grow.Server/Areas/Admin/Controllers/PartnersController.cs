@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Grow.Server.Model;
 using Grow.Server.Model.Entities;
 using Microsoft.Extensions.Options;
-using Grow.Server.Model.Entities.JoinEntities;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -54,12 +50,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var link = new PartnerToContest
-                {
-                    Contest = SelectedContest.Single(),
-                    Partner = partner
-                };
-                SelectedContest.Include(c => c.Partners).Single().Partners.Add(link);
+                SelectedContest.Include(c => c.Partners).Single().Partners.Add(partner);
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }

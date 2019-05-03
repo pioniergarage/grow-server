@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Grow.Server.Model.Entities.JoinEntities;
+﻿using System.Collections.Generic;
 
 namespace Grow.Server.Model.Entities
 {
@@ -21,13 +16,13 @@ namespace Grow.Server.Model.Entities
 
         public virtual ICollection<Event> Events { get; set; }
 
-        public virtual ICollection<PartnerToContest> Partners { get; set; }
+        public virtual ICollection<Partner> Partners { get; set; }
 
-        public virtual ICollection<OrganizerToContest> Organizers { get; set; }
+        public virtual ICollection<Organizer> Organizers { get; set; }
 
-        public virtual ICollection<MentorToContest> Mentors { get; set; }
+        public virtual ICollection<Mentor> Mentors { get; set; }
 
-        public virtual ICollection<JudgeToContest> Judges { get; set; }
+        public virtual ICollection<Judge> Judges { get; set; }
 
         public virtual ICollection<Team> Teams { get; set; }
 

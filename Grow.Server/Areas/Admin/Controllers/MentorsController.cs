@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Grow.Server.Model;
 using Grow.Server.Model.Entities;
 using Microsoft.Extensions.Options;
-using Grow.Server.Model.Entities.JoinEntities;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -21,7 +20,24 @@ namespace Grow.Server.Areas.Admin.Controllers
         
         public async Task<IActionResult> Index()
         {
-            return View(await MentorsInSelectedYear.ToListAsync().ConfigureAwait(false));
+            return View(await MentorsInSelectedYear.ToListAsync());
+        }
+        
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var mentor = await DbContext.Mentors
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (mentor == null)
+            {
+                return NotFound();
+            }
+
+            return View(mentor);
         }
         
         public IActionResult Create()
@@ -33,20 +49,96 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,JobTitle,Description,Expertise,Email,WebsiteUrl,Id")] Person person)
+        public async Task<IActionResult> Create([Bind("Expertise,WebsiteUrl,Name,JobTitle,Description,Email,Id,CreatedAt,UpdatedAt")] Mentor mentor)
         {
             if (ModelState.IsValid)
             {
-                var link = new MentorToContest
-                {
-                    Contest = SelectedContest.Single(),
-                    Person = person
-                };
-                SelectedContest.Include(c => c.Mentors).Single().Mentors.Add(link);
-                await DbContext.SaveChangesAsync().ConfigureAwait(false);
+                SelectedContest.Include(c => c.Mentors).Single().Mentors.Add(mentor);
+                await DbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(person);
+            return View(mentor);
+        }
+        
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var mentor = await DbContext.Mentors.FindAsync(id);
+            if (mentor == null)
+            {
+                return NotFound();
+            }
+            return View(mentor);
+        }
+        
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Expertise,WebsiteUrl,Name,JobTitle,Description,Email,Id,CreatedAt,UpdatedAt")] Mentor mentor)
+        {
+            if (id != mentor.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    DbContext.Update(mentor);
+                    await DbContext.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MentorExists(mentor.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(mentor);
+        }
+        
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var mentor = await DbContext.Mentors
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (mentor == null)
+            {
+                return NotFound();
+            }
+
+            return View(mentor);
+        }
+        
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var mentor = await DbContext.Mentors.FindAsync(id);
+            DbContext.Mentors.Remove(mentor);
+            await DbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool MentorExists(int id)
+        {
+            return DbContext.Mentors.Any(e => e.Id == id);
         }
     }
 }

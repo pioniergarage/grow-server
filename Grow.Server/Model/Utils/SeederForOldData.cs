@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Grow.Server.Model.Entities;
-using Grow.Server.Model.Entities.JoinEntities;
 
 namespace Grow.Server.Model.Utils
 {
@@ -11,9 +11,9 @@ namespace Grow.Server.Model.Utils
         public static bool IsEnabled { get; set; }
         public static bool EntitiesAdded { get; set; }
 
-        public static Person[] Organizers { get; private set; }
-        public static Person[] Judges { get; private set; }
-        public static Person[] Mentors { get; private set; }
+        public static Organizer[] Organizers { get; private set; }
+        public static Judge[] Judges { get; private set; }
+        public static Mentor[] Mentors { get; private set; }
         public static Event[] Events { get; private set; }
         public static Partner[] Partners { get; private set; }
         public static Image[] Orga_images { get; private set; }
@@ -49,21 +49,18 @@ namespace Grow.Server.Model.Utils
                 Year = "2017",
                 Language = "German",
                 Teams = Teams.SubArray(33).ToList(),
-                Prizes = Prizes.SubArray(6).ToList()
+                Prizes = Prizes.SubArray(6).ToList(),
+                Mentors = Mentors.SubArray(16).Merge(Mentors.Get(5, 14)).ToListOfCopies(),
+                Judges = Judges.Get(0, 1, 6, 7, 8, 9).ToListOfCopies(),
+                Organizers = Organizers.Get(0, 1, 3, 4).ToListOfCopies(),
+                Partners = Partners.Get(0, 1, 4, 5, 8, 9).ToListOfCopies()
             };
 
             // Set special collection navigation properties
             var events = Events.SubArray(8);
-            contest.Events = AddReferencesInCollection(contest, events, (e, c) => { e.Contest = c; }).ToList();
-            var mentors = Mentors.SubArray(16).Merge(Mentors.Get(5, 14));
-            contest.Mentors = TransformToJoinEntities<MentorToContest>(contest, Mentors).ToList();
-            var judges = Judges.Get(0, 1, 6, 7, 8).Merge(Mentors.Get(12));
-            contest.Judges = TransformToJoinEntities<JudgeToContest>(contest, judges).ToList();
-            var organizers = Organizers.Get(0, 1, 3, 4);
-            contest.Organizers = TransformToJoinEntities<OrganizerToContest>(contest, organizers).ToList();
-            var partners = Partners.Get(0, 1, 4, 5, 8, 9);
-            contest.Partners = TransformToJoinEntities<PartnerToContest>(contest, Partners).ToList();
+            contest.Events = AddReferencesInCollection(contest, events, (e, c) => e.Contest = c).ToListOfCopies();
 
+            context.Contests.Add(contest);
             context.SaveChanges();
 
             // Special additional properties to avoid circular references
@@ -85,16 +82,17 @@ namespace Grow.Server.Model.Utils
                 Year = "2018",
                 Language = "English",
                 Teams = Teams.Take(33).ToList(),
-                Prizes = Prizes.Take(6).ToList()
+                Prizes = Prizes.Take(6).ToList(),
+                Mentors = Mentors.Take(16).ToListOfCopies(),
+                Judges = Judges.Take(6).ToListOfCopies(),
+                Organizers = Organizers.Take(6).ToListOfCopies(),
+                Partners = Partners.Take(8).ToListOfCopies()
             };
 
             // Set special collection navigation properties
-            contest.Events = AddReferencesInCollection(contest, Events.Take(8).ToArray(), (e, c) => { e.Contest = c; }).ToList();
-            contest.Mentors = TransformToJoinEntities<MentorToContest>(contest, Mentors.Take(16).ToArray()).ToList();
-            contest.Judges = TransformToJoinEntities<JudgeToContest>(contest, Judges.Take(6).ToArray()).ToList();
-            contest.Organizers = TransformToJoinEntities<OrganizerToContest>(contest, Organizers.Take(6).ToArray()).ToList();
-            contest.Partners = TransformToJoinEntities<PartnerToContest>(contest, Partners.Take(8).ToArray()).ToList();
+            contest.Events = AddReferencesInCollection(contest, Events.Take(8).ToArray(), (e, c) => e.Contest = c).ToListOfCopies();
 
+            context.Contests.Add(contest);
             context.SaveChanges();
 
             // Special additional properties to avoid circular references
@@ -103,7 +101,7 @@ namespace Grow.Server.Model.Utils
 
             context.SaveChanges();
         }
-        
+
         private static bool SeedEntities(GrowDbContext context)
         {
             if (!IsEnabled)
@@ -119,20 +117,20 @@ namespace Grow.Server.Model.Utils
             }
 
             // Add pre-defined data
-            context.Images.AddRange(Judge_images);
-            context.Images.AddRange(Mentor_images);
-            context.Images.AddRange(Team_images);
-            context.Images.AddRange(Orga_images);
-            context.Images.AddRange(Partner_images);
+            //context.Images.AddRange(Judge_images);
+            //context.Images.AddRange(Mentor_images);
+            //context.Images.AddRange(Team_images);
+            //context.Images.AddRange(Orga_images);
+            //context.Images.AddRange(Partner_images);
 
-            context.Persons.AddRange(Mentors);
-            context.Persons.AddRange(Judges);
-            context.Persons.AddRange(Organizers);
+            //context.Mentors.AddRange(Mentors);
+            //context.Judges.AddRange(Judges);
+            //context.Organizers.AddRange(Organizers);
 
-            context.Events.AddRange(Events);
-            context.Partners.AddRange(Partners);
-            context.Teams.AddRange(Teams);
-            context.Prizes.AddRange(Prizes);
+            //context.Events.AddRange(Events);
+            //context.Partners.AddRange(Partners);
+            //context.Teams.AddRange(Teams);
+            //context.Prizes.AddRange(Prizes);
 
             context.SaveChanges();
 
@@ -145,90 +143,96 @@ namespace Grow.Server.Model.Utils
         {
             // Judges
             Judges = new[] {
-                new Person
+                new Judge
                 {
                     Name = "Holger Kujath",
                     Description = "Founder and CEO of the online chat community Knuddels",
                     Image = Judge_images[2]
                 },
-                new Person
+                new Judge
                 {
                     Name = "Orestis Terzidis",
                     Description = "Professor and head of the entrepreneurial institute EnTechnon",
                     Image = Judge_images[5]
                 },
-                new Person
+                new Judge
                 {
                     Name = "Michael Kimmig",
                     Description = "Head of Corporate Process Management at GRENKE digital",
                     Image = Judge_images[4]
                 },
-                new Person
+                new Judge
                 {
                     Name = "Bernhard Janke",
                     Description = "Principal at the VC company LEA Partners",
                     Image = Judge_images[0]
                 },
-                new Person
+                new Judge
                 {
                     Name = "Martin Trenkle",
                     Description = "Founder and CEO of the job placement service Campusjäger",
                     Image = Judge_images[3]
                 },
-                new Person
+                new Judge
                 {
                     Name = "Daniel Stammler",
                     Description = "Co-Founder and Co-CEO of the mobile game company Kolibri Games",
                     Image = Judge_images[1]
                 },
-                new Person
+                new Judge
                 {
                     Name = "Christian Roth",
                     Description = "Managing Partner at the VC company LEA Partners",
                     Image = null
                 },
-                new Person
+                new Judge
                 {
                     Name = "Sven Häwel",
                     Description = "Internet entrepreneur and coach",
                     Image = null
                 },
-                new Person
+                new Judge
                 {
                     Name = "Matthias Hornberger",
                     Description = "Chairman of the CyberForum",
                     Image = null
                 },
+                new Judge
+                {
+                    Name = "Nestor Rodriguez",
+                    Description = "Managing Director at atrineo AG",
+                    Image = Mentor_images[13]
+                }
             };
 
             // Organizers
             Organizers = new[] {
-                new Person
+                new Organizer
                 {
                     Name = "Dominik Doerner",
                     Image = Orga_images[3]
                 },
-                new Person
+                new Organizer
                 {
                     Name = "Anne-Cathrine Eimer",
                     Image = Orga_images[0]
                 },
-                new Person
+                new Organizer
                 {
                     Name = "Christian Wiegand",
                     Image = Orga_images[2]
                 },
-                new Person
+                new Organizer
                 {
                     Name = "Jasmin Riedel",
                     Image = Orga_images[4]
                 },
-                new Person
+                new Organizer
                 {
                     Name = "Martin Thoma",
                     Image = Orga_images[5]
                 },
-                new Person
+                new Organizer
                 {
                     Name = "Antonia Lorenz",
                     Image = Orga_images[1]
@@ -237,7 +241,7 @@ namespace Grow.Server.Model.Utils
 
             // Mentors
             Mentors = new[] {
-                new Person
+                new Mentor
                 {
                     Name = "Sebastian Böhmer",
                     JobTitle = "Founding Partner at First Momentum Ventures",
@@ -246,7 +250,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.linkedin.com/in/sebastianboehmer/",
                     Image = Mentor_images[15]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Hans-Lothar Busch",
                     JobTitle = "Trainer & coach for the acquisition of industry projects",
@@ -255,7 +259,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.mehr-industrieprojekte.de/%C3%BCber-mich/",
                     Image = Mentor_images[4]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Murat Ercan",
                     JobTitle = "CEO at MEK Webdesign",
@@ -264,7 +268,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     Image = Mentor_images[12]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Andreas Fischer",
                     JobTitle = "Founding Partner at First Momentum Ventures",
@@ -273,7 +277,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.linkedin.com/in/afischerfmv/",
                     Image = Mentor_images[0]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Jonas Fuchs",
                     JobTitle = "Founder & CEO at Usertimes Solution GmbH",
@@ -282,7 +286,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     Image = Mentor_images[7]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Peter Greiner",
                     JobTitle = "Active and financial investor for startups",
@@ -291,7 +295,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.xing.com/profile/Peter_Greiner25",
                     Image = Mentor_images[14]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Cécile F. Heger",
                     JobTitle = "CEO at ABC-Vidal",
@@ -300,7 +304,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.linkedin.com/in/c%C3%A9cile-f-heger-1593a062",
                     Image = Mentor_images[2]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Manuel Köcher",
                     JobTitle = "Manager at the CIE (KIT) and business consultant",
@@ -309,7 +313,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = null,
                     Image = Mentor_images[10]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Karl Lorey",
                     JobTitle = "Founding Partner at First Momentum Ventures",
@@ -318,7 +322,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.linkedin.com/in/karllorey/",
                     Image = Mentor_images[8]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Maja Malovic",
                     JobTitle = "Business Innovation Manager and Design Thinking Coach",
@@ -327,7 +331,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.linkedin.com/in/maja-malovic-a5095b163/",
                     Image = Mentor_images[9]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Jannik Nefferdorf",
                     JobTitle = "Student and entrepeneurial enthusiast",
@@ -336,7 +340,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.linkedin.com/in/neffi97/",
                     Image = Mentor_images[6]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Martin Rammensee",
                     JobTitle = "Founder & CEO at Green Parrot GmbH",
@@ -345,7 +349,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.linkedin.com/in/martin-rammensee-a7860398/",
                     Image = Mentor_images[11]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Nestor Rodriguez",
                     JobTitle = "Innovational tourist",
@@ -354,7 +358,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.xing.com/profile/Nestor_Rodriguez",
                     Image = Mentor_images[13]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Ben Romberg",
                     JobTitle = "Founder of codefortynine GmbH",
@@ -363,7 +367,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.xing.com/profile/Ben_Romberg",
                     Image = Mentor_images[1]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Heinz T. Rothermel",
                     JobTitle = "Business consultant and lecturer",
@@ -372,7 +376,7 @@ namespace Grow.Server.Model.Utils
                     WebsiteUrl = "https://www.xing.com/profile/Heinz_Rothermel/",
                     Image = Mentor_images[5]
                 },
-                new Person
+                new Mentor
                 {
                     Name = "Frederic Tausch",
                     JobTitle = "CTO & Co-Founder at apic.ai",
@@ -384,7 +388,7 @@ namespace Grow.Server.Model.Utils
 
                 // 2017
 
-                new Person
+                new Mentor
                 {
                 Name = "Alexander Glöckner",
                 JobTitle = "Berater bei Glöcner & Schuhwerk",
@@ -393,7 +397,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Anita Berres",
                 JobTitle = "Selbstständige Unternehmerin",
@@ -402,7 +406,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Bianka Reinhardt",
                 JobTitle = "Selbständige Marketingberaterin und Coach, Referentin für Marketing und Öffentlichkeitsarbeit bei der CardProcess GmbH",
@@ -411,7 +415,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Claudia März-Sax",
                 JobTitle = "Selbstständige Beraterin für die Unternehmen s.a.x. Karlsruhe und GDEKK Köln",
@@ -420,7 +424,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Dirk Keune",
                 JobTitle = "Geschäfsführer bei der Inventioncase Beteiligungs GmbH",
@@ -429,7 +433,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Dr. Klaus Neb",
                 JobTitle = "AR Vorsitzender Michelin DE",
@@ -438,7 +442,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Florian Buzin",
                 JobTitle = "CEO bei STARFACE GmbH",
@@ -447,7 +451,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Francesco Loth",
                 JobTitle = "Geschäftsführer bei ETECTURE",
@@ -456,7 +460,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Gunnar Lott",
                 JobTitle = "Geschäftsführer Visibility Communications",
@@ -465,7 +469,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Hans-Georg Edlefsen",
                 JobTitle = "Freier Berater",
@@ -474,7 +478,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Heiko Stapf",
                 JobTitle = "Geschäftsführer Cyber Manufaktur und Emendare",
@@ -483,7 +487,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Jan Hichert",
                 JobTitle = "Business Angel",
@@ -492,7 +496,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Jan Schöttelndreier",
                 JobTitle = "VP eCommerce Solutions bei asknet AG / freier Berater",
@@ -501,7 +505,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Joachim Tatje",
                 JobTitle = "Gründer und Inhaber der PR Agentur \"ViATiCO Strategie und Text\"",
@@ -510,7 +514,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Johannes Häfele",
                 JobTitle = "Business Angel",
@@ -519,7 +523,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Klaus Welle",
                 JobTitle = "CTO und Mitgründer von Selfbits",
@@ -528,7 +532,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Marc Zacherl",
                 JobTitle = "Co-founder, Geschäftsführer",
@@ -537,7 +541,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Mathias Thomas",
                 JobTitle = "Inhaber Dr. Thomas + Partner",
@@ -546,7 +550,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Matthias Schultze",
                 JobTitle = "Geschäftsführer bei TechniData IT-Service GmbH",
@@ -555,7 +559,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Matthias Schürer",
                 JobTitle = "Präsident BWB",
@@ -564,7 +568,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Michael Rausch",
                 JobTitle = "COO",
@@ -573,7 +577,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Oliver Kuppler",
                 JobTitle = "CEO/Geschäftsführer bei Selfbits GmbH",
@@ -582,7 +586,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Sophie Horstmann",
                 JobTitle = "Geschäftsführung der LAFAM Holding GmbH",
@@ -591,7 +595,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Stefanie Molzberger",
                 JobTitle = "SaaS Sales Leader, IBM Digital Sales DACH",
@@ -600,7 +604,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Tanja Müller",
                 JobTitle = "Leitung Mentoring & Coaching",
@@ -609,7 +613,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Tim Riedel",
                 JobTitle = "GF bei der eyeworkers interactive GmbH",
@@ -618,7 +622,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Abilio Avila",
                 JobTitle = "Doktorand beim EnTechnon, KIT",
@@ -627,7 +631,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Benedict Heblich",
                 JobTitle = "Doktorand beim EnTechnon, KIT",
@@ -636,7 +640,7 @@ namespace Grow.Server.Model.Utils
                 WebsiteUrl = null,
                 Image = null
                 },
-                new Person
+                new Mentor
                 {
                 Name = "Markus Lau",
                 JobTitle = "Doktorand beim EnTechnon, KIT",
@@ -2119,44 +2123,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
             return navigations;
         }
 
-        private static TJoin[] TransformToJoinEntities<TJoin>(Contest contest, Person[] people) where TJoin : PersonToContest, new()
-        {
-            var joins = new TJoin[people.Length];
-            for (var i = 0; i < people.Length; i++)
-            {
-                var person = people[i];
-                var join = new TJoin
-                {
-                    Contest = contest,
-                    ContestId = contest.Id,
-                    Person = person,
-                    PersonId = person.Id
-                };
-
-                joins[i] = join;
-            }
-            return joins;
-        }
-
-        private static TJoin[] TransformToJoinEntities<TJoin>(Contest contest, Partner[] partners) where TJoin : PartnerToContest, new()
-        {
-            var joins = new TJoin[partners.Length];
-            for (var i = 0; i < partners.Length; i++)
-            {
-                var partner = partners[i];
-                var join = new TJoin
-                {
-                    Contest = contest,
-                    ContestId = contest.Id,
-                    Partner = partner,
-                    PartnerId = partner.Id
-                };
-
-                joins[i] = join;
-            }
-            return joins;
-        }
-
         private static TEntity[] Get<TEntity>(this TEntity[] array, params int[] indices)
         {
             var newArray = new TEntity[indices.Length];
@@ -2184,6 +2150,18 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
             TEntity[] result = new TEntity[length];
             Array.Copy(data, index, result, 0, length);
             return result;
+        }
+
+        private static ICollection<TEntity> ToListOfCopies<TEntity>(this IEnumerable<TEntity> enumerable) where TEntity : BaseEntity
+        {
+            var list = new List<TEntity>();
+            foreach (var elem in enumerable)
+            {
+                var newElem = (TEntity)elem.Copy();
+                newElem.Id = 0;
+                list.Add(newElem);
+            }
+            return list;
         }
     }
 }

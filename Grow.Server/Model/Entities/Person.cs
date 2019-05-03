@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Grow.Server.Model.Entities
+﻿namespace Grow.Server.Model.Entities
 {
-    public class Person : BaseEntity
+    public abstract class Person : BaseEntity
     {
         public string Name { get; set; }
 
@@ -15,10 +10,8 @@ namespace Grow.Server.Model.Entities
 
         public virtual Image Image { get; set; }
 
-        public string Expertise { get; set; }
-
         public string Email { get; set; }
 
-        public string WebsiteUrl { get; set; }
+        public virtual Contest Contest { get; set; }
     }
 }

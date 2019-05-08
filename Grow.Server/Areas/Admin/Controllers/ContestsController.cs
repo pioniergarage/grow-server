@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Grow.Server.Model;
-using Grow.Server.Model.Entities;
+using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
+using Grow.Data;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {

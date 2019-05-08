@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Grow.Server.Model;
-using Grow.Server.Model.Entities;
+using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
+using Grow.Data;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -17,12 +18,12 @@ namespace Grow.Server.Areas.Admin.Controllers
         public JudgesController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
-        
+
         public async Task<IActionResult> Index()
         {
-            return View(await JudgesInSelectedYear.ToListAsync());
+            return View(await JudgesInSelectedYear.ToListAsync().ConfigureAwait(false));
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -31,7 +32,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
 
             var judge = await DbContext.Judges
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (judge == null)
             {
                 return NotFound();
@@ -39,12 +40,12 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(judge);
         }
-        
+
         public IActionResult Create()
         {
             return View();
         }
-        
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -54,12 +55,12 @@ namespace Grow.Server.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 SelectedContest.Include(c => c.Judges).Single().Judges.Add(judge);
-                await DbContext.SaveChangesAsync();
+                await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(judge);
         }
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -67,14 +68,14 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var judge = await DbContext.Judges.FindAsync(id);
+            var judge = await DbContext.Judges.FindAsync(id).ConfigureAwait(false);
             if (judge == null)
             {
                 return NotFound();
             }
             return View(judge);
         }
-        
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -91,7 +92,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 try
                 {
                     DbContext.Update(judge);
-                    await DbContext.SaveChangesAsync();
+                    await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -108,7 +109,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(judge);
         }
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -117,7 +118,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
 
             var judge = await DbContext.Judges
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (judge == null)
             {
                 return NotFound();
@@ -125,14 +126,14 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(judge);
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var judge = await DbContext.Judges.FindAsync(id);
+            var judge = await DbContext.Judges.FindAsync(id).ConfigureAwait(false);
             DbContext.Judges.Remove(judge);
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction(nameof(Index));
         }
 

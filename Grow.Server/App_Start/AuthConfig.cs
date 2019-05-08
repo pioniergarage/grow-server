@@ -1,5 +1,5 @@
 ﻿using Grow.Server.Model;
-using Grow.Server.Model.Entities;
+using Grow.Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Grow.Data;
 
 namespace Grow.Server.App_Start
 {

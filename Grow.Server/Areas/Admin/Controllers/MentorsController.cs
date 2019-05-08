@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Grow.Server.Model;
-using Grow.Server.Model.Entities;
+using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
+using Grow.Data;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -17,12 +18,12 @@ namespace Grow.Server.Areas.Admin.Controllers
         public MentorsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
-        
+
         public async Task<IActionResult> Index()
         {
-            return View(await MentorsInSelectedYear.ToListAsync());
+            return View(await MentorsInSelectedYear.ToListAsync().ConfigureAwait(false));
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -31,7 +32,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
 
             var mentor = await DbContext.Mentors
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (mentor == null)
             {
                 return NotFound();
@@ -39,12 +40,12 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(mentor);
         }
-        
+
         public IActionResult Create()
         {
             return View();
         }
-        
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -54,12 +55,12 @@ namespace Grow.Server.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 SelectedContest.Include(c => c.Mentors).Single().Mentors.Add(mentor);
-                await DbContext.SaveChangesAsync();
+                await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
             return View(mentor);
         }
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -67,14 +68,14 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var mentor = await DbContext.Mentors.FindAsync(id);
+            var mentor = await DbContext.Mentors.FindAsync(id).ConfigureAwait(false);
             if (mentor == null)
             {
                 return NotFound();
             }
             return View(mentor);
         }
-        
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -91,7 +92,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 try
                 {
                     DbContext.Update(mentor);
-                    await DbContext.SaveChangesAsync();
+                    await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -108,7 +109,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(mentor);
         }
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -117,7 +118,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
 
             var mentor = await DbContext.Mentors
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (mentor == null)
             {
                 return NotFound();
@@ -125,14 +126,14 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(mentor);
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var mentor = await DbContext.Mentors.FindAsync(id);
+            var mentor = await DbContext.Mentors.FindAsync(id).ConfigureAwait(false);
             DbContext.Mentors.Remove(mentor);
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync().ConfigureAwait(false);
             return RedirectToAction(nameof(Index));
         }
 

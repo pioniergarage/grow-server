@@ -6,17 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190403192542_AddIdentity.cs" />
-    <Compile Remove="Migrations\20190403192542_AddIdentity.Designer.cs" />
-    <Compile Remove="Migrations\20190403192918_AddIdentity.cs" />
-    <Compile Remove="Migrations\20190403192918_AddIdentity.Designer.cs" />
-    <Compile Remove="Migrations\20190403193020_AddIdentity.cs" />
-    <Compile Remove="Migrations\20190403193020_AddIdentity.Designer.cs" />
-    <Compile Remove="Migrations\20190403195540_AddIdentity.cs" />
-    <Compile Remove="Migrations\20190403195540_AddIdentity.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
@@ -45,7 +34,6 @@
     <Folder Include="Areas\Team\Data\" />
     <Folder Include="Areas\Team\Models\" />
     <Folder Include="Areas\Team\Views\" />
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\img\2017\" />
   </ItemGroup>
 
@@ -61,6 +49,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.1.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Grow.Data\Grow.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

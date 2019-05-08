@@ -1,4 +1,4 @@
-﻿using Grow.Server.Model.Entities;
+﻿using Grow.Data.Entities;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Grow.Server.Model.Entities
+﻿namespace Grow.Data.Entities
 {
     public class Partner : BaseEntity
     {

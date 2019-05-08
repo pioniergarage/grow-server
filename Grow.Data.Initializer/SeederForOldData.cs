@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Grow.Server.Model.Entities;
+using Grow.Data;
+using Grow.Data.Entities;
 
-namespace Grow.Server.Model.Utils
+namespace Grow.Data.Initializer
 {
     public static class SeederForOldData
     {

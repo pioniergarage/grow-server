@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Grow.Server.Model.Entities
+namespace Grow.Data.Entities
 {
     public class Event : BaseEntity
     {
@@ -27,7 +27,7 @@ namespace Grow.Server.Model.Entities
         public bool IsMandatory { get; set; }
 
         public virtual Partner HeldBy { get; set; }
-        
+
         public virtual Contest Contest { get; set; }
 
 

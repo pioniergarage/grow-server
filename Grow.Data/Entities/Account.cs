@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Grow.Server.Model.Entities
+namespace Grow.Data.Entities
 {
     /// <summary>
     /// Base identity account. Not supposed to be instantiated

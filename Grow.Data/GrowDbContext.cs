@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Grow.Server.Model.Entities;
+using Grow.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Grow.Server.Model
+namespace Grow.Data
 {
     public class GrowDbContext : IdentityDbContext<Account, IdentityRole, string>
     {

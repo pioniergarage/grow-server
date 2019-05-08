@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Grow.Server.Model.Entities
+namespace Grow.Data.Entities
 {
     public class Team : BaseEntity
     {
@@ -28,7 +28,7 @@ namespace Grow.Server.Model.Entities
         public bool IsActive { get; set; }
 
         public Contest Contest { get; set; }
-        
+
         public string MembersAsString
         {
             get => string.Join(", ", Members);

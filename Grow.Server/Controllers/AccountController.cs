@@ -1,5 +1,5 @@
 ﻿using Grow.Server.Model;
-using Grow.Server.Model.Entities;
+using Grow.Data.Entities;
 using Grow.Server.Model.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Threading.Tasks;
+using Grow.Data;
 
 namespace Grow.Server.Controllers
 {
@@ -16,7 +17,7 @@ namespace Grow.Server.Controllers
         private readonly UserManager<Account> _userManager;
         private readonly SignInManager<Account> _signInManager;
 
-        public AccountController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, SignInManager<Account> signInManager, UserManager<Account> userManager) 
+        public AccountController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, SignInManager<Account> signInManager, UserManager<Account> userManager)
             : base(dbContext, appSettings)
         {
             _signInManager = signInManager;
@@ -64,12 +65,12 @@ namespace Grow.Server.Controllers
 
             return View(model);
         }
-        
+
         public IActionResult ChangePassword()
         {
             return View();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {

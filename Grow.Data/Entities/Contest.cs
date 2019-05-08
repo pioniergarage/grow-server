@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Grow.Server.Model.Entities
+namespace Grow.Data.Entities
 {
     public class Contest : BaseEntity
     {

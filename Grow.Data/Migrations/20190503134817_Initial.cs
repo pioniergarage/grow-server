@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Grow.Server.Migrations
+namespace Grow.Data.Migrations
 {
     public partial class Initial : Migration
     {

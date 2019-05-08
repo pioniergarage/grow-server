@@ -1,4 +1,4 @@
-﻿using Grow.Server.Model.Entities;
+﻿using Grow.Data.Entities;
 using System.Collections.Generic;
 
 namespace Grow.Server.Model.ViewModels

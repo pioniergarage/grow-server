@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Grow.Server.Model;
-using Grow.Server.Model.Entities;
+using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
+using Grow.Data;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -14,12 +15,12 @@ namespace Grow.Server.Areas.Admin.Controllers
         public TeamsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
-        
+
         public async Task<IActionResult> Index()
         {
             return View(await TeamsInSelectedYear.ToListAsync().ConfigureAwait(false));
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,12 +37,12 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(team);
         }
-        
+
         public IActionResult Create()
         {
             return View();
         }
-        
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -56,7 +57,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(team);
         }
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -71,7 +72,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(team);
         }
-        
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -105,7 +106,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(team);
         }
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -122,7 +123,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(team);
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

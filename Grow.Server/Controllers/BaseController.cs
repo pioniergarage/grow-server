@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using Grow.Server.Model;
-using Grow.Server.Model.Entities;
+using Grow.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
+using Grow.Data;
 
 namespace Grow.Server.Controllers
 {

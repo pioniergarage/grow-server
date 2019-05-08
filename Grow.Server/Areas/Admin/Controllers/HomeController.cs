@@ -1,4 +1,5 @@
-﻿using Grow.Server.Model;
+﻿using Grow.Data;
+using Grow.Server.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +40,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 Expires = DateTime.Now.AddHours(6)
             };
-            
+
             if (DbContext.Contests.Any(c => c.Year.Equals(year)))
             {
                 Response.Cookies.Append(Constants.COOKIE_SELECTED_YEAR_KEY, year, options);

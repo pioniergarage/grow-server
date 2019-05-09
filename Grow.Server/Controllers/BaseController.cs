@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Grow.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Grow.Server.Controllers
 {
@@ -77,19 +78,19 @@ namespace Grow.Server.Controllers
 
             // STEP 2: Check year
             // pull selected year from db
-            var selectedContest = DbContext.Contests.Where(c => c.Year == SelectedContestYear).SingleOrDefault();
+            var selectedContest = DbContext.Contests.AsNoTracking().Where(c => c.Year == SelectedContestYear).SingleOrDefault();
             if (selectedContest == null)
             {
                 context.Result = new StatusCodeResult(404);
                 return;
             }
             // check access to contest
-            var isContextPublic = true; //TODO: change once IsActive has been implemented
+            var isContextPublic = selectedContest.IsActive;
             var isUserAdmin = User.Identity.IsAuthenticated && User.IsInRole(Constants.ADMIN_ROLE_NAME);
             if (isContextPublic || isUserAdmin)
             {
                 // all good!
-                SelectedContestName = DbContext.Contests.Where(c => c.Year == SelectedContestYear).Select(c => c.Name).SingleOrDefault();
+                SelectedContestName = selectedContest.Name;
             }
             else if (SelectedContestName == null)
             {

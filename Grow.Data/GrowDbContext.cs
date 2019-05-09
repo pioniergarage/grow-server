@@ -57,7 +57,7 @@ namespace Grow.Data
                 .HasOne(e => e.Contest)
                 .WithMany(c => c.Events);
         }
-
+        
         public override int SaveChanges()
         {
             AddTimestamps();

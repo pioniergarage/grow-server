@@ -25,7 +25,7 @@ namespace Grow.Data.Entities
 
         public string InstagramUrl { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool HasDroppedOut { get; set; }
 
         public Contest Contest { get; set; }
 

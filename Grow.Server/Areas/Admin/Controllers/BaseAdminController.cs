@@ -5,6 +5,7 @@ using Grow.Server.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Grow.Server.Areas.Admin.Controllers
@@ -22,7 +23,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             base.OnActionExecuting(context);
 
             // Default values for all controller actions
-            ViewBag.AllContests = DbContext.Contests.ToList();
+            ViewBag.AllContests = DbContext.Contests.AsNoTracking().ToList();
         }
     }
 }

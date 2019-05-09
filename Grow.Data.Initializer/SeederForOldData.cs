@@ -40,17 +40,15 @@ namespace Grow.Data.Initializer
 
         public static void SeedDataFrom2017(this GrowDbContext context)
         {
-            if (!SeedEntities(context))
-                return;
-
             // Add contest
             var contest = new Contest
             {
                 Name = "GROW 2017/18",
                 Year = "2017",
                 Language = "German",
-                Teams = Teams.SubArray(33).ToList(),
-                Prizes = Prizes.SubArray(6).ToList(),
+                IsActive = true,
+                Teams = Teams.SubArray(33).ToListOfCopies(),
+                Prizes = Prizes.SubArray(6).ToListOfCopies(),
                 Mentors = Mentors.SubArray(16).Merge(Mentors.Get(5, 14)).ToListOfCopies(),
                 Judges = Judges.Get(0, 1, 6, 7, 8, 9).ToListOfCopies(),
                 Organizers = Organizers.Get(0, 1, 3, 4).ToListOfCopies(),
@@ -73,17 +71,15 @@ namespace Grow.Data.Initializer
 
         public static void SeedDataFrom2018(this GrowDbContext context)
         {
-            if (!SeedEntities(context))
-                return;
-
             // Add contest
             var contest = new Contest
             {
                 Name = "GROW 2018/19",
                 Year = "2018",
                 Language = "English",
-                Teams = Teams.Take(33).ToList(),
-                Prizes = Prizes.Take(6).ToList(),
+                IsActive = true,
+                Teams = Teams.Take(33).ToListOfCopies(),
+                Prizes = Prizes.Take(6).ToListOfCopies(),
                 Mentors = Mentors.Take(16).ToListOfCopies(),
                 Judges = Judges.Take(6).ToListOfCopies(),
                 Organizers = Organizers.Take(6).ToListOfCopies(),
@@ -102,44 +98,7 @@ namespace Grow.Data.Initializer
 
             context.SaveChanges();
         }
-
-        private static bool SeedEntities(GrowDbContext context)
-        {
-            if (!IsEnabled)
-                return false;
-
-            if (EntitiesAdded)
-                return true;
-
-            if (context.Images.Any())
-            {
-                Debug.WriteLine("Could not seed database - database is not empty");
-                return false;
-            }
-
-            // Add pre-defined data
-            //context.Images.AddRange(Judge_images);
-            //context.Images.AddRange(Mentor_images);
-            //context.Images.AddRange(Team_images);
-            //context.Images.AddRange(Orga_images);
-            //context.Images.AddRange(Partner_images);
-
-            //context.Mentors.AddRange(Mentors);
-            //context.Judges.AddRange(Judges);
-            //context.Organizers.AddRange(Organizers);
-
-            //context.Events.AddRange(Events);
-            //context.Partners.AddRange(Partners);
-            //context.Teams.AddRange(Teams);
-            //context.Prizes.AddRange(Prizes);
-
-            context.SaveChanges();
-
-            EntitiesAdded = true;
-
-            return true;
-        }
-
+        
         private static void AddPeople()
         {
             // Judges
@@ -1327,7 +1286,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Zeming Leng",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1341,7 +1300,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[1],
                     TeamPhoto = Team_images[0],
                     MembersAsString = "Fatimata Toure, Amir Akbari",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1355,7 +1314,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[2],
                     TeamPhoto = null,
                     MembersAsString = "Daniel David, Christian Fleiner, Arjun Rai Gupta, Marvin Okoh, Brian Sailer",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1369,7 +1328,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Walid Elleuch, Kutay Yüksel",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1383,7 +1342,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[3],
                     TeamPhoto = Team_images[4],
                     MembersAsString = "Ramtin Babaei, Pedram Babaei",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1397,7 +1356,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Kai Can Bilbixun Avci",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1411,7 +1370,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[5],
                     TeamPhoto = Team_images[6],
                     MembersAsString = "Alexandre Lehr, Finn von Lauppert, Lukas Wipf, Kai Firschau",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1425,7 +1384,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Julian Seidel, Christian Zimmermann",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1439,7 +1398,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Frederik Grösche, Tobias Buchwald",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1453,7 +1412,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Yanis Fallah, Marco Ezzy",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1467,7 +1426,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Chris Hiatt, Eugen Götz, Matthias Schedel, Marin Vlastelica P.",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1481,7 +1440,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Abdallatif Ali, Ihab Awad",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1495,7 +1454,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[8],
                     TeamPhoto = Team_images[7],
                     MembersAsString = "Madou Mann, Daniel Hank, Eike Dahle ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1509,7 +1468,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Giorgi Tsutskiridze",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1523,7 +1482,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[9],
                     TeamPhoto = Team_images[10],
                     MembersAsString = "Ingmar Wolff, Benno Ommerborn, Vladyslav Shapran",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1537,7 +1496,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Omar Abousena",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1551,7 +1510,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Yekta Görkem Baysan",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1565,7 +1524,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[11],
                     TeamPhoto = null,
                     MembersAsString = "Saksham Gupta, Ishita Gupta",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1579,7 +1538,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Sebastian Braun",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1593,7 +1552,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[13],
                     TeamPhoto = Team_images[12],
                     MembersAsString = "Danil Fedorovsky, Fabian Illner",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1607,7 +1566,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Lukas Klinzing, Marcus Zanquila",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1621,7 +1580,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Lennard Böhnke, Alexander Völker",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1635,7 +1594,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[14],
                     TeamPhoto = null,
                     MembersAsString = "Reyhan Düzgün, David Puljiz",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1649,7 +1608,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Abdallah Alshanawani, Hanna Choi",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1663,7 +1622,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[15],
                     TeamPhoto = null,
                     MembersAsString = "Aaron Griesbaum, Felix Stengel, Johannes Neumaier, Dominic Kis",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1677,7 +1636,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[16],
                     TeamPhoto = Team_images[17],
                     MembersAsString = "Giorgio Groß, Mustafa Cint, Kevin Steinbach, Fabian Wenzel",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1691,7 +1650,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Till Skrodzki, Stephan Skrodzki",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1705,7 +1664,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[18],
                     TeamPhoto = null,
                     MembersAsString = "Elisabeth Goebel, Tobias Budig, Patrick Theobalt, Leander Märkisch",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1719,7 +1678,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Dmitriy Shibayev, Ilya Shibayev, Burak Atay",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1733,7 +1692,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Leander Märkisch, Paul Kathmann, Hauke Reunitz",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1747,7 +1706,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[20],
                     TeamPhoto = Team_images[19],
                     MembersAsString = "Peter Krieger, Yannick Pietschmann, Marta Golabek",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1761,7 +1720,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Christian Winter",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1775,7 +1734,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = Team_images[21],
                     TeamPhoto = null,
                     MembersAsString = "Jayesh, Arthur, Enxhi, Andy, Frederik, Mario, Sven",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
 
                 // 2017
@@ -1791,7 +1750,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/bestfit.png" },
                     TeamPhoto = new Image { Url = "/img/2017/teams/bestfit_team.jpg" },
                     MembersAsString = "Christopher Oertel, Artem Titarenko, Marc Neuhoff ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1805,7 +1764,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/sunshift.png" },
                     TeamPhoto = null,
                     MembersAsString = "David Meiborg, Marcel Meckes, Johannes Brand, Tim Rädsch ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1819,7 +1778,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/wfk.png" },
                     TeamPhoto = new Image { Url = "/img/2017/teams/wfk_team.jpg" },
                     MembersAsString = "Moritz Röschl, Sebastian Bayer ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1833,7 +1792,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/colusto.png" },
                     TeamPhoto = new Image { Url = "/img/2017/teams/colusto_team.jpg" },
                     MembersAsString = "David Jeggle, Kai Jeggle ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1847,7 +1806,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/usertimes.jpg" },
                     TeamPhoto = null,
                     MembersAsString = "Jonas Fuchs, Timo Schneider, Dominic Staub, Manuel Hölzlein, Anne Pfeifer, Luc Weinbrecht, Max Beume ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1861,7 +1820,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/flatmates.png" },
                     TeamPhoto = new Image { Url = "/img/2017/teams/flatmates_team.jpg" },
                     MembersAsString = "Raji Sarhi, Anna Loerzer, Kim Skade, Natalie Cuentas Zavala Ponce, Linus Schweizer ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1875,7 +1834,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/sono.png" },
                     TeamPhoto = null,
                     MembersAsString = "Theresa Schneider, Lukas Findeisen, Hannah Bott ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1889,7 +1848,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/yunu.jpg" },
                     TeamPhoto = null,
                     MembersAsString = "André Herecki, Eduard Lichtenwald, Robert Otmar ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1903,7 +1862,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/smartivate.jpg" },
                     TeamPhoto = new Image { Url = "/img/2017/teams/smartivate_team.png" },
                     MembersAsString = "Anand Narasipuram, Jeevan Dasan, Sebastian Dahnert ",
-                    IsActive = true
+                    HasDroppedOut = false
                 },
                 new Team
                 {
@@ -1917,7 +1876,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/tizer.png" },
                     TeamPhoto = null,
                     MembersAsString = "Dennis Maxelon, Janina Häfner, Patrick Anderer ",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1931,7 +1890,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Aakash Shetty, Vincent Langet ",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1945,7 +1904,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/ridy.png" },
                     TeamPhoto = new Image { Url = "/img/2017/teams/ridy_team.jpg" },
                     MembersAsString = "Daniel Sobing, Arseniy Kurynyi ",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1959,7 +1918,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Chris Hiatt ",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1973,7 +1932,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = new Image { Url = "/img/2017/teams/polunio.png" },
                     TeamPhoto = new Image { Url = "/img/2017/teams/polunio_team.png" },
                     MembersAsString = "Alexandru Rinciog, Elias Mühlbrecht ",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
                 new Team
                 {
@@ -1987,7 +1946,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     LogoImage = null,
                     TeamPhoto = null,
                     MembersAsString = "Elham Elahi, Markus Heining, Phelin Guth, Leon Sander ",
-                    IsActive = false
+                    HasDroppedOut = true
                 },
             };
         }
@@ -2160,6 +2119,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
             {
                 var newElem = (TEntity)elem.Copy();
                 newElem.Id = 0;
+                newElem.IsActive = true;
                 list.Add(newElem);
             }
             return list;

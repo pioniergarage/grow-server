@@ -1,8 +1,10 @@
-﻿using Grow.Server.App_Start;
+﻿using Grow.Data;
+using Grow.Server.App_Start;
 using Grow.Server.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -43,6 +45,9 @@ namespace Grow.Server
             {
                 app.UseHsts();
             }
+
+            // DB setup
+            app.UpdateGrowDatabase();
 
             // Setup MVC pipeline
             app.UseHttpsRedirection();

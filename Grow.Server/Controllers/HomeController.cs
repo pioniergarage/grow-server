@@ -42,7 +42,7 @@ namespace Grow.Server.Controllers
             var teams = TeamsInSelectedYear
                 .Include(t => t.LogoImage)
                 .Include(t => t.TeamPhoto)
-                .OrderByDescending(t => t.IsActive)
+                .OrderByDescending(t => !t.HasDroppedOut)
                     .ThenBy(t=> t.Name)
                 .ToList();
 

@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Grow.Data;
+using Grow.Data.Entities;
 using Grow.Server.Controllers;
 using Grow.Server.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +18,7 @@ namespace Grow.Server.Areas.Admin.Controllers
     {
         protected BaseAdminController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
+            GlobalFilter = _ => true; // show all entities in admin area
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)

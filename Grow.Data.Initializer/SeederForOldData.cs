@@ -1963,7 +1963,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Description = null,
                     Winner = Teams.Single(t => t.Name == "TortenGlück"),
                     Type = Prize.PrizeType.MainPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -1973,7 +1972,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Description = null,
                     Winner = Teams.Single(t => t.Name == "Studentenfutter"),
                     Type = Prize.PrizeType.MainPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -1983,7 +1981,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Description = null,
                     Winner = Teams.Single(t => t.Name == "SecureRadiationLab"),
                     Type = Prize.PrizeType.MainPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -1994,7 +1991,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     GivenBy = Partners.Single(p => p.Name == "Kolibri Games"),
                     Winner = Teams.Single(t => t.Name == "TortenGlück"),
                     Type = Prize.PrizeType.SpecialPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -2005,7 +2001,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     GivenBy = Partners.Single(p => p.Name == "LEA Partners"),
                     Winner = Teams.Single(t => t.Name == "HelioPas AI"),
                     Type = Prize.PrizeType.SpecialPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -2016,7 +2011,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     GivenBy = Partners.Single(p => p.Name == "First Momentum Ventures"),
                     Winner = Teams.Single(t => t.Name == "Read!"),
                     Type = Prize.PrizeType.SpecialPrize,
-                    IsPublic = true
                 },
 
                 // 2017
@@ -2029,7 +2023,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Description = null,
                     Winner = Teams.Single(t => t.Name == "Usertimes"),
                     Type = Prize.PrizeType.MainPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -2039,7 +2032,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Description = null,
                     Winner = Teams.Single(t => t.Name == "Colusto"),
                     Type = Prize.PrizeType.MainPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -2049,7 +2041,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Description = null,
                     Winner = Teams.Single(t => t.Name == "Sono"),
                     Type = Prize.PrizeType.MainPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -2060,7 +2051,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     GivenBy = null,
                     Winner = Teams.Single(t => t.Name == "Flatmates"),
                     Type = Prize.PrizeType.SpecialPrize,
-                    IsPublic = true
                 },
                 new Prize
                 {
@@ -2071,7 +2061,6 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     GivenBy = null,
                     Winner = Teams.Single(t => t.Name == "Usertimes"),
                     Type = Prize.PrizeType.SpecialPrize,
-                    IsPublic = true
                 },
             };
         }

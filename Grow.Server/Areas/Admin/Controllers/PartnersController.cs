@@ -47,7 +47,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,Id")] Partner partner)
+        public async Task<IActionResult> Create([Bind("IsActive,Name,Description,Id")] Partner partner)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,Id")] Partner partner)
+        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Name,Description,Id")] Partner partner)
         {
             if (id != partner.Id)
             {
@@ -131,6 +131,15 @@ namespace Grow.Server.Areas.Admin.Controllers
             var partner = await DbContext.Partners.FindAsync(id).ConfigureAwait(false);
             DbContext.Partners.Remove(partner);
             await DbContext.SaveChangesAsync().ConfigureAwait(false);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Toggle(int id, bool value)
+        {
+            var entity = await DbContext.Partners.FindAsync(id).ConfigureAwait(false);
+            entity.IsActive = value;
+            DbContext.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 

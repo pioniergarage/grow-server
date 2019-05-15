@@ -47,7 +47,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,TagLine,Description,ActiveSince,WebsiteUrl,Email,FacebookUrl,InstagramUrl,IsActive,MembersAsString,Id")] Team team)
+        public async Task<IActionResult> Create([Bind("IsActive,Name,TagLine,Description,ActiveSince,WebsiteUrl,Email,FacebookUrl,InstagramUrl,MembersAsString,Id")] Team team)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,TagLine,Description,ActiveSince,WebsiteUrl,Email,FacebookUrl,InstagramUrl,IsActive,MembersAsString,Id")] Team team)
+        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Name,TagLine,Description,ActiveSince,WebsiteUrl,Email,FacebookUrl,InstagramUrl,IsActive,MembersAsString,Id")] Team team)
         {
             if (id != team.Id)
             {
@@ -131,6 +131,15 @@ namespace Grow.Server.Areas.Admin.Controllers
             var team = await DbContext.Teams.FindAsync(id).ConfigureAwait(false);
             DbContext.Teams.Remove(team);
             await DbContext.SaveChangesAsync().ConfigureAwait(false);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Toggle(int id, bool value)
+        {
+            var entity = await DbContext.Teams.FindAsync(id).ConfigureAwait(false);
+            entity.IsActive = value;
+            DbContext.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 

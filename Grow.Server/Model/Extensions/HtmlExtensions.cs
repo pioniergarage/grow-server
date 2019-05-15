@@ -1,10 +1,12 @@
 ﻿using Grow.Data.Entities;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Grow.Server.Model.Utils.Extensions
+namespace Grow.Server.Model.Extensions
 {
     public static class HtmlExtensions
     {
@@ -33,7 +35,7 @@ namespace Grow.Server.Model.Utils.Extensions
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("<select id='contest-selector' class='form-control'>");
 
-            foreach (var contest in allContests)
+            foreach (var contest in allContests.OrderByDescending(c => c.Year))
             {
                 var selectedString = contest.Year.Equals(selectedYear)
                     ? " selected='selected' "
@@ -41,7 +43,7 @@ namespace Grow.Server.Model.Utils.Extensions
                 var contestName = contest.Year.Equals(selectedYear)
                     ? "- " + contest.Name + " -"
                     : contest.Name;
-                sb.AppendLine(string.Format("<option value='{2}' {0}>{1}</option>", selectedString, contestName, contest.Year));
+                sb.AppendFormat("<option value='{2}' {0}>{1}</option>", selectedString, contestName, contest.Year).AppendLine();
             }
 
             sb.AppendLine("</select>");

@@ -109,6 +109,11 @@ namespace Grow.Data
                 {
                     entity.CurrentValues[nameof(BaseEntity.CreatedAt)] = now;
                 }
+                else
+                {
+                    // avoid resetting of CreatedAt timestamp
+                    entity.Property(nameof(BaseEntity.CreatedAt)).IsModified = false;
+                }
                 entity.CurrentValues[nameof(BaseEntity.UpdatedAt)] = now;
             }
         }

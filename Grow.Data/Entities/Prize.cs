@@ -9,9 +9,7 @@
         public int RewardValue { get; set; }
 
         public string Description { get; set; }
-
-        public bool IsPublic { get; set; }
-
+        
         public PrizeType Type { get; set; }
 
         public Team Winner { get; set; }

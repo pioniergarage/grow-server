@@ -50,7 +50,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Expertise,WebsiteUrl,Name,JobTitle,Description,Email,Id,CreatedAt,UpdatedAt")] Mentor mentor)
+        public async Task<IActionResult> Create([Bind("IsActive,Expertise,WebsiteUrl,Name,JobTitle,Description,Email,Id")] Mentor mentor)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Expertise,WebsiteUrl,Name,JobTitle,Description,Email,Id,CreatedAt,UpdatedAt")] Mentor mentor)
+        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Expertise,WebsiteUrl,Name,JobTitle,Description,Email,Id")] Mentor mentor)
         {
             if (id != mentor.Id)
             {
@@ -134,6 +134,15 @@ namespace Grow.Server.Areas.Admin.Controllers
             var mentor = await DbContext.Mentors.FindAsync(id).ConfigureAwait(false);
             DbContext.Mentors.Remove(mentor);
             await DbContext.SaveChangesAsync().ConfigureAwait(false);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Toggle(int id, bool value)
+        {
+            var entity = await DbContext.Mentors.FindAsync(id).ConfigureAwait(false);
+            entity.IsActive = value;
+            DbContext.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 

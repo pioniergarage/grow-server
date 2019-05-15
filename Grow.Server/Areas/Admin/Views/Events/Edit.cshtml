@@ -71,6 +71,13 @@
                     </label>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                    </label>
+                </div>
+            </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

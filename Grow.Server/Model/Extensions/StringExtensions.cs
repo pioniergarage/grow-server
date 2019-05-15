@@ -1,4 +1,4 @@
-﻿namespace Grow.Server.Model.Utils.Extensions
+﻿namespace Grow.Server.Model.Extensions
 {
     public static class StringExtensions
     {

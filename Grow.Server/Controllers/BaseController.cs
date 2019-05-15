@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Grow.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Grow.Server.Controllers
 {
@@ -19,29 +20,31 @@ namespace Grow.Server.Controllers
 
         protected string SelectedContestName { get; private set; }
 
+        protected Func<BaseEntity, bool> GlobalFilter = (e => e.IsActive); // hide inactive entities
+
         protected IQueryable<Contest> SelectedContest => DbContext.Contests
-            .Where(c => c.Year == SelectedContestYear);
+            .Where(c => c.Year == SelectedContestYear && GlobalFilter(c));
 
         protected IQueryable<Event> EventsInSelectedYear => DbContext.Events
-            .Where(e => e.Contest.Year == SelectedContestYear);
+            .Where(e => e.Contest.Year == SelectedContestYear && GlobalFilter(e));
 
         protected IQueryable<Partner> PartnersInSelectedYear => DbContext.Partners
-            .Where(p => p.Contest.Year == SelectedContestYear);
+            .Where(p => p.Contest.Year == SelectedContestYear && GlobalFilter(p));
 
         protected IQueryable<Mentor> MentorsInSelectedYear => DbContext.Mentors
-            .Where(m => m.Contest.Year == SelectedContestYear);
+            .Where(m => m.Contest.Year == SelectedContestYear && GlobalFilter(m));
 
         protected IQueryable<Organizer> OrganizersInSelectedYear => DbContext.Organizers
-            .Where(o => o.Contest.Year == SelectedContestYear);
+            .Where(o => o.Contest.Year == SelectedContestYear && GlobalFilter(o));
 
         protected IQueryable<Judge> JudgesInSelectedYear => DbContext.Judges
-            .Where(j => j.Contest.Year == SelectedContestYear);
+            .Where(j => j.Contest.Year == SelectedContestYear && GlobalFilter(j));
 
         protected IQueryable<Prize> PrizesInSelectedYear => DbContext.Prizes
-            .Where(p => p.Contest.Year == SelectedContestYear);
+            .Where(p => p.Contest.Year == SelectedContestYear && GlobalFilter(p));
 
         protected IQueryable<Team> TeamsInSelectedYear => DbContext.Teams
-            .Where(t => t.Contest.Year == SelectedContestYear);
+            .Where(t => t.Contest.Year == SelectedContestYear && GlobalFilter(t));
 
         protected BaseController(GrowDbContext dbContext, IOptions<AppSettings> appSettings)
         {

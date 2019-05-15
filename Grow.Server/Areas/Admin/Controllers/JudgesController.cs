@@ -50,7 +50,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WebsiteUrl,Name,JobTitle,Description,Email,Id,CreatedAt,UpdatedAt")] Judge judge)
+        public async Task<IActionResult> Create([Bind("IsActive,WebsiteUrl,Name,JobTitle,Description,Email,Id")] Judge judge)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WebsiteUrl,Name,JobTitle,Description,Email,Id,CreatedAt,UpdatedAt")] Judge judge)
+        public async Task<IActionResult> Edit(int id, [Bind("IsActive,WebsiteUrl,Name,JobTitle,Description,Email,Id")] Judge judge)
         {
             if (id != judge.Id)
             {
@@ -134,6 +134,15 @@ namespace Grow.Server.Areas.Admin.Controllers
             var judge = await DbContext.Judges.FindAsync(id).ConfigureAwait(false);
             DbContext.Judges.Remove(judge);
             await DbContext.SaveChangesAsync().ConfigureAwait(false);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Toggle(int id, bool value)
+        {
+            var entity = await DbContext.Judges.FindAsync(id).ConfigureAwait(false);
+            entity.IsActive = value;
+            DbContext.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 

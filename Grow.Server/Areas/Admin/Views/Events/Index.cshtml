@@ -36,31 +36,27 @@
     <tbody>
         @foreach (var item in Model.OrderBy(e => e.Start))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td title="@item.Description">
-                    @item.Description.DynamicSubstring(120)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Start)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.End)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Visibility)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr is-active="@item.IsActive">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td title="@item.Description">
+                @item.Description.DynamicSubstring(120)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Visibility)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <partial name="Partials/_OptionCell" model="item" />
+        </tr>
         }
     </tbody>
 </table>

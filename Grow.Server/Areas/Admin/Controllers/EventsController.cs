@@ -47,7 +47,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,Start,End,FacebookLink,Location,Address,Visibility,Type,HasTimesSet,IsMandatory")] Event @event)
+        public async Task<IActionResult> Create([Bind("IsActive,Name,Description,Start,End,FacebookLink,Location,Address,Visibility,Type,HasTimesSet,IsMandatory")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,Start,End,FacebookLink,Location,Address,Visibility,Type,HasTimesSet,IsMandatory,Id")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Name,Description,Start,End,FacebookLink,Location,Address,Visibility,Type,HasTimesSet,IsMandatory,Id")] Event @event)
         {
             if (id != @event.Id)
             {
@@ -131,6 +131,15 @@ namespace Grow.Server.Areas.Admin.Controllers
             var @event = await DbContext.Events.FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             DbContext.Events.Remove(@event);
             await DbContext.SaveChangesAsync().ConfigureAwait(false);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Toggle(int id, bool value)
+        {
+            var entity = await DbContext.Events.FindAsync(id).ConfigureAwait(false);
+            entity.IsActive = value;
+            DbContext.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 

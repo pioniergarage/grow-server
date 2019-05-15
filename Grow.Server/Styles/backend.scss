@@ -17,3 +17,16 @@
         color: black;
     }
 }
+
+.options-column {
+    word-wrap: normal;
+
+    i {
+        margin: auto 3px;
+        font-size: 120%;
+    }
+}
+
+tr.inactive {
+    background-color: rgba(0,0,0,0.05);
+}

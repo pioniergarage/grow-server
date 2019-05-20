@@ -11,12 +11,12 @@
                 <h5 class="card-title">Current public contest</h5>
             </div>
             <div class="card-body ">
-                <h2>@ViewBag.SelectedContestYear<h2>
+                <h2>@ViewBag.SelectedContestYear</h2>
             </div>
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fa fa-refresh"></i> Change via environment variables
+                    <a href="@Url.Action("Index", "Contests")"><i class="fa fa-edit"></i> Change by activating newer contests</a>
                 </div>
             </div>
         </div>
@@ -27,17 +27,18 @@
                 <h5 class="card-title">Latest contest in DB</h5>
             </div>
             <div class="card-body ">
-                <h2>@ViewBag.LatestContestYear<h2>
+                <h2>@ViewBag.LatestContestYear</h2>
             </div>
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fa fa-refresh"></i> Change in Contest section
+                    <a href="@Url.Action("Create", "Contests")"><i class="fa fa-edit"></i> Change by creating new contests</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<h2 style="text-align: center">Stats of @ViewBag.SelectedContestYear</h2>
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">

@@ -66,8 +66,6 @@ namespace Grow.Server.Controllers
         public void ChooseSelectedContestYear(ActionExecutingContext context)
         {
             // STEP 1: Choose year
-            // fallback: use default defined in AppSettings
-            SelectedContestYear = AppSettings.CurrentContestYear;
             // Contest chosen via route (/year/controller/action)
             if (context.RouteData.Values.TryGetValue(Constants.ROUTE_YEAR_SELECTOR, out object value) && value is string year && !string.IsNullOrEmpty(year))
             {
@@ -77,6 +75,11 @@ namespace Grow.Server.Controllers
             else if (!string.IsNullOrEmpty(year = context.HttpContext.Request.Cookies[Constants.COOKIE_SELECTED_YEAR_KEY]))
             {
                 SelectedContestYear = year;
+            }
+            // fallback: use latest public year
+            if (SelectedContestYear == null)
+            {
+                SelectedContestYear = DbContext.Contests.Where(c => c.IsActive).Select(c => c.Year).Max();
             }
 
             // STEP 2: Check year

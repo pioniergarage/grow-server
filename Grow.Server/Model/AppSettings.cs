@@ -2,6 +2,6 @@
 {
     public class AppSettings
     {
-        public string CurrentContestYear { get; set; }
+        public string AdminEmail { get; set; }
     }
 }

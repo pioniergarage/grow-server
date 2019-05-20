@@ -6,6 +6,7 @@ using Grow.Server.Model;
 using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -40,6 +41,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
             return View();
         }
 
@@ -55,6 +57,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
             return View(prize);
         }
 
@@ -70,6 +73,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
             return View(prize);
         }
 
@@ -104,6 +108,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
             return View(prize);
         }
 

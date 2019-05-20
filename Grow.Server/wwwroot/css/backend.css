@@ -1,6 +1,12 @@
 ﻿@import url("/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,900");
 /*! IMPORTANT! DO NOT EDIT THE CSS FILE, BUT THE SCSS ONE. OR YOUR CHANGES WILL BE OVERWRITTEN! */
+/* Small Design fixes */
+input[type=checkbox] {
+  transform: scale(1.5);
+  margin: 3px;
+  vertical-align: top; }
+
 /* Column selector input in the Backend vertical navbar */
 #contest-selector {
   background-color: transparent;
@@ -14,6 +20,7 @@
   #contest-selector option {
     color: black; }
 
+/* Column containing actions on /Type/Index pages */
 .options-column {
   word-wrap: normal; }
   .options-column i {

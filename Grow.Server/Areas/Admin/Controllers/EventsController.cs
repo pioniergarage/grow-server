@@ -6,6 +6,7 @@ using Grow.Server.Model;
 using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -40,6 +41,8 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
             return View();
         }
 
@@ -55,6 +58,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
             return View(@event);
         }
 
@@ -70,6 +75,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
             return View(@event);
         }
 
@@ -104,6 +111,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
             return View(@event);
         }
 

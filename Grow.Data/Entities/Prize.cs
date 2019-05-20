@@ -2,8 +2,6 @@
 {
     public class Prize : BaseEntity
     {
-        public string Name { get; set; }
-
         public string Reward { get; set; }
 
         public int RewardValue { get; set; }

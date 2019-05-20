@@ -4,8 +4,6 @@ namespace Grow.Data.Entities
 {
     public class Contest : BaseEntity
     {
-        public string Name { get; set; }
-
         public string Year { get; set; }
 
         public virtual Event KickoffEvent { get; set; }

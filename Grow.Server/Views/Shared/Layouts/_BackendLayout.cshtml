@@ -12,12 +12,15 @@
 
     <title>@ViewBag.Title - GROW by PionierGarage</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet" />
     <link href="~/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/plugins/paper-dashboard/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/plugins/paper-dashboard/css/paper-dashboard.min.css" rel="stylesheet" />
     <link href="~/css/backend.min.css" rel="stylesheet">
+
+    @* Some scripts may be placed outside of @sections (jQuery is the only allowed dependency) *@
+    <script src="/js/jquery.min.js"></script>
 
     @RenderSection("Styles", required: false)
 </head>
@@ -111,7 +114,6 @@
         </div>
     </div>
 
-    <script src="/js/jquery.min.js"></script>
     <script src="/plugins/paper-dashboard/js/core/popper.min.js"></script>
     <script src="/plugins/paper-dashboard/js/core/bootstrap.min.js"></script>
     <script src="/plugins/paper-dashboard/js/plugins/perfect-scrollbar.jquery.min.js"></script>

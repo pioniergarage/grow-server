@@ -1,4 +1,4 @@
-﻿@model ICollection<Grow.Data.Entities.Person>
+﻿@model ICollection<Grow.Data.Entities.Organizer>
 
 @{
     ViewBag.Title = "Organizers";
@@ -26,16 +26,51 @@
         <h2>GROW can only exist due to a strong <strong>Team</strong></h2>
     </header>
 
-    <section class="wrapper style4 container">
-        <div class="content">
-            @foreach (var orga in Model)
-            {
-                <div class="3u 12u(narrower) image-block">
-                    <h3>@orga.Name</h3>
-                    <h4>@orga.JobTitle</h4>
-                    <img src="@orga.Image.Url" />
-                </div>
-            }
-        </div>
-    </section>
+    @if (Model.Any())
+    {
+        <section class="wrapper style4 container">
+            <div class="content">
+                @foreach (var orga in Model)
+                {
+                    <div class="3u 12u(narrower) image-block">
+                        <h3>@orga.Name</h3>
+                        <h4>@orga.JobTitle</h4>
+                        <img src="@orga.Image.Url" />
+                    </div>
+                }
+            </div>
+        </section>
+    }
+    else
+    {
+        <section class="wrapper style4 container">
+            <div class="content">
+                <section style="text-align: center">
+                    <header>
+                        <h3>Stay tuned</h3>
+                    </header>
+
+                    <p>
+                        No organizers have been publicized yet. Check back later for more details or follow us on Social Media:
+                    </p>
+                    <ul class="icons">
+                        <li><a href="https://www.facebook.com/Pioniergarage/">Facebook</a></li>
+                        <li><a href="https://instagram.com/pioniergarage">Instagram</a></li>
+                    </ul>
+                    @{
+                        var lastYear = (ViewBag.ContestYears as ICollection<string>)
+                            .Where(y => y.CompareTo(ViewBag.SelectedContestYear) < 0)
+                            .OrderByDescending(y => y)
+                            .FirstOrDefault();
+                    }
+                    @if (!string.IsNullOrEmpty(lastYear))
+                    {
+                        <p>
+                            You can also check out @Html.ActionLink("the organizers of the last contest", "Program", "Home", new { year = lastYear }).
+                        </p>
+                    }
+                </section>
+            </div>
+        </section>
+    }
 </article>

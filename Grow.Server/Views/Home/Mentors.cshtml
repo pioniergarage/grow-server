@@ -15,15 +15,15 @@
             width: 100%;
         }
 
-        .content h3 {
+        .mentors h3 {
             font-size: 130%;
         }
 
-            .content h3 + h5 {
-                margin-top: -20px;
-            }
+        .mentors h3 + h5 {
+            margin-top: -20px;
+        }
 
-        .content a {
+        .mentors a {
             text-decoration: underline;
         }
     </style>
@@ -47,53 +47,88 @@
         </h6>
     </header>
 
-    <section id="toc" class="wrapper style4 container">
-        <div class="content">
-            <section>
-                <header>
-                    <h2>Mentor overview</h2>
-                </header>
-                <ul>
-                    @foreach (var mentor in Model)
-                    {
-                        <li>
-                            <a href="#@mentor.Id">@mentor.Name</a> - @mentor.Expertise.DynamicSubstring(35, ',')
-                        </li>
-                    }
-                </ul>
-            </section>
-        </div>
-    </section>
-
-    <div>
-
-        @foreach (var mentor in Model)
-        {
-            <section class="wrapper style4 container">
-                <div class="content" id="@mentor.Id" style="overflow-y: auto">
-                    <div class="3u 12u(narrower)" style="float: right">
-                        <img src="@Html.PrintIfNonEmpty(mentor.Image.Url, "/img/2018/mentors/_unknown_profile.jpg")" class="with-text" />
-                    </div>
+    @if (Model.Any())
+    {
+        <section id="toc" class="wrapper style4 container mentors">
+            <div class="content">
+                <section>
                     <header>
-                        <h3 data-if="Web">
-                            @if (string.IsNullOrEmpty(mentor.WebsiteUrl))
-                            {
-                                @mentor.Name
-                            }
-                            else
-                            {
-                                <a href="@mentor.WebsiteUrl">@mentor.Name</a>
-                            }
-                        </h3>
-                        <h5>@mentor.JobTitle</h5>
+                        <h2>Mentor overview</h2>
                     </header>
-                    <p>
-                        @mentor.Expertise
-                    </p>
-                </div>
-            </section>
-        }
+                    <ul>
+                        @foreach (var mentor in Model)
+                        {
+                            <li>
+                                <a href="#@mentor.Id">@mentor.Name</a> - @mentor.Expertise.DynamicSubstring(35, ',')
+                            </li>
+                        }
+                    </ul>
+                </section>
+            </div>
+        </section>
 
-    </div>
+        <div>
+
+            @foreach (var mentor in Model)
+            {
+                <section class="wrapper style4 container mentors">
+                    <div class="content" id="@mentor.Id" style="overflow-y: auto">
+                        <div class="3u 12u(narrower)" style="float: right">
+                            <img src="@Html.PrintIfNonEmpty(mentor.Image.Url, "/img/2018/mentors/_unknown_profile.jpg")" class="with-text" />
+                        </div>
+                        <header>
+                            <h3 data-if="Web">
+                                @if (string.IsNullOrEmpty(mentor.WebsiteUrl))
+                                {
+                                    @mentor.Name
+                                }
+                                else
+                                {
+                                    <a href="@mentor.WebsiteUrl">@mentor.Name</a>
+                                }
+                            </h3>
+                            <h5>@mentor.JobTitle</h5>
+                        </header>
+                        <p>
+                            @mentor.Expertise
+                        </p>
+                    </div>
+                </section>
+            }
+
+        </div>
+    }
+    else
+    {
+        <section class="wrapper style4 container">
+            <div class="content">
+                <section style="text-align: center">
+                    <header>
+                        <h3>Stay tuned</h3>
+                    </header>
+
+                    <p>
+                        No mentors have been publicized yet. Check back later for more details or follow us on Social Media:
+                    </p>
+                    <ul class="icons">
+                        <li><a href="https://www.facebook.com/Pioniergarage/">Facebook</a></li>
+                        <li><a href="https://instagram.com/pioniergarage">Instagram</a></li>
+                    </ul>
+                    @{
+                        var lastYear = (ViewBag.ContestYears as ICollection<string>)
+                            .Where(y => y.CompareTo(ViewBag.SelectedContestYear) < 0)
+                            .OrderByDescending(y => y)
+                            .FirstOrDefault();
+                    }
+                    @if (!string.IsNullOrEmpty(lastYear))
+                    {
+                        <p>
+                            You can also check out @Html.ActionLink("the mentors of the last contest", "Program", "Home", new { year = lastYear }).
+                        </p>
+                    }
+                </section>
+            </div>
+        </section>
+    }
 
 </article>

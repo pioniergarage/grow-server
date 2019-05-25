@@ -23,6 +23,7 @@ namespace Grow.Server.Controllers
                 .Include(t => t.Image)
                 .ToList(),
                 MainEvents = EventsInSelectedYear
+                .Include(e => e.Image)
                 .Where(e => e.Type == Event.EventType.MainEvent)
                 .ToList(),
                 Contest = SelectedContest.Single()

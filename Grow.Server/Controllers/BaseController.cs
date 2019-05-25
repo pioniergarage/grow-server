@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Grow.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 
 namespace Grow.Server.Controllers
 {
@@ -15,6 +16,8 @@ namespace Grow.Server.Controllers
         protected GrowDbContext DbContext { get; }
 
         protected AppSettings AppSettings { get; }
+
+        protected ICollection<string> ContestYears { get; private set; }
 
         protected string SelectedContestYear { get; private set; }
 
@@ -56,28 +59,40 @@ namespace Grow.Server.Controllers
         {
             base.OnActionExecuting(context);
 
+            ContestYears = DbContext.Contests.Select(c => c.Year).ToList();
             ChooseSelectedContestYear(context);
 
             // Default values for all controller actions
+            ViewBag.ContestYears = ContestYears;
             ViewBag.SelectedContestYear = SelectedContestYear;
             ViewBag.SelectedContestName = SelectedContestName;
         }
 
         public void ChooseSelectedContestYear(ActionExecutingContext context)
         {
+            string yearInUrl = String.Empty,
+                yearInCookie;
+
+            var hasYearInUrl = context.RouteData.Values.TryGetValue(Constants.ROUTE_YEAR_SELECTOR, out object value)
+                && (yearInUrl = value as string) != null
+                && !string.IsNullOrWhiteSpace(yearInUrl);
+            var hasYearInCookie = (yearInCookie = context.HttpContext.Request.Cookies[Constants.COOKIE_SELECTED_YEAR_KEY]) != null
+                && !string.IsNullOrWhiteSpace(yearInCookie);
+            var isInAdminArea = context.RouteData.Values.GetValueOrDefault("area", "").Equals("Admin");
+
             // STEP 1: Choose year
             // Contest chosen via route (/year/controller/action)
-            if (context.RouteData.Values.TryGetValue(Constants.ROUTE_YEAR_SELECTOR, out object value) && value is string year && !string.IsNullOrEmpty(year))
+            if (hasYearInUrl)
             {
-                SelectedContestYear = year;
+                SelectedContestYear = yearInUrl.Trim();
             }
             // Contest chosen via cookie 
-            else if (!string.IsNullOrEmpty(year = context.HttpContext.Request.Cookies[Constants.COOKIE_SELECTED_YEAR_KEY]))
+            else if (isInAdminArea && hasYearInCookie)
             {
-                SelectedContestYear = year;
+                SelectedContestYear = yearInCookie.Trim();
             }
             // fallback: use latest public year
-            if (SelectedContestYear == null)
+            if (SelectedContestYear == null || !ContestYears.Contains(SelectedContestYear))
             {
                 SelectedContestYear = DbContext.Contests.Where(c => c.IsActive).Select(c => c.Year).Max();
             }

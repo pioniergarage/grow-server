@@ -3,10 +3,6 @@
 @{
     ViewBag.Title = "Welcome to GROW";
     ViewBag.TransparentNavbar = true;
-
-    var contestStart = Model.MainEvents.Min(e => e.Start);
-    var timeLeft = contestStart - DateTime.Now;
-    var isBeforeContest = contestStart > DateTime.Now;
 }
 
 <section id="banner">
@@ -16,17 +12,21 @@
         </header>
     </div>
     <p>&nbsp;</p>
-    @if (isBeforeContest)
+    @if (Model.IsBeforeContest)
     {
         // countdown
+        var timeLeftBefore = Model.ContestStart - DateTime.Now;
         <h2>
-            GROW @Model.Contest.Year starting soon<br />
-            <span style="font-family: 'Space Mono'; font-weight: bold; font-size: 200%">
-                <span id="countdown-days">@timeLeft.Days</span> :
-                <span id="countdown-hours">@timeLeft.Hours</span> :
-                <span id="countdown-mins">@timeLeft.Minutes</span> :
-                <span id="countdown-secs">@timeLeft.Seconds</span>
-            </span>
+            GROW @Model.Contest.Year is starting soon<br />
+            @if (Model.MainEvents.Any())
+            {
+                <span style="font-family: 'Space Mono'; font-weight: bold; font-size: 200%">
+                    <span id="countdown-days">@timeLeftBefore.Days</span> :
+                    <span id="countdown-hours">@timeLeftBefore.Hours</span> :
+                    <span id="countdown-mins">@timeLeftBefore.Minutes</span> :
+                    <span id="countdown-secs">@timeLeftBefore.Seconds</span>
+                </span>
+            }
         </h2>
     }
     else
@@ -42,30 +42,30 @@
 <article id="main">
     <section class="wrapper container" style="font-size: 100%; padding-top: 0px; padding-bottom: 0px;">
         <header>
-            @if (isBeforeContest)
+            @if (Model.IsBeforeContest)
             {
                 <h2 style="text-align: center">Stay tuned for @Model.Contest.Name</h2>
             }
             else
             {
-                <h2>@Model.Contest.Name</h2>
+                <h2 style="text-align: center">@Model.Contest.Name</h2>
             }
             <p style="font-weight: 500;">
                 Become an entrepreneur and advance your idea over 11 weeks. Get support, build your prototype and test your market.
             </p>
         </header>
         <p>
-            GROW, the student founding contest in Karlsruhe, is aimed at helping student entrepreneurs to get the right experience, 
+            GROW, the student founding contest in Karlsruhe, is aimed at helping student entrepreneurs to get the right experience,
             knowledge and network to found their own company. There are no requirements; some teams start with nothing but an idea and others are already working on their prototype. We value progress; it doesn’t matter where you start, as long as you GROW.
         </p>
         <p>
-            At the end you can get the chance to pitch your progress in front of <strong>500+ people</strong> 
+            At the end you can get the chance to pitch your progress in front of <strong>500+ people</strong>
             including an experienced jury and may win one of the prizes from our <strong>prize pool worth over 10.000 €</strong>.
         </p>
     </section>
 
     <section id="cta">
-        @if (isBeforeContest)
+        @if (Model.IsBeforeContest)
         {
             <header>
                 <h2>You want to participate in @Model.Contest.Year?</h2>
@@ -86,6 +86,10 @@
                 You can also attend the Kickoff event and enter spontaneously.
             </p>
         }
+        else if (Model.IsAfterContest)
+        {
+            // TODO
+        }
         else
         {
             // TODO
@@ -105,7 +109,7 @@
             {
                 <div class="4u 12u(narrower)">
                     <section>
-                        <img src="/img/icon/eventdate.png" alt="@evnt.Name" class="fitHalf" />
+                        <img src="@(evnt.Image?.Url ?? "/img/icon/eventdate.png")" alt="@evnt.Name" class="fitHalf" />
                         <header>
                             <h2>@evnt.Start.ToString("MMM dd")</h2>
                             <h3 style="text-decoration: underline">@Html.ActionLink(evnt.Name, "Program", "Home", null, null, evnt.Name.Replace(" ", String.Empty).ToLower(), null, null)</h3>
@@ -175,28 +179,31 @@
         </div>
     </section>
 
-    <section class="wrapper style1 container special">
-        <header>
-            <h2>Made possible thanks to</h2>
-        </header>
-        <div class="row logos">
-            @foreach (var partner in Model.Partners)
-            {
-                if (partner.Image != null)
+    @if (Model.Partners.Any())
+    {
+        <section class="wrapper style1 container special">
+            <header>
+                <h2>Made possible thanks to</h2>
+            </header>
+            <div class="row logos">
+                @foreach (var partner in Model.Partners)
                 {
-                    <div class="3u 6u(narrower)">
-                        <img src="@partner.Image.Url" />
-                    </div>
+                    if (partner.Image != null)
+                    {
+                        <div class="3u 6u(narrower)">
+                            <img src="@partner.Image.Url" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="3u 6u(narrower)">
+                            <h3>@partner.Name</h3>
+                        </div>
+                    }
                 }
-                else
-                {
-                    <div class="3u 6u(narrower)">
-                        <h3>@partner.Name</h3>
-                    </div>
-                }
-            }
-        </div>
-    </section>
+            </div>
+        </section>
+    }
 </article>
 
 

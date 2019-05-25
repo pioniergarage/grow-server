@@ -11,110 +11,144 @@
         <span class="icon fa-calendar-o"></span>
         <h2>Here's the <strong>Agenda</strong> of @ViewBag.SelectedContestName</h2>
     </header>
-
-    <section id="calendar" class="wrapper style4 container">
-        <div class="content">
-            <section>
-                <header>
-                    <h3>Event calendar</h3>
-                </header>
-
-                <ul>
-                    @{
-                        var currentMonth = Model.Min(e => e.Start);
-                        var endMonth = Model.Max(e => e.Start);
-                    }
-                    @do
-                    {
-                        <li>@string.Format("{0:MMMM} '{0:yy}", currentMonth).ToUpper()</li>
-                        foreach (var evnt in Model.Where(e => e.Start.Month == currentMonth.Month && e.Start.Year == currentMonth.Year))
-                        {
-                            <li>
-                                <a href="#@evnt.Id" style="@(evnt.Visibility == Event.EventVisibility.Public ? "font-weight: 400;" : "")">
-                                    @(evnt.Start.Day)@(evnt.Start.GetDayExtension()) - @evnt.Name
-                                </a>
-                            </li>
-                        }
-                        <li>&nbsp;</li>
-                        currentMonth = currentMonth.AddMonths(1);
-                    } while (currentMonth.TotalMonths() <= endMonth.TotalMonths());
-                </ul>
-
-                <p>
-                    The support program consists of two main areas: <b>Mentoring</b> to access experience of others and <b>Workshops</b> to improve yourself. More information will follow later on.
-                </p>
-            </section>
-        </div>
-    </section>
-
-    @foreach (var evnt in Model)
+    @if (Model.Any())
     {
-        @if (evnt.Type == Event.EventType.MainEvent)
-        {
-            <a name="@evnt.Name.Replace(" ", String.Empty).ToLower()"></a>
-        }
-        <section id="@evnt.Id" class="wrapper style4 container">
+        <section id="calendar" class="wrapper style4 container">
             <div class="content">
                 <section>
                     <header>
-                        <h3>@evnt.Name</h3>
+                        <h3>Event calendar</h3>
                     </header>
-                    <p style="white-space: pre-line">@evnt.Description</p>
-                    @if (!string.IsNullOrEmpty(evnt.FacebookLink))
-                    {
-                        <p><a href="@evnt.FacebookLink">View on Facebook</a></p>
+
+                    <ul>
+                        @{
+                            var currentMonth = Model.Min(e => e.Start);
+                            var endMonth = Model.Max(e => e.Start);
+                        }
+                        @do
+                        {
+                            <li>@string.Format("{0:MMMM} '{0:yy}", currentMonth).ToUpper()</li>
+                            foreach (var evnt in Model.Where(e => e.Start.Month == currentMonth.Month && e.Start.Year == currentMonth.Year))
+                            {
+                                <li>
+                                    <a href="#@evnt.Id" style="@(evnt.Visibility == Event.EventVisibility.Public ? "font-weight: 400;" : "")">
+                                        @(evnt.Start.Day)@(evnt.Start.GetDayExtension()) - @evnt.Name
+                                    </a>
+                                </li>
+                            }
+                            <li>&nbsp;</li>
+                            currentMonth = currentMonth.AddMonths(1);
+                        } while (currentMonth.TotalMonths() <= endMonth.TotalMonths());
+                    </ul>
+
+                    <p>
+                        The support program consists of two main areas: <b>Mentoring</b> to access experience of others and <b>Workshops</b> to improve yourself. More information will follow later on.
+                    </p>
+                </section>
+            </div>
+        </section>
+
+        @foreach (var evnt in Model)
+        {
+            @if (evnt.Type == Event.EventType.MainEvent)
+            {
+                <a name="@evnt.Name.Replace(" ", String.Empty).ToLower()"></a>
+            }
+            <section id="@evnt.Id" class="wrapper style4 container">
+                <div class="content">
+                    <section>
+                        <header>
+                            <h3>@evnt.Name</h3>
+                        </header>
+                        <p style="white-space: pre-line">@evnt.Description</p>
+                        @if (!string.IsNullOrEmpty(evnt.FacebookLink))
+                        {
+                            <p><a href="@evnt.FacebookLink">View on Facebook</a></p>
+                        }
+                        <div class="row">
+                            <div class="2u 5u(narrower)"><img src="/img/icon/eventdate.png" width="50%" /></div>
+                            <div class="3u 10u(narrower)" align="left" style="font-weight: 400;">
+                                @{
+                                    string formatString = string.Empty;
+                                    if (evnt.Start.Month == evnt.End.Month)
+                                    {
+                                        formatString = (evnt.Start.DayOfYear == evnt.Start.DayOfYear)
+                                            ? "{0:MMMM dd}{1}, {0:yyyy}"
+                                            : "{0:MMMM dd}{1} - {2:dd}{3}, {0:yyyy}";
+                                    }
+                                    else if (evnt.Start.Year == evnt.End.Year)
+                                    {
+                                        formatString = "{0:MM dd}{1} - {2:MM dd}{3}, {0:yyyy}";
+                                    }
+                                    else
+                                    {
+                                        formatString = "{0:MM dd yy} - {2:MM dd yy}";
+                                    }
+                                }
+                                @string.Format(formatString, evnt.Start, evnt.Start.GetDayExtension(), evnt.End, evnt.End.GetDayExtension())
+                                @if (evnt.HasTimesSet)
+                                {
+                                    <br />
+                                    @(evnt.Start.ToShortTimeString()) @:- @(evnt.End.ToShortTimeString())
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="2u 5u(narrower)"><img src="/img/icon/placeholder.png" width="50%" /></div>
+                            <div class="10u 10u(narrower)" align="left" style="font-weight: 400">
+                                @evnt.Location<br />@evnt.Address
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="2u 5u(narrower)"><img src="/img/icon/visibility.png" width="50%" /></div>
+                            <div class="10u 10u(narrower)" align="left" style="font-weight: 400;">
+                                @switch (evnt.Visibility)
+                                {
+                                    case Event.EventVisibility.Public:
+                                        @: Public<br />Everyone can come, watch and maybe enter spontaneously
+                                        break;
+                                    case Event.EventVisibility.ForActiveTeams:
+                                        @: Private<br />Only for active teams
+                                        break;
+                                    case Event.EventVisibility.ForAllTeams:
+                                        @: Private<br />Only for registered teams
+                                        break;
+                                }
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        }
+    }
+    else
+    {
+        <section class="wrapper style4 container">
+            <div class="content">
+                <section style="text-align: center">
+                    <header>
+                        <h3>Stay tuned</h3>
+                    </header>
+
+                    <p>
+                        No events have been publicized yet. Check back later for more details or follow us on Social Media:
+                    </p>
+                    <ul class="icons">
+                        <li><a href="https://www.facebook.com/Pioniergarage/">Facebook</a></li>
+                        <li><a href="https://instagram.com/pioniergarage">Instagram</a></li>
+                    </ul>
+                    @{
+                        var lastYear = (ViewBag.ContestYears as ICollection<string>)
+                            .Where(y => y.CompareTo(ViewBag.SelectedContestYear) < 0)
+                            .OrderByDescending(y => y)
+                            .FirstOrDefault();
                     }
-                    <div class="row">
-                        <div class="2u 5u(narrower)"><img src="/img/icon/eventdate.png" width="50%" /></div>
-                        <div class="3u 10u(narrower)" align="left" style="font-weight: 400;">
-                            @{
-                                string formatString = string.Empty;
-                                if (evnt.Start.Month == evnt.End.Month)
-                                {
-                                    formatString = (evnt.Start.DayOfYear == evnt.Start.DayOfYear)
-                                        ? "{0:MMMM dd}{1}, {0:yyyy}"
-                                        : "{0:MMMM dd}{1} - {2:dd}{3}, {0:yyyy}";
-                                }
-                                else if (evnt.Start.Year == evnt.End.Year)
-                                {
-                                    formatString = "{0:MM dd}{1} - {2:MM dd}{3}, {0:yyyy}";
-                                }
-                                else
-                                {
-                                    formatString = "{0:MM dd yy} - {2:MM dd yy}";
-                                }
-                            }
-                            @string.Format(formatString, evnt.Start, evnt.Start.GetDayExtension(), evnt.End, evnt.End.GetDayExtension())
-                            @if (evnt.HasTimesSet)
-                            {
-                                <br />
-                                @(evnt.Start.ToShortTimeString()) @:- @(evnt.End.ToShortTimeString())
-                            }
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="2u 5u(narrower)"><img src="/img/icon/placeholder.png" width="50%" /></div>
-                        <div class="10u 10u(narrower)" align="left" style="font-weight: 400">
-                            @evnt.Location<br />@evnt.Address
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="2u 5u(narrower)"><img src="/img/icon/visibility.png" width="50%" /></div>
-                        <div class="10u 10u(narrower)" align="left" style="font-weight: 400;">
-                            @switch (evnt.Visibility)
-                            {
-                                case Event.EventVisibility.Public:
-                                    @: Public<br/>Everyone can come, watch and maybe enter spontaneously
-                                    break;
-                                case Event.EventVisibility.ForActiveTeams:
-                                    @: Private<br />Only for active teams
-                                    break;
-                                case Event.EventVisibility.ForAllTeams:
-                                    @: Private<br />Only for registered teams
-                                    break;
-                            }
-                        </div>
-                    </div>
+                    @if (!string.IsNullOrEmpty(lastYear))
+                    {
+                        <p>
+                            You can also check out @Html.ActionLink("the program of the last contest", "Program", "Home", new { year = lastYear }).
+                        </p>
+                    }
                 </section>
             </div>
         </section>

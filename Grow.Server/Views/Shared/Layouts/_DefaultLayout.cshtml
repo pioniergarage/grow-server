@@ -57,33 +57,27 @@
     <div id="page-wrapper">
 
         <header id="header" class="@(ViewBag.TransparentNavbar ? "alt" : "")">
-            <h1 id="logo" style="text-transform: none;"><a href="@Url.Action("Index", "Home")">GROW <span>by <span style="font-family: Philosopher; font-size: 105%">PionierGarage</span></span></a></h1>
+            <h1 id="logo" style="text-transform: none;"><a href="@Url.Action("Index", "Home", new { year = "" })">GROW <span>by <span style="font-family: Philosopher; font-size: 105%">PionierGarage</span></span></a></h1>
             <nav id="nav">
                 <ul>
                     <li>
-                        @Html.ActionLink("Home", "Index", "Home")
+                        @Html.ActionLink("Home", "Index", "Home", new { year = "" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Program", "Program", "Home", new { year = ViewBag.SelectedContestYear })
                     </li>
                     <li class="submenu">
-                        @Html.ActionLink("Program", "Program", "Home")
+                        @Html.ActionLink("Contest", "Index", "Home", new { year = "" })
                         <ul>
-                            <li>@Html.ActionLink("Calendar", "Program", "Home", null, null, "calendar", null, null)</li>
-                            <li>@Html.ActionLink("Kickoff", "Program", "Home", null, null, "kickoff", null, null)</li>
-                            <li>@Html.ActionLink("Midterm", "Program", "Home", null, null, "midterm", null, null)</li>
-                            <li>@Html.ActionLink("Final", "Program", "Home", null, null, "final", null, null)</li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        @Html.ActionLink("Contest", "Index", "Home")
-                        <ul>
-                            <li>@Html.ActionLink("Teams", "Teams", "Home")</li>
-                            <li>@Html.ActionLink("Mentors", "Mentors", "Home")</li>
-                            <li>@Html.ActionLink("Judges", "Judges", "Home")</li>
+                            <li>@Html.ActionLink("Teams", "Teams", "Home", new { year = ViewBag.SelectedContestYear })</li>
+                            <li>@Html.ActionLink("Mentors", "Mentors", "Home", new { year = ViewBag.SelectedContestYear })</li>
+                            <li>@Html.ActionLink("Judges", "Judges", "Home", new { year = ViewBag.SelectedContestYear })</li>
                         </ul>
                     </li>
                     <li class="submenu">
                         <a href="http://pioniergarage.de">About us</a>
                         <ul>
-                            <li>@Html.ActionLink("Organizers", "Organizers", "Home")</li>
+                            <li>@Html.ActionLink("Organizers", "Organizers", "Home", new { year = ViewBag.SelectedContestYear })</li>
                             <li><a href="https://pioniergarage.de/kontakt/">Contact</a></li>
                             <li><a href="https://pioniergarage.de">PionierGarage</a></li>
                         </ul>
@@ -96,8 +90,8 @@
 
         <footer id="footer">
             <ul class="icons">
-                <li><a href="http://pioniergarage.de" class="icon"> <img alt="PionierGarage Website" src="/img/icon/shortcutIcon_scaled_bw_1.png" width="19px" height="19px"></a></li>
-                <li><a href="http://www.facebook.com/Pioniergarage/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="https://pioniergarage.de" class="icon"> <img alt="PionierGarage Website" src="/img/icon/shortcutIcon_scaled_bw_1.png" width="19px" height="19px"></a></li>
+                <li><a href="https://www.facebook.com/Pioniergarage/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
                 <li><a href="mailto:grow@pioniergarage.de" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
             </ul>
             <ul class="copyright">

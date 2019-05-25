@@ -16,6 +16,8 @@ namespace Grow.Data.Entities
 
         public string Address { get; set; }
 
+        public Image Image { get; set; }
+
         public EventVisibility Visibility { get; set; }
 
         public EventType Type { get; set; }

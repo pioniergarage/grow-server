@@ -1,5 +1,7 @@
 ﻿@import url("/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,900");
+@import url("https://fonts.googleapis.com/css?family=Philosopher:400");
+@import url("https://fonts.googleapis.com/css?family=Space+Mono");
 /*
 	Twenty by HTML5 UP
 	html5up.net | @ajlkn
@@ -965,6 +967,9 @@ body {
     margin-left: 8.3333333333%; } }
 
 /* Basic */
+html {
+  scroll-behavior: smooth; }
+
 body {
   background: #f3f6fa; }
   body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -1396,6 +1401,13 @@ input[type="reset"],
     .button.special:hover {
       background: #b31918 !important;
       border-color: #000 !important; }
+  input[type="button"].disabled,
+  input[type="submit"].disabled,
+  input[type="reset"].disabled,
+  .button.disabled {
+    background: #898786;
+    border-color: #645862;
+    cursor: default; }
   input[type="button"].fit,
   input[type="submit"].fit,
   input[type="reset"].fit,
@@ -1637,6 +1649,9 @@ input[type="reset"],
     opacity: 0;
     padding: 3em;
     text-align: center; }
+    #banner .inner h2 {
+      padding: 0;
+      margin: 0; }
     #banner .inner header {
       display: inline-block; }
     #banner .inner p {
@@ -1695,22 +1710,25 @@ body.index #main {
 #footer {
   background: #E8EEF4;
   color: #7c8081;
-  padding: 5em 5em 10em 5em;
-  text-align: center; }
-  #footer .copyright {
-    font-size: 0.8em;
-    line-height: 1em; }
-    #footer .copyright a {
-      color: inherit; }
-    #footer .copyright li {
-      display: inline-block;
-      margin-left: 1em;
-      padding-left: 1em;
-      border-left: dotted 1px; }
-      #footer .copyright li:first-child {
-        margin: 0;
-        padding: 0;
-        border: 0; }
+  padding: 4em;
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 1em; }
+  #footer a {
+    border-bottom-width: 0; }
+  #footer .icons img {
+    vertical-align: middle; }
+  #footer .copyright a {
+    color: inherit; }
+  #footer .copyright li {
+    display: inline-block;
+    margin-left: 1em;
+    padding-left: 1em;
+    border-left: dotted 1px; }
+    #footer .copyright li:first-child {
+      margin: 0;
+      padding: 0;
+      border: 0; }
 
 /* Wide */
 @media screen and (max-width: 1680px) {
@@ -1754,7 +1772,7 @@ body.index #main {
     background-attachment: scroll; }
   /* Footer */
   #footer {
-    padding: 4em; } }
+    padding: 3em; } }
 
 /* Narrow */
 @media screen and (max-width: 980px) {
@@ -1866,7 +1884,7 @@ body.index #main {
     margin: 0; }
   /* Footer */
   #footer {
-    padding: 4em 1.5em; }
+    padding: 3em 1.5em; }
   /* Off-Canvas Navigation */
   #page-wrapper {
     -moz-backface-visibility: hidden;

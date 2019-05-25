@@ -4,14 +4,16 @@ using Grow.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Grow.Data.Migrations
 {
     [DbContext(typeof(GrowDbContext))]
-    partial class GrowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190523174005_Add-EventImage")]
+    partial class AddEventImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,8 +89,6 @@ namespace Grow.Data.Migrations
                     b.Property<string>("Language");
 
                     b.Property<string>("Name");
-
-                    b.Property<string>("RegistrationUrl");
 
                     b.Property<DateTime>("UpdatedAt");
 

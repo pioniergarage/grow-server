@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Grow.Data;
+using Grow.Data.Entities;
 using Grow.Server.Model;
 using Grow.Server.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,16 @@ namespace Grow.Server.Controllers
 
         public IActionResult Index()
         {
-            var model = PartnersInSelectedYear
+            var model = new IndexViewModel
+            {
+                Partners = PartnersInSelectedYear
                 .Include(t => t.Image)
-                .ToList();
+                .ToList(),
+                MainEvents = EventsInSelectedYear
+                .Where(e => e.Type == Event.EventType.MainEvent)
+                .ToList(),
+                Contest = SelectedContest.Single()
+            };
             return View(model);
         }
 

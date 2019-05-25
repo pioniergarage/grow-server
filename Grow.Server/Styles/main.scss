@@ -3,6 +3,8 @@
 @import 'libs/mixins';
 @import url("/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,900");
+@import url("https://fonts.googleapis.com/css?family=Philosopher:400");
+@import url("https://fonts.googleapis.com/css?family=Space+Mono");
 
 /*
 	Twenty by HTML5 UP
@@ -54,6 +56,10 @@
 	$pattern-background-size: 25em;
 
 /* Basic */
+
+    html {
+        scroll-behavior: smooth;
+    }
 
 	body {
 		background: _palette(bg);
@@ -579,53 +585,59 @@
 
 /* Button */
 
-	input[type="button"],
-	input[type="submit"],
-	input[type="reset"],
-	.button {
-		@include vendor('appearance', 'none');
-		@include vendor('transition', ('color 0.2s ease-in-out', 'border-color 0.2s ease-in-out', 'background-color 0.2s ease-in-out'));
-		background: none;
-		border: solid 1px;
-		color: inherit;
-		cursor: pointer;
-		display: inline-block;
-		font-size: 0.8em;
-		font-weight: 900;
-		letter-spacing: 2px;
-		min-width: 18em;
-		padding: 0 0.75em;
-		line-height: 3.75em;
-		text-align: center;
-		text-decoration: none;
-		text-transform: uppercase;
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+.button {
+    @include vendor('appearance', 'none');
+    @include vendor('transition', ('color 0.2s ease-in-out', 'border-color 0.2s ease-in-out', 'background-color 0.2s ease-in-out'));
+    background: none;
+    border: solid 1px;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: 900;
+    letter-spacing: 2px;
+    min-width: 18em;
+    padding: 0 0.75em;
+    line-height: 3.75em;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
 
-		&:hover {
-			background: rgba(188,202,206,0.15);
-			border-color: inherit;
-		}
+    &:hover {
+        background: rgba(188,202,206,0.15);
+        border-color: inherit;
+    }
 
-		&.special {
-			background: _palette(pgInv, bg);
-			border-color: _palette(pgInv, fg);
-			color: _palette(pg, bg) !important;
+    &.special {
+        background: _palette(pgInv, bg);
+        border-color: _palette(pgInv, fg);
+        color: _palette(pg, bg) !important;
 
-			&:hover {
-				background: _palette(pgInv, bg) !important;
-				border-color: _palette(pgInv, fg) !important;
-			}
-		}
+        &:hover {
+            background: _palette(pgInv, bg) !important;
+            border-color: _palette(pgInv, fg) !important;
+        }
+    }
 
-		&.fit {
-			width: 100%;
-		}
+    &.disabled {
+        background: _palette(disabled, fg);
+        border-color: _palette(disabled, bg);
+        cursor: default;
+    }
 
-		&.small {
-			font-size: 0.7em;
-			min-width: 14em;
-			padding: 0.5em 0;
-		}
-	}
+    &.fit {
+        width: 100%;
+    }
+
+    &.small {
+        font-size: 0.7em;
+        min-width: 14em;
+        padding: 0.5em 0;
+    }
+}
 
 /* Wrapper */
 
@@ -880,6 +892,11 @@
 			padding: 3em;
 			text-align: center;
 
+            h2 {
+                padding: 0;
+                margin: 0;
+            }
+
 			header {
 				display: inline-block;
 			}
@@ -970,34 +987,44 @@
 
 /* Footer */
 
-	#footer {
-		background: _palette(footer, bg);
-		color: _palette(footer, fg);
-		padding: 5em 5em 10em 5em;
-		text-align: center;
+#footer {
+    background: _palette(footer, bg);
+    color: _palette(footer, fg);
+    padding: 4em;
+    text-align: center;
+    font-size: 0.8em;
+    line-height: 1em;
 
-		.copyright {
-			font-size: 0.8em;
-			line-height: 1em;
+    a {
+        border-bottom-width: 0;
+    }
 
-			a {
-				color: inherit;
-			}
+    .icons {
+        img {
+            vertical-align: middle;
+        }
+    }
 
-			li {
-				display: inline-block;
-				margin-left: 1em;
-				padding-left: 1em;
-				border-left: dotted 1px;
+    .copyright {
 
-				&:first-child {
-					margin: 0;
-					padding: 0;
-					border: 0;
-				}
-			}
-		}
-	}
+        a {
+            color: inherit;
+        }
+
+        li {
+            display: inline-block;
+            margin-left: 1em;
+            padding-left: 1em;
+            border-left: dotted 1px;
+
+            &:first-child {
+                margin: 0;
+                padding: 0;
+                border: 0;
+            }
+        }
+    }
+}
 
 /* Wide */
 
@@ -1089,7 +1116,7 @@
 		/* Footer */
 
 			#footer {
-				padding: 4em;
+				padding: 3em;
 			}
 
 	}
@@ -1313,7 +1340,7 @@
 		/* Footer */
 
 			#footer {
-				padding: 4em 1.5em;
+				padding: 3em 1.5em;
 			}
 
 		/* Off-Canvas Navigation */

@@ -57,7 +57,7 @@
     <div id="page-wrapper">
 
         <header id="header" class="@(ViewBag.TransparentNavbar ? "alt" : "")">
-            <h1 id="logo"><a href="@Url.Action("Index", "Home")">Grow <span>by PionierGarage</span></a></h1>
+            <h1 id="logo" style="text-transform: none;"><a href="@Url.Action("Index", "Home")">GROW <span>by <span style="font-family: Philosopher; font-size: 105%">PionierGarage</span></span></a></h1>
             <nav id="nav">
                 <ul>
                     <li>
@@ -96,16 +96,21 @@
 
         <footer id="footer">
             <ul class="icons">
-                <li><a href="http://www.pioniergarage.de" class="icon"> <img alt="PionierGarage Website" src="/img/icon/shortcutIcon_scaled_bw_1.png" width="22px" height="22px"></a></li>
+                <li><a href="http://pioniergarage.de" class="icon"> <img alt="PionierGarage Website" src="/img/icon/shortcutIcon_scaled_bw_1.png" width="19px" height="19px"></a></li>
                 <li><a href="http://www.facebook.com/Pioniergarage/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
                 <li><a href="mailto:grow@pioniergarage.de" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
             </ul>
             <ul class="copyright">
-                <li><a href="http://www.pioniergarage.de" class="icon">PionierGarage e.V</a></li>
-                <li><a href="http://html5up.net" class="icon">Design</a></li>
-                <li><a href="https://pioniergarage.de/impressum" class="icon">Imprint</a></li>
-                <li><a href="https://pioniergarage.de/datenschutz" class="icon">Privacy</a></li>
+                <li><a href="http://html5up.net">Design</a></li>
+                <li><a href="https://pioniergarage.de/impressum">Imprint</a></li>
+                <li><a href="https://pioniergarage.de/datenschutz">Privacy</a></li>
             </ul>
+            <div>
+                <p>
+                    Made with ❤ by
+                    <a href="https://pioniergarage.de"><img src="/img/pg_logo.png" alt="PionierGarage" style="height: 24px; vertical-align: sub; margin-bottom: -1px" /></a>
+                </p>
+            </div>
         </footer>
     </div>
 

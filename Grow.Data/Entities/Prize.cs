@@ -1,6 +1,6 @@
 ﻿namespace Grow.Data.Entities
 {
-    public class Prize : BaseEntity
+    public class Prize : ContestDependentEntity
     {
         public string Reward { get; set; }
 
@@ -10,11 +10,11 @@
         
         public PrizeType Type { get; set; }
 
-        public Team Winner { get; set; }
+        public virtual Team Winner { get; set; }
+        public int? WinnerId { get; set; }
 
-        public Partner GivenBy { get; set; }
-
-        public Contest Contest { get; set; }
+        public virtual Partner GivenBy { get; set; }
+        public int? GivenById { get; set; }
 
         public enum PrizeType
         {

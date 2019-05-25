@@ -3,15 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Grow.Data.Entities
 {
-    public class Team : BaseEntity
+    public class Team : ContestDependentEntity
     {
         public string TagLine { get; set; }
 
         public string Description { get; set; }
 
         public virtual Image LogoImage { get; set; }
+        public int? LogoImageId { get; set; }
 
         public virtual Image TeamPhoto { get; set; }
+        public int? TeamPhotoImageId { get; set; }
 
         public string ActiveSince { get; set; }
 
@@ -24,8 +26,6 @@ namespace Grow.Data.Entities
         public string InstagramUrl { get; set; }
 
         public bool HasDroppedOut { get; set; }
-
-        public Contest Contest { get; set; }
 
         public string MembersAsString
         {

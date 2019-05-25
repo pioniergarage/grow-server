@@ -43,19 +43,6 @@ namespace Grow.Data
 
             builder.Entity<Contest>()
                 .HasIndex(c => c.Year);
-
-            // Adjust Contest navigation properties
-            builder.Entity<Contest>()
-                .HasOne(c => c.KickoffEvent)
-                .WithMany();
-
-            builder.Entity<Contest>()
-                .HasOne(c => c.FinalEvent)
-                .WithMany();
-
-            builder.Entity<Event>()
-                .HasOne(e => e.Contest)
-                .WithMany(c => c.Events);
         }
         
         public override int SaveChanges()

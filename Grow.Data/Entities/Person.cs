@@ -1,15 +1,14 @@
 ﻿namespace Grow.Data.Entities
 {
-    public abstract class Person : BaseEntity
+    public abstract class Person : ContestDependentEntity
     {
         public string JobTitle { get; set; }
 
         public string Description { get; set; }
 
         public virtual Image Image { get; set; }
+        public int? ImageId { get; set; }
 
         public string Email { get; set; }
-
-        public virtual Contest Contest { get; set; }
     }
 }

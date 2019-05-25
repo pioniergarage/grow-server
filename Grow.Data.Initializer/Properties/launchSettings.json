@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Grow.Data.Initializer": {
+      "commandName": "Project",
+      "commandLineArgs": "server=(localdb)\\mssqllocaldb;database=GrowServer;trusted_connection=True;"
+    }
+  }
+}

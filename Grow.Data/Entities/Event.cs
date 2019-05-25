@@ -2,7 +2,7 @@
 
 namespace Grow.Data.Entities
 {
-    public class Event : BaseEntity
+    public class Event : ContestDependentEntity
     {
         public string Description { get; set; }
 
@@ -16,7 +16,8 @@ namespace Grow.Data.Entities
 
         public string Address { get; set; }
 
-        public Image Image { get; set; }
+        public virtual Image Image { get; set; }
+        public int? ImageId { get; set; }
 
         public EventVisibility Visibility { get; set; }
 
@@ -27,8 +28,7 @@ namespace Grow.Data.Entities
         public bool IsMandatory { get; set; }
 
         public virtual Partner HeldBy { get; set; }
-
-        public virtual Contest Contest { get; set; }
+        public int? HeldById { get; set; }
 
 
         public enum EventVisibility

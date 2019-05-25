@@ -17,6 +17,7 @@ namespace Grow.Data.Initializer
         public static Mentor[] Mentors { get; private set; }
         public static Event[] Events { get; private set; }
         public static Partner[] Partners { get; private set; }
+        public static Image[] Event_images { get; private set; }
         public static Image[] Orga_images { get; private set; }
         public static Image[] Judge_images { get; private set; }
         public static Image[] Mentor_images { get; private set; }
@@ -45,26 +46,20 @@ namespace Grow.Data.Initializer
             {
                 Name = "GROW 2017/18",
                 Year = "2017",
-                Language = "German",
                 IsActive = true,
-                Teams = Teams.SubArray(33).ToListOfCopies(),
-                Prizes = Prizes.SubArray(6).ToListOfCopies(),
-                Mentors = Mentors.SubArray(16).Merge(Mentors.Get(5, 14)).ToListOfCopies(),
-                Judges = Judges.Get(0, 1, 6, 7, 8, 9).ToListOfCopies(),
-                Organizers = Organizers.Get(0, 1, 3, 4).ToListOfCopies(),
-                Partners = Partners.Get(0, 1, 4, 5, 8, 9).ToListOfCopies()
+                Language = "German"
             };
-
-            // Set special collection navigation properties
-            var events = Events.SubArray(8);
-            contest.Events = AddReferencesInCollection(contest, events, (e, c) => e.Contest = c).ToListOfCopies();
-
+            
             context.Contests.Add(contest);
             context.SaveChanges();
-
-            // Special additional properties to avoid circular references
-            contest.KickoffEvent = contest.Events.First();
-            contest.FinalEvent = contest.Events.Last();
+            
+            contest.Teams = Teams.Skip(33).SetIds(contest.Id);
+            contest.Prizes = Prizes.Skip(6).SetIds(contest.Id);
+            contest.Mentors = Mentors.Skip(16).SetIds(contest.Id);
+            contest.Judges = Judges.Skip(6).SetIds(contest.Id);
+            contest.Organizers = Organizers.Skip(6).SetIds(contest.Id);
+            contest.Partners = Partners.Skip(8).SetIds(contest.Id);
+            contest.Events = Events.Skip(8).SetIds(contest.Id);
 
             context.SaveChanges();
         }
@@ -76,25 +71,20 @@ namespace Grow.Data.Initializer
             {
                 Name = "GROW 2018/19",
                 Year = "2018",
-                Language = "English",
                 IsActive = true,
-                Teams = Teams.Take(33).ToListOfCopies(),
-                Prizes = Prizes.Take(6).ToListOfCopies(),
-                Mentors = Mentors.Take(16).ToListOfCopies(),
-                Judges = Judges.Take(6).ToListOfCopies(),
-                Organizers = Organizers.Take(6).ToListOfCopies(),
-                Partners = Partners.Take(8).ToListOfCopies()
+                Language = "English"
             };
-
-            // Set special collection navigation properties
-            contest.Events = AddReferencesInCollection(contest, Events.Take(8).ToArray(), (e, c) => e.Contest = c).ToListOfCopies();
-
+            
             context.Contests.Add(contest);
             context.SaveChanges();
-
-            // Special additional properties to avoid circular references
-            contest.KickoffEvent = contest.Events.First();
-            contest.FinalEvent = contest.Events.Last();
+            
+            contest.Teams = Teams.Take(33).SetIds(contest.Id);
+            contest.Prizes = Prizes.Take(6).SetIds(contest.Id);
+            contest.Mentors = Mentors.Take(16).SetIds(contest.Id);
+            contest.Judges = Judges.Take(6).SetIds(contest.Id);
+            contest.Organizers = Organizers.Take(6).SetIds(contest.Id);
+            contest.Partners = Partners.Take(8).SetIds(contest.Id);
+            contest.Events = Events.Take(8).SetIds(contest.Id);
 
             context.SaveChanges();
         }
@@ -103,104 +93,161 @@ namespace Grow.Data.Initializer
         {
             // Judges
             Judges = new[] {
+
+                // Judges 2018
+
                 new Judge
                 {
                     Name = "Holger Kujath",
-                    Description = "Founder and CEO of the online chat community Knuddels",
+                    JobTitle = "Founder and CEO of the online chat community Knuddels",
                     Image = Judge_images[2]
                 },
                 new Judge
                 {
                     Name = "Orestis Terzidis",
-                    Description = "Professor and head of the entrepreneurial institute EnTechnon",
+                    JobTitle = "Professor and head of the entrepreneurial institute EnTechnon",
                     Image = Judge_images[5]
                 },
                 new Judge
                 {
                     Name = "Michael Kimmig",
-                    Description = "Head of Corporate Process Management at GRENKE digital",
+                    JobTitle = "Head of Corporate Process Management at GRENKE digital",
                     Image = Judge_images[4]
                 },
                 new Judge
                 {
                     Name = "Bernhard Janke",
-                    Description = "Principal at the VC company LEA Partners",
+                    JobTitle = "Principal at the VC company LEA Partners",
                     Image = Judge_images[0]
                 },
                 new Judge
                 {
                     Name = "Martin Trenkle",
-                    Description = "Founder and CEO of the job placement service Campusjäger",
+                    JobTitle = "Founder and CEO of the job placement service Campusjäger",
                     Image = Judge_images[3]
                 },
                 new Judge
                 {
                     Name = "Daniel Stammler",
-                    Description = "Co-Founder and Co-CEO of the mobile game company Kolibri Games",
+                    JobTitle = "Co-Founder and Co-CEO of the mobile game company Kolibri Games",
                     Image = Judge_images[1]
+                },
+
+                // Judges 2017
+                
+                new Judge
+                {
+                    Name = "Holger Kujath",
+                    JobTitle = "Founder and CEO of the online chat community Knuddels",
+                    Image = Judge_images[2]
+                },
+                new Judge
+                {
+                    Name = "Orestis Terzidis",
+                    JobTitle = "Professor and head of the entrepreneurial institute EnTechnon",
+                    Image = Judge_images[5]
                 },
                 new Judge
                 {
                     Name = "Christian Roth",
-                    Description = "Managing Partner at the VC company LEA Partners",
+                    JobTitle = "Managing Partner at the VC company LEA Partners",
                     Image = null
                 },
                 new Judge
                 {
                     Name = "Sven Häwel",
-                    Description = "Internet entrepreneur and coach",
+                    JobTitle = "Internet entrepreneur and coach",
                     Image = null
                 },
                 new Judge
                 {
                     Name = "Matthias Hornberger",
-                    Description = "Chairman of the CyberForum",
+                    JobTitle = "Chairman of the CyberForum",
                     Image = null
                 },
                 new Judge
                 {
                     Name = "Nestor Rodriguez",
-                    Description = "Managing Director at atrineo AG",
+                    JobTitle = "Managing Director at atrineo AG",
                     Image = Mentor_images[13]
                 }
             };
 
             // Organizers
             Organizers = new[] {
+
+                // Organizers 2018
+
                 new Organizer
                 {
                     Name = "Dominik Doerner",
-                    Image = Orga_images[3]
+                    Image = Orga_images[3],
+                    JobTitle = "Main Coordination"
                 },
                 new Organizer
                 {
                     Name = "Anne-Cathrine Eimer",
-                    Image = Orga_images[0]
+                    Image = Orga_images[0],
+                    JobTitle = "Workshop Program"
                 },
                 new Organizer
                 {
                     Name = "Christian Wiegand",
-                    Image = Orga_images[2]
+                    Image = Orga_images[2],
+                    JobTitle = "Fundraising"
                 },
                 new Organizer
                 {
                     Name = "Jasmin Riedel",
-                    Image = Orga_images[4]
+                    Image = Orga_images[4],
+                    JobTitle = "Event Management"
                 },
                 new Organizer
                 {
                     Name = "Martin Thoma",
-                    Image = Orga_images[5]
+                    Image = Orga_images[5],
+                    JobTitle = "Mentoring Program"
                 },
                 new Organizer
                 {
                     Name = "Antonia Lorenz",
-                    Image = Orga_images[1]
-                }
+                    Image = Orga_images[1],
+                    JobTitle = "Marketing"
+                },
+
+                // Organizers 2017
+                
+                new Organizer
+                {
+                    Name = "Dominik Doerner",
+                    Image = Orga_images[3],
+                    JobTitle = "Marketing"
+                },
+                new Organizer
+                {
+                    Name = "Anne-Cathrine Eimer",
+                    Image = Orga_images[0],
+                    JobTitle = "Fundraising"
+                },
+                new Organizer
+                {
+                    Name = "Jasmin Riedel",
+                    Image = Orga_images[4],
+                    JobTitle = "Event Management"
+                },
+                new Organizer
+                {
+                    Name = "Martin Thoma",
+                    Image = Orga_images[5],
+                    JobTitle = "Main Coordination"
+                },
             };
 
             // Mentors
             Mentors = new[] {
+
+                // Mentors 2018
+
                 new Mentor
                 {
                     Name = "Sebastian Böhmer",
@@ -345,9 +392,27 @@ namespace Grow.Data.Initializer
                     WebsiteUrl = "https://www.linkedin.com/in/frederic-tausch/",
                     Image = Mentor_images[3]
                 },
-
-                // 2017
-
+                
+                // Mentors 2017
+                
+                new Mentor
+                {
+                    Name = "Peter Greiner",
+                    JobTitle = "Active and financial investor for startups",
+                    Expertise = "Business modelling, founding, organizational design, financing, sales ",
+                    Description = null,
+                    WebsiteUrl = "https://www.xing.com/profile/Peter_Greiner25",
+                    Image = Mentor_images[14]
+                },
+                new Mentor
+                {
+                    Name = "Heinz T. Rothermel",
+                    JobTitle = "Business consultant and lecturer",
+                    Expertise = "Business planning, strategy, venture capital, marketing, communication ",
+                    Description = null,
+                    WebsiteUrl = "https://www.xing.com/profile/Heinz_Rothermel/",
+                    Image = Mentor_images[5]
+                },
                 new Mentor
                 {
                 Name = "Alexander Glöckner",
@@ -615,6 +680,9 @@ namespace Grow.Data.Initializer
         private static void AddPartners()
         {
             Partners = new[] {
+
+                // Partners 2018
+
                 new Partner
                 {
                     Name = "Knuddels",
@@ -663,6 +731,33 @@ namespace Grow.Data.Initializer
                     Description = "Mobile game developer",
                     Image = Partner_images[6]
                 },
+
+                // Partners 2017
+                
+                new Partner
+                {
+                    Name = "First Momentum Ventures",
+                    Description = "VC company founded by students",
+                    Image = Partner_images[1]
+                },
+                new Partner
+                {
+                    Name = "KIT Gründerschmiede",
+                    Description = "Project of the KIT supporting R2B",
+                    Image = Partner_images[5]
+                },
+                new Partner
+                {
+                    Name = "Knuddels",
+                    Description = "Online chat community",
+                    Image = Partner_images[9]
+                },
+                new Partner
+                {
+                    Name = "LEA Partners",
+                    Description = "Local VC company",
+                    Image = Partner_images[7]
+                },
                 new Partner
                 {
                     Name = "CyberForum",
@@ -680,6 +775,9 @@ namespace Grow.Data.Initializer
 
         private static void AddEvents()
         {
+
+            // Events 2018
+
             Events = new[] {
                 new Event
                 {
@@ -693,6 +791,7 @@ namespace Grow.Data.Initializer
                     HasTimesSet = true,
                     IsMandatory = true,
                     HeldBy = null,
+                    Image = Event_images[0],
                     Visibility = Event.EventVisibility.Public,
                     Type = Event.EventType.MainEvent
                 },
@@ -768,6 +867,7 @@ namespace Grow.Data.Initializer
                     HasTimesSet = true,
                     IsMandatory = true,
                     HeldBy = null,
+                    Image = Event_images[1],
                     Visibility = Event.EventVisibility.Public,
                     Type = Event.EventType.MainEvent
                 },
@@ -798,11 +898,12 @@ namespace Grow.Data.Initializer
                     HasTimesSet = true,
                     IsMandatory = true,
                     HeldBy = null,
+                    Image = Event_images[2],
                     Visibility = Event.EventVisibility.Public,
                     Type = Event.EventType.MainEvent
                 },
 
-                // 2017
+                // Events 2017
 
                 new Event
                 {
@@ -816,6 +917,7 @@ namespace Grow.Data.Initializer
                     HasTimesSet = true,
                     IsMandatory = true,
                     HeldBy = null,
+                    Image = Event_images[0],
                     Visibility = Event.EventVisibility.Public,
                     Type = Event.EventType.MainEvent
                 },
@@ -919,6 +1021,7 @@ Nach Feedback von einer hochkarätigen Jury werden die 10 Teams von der Jury aus
                     HasTimesSet = true,
                     IsMandatory = true,
                     HeldBy = null,
+                    Image = Event_images[1],
                     Visibility = Event.EventVisibility.Public,
                     Type = Event.EventType.MainEvent
                 },
@@ -936,6 +1039,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     HasTimesSet = true,
                     IsMandatory = true,
                     HeldBy = null,
+                    Image = Event_images[2],
                     Visibility = Event.EventVisibility.Public,
                     Type = Event.EventType.MainEvent
                 },
@@ -944,6 +1048,25 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
 
         private static void AddImages()
         {
+            Event_images = new[]
+            {
+                new Image
+                {
+                    Url = "/img/icon/bright-lightbulb.png",
+                    AltText = "Kickoff icon"
+                },
+                new Image
+                {
+                    Url = "/img/icon/funnel.png",
+                    AltText = "Midterm icon"
+                },
+                new Image
+                {
+                    Url = "/img/icon/first-place-medal.png",
+                    AltText = "Final icon"
+                },
+            };
+
             Judge_images = new[]
             {
                 new Image
@@ -1272,6 +1395,9 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
 
         private static void AddTeams()
         {
+
+            // Teams 2018
+
             Teams = new[]
             {
                 new Team
@@ -1737,7 +1863,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     HasDroppedOut = true
                 },
 
-                // 2017
+                // Teams 2017
+
                 new Team
                 {
                     Name = "BestFit",
@@ -1955,13 +2082,16 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
         {
             Prizes = new[]
             {
+
+                // Prizes 2018
+
                 new Prize
                 {
                     Name = "1st place",
                     Reward = "3000 € + 6 months at the PionierGarage Launchpad",
                     RewardValue = 3960,
                     Description = null,
-                    Winner = Teams.Single(t => t.Name == "TortenGlück"),
+                    Winner = Teams.First(t => t.Name == "TortenGlück"),
                     Type = Prize.PrizeType.MainPrize,
                 },
                 new Prize
@@ -1970,7 +2100,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Reward = "2000 € + 3 months at the PionierGarage Launchpad",
                     RewardValue = 2480,
                     Description = null,
-                    Winner = Teams.Single(t => t.Name == "Studentenfutter"),
+                    Winner = Teams.First(t => t.Name == "Studentenfutter"),
                     Type = Prize.PrizeType.MainPrize,
                 },
                 new Prize
@@ -1979,7 +2109,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Reward = "1000 € + 1 month at the PionierGarage Launchpad",
                     RewardValue = 1160,
                     Description = null,
-                    Winner = Teams.Single(t => t.Name == "SecureRadiationLab"),
+                    Winner = Teams.First(t => t.Name == "SecureRadiationLab"),
                     Type = Prize.PrizeType.MainPrize,
                 },
                 new Prize
@@ -1988,8 +2118,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Reward = "1000 € granted by Kolibri Games",
                     RewardValue = 1000,
                     Description = null,
-                    GivenBy = Partners.Single(p => p.Name == "Kolibri Games"),
-                    Winner = Teams.Single(t => t.Name == "TortenGlück"),
+                    GivenBy = Partners.First(p => p.Name == "Kolibri Games"),
+                    Winner = Teams.First(t => t.Name == "TortenGlück"),
                     Type = Prize.PrizeType.SpecialPrize,
                 },
                 new Prize
@@ -1998,8 +2128,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Reward = "1000 € + mentoring through LEA Partners",
                     RewardValue = 1200,
                     Description = null,
-                    GivenBy = Partners.Single(p => p.Name == "LEA Partners"),
-                    Winner = Teams.Single(t => t.Name == "HelioPas AI"),
+                    GivenBy = Partners.First(p => p.Name == "LEA Partners"),
+                    Winner = Teams.First(t => t.Name == "HelioPas AI"),
                     Type = Prize.PrizeType.SpecialPrize,
                 },
                 new Prize
@@ -2008,12 +2138,12 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Reward = "Investment offer by First Momentum Ventures",
                     RewardValue = 0,
                     Description = null,
-                    GivenBy = Partners.Single(p => p.Name == "First Momentum Ventures"),
-                    Winner = Teams.Single(t => t.Name == "Read!"),
+                    GivenBy = Partners.First(p => p.Name == "First Momentum Ventures"),
+                    Winner = Teams.First(t => t.Name == "Read!"),
                     Type = Prize.PrizeType.SpecialPrize,
                 },
 
-                // 2017
+                // Prizes 2017
 
                 new Prize
                 {
@@ -2021,7 +2151,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Reward = "3000 € + 6 months at the PionierGarage Launchpad",
                     RewardValue = 3960,
                     Description = null,
-                    Winner = Teams.Single(t => t.Name == "Usertimes"),
+                    Winner = Teams.First(t => t.Name == "Usertimes"),
                     Type = Prize.PrizeType.MainPrize,
                 },
                 new Prize
@@ -2030,7 +2160,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Reward = "1500 € + 3 months at the PionierGarage Launchpad",
                     RewardValue = 1980,
                     Description = null,
-                    Winner = Teams.Single(t => t.Name == "Colusto"),
+                    Winner = Teams.First(t => t.Name == "Colusto"),
                     Type = Prize.PrizeType.MainPrize,
                 },
                 new Prize
@@ -2039,7 +2169,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     Reward = "500 € + 1 month at the PionierGarage Launchpad",
                     RewardValue = 660,
                     Description = null,
-                    Winner = Teams.Single(t => t.Name == "Sono"),
+                    Winner = Teams.First(t => t.Name == "Sono"),
                     Type = Prize.PrizeType.MainPrize,
                 },
                 new Prize
@@ -2049,7 +2179,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     RewardValue = 500,
                     Description = null,
                     GivenBy = null,
-                    Winner = Teams.Single(t => t.Name == "Flatmates"),
+                    Winner = Teams.First(t => t.Name == "Flatmates"),
                     Type = Prize.PrizeType.SpecialPrize,
                 },
                 new Prize
@@ -2059,57 +2189,23 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     RewardValue = 500,
                     Description = null,
                     GivenBy = null,
-                    Winner = Teams.Single(t => t.Name == "Usertimes"),
+                    Winner = Teams.First(t => t.Name == "Usertimes"),
                     Type = Prize.PrizeType.SpecialPrize,
                 },
             };
         }
-
-        private static TNavigation[] AddReferencesInCollection<TEntity, TNavigation>(TEntity entity, TNavigation[] navigations, Action<TNavigation, TEntity> linkingFunction)
-        {
-            foreach (var navEntity in navigations)
-                linkingFunction(navEntity, entity);
-            return navigations;
-        }
-
-        private static TEntity[] Get<TEntity>(this TEntity[] array, params int[] indices)
-        {
-            var newArray = new TEntity[indices.Length];
-            for (var i = 0; i < indices.Length; i++)
-                newArray[i] = array[indices[i]];
-            return newArray;
-        }
-
-        private static TEntity[] Merge<TEntity>(this TEntity[] arrayA, params TEntity[] arrayB)
-        {
-            var newArray = new TEntity[arrayA.Length + arrayB.Length];
-            arrayA.CopyTo(newArray, 0);
-            arrayB.CopyTo(newArray, arrayA.Length);
-            return newArray;
-        }
-
-        private static TEntity[] SubArray<TEntity>(this TEntity[] data, int index)
-        {
-            var length = data.Length - index;
-            return data.SubArray(index, length);
-        }
-
-        private static TEntity[] SubArray<TEntity>(this TEntity[] data, int index, int length)
-        {
-            TEntity[] result = new TEntity[length];
-            Array.Copy(data, index, result, 0, length);
-            return result;
-        }
-
-        private static ICollection<TEntity> ToListOfCopies<TEntity>(this IEnumerable<TEntity> enumerable) where TEntity : BaseEntity
+        
+        private static ICollection<TEntity> SetIds<TEntity>(this IEnumerable<TEntity> enumerable, int contestId) where TEntity : BaseEntity
         {
             var list = new List<TEntity>();
             foreach (var elem in enumerable)
             {
-                var newElem = (TEntity)elem.Copy();
-                newElem.Id = 0;
-                newElem.IsActive = true;
-                list.Add(newElem);
+                if (elem is ContestDependentEntity)
+                {
+                    (elem as ContestDependentEntity).ContestId = contestId;
+                }
+                elem.IsActive = true;
+                list.Add(elem);
             }
             return list;
         }

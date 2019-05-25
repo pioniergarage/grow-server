@@ -48,11 +48,32 @@ namespace Grow.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    Year = table.Column<string>(nullable: true),
+                    RegistrationUrl = table.Column<string>(nullable: true),
+                    Language = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     Url = table.Column<string>(nullable: true),
@@ -170,77 +191,20 @@ namespace Grow.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Start = table.Column<DateTime>(nullable: false),
-                    End = table.Column<DateTime>(nullable: false),
-                    FacebookLink = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    Visibility = table.Column<int>(nullable: false),
-                    Type = table.Column<int>(nullable: false),
-                    HasTimesSet = table.Column<bool>(nullable: false),
-                    IsMandatory = table.Column<bool>(nullable: false),
-                    HeldById = table.Column<int>(nullable: true),
-                    ContestId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Events", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Contests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Year = table.Column<string>(nullable: true),
-                    KickoffEventId = table.Column<int>(nullable: true),
-                    FinalEventId = table.Column<int>(nullable: true),
-                    Language = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Contests_Events_FinalEventId",
-                        column: x => x.FinalEventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Contests_Events_KickoffEventId",
-                        column: x => x.KickoffEventId,
-                        principalTable: "Events",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Judges",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: false),
                     JobTitle = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ImageId = table.Column<int>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    ContestId = table.Column<int>(nullable: true),
                     WebsiteUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -251,7 +215,7 @@ namespace Grow.Data.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Judges_Images_ImageId",
                         column: x => x.ImageId,
@@ -266,14 +230,15 @@ namespace Grow.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: false),
                     JobTitle = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ImageId = table.Column<int>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    ContestId = table.Column<int>(nullable: true),
                     Expertise = table.Column<string>(nullable: true),
                     WebsiteUrl = table.Column<string>(nullable: true)
                 },
@@ -285,7 +250,7 @@ namespace Grow.Data.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Mentors_Images_ImageId",
                         column: x => x.ImageId,
@@ -300,14 +265,15 @@ namespace Grow.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: false),
                     JobTitle = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ImageId = table.Column<int>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    ContestId = table.Column<int>(nullable: true)
+                    Email = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -317,7 +283,7 @@ namespace Grow.Data.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Organizers_Images_ImageId",
                         column: x => x.ImageId,
@@ -332,12 +298,13 @@ namespace Grow.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    ImageId = table.Column<int>(nullable: true),
-                    ContestId = table.Column<int>(nullable: true)
+                    ImageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -347,7 +314,7 @@ namespace Grow.Data.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Partners_Images_ImageId",
                         column: x => x.ImageId,
@@ -362,20 +329,22 @@ namespace Grow.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: false),
                     TagLine = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     LogoImageId = table.Column<int>(nullable: true),
                     TeamPhotoId = table.Column<int>(nullable: true),
+                    TeamPhotoImageId = table.Column<int>(nullable: true),
                     ActiveSince = table.Column<string>(nullable: true),
                     WebsiteUrl = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     FacebookUrl = table.Column<string>(nullable: true),
                     InstagramUrl = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
-                    ContestId = table.Column<int>(nullable: true),
+                    HasDroppedOut = table.Column<bool>(nullable: false),
                     MembersAsString = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -386,7 +355,7 @@ namespace Grow.Data.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Teams_Images_LogoImageId",
                         column: x => x.LogoImageId,
@@ -402,22 +371,69 @@ namespace Grow.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    ContestId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Start = table.Column<DateTime>(nullable: false),
+                    End = table.Column<DateTime>(nullable: false),
+                    FacebookLink = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    ImageId = table.Column<int>(nullable: true),
+                    Visibility = table.Column<int>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    HasTimesSet = table.Column<bool>(nullable: false),
+                    IsMandatory = table.Column<bool>(nullable: false),
+                    HeldById = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Events_Contests_ContestId",
+                        column: x => x.ContestId,
+                        principalTable: "Contests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Events_Partners_HeldById",
+                        column: x => x.HeldById,
+                        principalTable: "Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Events_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Prizes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    ContestId = table.Column<int>(nullable: false),
                     Reward = table.Column<string>(nullable: true),
                     RewardValue = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    IsPublic = table.Column<bool>(nullable: false),
                     Type = table.Column<int>(nullable: false),
                     WinnerId = table.Column<int>(nullable: true),
-                    GivenById = table.Column<int>(nullable: true),
-                    ContestId = table.Column<int>(nullable: true)
+                    GivenById = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -427,7 +443,7 @@ namespace Grow.Data.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Prizes_Partners_GivenById",
                         column: x => x.GivenById,
@@ -482,16 +498,6 @@ namespace Grow.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contests_FinalEventId",
-                table: "Contests",
-                column: "FinalEventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contests_KickoffEventId",
-                table: "Contests",
-                column: "KickoffEventId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Contests_Year",
                 table: "Contests",
                 column: "Year");
@@ -505,6 +511,11 @@ namespace Grow.Data.Migrations
                 name: "IX_Events_HeldById",
                 table: "Events",
                 column: "HeldById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_ImageId",
+                table: "Events",
+                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Judges_ContestId",
@@ -575,34 +586,10 @@ namespace Grow.Data.Migrations
                 name: "IX_Teams_TeamPhotoId",
                 table: "Teams",
                 column: "TeamPhotoId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Events_Contests_ContestId",
-                table: "Events",
-                column: "ContestId",
-                principalTable: "Contests",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Events_Partners_HeldById",
-                table: "Events",
-                column: "HeldById",
-                principalTable: "Partners",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Contests_Events_FinalEventId",
-                table: "Contests");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Contests_Events_KickoffEventId",
-                table: "Contests");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -617,6 +604,9 @@ namespace Grow.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Judges");
@@ -637,13 +627,10 @@ namespace Grow.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Teams");
-
-            migrationBuilder.DropTable(
-                name: "Events");
-
-            migrationBuilder.DropTable(
                 name: "Partners");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "Contests");

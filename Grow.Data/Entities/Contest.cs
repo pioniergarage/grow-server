@@ -5,14 +5,10 @@ namespace Grow.Data.Entities
     public class Contest : BaseEntity
     {
         public string Year { get; set; }
-
-        public virtual Event KickoffEvent { get; set; }
-
-        public virtual Event FinalEvent { get; set; }
+        
+        public string RegistrationUrl { get; set; }
 
         public string Language { get; set; }
-
-        public string RegistrationUrl { get; set; }
 
         public virtual ICollection<Event> Events { get; set; }
 

@@ -78,11 +78,7 @@ namespace Grow.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<int?>("FinalEventId");
-
                     b.Property<bool>("IsActive");
-
-                    b.Property<int?>("KickoffEventId");
 
                     b.Property<string>("Language");
 
@@ -95,10 +91,6 @@ namespace Grow.Data.Migrations
                     b.Property<string>("Year");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FinalEventId");
-
-                    b.HasIndex("KickoffEventId");
 
                     b.HasIndex("Year");
 
@@ -113,7 +105,7 @@ namespace Grow.Data.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<int?>("ContestId");
+                    b.Property<int>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -185,7 +177,7 @@ namespace Grow.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContestId");
+                    b.Property<int>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -220,7 +212,7 @@ namespace Grow.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContestId");
+                    b.Property<int>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -257,7 +249,7 @@ namespace Grow.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContestId");
+                    b.Property<int>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -290,7 +282,7 @@ namespace Grow.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContestId");
+                    b.Property<int>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -319,7 +311,7 @@ namespace Grow.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContestId");
+                    b.Property<int>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -360,7 +352,7 @@ namespace Grow.Data.Migrations
 
                     b.Property<string>("ActiveSince");
 
-                    b.Property<int?>("ContestId");
+                    b.Property<int>("ContestId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -385,6 +377,8 @@ namespace Grow.Data.Migrations
                     b.Property<string>("TagLine");
 
                     b.Property<int?>("TeamPhotoId");
+
+                    b.Property<int?>("TeamPhotoImageId");
 
                     b.Property<DateTime>("UpdatedAt");
 
@@ -511,22 +505,12 @@ namespace Grow.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Grow.Data.Entities.Contest", b =>
-                {
-                    b.HasOne("Grow.Data.Entities.Event", "FinalEvent")
-                        .WithMany()
-                        .HasForeignKey("FinalEventId");
-
-                    b.HasOne("Grow.Data.Entities.Event", "KickoffEvent")
-                        .WithMany()
-                        .HasForeignKey("KickoffEventId");
-                });
-
             modelBuilder.Entity("Grow.Data.Entities.Event", b =>
                 {
                     b.HasOne("Grow.Data.Entities.Contest", "Contest")
                         .WithMany("Events")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Grow.Data.Entities.Partner", "HeldBy")
                         .WithMany()
@@ -541,7 +525,8 @@ namespace Grow.Data.Migrations
                 {
                     b.HasOne("Grow.Data.Entities.Contest", "Contest")
                         .WithMany("Judges")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Grow.Data.Entities.Image", "Image")
                         .WithMany()
@@ -552,7 +537,8 @@ namespace Grow.Data.Migrations
                 {
                     b.HasOne("Grow.Data.Entities.Contest", "Contest")
                         .WithMany("Mentors")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Grow.Data.Entities.Image", "Image")
                         .WithMany()
@@ -563,7 +549,8 @@ namespace Grow.Data.Migrations
                 {
                     b.HasOne("Grow.Data.Entities.Contest", "Contest")
                         .WithMany("Organizers")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Grow.Data.Entities.Image", "Image")
                         .WithMany()
@@ -574,7 +561,8 @@ namespace Grow.Data.Migrations
                 {
                     b.HasOne("Grow.Data.Entities.Contest", "Contest")
                         .WithMany("Partners")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Grow.Data.Entities.Image", "Image")
                         .WithMany()
@@ -585,7 +573,8 @@ namespace Grow.Data.Migrations
                 {
                     b.HasOne("Grow.Data.Entities.Contest", "Contest")
                         .WithMany("Prizes")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Grow.Data.Entities.Partner", "GivenBy")
                         .WithMany()
@@ -600,7 +589,8 @@ namespace Grow.Data.Migrations
                 {
                     b.HasOne("Grow.Data.Entities.Contest", "Contest")
                         .WithMany("Teams")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Grow.Data.Entities.Image", "LogoImage")
                         .WithMany()

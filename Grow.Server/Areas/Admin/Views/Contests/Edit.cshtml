@@ -28,6 +28,11 @@
                 <span asp-validation-for="Language" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="RegistrationUrl" class="control-label"></label>
+                <input asp-for="RegistrationUrl" class="form-control" />
+                <span asp-validation-for="RegistrationUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)

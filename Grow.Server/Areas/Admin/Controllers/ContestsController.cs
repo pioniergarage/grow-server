@@ -15,14 +15,12 @@ namespace Grow.Server.Areas.Admin.Controllers
         public ContestsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
-
-        // GET: Admin/Contests
+        
         public async Task<IActionResult> Index()
         {
             return View(await DbContext.Contests.ToListAsync().ConfigureAwait(false));
         }
-
-        // GET: Admin/Contests/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,19 +37,15 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(contest);
         }
-
-        // GET: Admin/Contests/Create
+        
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Admin/Contests/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IsActive,Name,Year,Language")] Contest contest)
+        public async Task<IActionResult> Create(Contest contest)
         {
             if (ModelState.IsValid)
             {
@@ -61,8 +55,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(contest);
         }
-
-        // GET: Admin/Contests/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,13 +70,10 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(contest);
         }
-
-        // POST: Admin/Contests/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Name,Year,Language,Id")] Contest contest)
+        public async Task<IActionResult> Edit(int id, Contest contest)
         {
             if (id != contest.Id)
             {
@@ -112,8 +102,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(contest);
         }
-
-        // GET: Admin/Contests/Delete/5
+        
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,8 +119,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(contest);
         }
-
-        // POST: Admin/Contests/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

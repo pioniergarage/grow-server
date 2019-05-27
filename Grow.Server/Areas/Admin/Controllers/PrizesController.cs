@@ -44,12 +44,10 @@ namespace Grow.Server.Areas.Admin.Controllers
             ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
             return View();
         }
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IsActive,Name,Reward,RewardValue,Description,Type,Id")] Prize prize)
+        public async Task<IActionResult> Create(Prize prize)
         {
             if (ModelState.IsValid)
             {
@@ -76,12 +74,10 @@ namespace Grow.Server.Areas.Admin.Controllers
             ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
             return View(prize);
         }
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Name,Reward,RewardValue,Description,Type,Id")] Prize prize)
+        public async Task<IActionResult> Edit(int id, Prize prize)
         {
             if (id != prize.Id)
             {

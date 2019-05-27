@@ -50,7 +50,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IsActive,Name,Description,Start,End,FacebookLink,Location,Address,Visibility,Type,HasTimesSet,IsMandatory")] Event @event)
+        public async Task<IActionResult> Create(Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -79,12 +79,10 @@ namespace Grow.Server.Areas.Admin.Controllers
             ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
             return View(@event);
         }
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Name,Description,Start,End,FacebookLink,Location,Address,Visibility,Type,HasTimesSet,IsMandatory,Id")] Event @event)
+        public async Task<IActionResult> Edit(int id, Event @event)
         {
             if (id != @event.Id)
             {

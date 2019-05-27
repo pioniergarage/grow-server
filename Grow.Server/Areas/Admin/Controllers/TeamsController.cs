@@ -42,12 +42,10 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             return View();
         }
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IsActive,Name,TagLine,Description,ActiveSince,WebsiteUrl,Email,FacebookUrl,InstagramUrl,MembersAsString,Id")] Team team)
+        public async Task<IActionResult> Create(Team team)
         {
             if (ModelState.IsValid)
             {
@@ -72,12 +70,10 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(team);
         }
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Name,TagLine,Description,ActiveSince,WebsiteUrl,Email,FacebookUrl,InstagramUrl,IsActive,MembersAsString,Id")] Team team)
+        public async Task<IActionResult> Edit(int id, Team team)
         {
             if (id != team.Id)
             {

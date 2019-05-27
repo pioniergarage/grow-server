@@ -45,12 +45,10 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             return View();
         }
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IsActive,Name,JobTitle,Description,Email,Id")] Organizer organizer)
+        public async Task<IActionResult> Create(Organizer organizer)
         {
             if (ModelState.IsValid)
             {
@@ -75,12 +73,10 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(organizer);
         }
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IsActive,Name,JobTitle,Description,Email,Id")] Organizer organizer)
+        public async Task<IActionResult> Edit(int id, Organizer organizer)
         {
             if (id != organizer.Id)
             {

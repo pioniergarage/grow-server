@@ -38,6 +38,16 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="LogoImageId" class="control-label"></label>
+                <input asp-for="LogoImageId" class="form-control" />
+                <span asp-validation-for="LogoImageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamPhotoImageId" class="control-label"></label>
+                <input asp-for="TeamPhotoImageId" class="form-control" />
+                <span asp-validation-for="TeamPhotoImageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ActiveSince" class="control-label"></label>
                 <input asp-for="ActiveSince" class="form-control" />
                 <span asp-validation-for="ActiveSince" class="text-danger"></span>
@@ -66,6 +76,13 @@
                 <label asp-for="MembersAsString" class="control-label"></label>
                 <input asp-for="MembersAsString" class="form-control" />
                 <span asp-validation-for="MembersAsString" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="HasDroppedOut" /> @Html.DisplayNameFor(model => model.HasDroppedOut)
+                    </label>
+                </div>
             </div>
             <div class="form-group">
                 <div class="checkbox">

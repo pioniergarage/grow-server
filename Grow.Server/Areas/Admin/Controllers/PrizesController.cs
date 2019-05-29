@@ -13,13 +13,18 @@ namespace Grow.Server.Areas.Admin.Controllers
     [Area("Admin")]
     public class PrizesController : BaseAdminController
     {
+        private IQueryable<Prize> SelectedPrizesWithAllIncluded => PrizesInSelectedYear
+            .Include(t => t.Contest)
+            .Include(t => t.GivenBy)
+            .Include(t => t.Winner);
+
         public PrizesController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await PrizesInSelectedYear.ToListAsync().ConfigureAwait(false));
+            return View(await SelectedPrizesWithAllIncluded.ToListAsync().ConfigureAwait(false));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -29,7 +34,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var prize = await DbContext.Prizes
+            var prize = await SelectedPrizesWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (prize == null)
             {
@@ -41,7 +46,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
+            AddEntityListsToViewBag();
             return View();
         }
         
@@ -55,7 +60,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
+
+            AddEntityListsToViewBag();
             return View(prize);
         }
 
@@ -71,7 +77,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
+
+            AddEntityListsToViewBag();
             return View(prize);
         }
         
@@ -104,7 +111,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
+
+            AddEntityListsToViewBag();
             return View(prize);
         }
 
@@ -115,7 +123,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var prize = await DbContext.Prizes
+            var prize = await SelectedPrizesWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (prize == null)
             {
@@ -142,6 +150,14 @@ namespace Grow.Server.Areas.Admin.Controllers
             DbContext.SaveChanges();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private void AddEntityListsToViewBag()
+        {
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
+            ViewBag.Images = ViewHelpers.SelectListFromEntities<Image>(DbContext);
+            ViewBag.Teams = ViewHelpers.SelectListFromEntities<Team>(DbContext, SelectedContestId);
+            ViewBag.Partners = ViewHelpers.SelectListFromEntities<Partner>(DbContext, SelectedContestId);
         }
 
         private bool PrizeExists(int id)

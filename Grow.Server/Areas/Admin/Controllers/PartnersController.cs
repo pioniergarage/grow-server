@@ -6,19 +6,24 @@ using Grow.Server.Model;
 using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class PartnersController : BaseAdminController
     {
+        private IQueryable<Partner> SelectedPartnersWithAllIncluded => PartnersInSelectedYear
+            .Include(t => t.Contest)
+            .Include(t => t.Image);
+
         public PartnersController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await PartnersInSelectedYear.ToListAsync().ConfigureAwait(false));
+            return View(await SelectedPartnersWithAllIncluded.ToListAsync().ConfigureAwait(false));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -28,7 +33,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var partner = await DbContext.Partners
+            var partner = await SelectedPartnersWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (partner == null)
             {
@@ -40,6 +45,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            AddEntityListsToViewBag();
             return View();
         }
         
@@ -53,6 +59,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
+
+            AddEntityListsToViewBag();
             return View(partner);
         }
 
@@ -68,6 +76,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
+            AddEntityListsToViewBag();
             return View(partner);
         }
         
@@ -100,6 +110,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            AddEntityListsToViewBag();
             return View(partner);
         }
 
@@ -110,7 +122,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var partner = await DbContext.Partners
+            var partner = await SelectedPartnersWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (partner == null)
             {
@@ -137,6 +149,11 @@ namespace Grow.Server.Areas.Admin.Controllers
             DbContext.SaveChanges();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private void AddEntityListsToViewBag()
+        {
+            ViewBag.Images = ViewHelpers.SelectListFromEntities<Image>(DbContext);
         }
 
         private bool PartnerExists(int id)

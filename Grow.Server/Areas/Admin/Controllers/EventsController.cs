@@ -13,13 +13,18 @@ namespace Grow.Server.Areas.Admin.Controllers
     [Area("Admin")]
     public class EventsController : BaseAdminController
     {
+        private IQueryable<Event> SelectedEventsWithAllIncluded => EventsInSelectedYear
+            .Include(t => t.Contest)
+            .Include(t => t.Image)
+            .Include(t => t.HeldBy);
+
         public EventsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await EventsInSelectedYear.ToListAsync().ConfigureAwait(false));
+            return View(await SelectedEventsWithAllIncluded.ToListAsync().ConfigureAwait(false));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -29,7 +34,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var @event = await DbContext.Events
+            var @event = await SelectedEventsWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (@event == null)
             {
@@ -41,8 +46,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
-            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
+            AddEntityListsToViewBag();
             return View();
         }
 
@@ -58,8 +62,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
-            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
+
+            AddEntityListsToViewBag();
             return View(@event);
         }
 
@@ -75,8 +79,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
-            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
+
+            AddEntityListsToViewBag();
             return View(@event);
         }
         
@@ -109,8 +113,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
-            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
+
+            AddEntityListsToViewBag();
             return View(@event);
         }
 
@@ -121,7 +125,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var @event = await DbContext.Events
+            var @event = await SelectedEventsWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (@event == null)
             {
@@ -148,6 +152,14 @@ namespace Grow.Server.Areas.Admin.Controllers
             DbContext.SaveChanges();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private void AddEntityListsToViewBag()
+        {
+            ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
+            ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
+            ViewBag.Partners = ViewHelpers.SelectListFromEntities<Partner>(DbContext, SelectedContestId);
+            ViewBag.Images = ViewHelpers.SelectListFromEntities<Image>(DbContext);
         }
 
         private bool EventExists(int id)

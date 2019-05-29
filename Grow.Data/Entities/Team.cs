@@ -13,7 +13,7 @@ namespace Grow.Data.Entities
         public int? LogoImageId { get; set; }
 
         public virtual Image TeamPhoto { get; set; }
-        public int? TeamPhotoImageId { get; set; }
+        public int? TeamPhotoId { get; set; }
 
         public string ActiveSince { get; set; }
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Grow.Data.Migrations
 {
     [DbContext(typeof(GrowDbContext))]
-    [Migration("20190525102951_Initial")]
-    partial class Initial
+    [Migration("20190527202149_Entities")]
+    partial class Entities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -379,8 +379,6 @@ namespace Grow.Data.Migrations
                     b.Property<string>("TagLine");
 
                     b.Property<int?>("TeamPhotoId");
-
-                    b.Property<int?>("TeamPhotoImageId");
 
                     b.Property<DateTime>("UpdatedAt");
 

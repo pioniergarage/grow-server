@@ -378,8 +378,6 @@ namespace Grow.Data.Migrations
 
                     b.Property<int?>("TeamPhotoId");
 
-                    b.Property<int?>("TeamPhotoImageId");
-
                     b.Property<DateTime>("UpdatedAt");
 
                     b.Property<string>("WebsiteUrl");

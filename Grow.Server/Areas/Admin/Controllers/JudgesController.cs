@@ -9,19 +9,24 @@ using Grow.Server.Model;
 using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class JudgesController : BaseAdminController
     {
+        private IQueryable<Judge> SelectedJudgesWithAllIncluded => JudgesInSelectedYear
+            .Include(t => t.Contest)
+            .Include(t => t.Image);
+
         public JudgesController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await JudgesInSelectedYear.ToListAsync().ConfigureAwait(false));
+            return View(await SelectedJudgesWithAllIncluded.ToListAsync().ConfigureAwait(false));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -31,7 +36,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var judge = await DbContext.Judges
+            var judge = await SelectedJudgesWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (judge == null)
             {
@@ -43,6 +48,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            AddEntityListsToViewBag();
             return View();
         }
         
@@ -56,6 +62,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
+
+            AddEntityListsToViewBag();
             return View(judge);
         }
 
@@ -71,6 +79,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
+            AddEntityListsToViewBag();
             return View(judge);
         }
         
@@ -103,6 +113,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            AddEntityListsToViewBag();
             return View(judge);
         }
 
@@ -113,7 +125,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var judge = await DbContext.Judges
+            var judge = await SelectedJudgesWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (judge == null)
             {
@@ -140,6 +152,11 @@ namespace Grow.Server.Areas.Admin.Controllers
             DbContext.SaveChanges();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private void AddEntityListsToViewBag()
+        {
+            ViewBag.Images = ViewHelpers.SelectListFromEntities<Image>(DbContext);
         }
 
         private bool JudgeExists(int id)

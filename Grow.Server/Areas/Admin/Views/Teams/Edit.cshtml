@@ -28,14 +28,14 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LogoImageId" class="control-label"></label>
-                <input asp-for="LogoImageId" class="form-control" />
+                <label asp-for="LogoImage" class="control-label"></label>
+                <select asp-for="LogoImageId" asp-items="ViewBag.Images" class="form-control"></select>
                 <span asp-validation-for="LogoImageId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TeamPhotoImageId" class="control-label"></label>
-                <input asp-for="TeamPhotoImageId" class="form-control" />
-                <span asp-validation-for="TeamPhotoImageId" class="text-danger"></span>
+                <label asp-for="TeamPhoto" class="control-label"></label>
+                <select asp-for="TeamPhotoId" asp-items="ViewBag.Images" class="form-control"></select>
+                <span asp-validation-for="TeamPhotoId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ActiveSince" class="control-label"></label>

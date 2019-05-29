@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Grow.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Entities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -338,7 +338,6 @@ namespace Grow.Data.Migrations
                     Description = table.Column<string>(nullable: true),
                     LogoImageId = table.Column<int>(nullable: true),
                     TeamPhotoId = table.Column<int>(nullable: true),
-                    TeamPhotoImageId = table.Column<int>(nullable: true),
                     ActiveSince = table.Column<string>(nullable: true),
                     WebsiteUrl = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),

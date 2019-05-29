@@ -1053,16 +1053,19 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                 new Image
                 {
                     Url = "/img/icon/bright-lightbulb.png",
+                    Name = "bright-lightbulb.png",
                     AltText = "Kickoff icon"
                 },
                 new Image
                 {
                     Url = "/img/icon/funnel.png",
+                    Name = "funnel.png",
                     AltText = "Midterm icon"
                 },
                 new Image
                 {
                     Url = "/img/icon/first-place-medal.png",
+                    Name = "first-place-medal.png",
                     AltText = "Final icon"
                 },
             };
@@ -1072,31 +1075,37 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                 new Image
                 {
                     Url = "/img/2018/jury/bernhard.jpg",
+                    Name = "bernhard.jpg",
                     AltText = "The judge Bernhard Janke"
                 },
                 new Image
                 {
                     Url = "/img/2018/jury/daniel.jpg",
+                    Name = "daniel.jpg",
                     AltText = "The judge Daniel Stammler"
                 },
                 new Image
                 {
                     Url = "/img/2018/jury/holger.jpg",
+                    Name = "holger.jpg",
                     AltText = "The judge Holger Kujath"
                 },
                 new Image
                 {
                     Url = "/img/2018/jury/martin.jpg",
+                    Name = "martin.jpg",
                     AltText = "The judge Martin Trenkle"
                 },
                 new Image
                 {
                     Url = "/img/2018/jury/michael.jpg",
+                    Name = "michael.jpg",
                     AltText = "The judge Michael Kimmig"
                 },
                 new Image
                 {
                     Url = "/img/2018/jury/orestis.jpg",
+                    Name = "orestis.jpg",
                     AltText = "The judge Orestis Terzidis"
                 },
             };
@@ -1106,81 +1115,97 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                 new Image
                 {
                     Url = "/img/2018/mentors/andreas_fischer.jpg",
+                    Name = "andreas_fischer.jpg",
                     AltText = "The mentor Andreas Fischer"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/ben_romberg.jpg",
+                    Name = "ben_romberg.jpg",
                     AltText = "The mentor Ben Romberg"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/cecile_heger.jpg",
+                    Name = "cecile_heger.jpg",
                     AltText = "The mentor Cecile Heger"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/frederic_tausch.jpg",
+                    Name = "frederic_tausch.jpg",
                     AltText = "The mentor Frederic Tausch"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/hans_busch.png",
+                    Name = "hans_busch.png",
                     AltText = "The mentor Hans Busch"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/heinz_rothermel.jpg",
+                    Name = "heinz_rothermel.jpg",
                     AltText = "The mentor Heinz Rothermel"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/jannik_nefferdorf.jpg",
+                    Name = "jannik_nefferdorf.jpg",
                     AltText = "The mentor Jannik Nefferdorf"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/jonas_fuchs.jpg",
+                    Name = "jonas_fuchs.jpg",
                     AltText = "The mentor Jonas Fuchs"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/karl_lorey.jpg",
+                    Name = "karl_lorey.jpg",
                     AltText = "The mentor Karl Lorey"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/maja_malovic.jpg",
+                    Name = "maja_malovic.jpg",
                     AltText = "The mentor Maja Malovic"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/manuel_koecher.jpg",
+                    Name = "manuel_koecher.jpg",
                     AltText = "The mentor Manuel Köcher"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/martin_rammensee.jpg",
+                    Name = "martin_rammensee.jpg",
                     AltText = "The mentor Martin Rammensee"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/murat_ercan.jpg",
+                    Name = "murat_ercan.jpg",
                     AltText = "The mentor Murat Ercan"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/nestor_rodriguez.jpg",
+                    Name = "nestor_rodriguez.jpg",
                     AltText = "The mentor Nestor Rodriguez"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/peter_greiner.jpg",
+                    Name = "peter_greiner.jpg",
                     AltText = "The mentor Peter Greiner"
                 },
                 new Image
                 {
                     Url = "/img/2018/mentors/sebastian_boehmer.jpg",
+                    Name = "sebastian_boehmer.jpg",
                     AltText = "The mentor Sebastian Böhmer"
                 },
             };
@@ -1190,111 +1215,133 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                 new Image
                 {
                     Url = "/img/2018/teams/accesmed_team.jpg",
+                    Name = "accesmed_team.jpg",
                     AltText = "Team photo of Acces Medecins"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/accessmed.png",
+                    Name = "accessmed.png",
                     AltText = "Logo of Acces Medecins"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/allopi.png",
+                    Name = "allopi.png",
                     AltText = "Logo of AlloPI"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/bavest.png",
+                    Name = "bavest.png",
                     AltText = "Logo of Bavest"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/bavest_team.png",
+                    Name = "bavest_team.png",
                     AltText = "Team photo of Bavest"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/circle.png",
+                    Name = "circle.png",
                     AltText = "Logo of Circle"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/circle_team.jpg",
+                    Name = "circle_team.jpg",
                     AltText = "Team photo of Circle"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/gimmickgott.png",
+                    Name = "gimmickgott.png",
                     AltText = "Team photo of GimmickGott"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/gimmickgott_logo.png",
+                    Name = "gimmickgott_logo.png",
                     AltText = "Logo of GimmickGott"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/heliopas.svg",
+                    Name = "heliopas.svg",
                     AltText = "Logo of HelioPas AI"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/heliopas_team.jpg",
+                    Name = "heliopas_team.jpg",
                     AltText = "Team photo of HelioPas AI"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/kbox.png",
+                    Name = "kbox.png",
                     AltText = "Logo of Kbox"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/mangolearn.jpg",
+                    Name = "mangolearn.jpg",
                     AltText = "Team photo of MangoLearn"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/mangolearn.png",
+                    Name = "mangolearn.png",
                     AltText = "Logo of MangoLearn"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/read.png",
+                    Name = "read.png",
                     AltText = "Logo of Read!"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/secureradiationlab.png",
+                    Name = "secureradiationlab.png",
                     AltText = "Logo of SecureRadiationLab"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/studentenfutter.png",
+                    Name = "studentenfutter.png",
                     AltText = "Logo of StudentenFutter"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/studentenfutter_team.jpg",
+                    Name = "studentenfutter_team.jpg",
                     AltText = "Team photo of Studentenfutter"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/tortenglueck.png",
+                    Name = "tortenglueck.png",
                     AltText = "Logo of Tortenglück"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/wetakehealthcare_team.jpg",
+                    Name = "wetakehealthcare_team.jpg",
                     AltText = "Team photo of WeTakeHealthCare"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/wthc.png",
+                    Name = "wthc.png",
                     AltText = "Logo of WeTakeHealthCare"
                 },
                 new Image
                 {
                     Url = "/img/2018/teams/zircle.png",
+                    Name = "zircle.png",
                     AltText = "Logo of Zircle"
                 },
             };
@@ -1304,31 +1351,37 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                 new Image
                 {
                     Url = "/img/2018/team/anne.jpg",
+                    Name = "anne.jpg",
                     AltText = "The team member Anne Eimer"
                 },
                 new Image
                 {
                     Url = "/img/2018/team/antonia.jpg",
+                    Name = "antonia.jpg",
                     AltText = "The team member Antonia Lorenz"
                 },
                 new Image
                 {
                     Url = "/img/2018/team/chris.jpg",
+                    Name = "chris.jpg",
                     AltText = "The team member Christian Wiegand"
                 },
                 new Image
                 {
                     Url = "/img/2018/team/dominik.jpg",
+                    Name = "dominik.jpg",
                     AltText = "The team member Dominik Doerner"
                 },
                 new Image
                 {
                     Url = "/img/2018/team/jasmin.jpg",
+                    Name = "jasmin.jpg",
                     AltText = "The team member Jasmin Riedel"
                 },
                 new Image
                 {
                     Url = "/img/2018/team/martin.jpg",
+                    Name = "martin.jpg",
                     AltText = "The team member Martin Thoma"
                 },
             };
@@ -1338,56 +1391,67 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                 new Image
                 {
                     Url = "/img/2018/partner/entechnon.png",
+                    Name = "entechnon.png",
                     AltText = "Logo of the EnTechnon"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/fmvc.png",
+                    Name = "fmvc.png",
                     AltText = "Logo of First Momentum ventures"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/grenke.png",
+                    Name = "grenke.png",
                     AltText = "Logo of GRENKE"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/gruenderwoche.png",
+                    Name = "gruenderwoche.png",
                     AltText = "Logo of the Deutsche Gründerwoche"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/karlshochschule.png",
+                    Name = "karlshochschule.png",
                     AltText = "Logo of the Karlshochschule"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/KGS_transparent.png",
+                    Name = "KGS_transparent.png",
                     AltText = "Logo of the KIT Gründerschmiede"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/kolibri.png",
+                    Name = "kolibri.png",
                     AltText = "Logo of Kolibri Games"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/lea_partners.png",
+                    Name = "lea_partners.png",
                     AltText = "Logo of LEA Partners"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/logo_cyb.png",
+                    Name = "logo_cyb.png",
                     AltText = "Logo of the CyberForum"
                 },
                 new Image
                 {
                     Url = "/img/2018/partner/logo_knuddel_big.png",
+                    Name = "logo_knuddel_big.png",
                     AltText = "Logo of Knuddels"
                 },
                 new Image
                 {
                     Url = "/img/2017/partner/sparkasse.jpg",
+                    Name = "sparkasse.jpg",
                     AltText = "Logo of Sparkasse Karlsruhe"
                 },
             };
@@ -1874,8 +1938,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://bestfitapp.info",
                     FacebookUrl = "BestFitApp",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/bestfit.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/bestfit_team.jpg" },
+                    LogoImage = new Image { Url = "/img/2017/teams/bestfit.png", Name = "bestfit.png" },
+                    TeamPhoto = new Image { Url = "/img/2017/teams/bestfit_team.jpg", Name = "bestfit_team.jpg" },
                     MembersAsString = "Christopher Oertel, Artem Titarenko, Marc Neuhoff ",
                     HasDroppedOut = false
                 },
@@ -1888,7 +1952,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/sunshift.png" },
+                    LogoImage = new Image { Url = "/img/2017/teams/sunshift.png", Name = "sunshift.png" },
                     TeamPhoto = null,
                     MembersAsString = "David Meiborg, Marcel Meckes, Johannes Brand, Tim Rädsch ",
                     HasDroppedOut = false
@@ -1902,9 +1966,9 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://wir-fuer.org",
                     FacebookUrl = "wirfuerkarlsruhe",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/wfk.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/wfk_team.jpg" },
-                    MembersAsString = "Moritz Röschl, Sebastian Bayer ",
+                    LogoImage = new Image { Url = "/img/2017/teams/wfk.png", Name = "wfk.png" },
+                    TeamPhoto = new Image { Url = "/img/2017/teams/wfk_team.jpg", Name = "wfk_team.jpg" },
+                    MembersAsString = "Moritz Röschl, Sebastian Bayer",
                     HasDroppedOut = false
                 },
                 new Team
@@ -1916,8 +1980,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.colusto.de",
                     FacebookUrl = "Colusto",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/colusto.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/colusto_team.jpg" },
+                    LogoImage = new Image { Url = "/img/2017/teams/colusto.png", Name = "colusto.png" },
+                    TeamPhoto = new Image { Url = "/img/2017/teams/colusto_team.jpg", Name = "colusto_team.jpg" },
                     MembersAsString = "David Jeggle, Kai Jeggle ",
                     HasDroppedOut = false
                 },
@@ -1930,7 +1994,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.usertimes.io",
                     FacebookUrl = "usertimesHQ",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/usertimes.jpg" },
+                    LogoImage = new Image { Url = "/img/2017/teams/usertimes.jpg", Name = "usertimes.jpg" },
                     TeamPhoto = null,
                     MembersAsString = "Jonas Fuchs, Timo Schneider, Dominic Staub, Manuel Hölzlein, Anne Pfeifer, Luc Weinbrecht, Max Beume ",
                     HasDroppedOut = false
@@ -1944,8 +2008,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "www.flat-mates.com",
                     FacebookUrl = "Flatmates-359070784540566",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/flatmates.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/flatmates_team.jpg" },
+                    LogoImage = new Image { Url = "/img/2017/teams/flatmates.png", Name = "flatmates.png" },
+                    TeamPhoto = new Image { Url = "/img/2017/teams/flatmates_team.jpg", Name = "flatmates_team.jpg" },
                     MembersAsString = "Raji Sarhi, Anna Loerzer, Kim Skade, Natalie Cuentas Zavala Ponce, Linus Schweizer ",
                     HasDroppedOut = false
                 },
@@ -1958,7 +2022,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://sonopatch.com",
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/sono.png" },
+                    LogoImage = new Image { Url = "/img/2017/teams/sono.png", Name = "sono.png" },
                     TeamPhoto = null,
                     MembersAsString = "Theresa Schneider, Lukas Findeisen, Hannah Bott ",
                     HasDroppedOut = false
@@ -1972,7 +2036,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.yunu.coach",
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/yunu.jpg" },
+                    LogoImage = new Image { Url = "/img/2017/teams/yunu.jpg", Name = "yunu.jpg" },
                     TeamPhoto = null,
                     MembersAsString = "André Herecki, Eduard Lichtenwald, Robert Otmar ",
                     HasDroppedOut = false
@@ -1986,8 +2050,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.smartivate.de",
                     FacebookUrl = "smartivatehome",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/smartivate.jpg" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/smartivate_team.png" },
+                    LogoImage = new Image { Url = "/img/2017/teams/smartivate.jpg", Name = "smartivate.jpg" },
+                    TeamPhoto = new Image { Url = "/img/2017/teams/smartivate_team.png", Name =" smartivate_team.png" },
                     MembersAsString = "Anand Narasipuram, Jeevan Dasan, Sebastian Dahnert ",
                     HasDroppedOut = false
                 },
@@ -2000,7 +2064,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/tizer.png" },
+                    LogoImage = new Image { Url = "/img/2017/teams/tizer.png", Name =" tizer.png" },
                     TeamPhoto = null,
                     MembersAsString = "Dennis Maxelon, Janina Häfner, Patrick Anderer ",
                     HasDroppedOut = true
@@ -2028,8 +2092,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.ridy.de",
                     FacebookUrl = "ridyapp",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/ridy.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/ridy_team.jpg" },
+                    LogoImage = new Image { Url = "/img/2017/teams/ridy.png", Name = "ridy.png" },
+                    TeamPhoto = new Image { Url = "/img/2017/teams/ridy_team.jpg", Name = "ridy_team.jpg" },
                     MembersAsString = "Daniel Sobing, Arseniy Kurynyi ",
                     HasDroppedOut = true
                 },
@@ -2056,8 +2120,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.polun.io",
                     FacebookUrl = "poluniomagick",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/polunio.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/polunio_team.png" },
+                    LogoImage = new Image { Url = "/img/2017/teams/polunio.png", Name = "polunio.png" },
+                    TeamPhoto = new Image { Url = "/img/2017/teams/polunio_team.png", Name = "polunio_team.png" },
                     MembersAsString = "Alexandru Rinciog, Elias Mühlbrecht ",
                     HasDroppedOut = true
                 },

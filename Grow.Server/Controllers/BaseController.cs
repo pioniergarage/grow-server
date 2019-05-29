@@ -19,6 +19,8 @@ namespace Grow.Server.Controllers
 
         protected ICollection<string> ContestYears { get; private set; }
 
+        protected int SelectedContestId { get; private set; }
+
         protected string SelectedContestYear { get; private set; }
 
         protected string SelectedContestName { get; private set; }
@@ -112,6 +114,7 @@ namespace Grow.Server.Controllers
             {
                 // all good!
                 SelectedContestName = selectedContest.Name;
+                SelectedContestId = selectedContest.Id;
             }
             else if (SelectedContestName == null)
             {

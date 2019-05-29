@@ -33,13 +33,13 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WinnerId" class="control-label"></label>
-                <input asp-for="WinnerId" class="form-control" />
+                <label asp-for="Winner" class="control-label"></label>
+                <select asp-items="ViewBag.Teams" asp-for="WinnerId" class="form-control"></select>
                 <span asp-validation-for="WinnerId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GivenById" class="control-label"></label>
-                <input asp-for="GivenById" class="form-control" />
+                <label asp-for="GivenBy" class="control-label"></label>
+                <select asp-items="ViewBag.Partners" asp-for="GivenById" class="form-control"></select>
                 <span asp-validation-for="GivenById" class="text-danger"></span>
             </div>
             <div class="form-group">

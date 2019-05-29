@@ -6,19 +6,27 @@ using Grow.Server.Model;
 using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class TeamsController : BaseAdminController
     {
+        private IQueryable<Team> SelectedTeamsWithAllIncluded => TeamsInSelectedYear
+            .Include(t => t.Contest)
+            .Include(t => t.LogoImage)
+            .Include(t => t.TeamPhoto);
+
         public TeamsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
         {
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await TeamsInSelectedYear.ToListAsync().ConfigureAwait(false));
+            var teams = await SelectedTeamsWithAllIncluded.ToListAsync().ConfigureAwait(false);
+            
+            return View(teams);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -28,18 +36,19 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var team = await DbContext.Teams
+            var team = await SelectedTeamsWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (team == null)
             {
                 return NotFound();
             }
-
+            
             return View(team);
         }
 
         public IActionResult Create()
         {
+            AddEntityListsToViewBag();
             return View();
         }
         
@@ -53,6 +62,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 return RedirectToAction(nameof(Index));
             }
+            AddEntityListsToViewBag();
             return View(team);
         }
 
@@ -68,6 +78,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            AddEntityListsToViewBag();
             return View(team);
         }
         
@@ -100,6 +111,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            AddEntityListsToViewBag();
             return View(team);
         }
 
@@ -110,13 +122,13 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var team = await DbContext.Teams
+            var team = await SelectedTeamsWithAllIncluded
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (team == null)
             {
                 return NotFound();
             }
-
+            
             return View(team);
         }
 
@@ -137,6 +149,11 @@ namespace Grow.Server.Areas.Admin.Controllers
             DbContext.SaveChanges();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private void AddEntityListsToViewBag()
+        {
+            ViewBag.Images = ViewHelpers.SelectListFromEntities<Image>(DbContext);
         }
 
         private bool TeamExists(int id)

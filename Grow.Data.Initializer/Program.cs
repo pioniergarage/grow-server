@@ -33,10 +33,12 @@ namespace Grow.Data.Initializer
                 context.SeedDataFrom2017();
 
                 Console.WriteLine("COMPLETED");
+                Console.ReadKey();
             }
             catch (Exception e)
             {
                 Console.WriteLine("An error has occurred: " + e.Message);
+                Console.ReadKey();
             }
         }
     }

@@ -59,13 +59,13 @@
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageId" class="control-label"></label>
-                <input asp-for="ImageId" class="form-control" />
+                <label asp-for="Image" class="control-label"></label>
+                <select asp-items="ViewBag.Images" asp-for="ImageId" class="form-control"></select>
                 <span asp-validation-for="ImageId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HeldById" class="control-label"></label>
-                <input asp-for="HeldById" class="form-control" />
+                <label asp-for="HeldBy" class="control-label"></label>
+                <select asp-items="ViewBag.Partners" asp-for="HeldById" class="form-control"></select>
                 <span asp-validation-for="HeldById" class="text-danger"></span>
             </div>
             <div class="form-group">

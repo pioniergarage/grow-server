@@ -2,7 +2,7 @@
 
 Backend and API for the GROW app
 
-WORK IN PROGRESS - Not yet deployed or stable
+WORK IN PROGRESS - Not yet fully developed, although deployable
 
 ## Routes
 
@@ -17,3 +17,9 @@ WORK IN PROGRESS - Not yet deployed or stable
 * ASP.NET Core MVC
 * Razor
 * Entity Framework Core + Migrations
+
+## Server Resources
+
+* App Service as Web Host
+* SQL DB as Database
+* Blob Storage as Image Store

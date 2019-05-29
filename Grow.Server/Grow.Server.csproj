@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>pioniergarage.grow.server</AssemblyName>
+    <UserSecretsId>58891cda-be79-4fcd-9c48-5e04b4e2adb4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

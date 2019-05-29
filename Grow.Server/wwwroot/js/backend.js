@@ -39,11 +39,14 @@ function create_search_entity_function(type, output_id) {
                 var name = $(input).attr("name");
                 if (!name) return;
                 name = name.substring(0, 1).toLowerCase() + name.substring(1);
+                // dont change "isActive"
+                if (name === "isActive")
+                    return;
                 // text box, select
                 if (elem[name])
                     $(input).val(elem[name]);
                 // check box
-                if ($(input).attr("type") === "checkbox" && name !== "isActive")
+                if ($(input).attr("type") === "checkbox")
                     $(input).prop("checked", elem[name]);
             });
         };

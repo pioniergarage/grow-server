@@ -2259,7 +2259,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
             };
         }
         
-        private static ICollection<TEntity> SetIds<TEntity>(this IEnumerable<TEntity> enumerable, int contestId) where TEntity : BaseEntity
+        private static ICollection<TEntity> SetIds<TEntity>(this IEnumerable<TEntity> enumerable, int contestId) where TEntity : BaseDbEntity
         {
             var list = new List<TEntity>();
             foreach (var elem in enumerable)

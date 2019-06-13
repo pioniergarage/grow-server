@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Grow.Server.Areas.Admin.Models.ViewModels.AccountIndexViewModel>
+
+@{
+    ViewData["Title"] = "Accounts";
+}
+
+<h2>Accounts</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                Role
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(c => c.Name))
+        {
+        <tr is-active="@(item.IsActive)">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @{
+                    string role;
+                    if (item.IsSuperAdmin)
+                    {
+                        role = "Super-Admin";
+                    }
+                    else if (item.IsAdmin)
+                    {
+                        role = "Admin";
+                    }
+                    else if (item.Team != null)
+                    {
+                        role = "Team " + item.Team.Name;
+                    }
+                    else
+                    {
+                        role = string.Empty;
+                    }
+                }
+                @role
+            </td>
+            @{
+                var partialViewData = new ViewDataDictionary(ViewData);
+                partialViewData.Add("Disabled", !item.CanEdit);
+            }
+            <partial name="Partials/_OptionCell" model="item" view-data="partialViewData" />
+        </tr>
+        }
+    </tbody>
+</table>

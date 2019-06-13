@@ -1,6 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Grow.Data.Entities
 {
@@ -14,13 +16,9 @@ namespace Grow.Data.Entities
 
         public bool IsActive { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
-        public DateTime UpdatedAt { get; set; }
-
-        public BaseEntity Copy()
+        public BaseDbEntity Copy()
         {
-            return (BaseEntity) MemberwiseClone();
+            return (BaseDbEntity)MemberwiseClone();
         }
     }
 }

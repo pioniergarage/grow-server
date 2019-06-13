@@ -11,7 +11,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
     [Route("Admin/Api/[controller]")]
     [ApiController]
     [Authorize]
-    public abstract class ApiController<T> : ControllerBase where T : BaseEntity
+    public abstract class ApiController<T> : ControllerBase where T : BaseDbEntity
     {
         public GrowDbContext Context { get; }
         

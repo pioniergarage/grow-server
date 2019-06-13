@@ -27,6 +27,8 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             // Default values for all controller actions
             ViewBag.AllContests = DbContext.Contests.AsNoTracking().ToList();
+            ViewBag.IsAdmin = User.IsInRole(Constants.ADMIN_ROLE_NAME);
+            ViewBag.IsSuperAdmin = User.IsInRole(Constants.SUPERADMIN_ROLE_NAME);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Grow.Server.Model.Helpers
             return list;
         }
 
-        public static IEnumerable<SelectListItem> SelectListFromEntities<T>(GrowDbContext context) where T : BaseEntity
+        public static IEnumerable<SelectListItem> SelectListFromEntities<T>(GrowDbContext context) where T : BaseDbEntity
         {
             var list = new List<SelectListItem>
             {

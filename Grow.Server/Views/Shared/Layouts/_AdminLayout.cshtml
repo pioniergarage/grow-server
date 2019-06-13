@@ -70,6 +70,15 @@
             Partners
         </a>
     </li>
+    <li>
+        <hr />
+    </li>
+    <li class="@SetActiveIfIsCurrentController("Accounts")">
+        <a asp-controller="Accounts" asp-action="Index" asp-area="Admin">
+            <i class="nc-icon nc-single-02"></i>
+            Accounts
+        </a>
+    </li>
 }
 
 @RenderBody()

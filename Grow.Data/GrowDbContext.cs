@@ -86,7 +86,7 @@ namespace Grow.Data
         private void AddTimestamps()
         {
             var entities = ChangeTracker.Entries()
-                .Where(x => x.Entity is BaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+                .Where(x => x.Entity is BaseDbEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
             foreach (var entity in entities)
             {
@@ -94,14 +94,14 @@ namespace Grow.Data
 
                 if (entity.State == EntityState.Added)
                 {
-                    entity.CurrentValues[nameof(BaseEntity.CreatedAt)] = now;
+                    entity.CurrentValues[nameof(BaseDbEntity.CreatedAt)] = now;
                 }
                 else
                 {
                     // avoid resetting of CreatedAt timestamp
-                    entity.Property(nameof(BaseEntity.CreatedAt)).IsModified = false;
+                    entity.Property(nameof(BaseDbEntity.CreatedAt)).IsModified = false;
                 }
-                entity.CurrentValues[nameof(BaseEntity.UpdatedAt)] = now;
+                entity.CurrentValues[nameof(BaseDbEntity.UpdatedAt)] = now;
             }
         }
     }

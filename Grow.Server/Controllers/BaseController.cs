@@ -25,7 +25,7 @@ namespace Grow.Server.Controllers
 
         protected string SelectedContestName { get; private set; }
 
-        protected Func<BaseEntity, bool> GlobalFilter = (e => e.IsActive); // hide inactive entities
+        protected Func<BaseDbEntity, bool> GlobalFilter = (e => e.IsActive); // hide inactive entities
 
         protected IQueryable<Contest> SelectedContest => DbContext.Contests
             .Where(c => c.Year == SelectedContestYear && GlobalFilter(c));

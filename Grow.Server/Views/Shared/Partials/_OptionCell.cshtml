@@ -1,16 +1,21 @@
 ﻿@model Grow.Data.Entities.BaseEntity
 
 <td class="options-column">
-    @if (Model.IsActive)
+    @if (!ViewData.ContainsKey("Disabled") || ViewData["Disabled"].Equals(false))
     {
-        <a asp-action="Toggle" asp-route-id="@Model.Id" asp-route-value="false" title="Deactivate"><i class="fa fa-toggle-on"></i></a>
+        @if (Model.IsActive)
+        {
+            <a asp-action="Toggle" asp-route-id="@Model.Id" asp-route-value="false" title="Deactivate"><i class="fa fa-toggle-on"></i></a>
+        }
+        else
+        {
+            <a asp-action="Toggle" asp-route-id="@Model.Id" asp-route-value="true" title="Activate"><i class="fa fa-toggle-off"></i></a>
+        }
+        <a asp-action="Edit" asp-route-id="@Model.Id" title="Edit"><i class="fa fa-edit"></i></a>
     }
-    else
-    {
-        <a asp-action="Toggle" asp-route-id="@Model.Id" asp-route-value="true" title="Activate"><i class="fa fa-toggle-off"></i></a>
-    }
-    <a asp-action="Edit" asp-route-id="@Model.Id" title="Edit"><i class="fa fa-edit"></i></a>
     <a asp-action="Details" asp-route-id="@Model.Id" title="Details"><i class="fa fa-info-circle"></i></a>
-    @*<a asp-action="Copy" asp-route-id="@item.Id" title="Duplicate"><i class="fa fa-clipboard"></i></a>*@
-    <a asp-action="Delete" asp-route-id="@Model.Id" title="Delete"><i class="fa fa-trash"></i></a>
+    @if (!ViewData.ContainsKey("Disabled") || ViewData["Disabled"].Equals(false))
+    {
+        <a asp-action="Delete" asp-route-id="@Model.Id" title="Delete"><i class="fa fa-trash"></i></a>
+    }
 </td>

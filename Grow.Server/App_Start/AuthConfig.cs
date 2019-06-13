@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Grow.Data;
+using System.Collections.Generic;
 
 namespace Grow.Server.App_Start
 {
@@ -52,11 +53,9 @@ namespace Grow.Server.App_Start
 
     internal class AuthDataInitializer : IAuthDataInitializer
     {
-        private readonly string _adminEmail;
-        private readonly string _adminPassword;
+        private readonly string _adminEmail, _adminPassword;
 
-        private const string _adminRoleName = Constants.ADMIN_ROLE_NAME;
-        private readonly string[] _defaultRoles = new string[] { _adminRoleName, Constants.TEAM_ROLE_NAME };
+        private readonly IEnumerable<string> _adminRoles, _allRoles;
 
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<Account> _userManager;
@@ -74,8 +73,17 @@ namespace Grow.Server.App_Start
         {
             _roleManager = roleManager;
             _userManager = userManager;
+
             _adminEmail = configuration.GetSection("AppSettings").GetValue<string>(Constants.ADMIN_EMAIL_SETTING);
             _adminPassword= configuration.GetSection("AppSettings").GetValue<string>(Constants.ADMIN_PASSWORD_SETTING);
+
+            _adminRoles = new[] {
+                Constants.ADMIN_ROLE_NAME,
+                Constants.SUPERADMIN_ROLE_NAME
+            };
+            _allRoles = new[] {
+                Constants.TEAM_ROLE_NAME
+            }.Concat(_adminRoles);
         }
 
         public async Task InitializeAsync()
@@ -86,7 +94,7 @@ namespace Grow.Server.App_Start
 
         protected async Task EnsureRolesAsync()
         {
-            foreach (var role in _defaultRoles)
+            foreach (var role in _allRoles)
             {
                 if (!await _roleManager.RoleExistsAsync(role).ConfigureAwait(false))
                 {
@@ -97,11 +105,12 @@ namespace Grow.Server.App_Start
 
         protected async Task EnsureDefaultAdminAsync()
         {
-            var adminUsers = await _userManager.GetUsersInRoleAsync(_adminRoleName).ConfigureAwait(false);
+            var adminUser = await _userManager.FindByEmailAsync(_adminEmail).ConfigureAwait(false);
 
-            if (!adminUsers.Any())
+            // check that exists
+            if (adminUser == null)
             {
-                var adminUser = new Account()
+                adminUser = new Account()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Email = _adminEmail,
@@ -110,7 +119,13 @@ namespace Grow.Server.App_Start
                 };
 
                 var result = await _userManager.CreateAsync(adminUser, _adminPassword).ConfigureAwait(false);
-                await _userManager.AddToRoleAsync(adminUser, _adminRoleName).ConfigureAwait(false);
+            }
+            
+            // check that is in role
+            foreach (var role in _adminRoles)
+            {
+                if (!(await _userManager.IsInRoleAsync(adminUser, role).ConfigureAwait(false)))
+                    await _userManager.AddToRoleAsync(adminUser, role).ConfigureAwait(false);
             }
         }
     }

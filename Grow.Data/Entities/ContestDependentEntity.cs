@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Grow.Data.Entities
 {
-    public abstract class ContestDependentEntity : BaseEntity
+    public abstract class ContestDependentEntity : BaseDbEntity
     {
 
         public virtual Contest Contest { get; set; }

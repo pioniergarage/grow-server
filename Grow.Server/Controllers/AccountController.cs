@@ -46,20 +46,32 @@ namespace Grow.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false).ConfigureAwait(false);
-
-                if (result.Succeeded)
+                var user = await _userManager.FindByNameAsync(model.UserName).ConfigureAwait(false);
+                if (user == null)
                 {
-                    var returnUrl = model.ReturnUrl ?? "/Account/Index";
-                    return Redirect(returnUrl);
+                    ModelState.AddModelError("LoginFailed", "The email or password was incorrect");
                 }
-                else if (result.IsLockedOut)
+                else if (!user.IsEnabled)
                 {
-                    ModelState.AddModelError("LoginFailed", "The account has been locked");
+                    ModelState.AddModelError("LoginFailed", "The account has been disabled");
                 }
                 else
                 {
-                    ModelState.AddModelError("LoginFailed", "The email or password was incorrect");
+                    var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false).ConfigureAwait(false);
+
+                    if (result.Succeeded)
+                    {
+                        var returnUrl = model.ReturnUrl ?? "/Account/Index";
+                        return Redirect(returnUrl);
+                    }
+                    else if (result.IsLockedOut)
+                    {
+                        ModelState.AddModelError("LoginFailed", "The account has been locked");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("LoginFailed", "The user name or password was incorrect");
+                    }
                 }
             }
 

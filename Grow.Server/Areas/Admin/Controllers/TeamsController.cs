@@ -153,7 +153,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         private void AddEntityListsToViewBag()
         {
-            ViewBag.Images = ViewHelpers.SelectListFromEntities<Image>(DbContext);
+            ViewBag.Images = ViewHelpers.SelectListFromEntities<File>(DbContext);
         }
 
         private bool TeamExists(int id)

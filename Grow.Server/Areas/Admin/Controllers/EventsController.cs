@@ -159,7 +159,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
             ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
             ViewBag.Partners = ViewHelpers.SelectListFromEntities<Partner>(DbContext, SelectedContestId);
-            ViewBag.Images = ViewHelpers.SelectListFromEntities<Image>(DbContext);
+            ViewBag.Images = ViewHelpers.SelectListFromEntities<File>(DbContext);
         }
 
         private bool EventExists(int id)

@@ -9,10 +9,10 @@ namespace Grow.Data.Entities
 
         public string Description { get; set; }
 
-        public virtual Image LogoImage { get; set; }
+        public virtual File LogoImage { get; set; }
         public int? LogoImageId { get; set; }
 
-        public virtual Image TeamPhoto { get; set; }
+        public virtual File TeamPhoto { get; set; }
         public int? TeamPhotoId { get; set; }
 
         public string ActiveSince { get; set; }

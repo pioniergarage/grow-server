@@ -17,12 +17,12 @@ namespace Grow.Data.Initializer
         public static Mentor[] Mentors { get; private set; }
         public static Event[] Events { get; private set; }
         public static Partner[] Partners { get; private set; }
-        public static Image[] Event_images { get; private set; }
-        public static Image[] Orga_images { get; private set; }
-        public static Image[] Judge_images { get; private set; }
-        public static Image[] Mentor_images { get; private set; }
-        public static Image[] Team_images { get; private set; }
-        public static Image[] Partner_images { get; private set; }
+        public static File[] Event_images { get; private set; }
+        public static File[] Orga_images { get; private set; }
+        public static File[] Judge_images { get; private set; }
+        public static File[] Mentor_images { get; private set; }
+        public static File[] Team_images { get; private set; }
+        public static File[] Partner_images { get; private set; }
         public static Team[] Teams { get; private set; }
         public static Prize[] Prizes { get; private set; }
 
@@ -1050,409 +1050,537 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
         {
             Event_images = new[]
             {
-                new Image
+                new File
                 {
                     Url = "/img/icon/bright-lightbulb.png",
                     Name = "bright-lightbulb.png",
-                    AltText = "Kickoff icon"
+                    AltText = "Kickoff icon",
+                    Extension = "png",
+                    Category = "events"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/icon/funnel.png",
                     Name = "funnel.png",
-                    AltText = "Midterm icon"
+                    AltText = "Midterm icon",
+                    Extension = "png",
+                    Category = "events"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/icon/first-place-medal.png",
                     Name = "first-place-medal.png",
-                    AltText = "Final icon"
+                    AltText = "Final icon",
+                    Extension = "png",
+                    Category = "events"
                 },
             };
 
             Judge_images = new[]
             {
-                new Image
+                new File
                 {
                     Url = "/img/2018/jury/bernhard.jpg",
                     Name = "bernhard.jpg",
-                    AltText = "The judge Bernhard Janke"
+                    AltText = "The judge Bernhard Janke",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/jury/daniel.jpg",
                     Name = "daniel.jpg",
-                    AltText = "The judge Daniel Stammler"
+                    AltText = "The judge Daniel Stammler",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/jury/holger.jpg",
                     Name = "holger.jpg",
-                    AltText = "The judge Holger Kujath"
+                    AltText = "The judge Holger Kujath",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/jury/martin.jpg",
                     Name = "martin.jpg",
-                    AltText = "The judge Martin Trenkle"
+                    AltText = "The judge Martin Trenkle",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/jury/michael.jpg",
                     Name = "michael.jpg",
-                    AltText = "The judge Michael Kimmig"
+                    AltText = "The judge Michael Kimmig",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/jury/orestis.jpg",
                     Name = "orestis.jpg",
-                    AltText = "The judge Orestis Terzidis"
+                    AltText = "The judge Orestis Terzidis",
+                    Extension = "jpg",
+                    Category = "people"
                 },
             };
 
             Mentor_images = new[]
             {
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/andreas_fischer.jpg",
                     Name = "andreas_fischer.jpg",
-                    AltText = "The mentor Andreas Fischer"
+                    AltText = "The mentor Andreas Fischer",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/ben_romberg.jpg",
                     Name = "ben_romberg.jpg",
-                    AltText = "The mentor Ben Romberg"
+                    AltText = "The mentor Ben Romberg",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/cecile_heger.jpg",
                     Name = "cecile_heger.jpg",
-                    AltText = "The mentor Cecile Heger"
+                    AltText = "The mentor Cecile Heger",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/frederic_tausch.jpg",
                     Name = "frederic_tausch.jpg",
-                    AltText = "The mentor Frederic Tausch"
+                    AltText = "The mentor Frederic Tausch",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/hans_busch.png",
                     Name = "hans_busch.png",
-                    AltText = "The mentor Hans Busch"
+                    AltText = "The mentor Hans Busch",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/heinz_rothermel.jpg",
                     Name = "heinz_rothermel.jpg",
-                    AltText = "The mentor Heinz Rothermel"
+                    AltText = "The mentor Heinz Rothermel",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/jannik_nefferdorf.jpg",
                     Name = "jannik_nefferdorf.jpg",
-                    AltText = "The mentor Jannik Nefferdorf"
+                    AltText = "The mentor Jannik Nefferdorf",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/jonas_fuchs.jpg",
                     Name = "jonas_fuchs.jpg",
-                    AltText = "The mentor Jonas Fuchs"
+                    AltText = "The mentor Jonas Fuchs",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/karl_lorey.jpg",
                     Name = "karl_lorey.jpg",
-                    AltText = "The mentor Karl Lorey"
+                    AltText = "The mentor Karl Lorey",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/maja_malovic.jpg",
                     Name = "maja_malovic.jpg",
-                    AltText = "The mentor Maja Malovic"
+                    AltText = "The mentor Maja Malovic",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/manuel_koecher.jpg",
                     Name = "manuel_koecher.jpg",
-                    AltText = "The mentor Manuel Köcher"
+                    AltText = "The mentor Manuel Köcher",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/martin_rammensee.jpg",
                     Name = "martin_rammensee.jpg",
-                    AltText = "The mentor Martin Rammensee"
+                    AltText = "The mentor Martin Rammensee",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/murat_ercan.jpg",
                     Name = "murat_ercan.jpg",
-                    AltText = "The mentor Murat Ercan"
+                    AltText = "The mentor Murat Ercan",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/nestor_rodriguez.jpg",
                     Name = "nestor_rodriguez.jpg",
-                    AltText = "The mentor Nestor Rodriguez"
+                    AltText = "The mentor Nestor Rodriguez",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/peter_greiner.jpg",
                     Name = "peter_greiner.jpg",
-                    AltText = "The mentor Peter Greiner"
+                    AltText = "The mentor Peter Greiner",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/mentors/sebastian_boehmer.jpg",
                     Name = "sebastian_boehmer.jpg",
-                    AltText = "The mentor Sebastian Böhmer"
+                    AltText = "The mentor Sebastian Böhmer",
+                    Extension = "jpg",
+                    Category = "people"
                 },
             };
 
             Team_images = new[]
             {
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/accesmed_team.jpg",
                     Name = "accesmed_team.jpg",
-                    AltText = "Team photo of Acces Medecins"
+                    AltText = "Team photo of Acces Medecins",
+                    Extension = "jpg",
+                    Category = "teams"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/accessmed.png",
                     Name = "accessmed.png",
-                    AltText = "Logo of Acces Medecins"
+                    AltText = "Logo of Acces Medecins",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/allopi.png",
                     Name = "allopi.png",
-                    AltText = "Logo of AlloPI"
+                    AltText = "Logo of AlloPI",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/bavest.png",
                     Name = "bavest.png",
-                    AltText = "Logo of Bavest"
+                    AltText = "Logo of Bavest",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/bavest_team.png",
                     Name = "bavest_team.png",
-                    AltText = "Team photo of Bavest"
+                    AltText = "Team photo of Bavest",
+                    Extension = "png",
+                    Category = "teams"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/circle.png",
                     Name = "circle.png",
-                    AltText = "Logo of Circle"
+                    AltText = "Logo of Circle",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/circle_team.jpg",
                     Name = "circle_team.jpg",
-                    AltText = "Team photo of Circle"
+                    AltText = "Team photo of Circle",
+                    Extension = "jpg",
+                    Category = "teams"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/gimmickgott.png",
                     Name = "gimmickgott.png",
-                    AltText = "Team photo of GimmickGott"
+                    AltText = "Team photo of GimmickGott",
+                    Extension = "png",
+                    Category = "teams"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/gimmickgott_logo.png",
                     Name = "gimmickgott_logo.png",
-                    AltText = "Logo of GimmickGott"
+                    AltText = "Logo of GimmickGott",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/heliopas.svg",
                     Name = "heliopas.svg",
-                    AltText = "Logo of HelioPas AI"
+                    AltText = "Logo of HelioPas AI",
+                    Extension = "svg",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/heliopas_team.jpg",
                     Name = "heliopas_team.jpg",
-                    AltText = "Team photo of HelioPas AI"
+                    AltText = "Team photo of HelioPas AI",
+                    Extension = "jpg",
+                    Category = "teams"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/kbox.png",
                     Name = "kbox.png",
-                    AltText = "Logo of Kbox"
+                    AltText = "Logo of Kbox",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/mangolearn.jpg",
                     Name = "mangolearn.jpg",
-                    AltText = "Team photo of MangoLearn"
+                    AltText = "Team photo of MangoLearn",
+                    Extension = "jpg",
+                    Category = "teams"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/mangolearn.png",
                     Name = "mangolearn.png",
-                    AltText = "Logo of MangoLearn"
+                    AltText = "Logo of MangoLearn",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/read.png",
                     Name = "read.png",
-                    AltText = "Logo of Read!"
+                    AltText = "Logo of Read!",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/secureradiationlab.png",
                     Name = "secureradiationlab.png",
-                    AltText = "Logo of SecureRadiationLab"
+                    AltText = "Logo of SecureRadiationLab",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/studentenfutter.png",
                     Name = "studentenfutter.png",
-                    AltText = "Logo of StudentenFutter"
+                    AltText = "Logo of StudentenFutter",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/studentenfutter_team.jpg",
                     Name = "studentenfutter_team.jpg",
-                    AltText = "Team photo of Studentenfutter"
+                    AltText = "Team photo of Studentenfutter",
+                    Extension = "jpg",
+                    Category = "teams"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/tortenglueck.png",
                     Name = "tortenglueck.png",
-                    AltText = "Logo of Tortenglück"
+                    AltText = "Logo of Tortenglück",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/wetakehealthcare_team.jpg",
                     Name = "wetakehealthcare_team.jpg",
-                    AltText = "Team photo of WeTakeHealthCare"
+                    AltText = "Team photo of WeTakeHealthCare",
+                    Extension = "jpg",
+                    Category = "teams"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/wthc.png",
                     Name = "wthc.png",
-                    AltText = "Logo of WeTakeHealthCare"
+                    AltText = "Logo of WeTakeHealthCare",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/teams/zircle.png",
                     Name = "zircle.png",
-                    AltText = "Logo of Zircle"
+                    AltText = "Logo of Zircle",
+                    Extension = "png",
+                    Category = "teamlogos"
                 },
             };
 
             Orga_images = new[]
             {
-                new Image
+                new File
                 {
                     Url = "/img/2018/team/anne.jpg",
                     Name = "anne.jpg",
-                    AltText = "The team member Anne Eimer"
+                    AltText = "The team member Anne Eimer",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/team/antonia.jpg",
                     Name = "antonia.jpg",
-                    AltText = "The team member Antonia Lorenz"
+                    AltText = "The team member Antonia Lorenz",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/team/chris.jpg",
                     Name = "chris.jpg",
-                    AltText = "The team member Christian Wiegand"
+                    AltText = "The team member Christian Wiegand",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/team/dominik.jpg",
                     Name = "dominik.jpg",
-                    AltText = "The team member Dominik Doerner"
+                    AltText = "The team member Dominik Doerner",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/team/jasmin.jpg",
                     Name = "jasmin.jpg",
-                    AltText = "The team member Jasmin Riedel"
+                    AltText = "The team member Jasmin Riedel",
+                    Extension = "jpg",
+                    Category = "people"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/team/martin.jpg",
                     Name = "martin.jpg",
-                    AltText = "The team member Martin Thoma"
+                    AltText = "The team member Martin Thoma",
+                    Extension = "jpg",
+                    Category = "people"
                 },
             };
 
             Partner_images = new[]
             {
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/entechnon.png",
                     Name = "entechnon.png",
-                    AltText = "Logo of the EnTechnon"
+                    AltText = "Logo of the EnTechnon",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/fmvc.png",
                     Name = "fmvc.png",
-                    AltText = "Logo of First Momentum ventures"
+                    AltText = "Logo of First Momentum ventures",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/grenke.png",
                     Name = "grenke.png",
-                    AltText = "Logo of GRENKE"
+                    AltText = "Logo of GRENKE",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/gruenderwoche.png",
                     Name = "gruenderwoche.png",
-                    AltText = "Logo of the Deutsche Gründerwoche"
+                    AltText = "Logo of the Deutsche Gründerwoche",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/karlshochschule.png",
                     Name = "karlshochschule.png",
-                    AltText = "Logo of the Karlshochschule"
+                    AltText = "Logo of the Karlshochschule",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/KGS_transparent.png",
                     Name = "KGS_transparent.png",
-                    AltText = "Logo of the KIT Gründerschmiede"
+                    AltText = "Logo of the KIT Gründerschmiede",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/kolibri.png",
                     Name = "kolibri.png",
-                    AltText = "Logo of Kolibri Games"
+                    AltText = "Logo of Kolibri Games",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/lea_partners.png",
                     Name = "lea_partners.png",
-                    AltText = "Logo of LEA Partners"
+                    AltText = "Logo of LEA Partners",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/logo_cyb.png",
                     Name = "logo_cyb.png",
-                    AltText = "Logo of the CyberForum"
+                    AltText = "Logo of the CyberForum",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2018/partner/logo_knuddel_big.png",
                     Name = "logo_knuddel_big.png",
-                    AltText = "Logo of Knuddels"
+                    AltText = "Logo of Knuddels",
+                    Extension = "png",
+                    Category = "partners"
                 },
-                new Image
+                new File
                 {
                     Url = "/img/2017/partner/sparkasse.jpg",
                     Name = "sparkasse.jpg",
-                    AltText = "Logo of Sparkasse Karlsruhe"
+                    AltText = "Logo of Sparkasse Karlsruhe",
+                    Extension = "jpg",
+                    Category = "partners"
                 },
             };
         }
@@ -1938,8 +2066,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://bestfitapp.info",
                     FacebookUrl = "BestFitApp",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/bestfit.png", Name = "bestfit.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/bestfit_team.jpg", Name = "bestfit_team.jpg" },
+                    LogoImage = new File { Url = "/img/2017/teams/bestfit.png", Name = "bestfit.png" },
+                    TeamPhoto = new File { Url = "/img/2017/teams/bestfit_team.jpg", Name = "bestfit_team.jpg" },
                     MembersAsString = "Christopher Oertel, Artem Titarenko, Marc Neuhoff ",
                     HasDroppedOut = false
                 },
@@ -1952,7 +2080,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/sunshift.png", Name = "sunshift.png" },
+                    LogoImage = new File { Url = "/img/2017/teams/sunshift.png", Name = "sunshift.png" },
                     TeamPhoto = null,
                     MembersAsString = "David Meiborg, Marcel Meckes, Johannes Brand, Tim Rädsch ",
                     HasDroppedOut = false
@@ -1966,8 +2094,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://wir-fuer.org",
                     FacebookUrl = "wirfuerkarlsruhe",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/wfk.png", Name = "wfk.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/wfk_team.jpg", Name = "wfk_team.jpg" },
+                    LogoImage = new File { Url = "/img/2017/teams/wfk.png", Name = "wfk.png" },
+                    TeamPhoto = new File { Url = "/img/2017/teams/wfk_team.jpg", Name = "wfk_team.jpg" },
                     MembersAsString = "Moritz Röschl, Sebastian Bayer",
                     HasDroppedOut = false
                 },
@@ -1980,8 +2108,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.colusto.de",
                     FacebookUrl = "Colusto",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/colusto.png", Name = "colusto.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/colusto_team.jpg", Name = "colusto_team.jpg" },
+                    LogoImage = new File { Url = "/img/2017/teams/colusto.png", Name = "colusto.png" },
+                    TeamPhoto = new File { Url = "/img/2017/teams/colusto_team.jpg", Name = "colusto_team.jpg" },
                     MembersAsString = "David Jeggle, Kai Jeggle ",
                     HasDroppedOut = false
                 },
@@ -1994,7 +2122,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.usertimes.io",
                     FacebookUrl = "usertimesHQ",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/usertimes.jpg", Name = "usertimes.jpg" },
+                    LogoImage = new File { Url = "/img/2017/teams/usertimes.jpg", Name = "usertimes.jpg" },
                     TeamPhoto = null,
                     MembersAsString = "Jonas Fuchs, Timo Schneider, Dominic Staub, Manuel Hölzlein, Anne Pfeifer, Luc Weinbrecht, Max Beume ",
                     HasDroppedOut = false
@@ -2008,8 +2136,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "www.flat-mates.com",
                     FacebookUrl = "Flatmates-359070784540566",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/flatmates.png", Name = "flatmates.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/flatmates_team.jpg", Name = "flatmates_team.jpg" },
+                    LogoImage = new File { Url = "/img/2017/teams/flatmates.png", Name = "flatmates.png" },
+                    TeamPhoto = new File { Url = "/img/2017/teams/flatmates_team.jpg", Name = "flatmates_team.jpg" },
                     MembersAsString = "Raji Sarhi, Anna Loerzer, Kim Skade, Natalie Cuentas Zavala Ponce, Linus Schweizer ",
                     HasDroppedOut = false
                 },
@@ -2022,7 +2150,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://sonopatch.com",
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/sono.png", Name = "sono.png" },
+                    LogoImage = new File { Url = "/img/2017/teams/sono.png", Name = "sono.png" },
                     TeamPhoto = null,
                     MembersAsString = "Theresa Schneider, Lukas Findeisen, Hannah Bott ",
                     HasDroppedOut = false
@@ -2036,7 +2164,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.yunu.coach",
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/yunu.jpg", Name = "yunu.jpg" },
+                    LogoImage = new File { Url = "/img/2017/teams/yunu.jpg", Name = "yunu.jpg" },
                     TeamPhoto = null,
                     MembersAsString = "André Herecki, Eduard Lichtenwald, Robert Otmar ",
                     HasDroppedOut = false
@@ -2050,8 +2178,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.smartivate.de",
                     FacebookUrl = "smartivatehome",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/smartivate.jpg", Name = "smartivate.jpg" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/smartivate_team.png", Name =" smartivate_team.png" },
+                    LogoImage = new File { Url = "/img/2017/teams/smartivate.jpg", Name = "smartivate.jpg" },
+                    TeamPhoto = new File { Url = "/img/2017/teams/smartivate_team.png", Name =" smartivate_team.png" },
                     MembersAsString = "Anand Narasipuram, Jeevan Dasan, Sebastian Dahnert ",
                     HasDroppedOut = false
                 },
@@ -2064,7 +2192,7 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = null,
                     FacebookUrl = null,
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/tizer.png", Name =" tizer.png" },
+                    LogoImage = new File { Url = "/img/2017/teams/tizer.png", Name =" tizer.png" },
                     TeamPhoto = null,
                     MembersAsString = "Dennis Maxelon, Janina Häfner, Patrick Anderer ",
                     HasDroppedOut = true
@@ -2092,8 +2220,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.ridy.de",
                     FacebookUrl = "ridyapp",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/ridy.png", Name = "ridy.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/ridy_team.jpg", Name = "ridy_team.jpg" },
+                    LogoImage = new File { Url = "/img/2017/teams/ridy.png", Name = "ridy.png" },
+                    TeamPhoto = new File { Url = "/img/2017/teams/ridy_team.jpg", Name = "ridy_team.jpg" },
                     MembersAsString = "Daniel Sobing, Arseniy Kurynyi ",
                     HasDroppedOut = true
                 },
@@ -2120,8 +2248,8 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
                     WebsiteUrl = "http://www.polun.io",
                     FacebookUrl = "poluniomagick",
                     InstagramUrl = null,
-                    LogoImage = new Image { Url = "/img/2017/teams/polunio.png", Name = "polunio.png" },
-                    TeamPhoto = new Image { Url = "/img/2017/teams/polunio_team.png", Name = "polunio_team.png" },
+                    LogoImage = new File { Url = "/img/2017/teams/polunio.png", Name = "polunio.png" },
+                    TeamPhoto = new File { Url = "/img/2017/teams/polunio_team.png", Name = "polunio_team.png" },
                     MembersAsString = "Alexandru Rinciog, Elias Mühlbrecht ",
                     HasDroppedOut = true
                 },

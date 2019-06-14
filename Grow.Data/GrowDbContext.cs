@@ -23,7 +23,7 @@ namespace Grow.Data
 
         public DbSet<Event> Events { get; set; }
 
-        public DbSet<Image> Images { get; set; }
+        public DbSet<File> Files { get; set; }
 
         public DbSet<Partner> Partners { get; set; }
 
@@ -44,7 +44,7 @@ namespace Grow.Data
             builder.Entity<Contest>()
                 .HasIndex(c => c.Year);
         }
-        
+
         public override int SaveChanges()
         {
             AddTimestamps();

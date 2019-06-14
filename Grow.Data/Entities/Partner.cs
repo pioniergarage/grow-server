@@ -4,7 +4,7 @@
     {
         public string Description { get; set; }
 
-        public virtual Image Image { get; set; }
+        public virtual File Image { get; set; }
         public int? ImageId { get; set; }
     }
 }

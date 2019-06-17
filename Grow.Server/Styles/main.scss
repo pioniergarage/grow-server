@@ -1021,11 +1021,13 @@ input[type="reset"],
 
     a {
         border-bottom-width: 0;
+        color: inherit;
     }
 
     .icons {
         img {
-            vertical-align: middle;
+            vertical-align: text-top;
+            height: 16px;
         }
     }
 

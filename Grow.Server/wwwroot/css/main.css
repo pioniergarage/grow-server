@@ -1731,9 +1731,11 @@ body.index #main {
   font-size: 0.8em;
   line-height: 1em; }
   #footer a {
-    border-bottom-width: 0; }
+    border-bottom-width: 0;
+    color: inherit; }
   #footer .icons img {
-    vertical-align: middle; }
+    vertical-align: text-top;
+    height: 16px; }
   #footer .copyright a {
     color: inherit; }
   #footer .copyright li {

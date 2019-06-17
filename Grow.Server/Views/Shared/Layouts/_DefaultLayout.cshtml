@@ -67,7 +67,7 @@
                         @Html.ActionLink("Program", "Program", "Home", new { year = ViewBag.SelectedContestYear })
                     </li>
                     <li class="submenu">
-                        @Html.ActionLink("Contest", "Index", "Home", new { year = "" })
+                        <a href="javascript:void(0);">Contest</a>
                         <ul>
                             <li>@Html.ActionLink("Teams", "Teams", "Home", new { year = ViewBag.SelectedContestYear })</li>
                             <li>@Html.ActionLink("Mentors", "Mentors", "Home", new { year = ViewBag.SelectedContestYear })</li>
@@ -75,7 +75,7 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="http://pioniergarage.de">About us</a>
+                        <a href="javascript:void(0);">About us</a>
                         <ul>
                             <li>@Html.ActionLink("Organizers", "Organizers", "Home", new { year = ViewBag.SelectedContestYear })</li>
                             <li><a href="https://pioniergarage.de/kontakt/">Contact</a></li>
@@ -90,9 +90,10 @@
 
         <footer id="footer">
             <ul class="icons">
-                <li><a href="https://pioniergarage.de" class="icon"> <img alt="PionierGarage Website" src="/img/icon/shortcutIcon_scaled_bw_1.png" width="19px" height="19px"></a></li>
-                <li><a href="https://www.facebook.com/Pioniergarage/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                <li><a href="mailto:grow@pioniergarage.de" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+                <li><a href="https://pioniergarage.de" target="_blank" class="icon"> <img alt="PionierGarage Website" src="/img/icon/shortcutIcon_scaled_bw_1.png" /></a></li>
+                <li><a href="mailto:grow@pioniergarage.de" target="_blank" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+                <li><a href="https://www.facebook.com/Pioniergarage/" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="https://www.instagram.com/pioniergarage/" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
             </ul>
             <ul class="copyright">
                 <li><a href="http://html5up.net">Design</a></li>

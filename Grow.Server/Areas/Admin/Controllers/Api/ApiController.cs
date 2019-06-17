@@ -10,7 +10,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
 {
     [Route("Admin/Api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public abstract class ApiController<T> : ControllerBase where T : BaseDbEntity
     {
         public GrowDbContext Context { get; }
@@ -21,7 +21,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
         }
         
         [HttpGet]
-        public ActionResult<IEnumerable<T>> Find(string search = null)
+        public virtual ActionResult<IEnumerable<T>> Find(string search = null)
         {
             IQueryable<T> query = Context.Set<T>();
             if (search != null)

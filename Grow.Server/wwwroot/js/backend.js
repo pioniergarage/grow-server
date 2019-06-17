@@ -89,7 +89,10 @@ function create_search_entity_function(type, output_id) {
             // add search results (as <li>)
             data.forEach(elem => {
                 var text = elem.name;
-                text += " (created at " + elem.createdAt.substring(0, 10) + ")";
+                if (elem.contestId)
+                    text += " (" + elem.contestId + ")";
+                else
+                    text += " (created at " + elem.createdAt.substring(0, 10) + ")";
                 var li = document.createElement("li");
                 li.innerHTML = text;
                 li.addEventListener("click", () => on_element_chosen(elem));
@@ -121,7 +124,7 @@ function create_search_entity_function(type, output_id) {
  * The event handler will take the value of the linked input[type=file] and send an AJAX request
  * to upload the selected type in a given category (e.g. TeamLogos).
  *
- * The class "loading" will be assigned to the linked DOM object while the ajax request runs.
+ * The class "loading" will be assigned to the output DOM object while the ajax request runs.
  *
  * The create file is (optionally) displayed as a <option> element inside a given output <select> element.
  * 
@@ -134,7 +137,7 @@ function create_image_upload_function() {
     return (event) => {
         var input_element = event.target;
         var category = $(input_element).attr("dat-category");
-        var output_element = $($(input_element).attr("dat-output"));
+        var output_element = $("#" + $(input_element).attr("dat-output"));
         
         var files = input_element.files;
         var formData = new FormData();
@@ -142,25 +145,48 @@ function create_image_upload_function() {
             formData.append("fileData", files[i]);
         }
 
+        // function to process created image
         var on_success = (data) => {
-            $(input_element).removeClass("loading");
-
-            if (output_element) {
-                var option = document.createElement("option");
-                option.innerHTML = data.name;
-                option.value = data.id;
-                output_element.append(option);
+            output_element.removeClass("loading");
+            
+            if (output_element.length > 0) {
+                var option;
+                // write new image to select list
+                for (var i = 0; i < data.length; i++) {
+                    var file = data[i];
+                    option = document.createElement("option");
+                    option.innerText = file.name;
+                    option.value = file.id;
+                    output_element.append(option);
+                }
+                // select last uploaded image
+                if (option)
+                    option.selected = true;
             }
         };
 
-        var on_fail = () => {
-            $(input_element).removeClass("loading");
+        // function to alert in case of error
+        var on_fail = (xhr, status, error) => {
+            output_element.removeClass("loading");
+            
+            switch (xhr.status) {
+                case 409:
+                    alert("Error: A file with this name has already been uploaded.");
+                    break;
+                case 404:
+                    alert("Misconfiguration: Trying to save file to a nonexistent folder.");
+                    break;
+                case 500:
+                    alert("Error: No storage connection could be established.");
+                    break;
+            }
 
             var text = "Error fetching entities via AJAX";
             console.log(text);
         };
-        
-        $(input_element).addClass("loading");
+
+        // Make API call to create image
+        output_element.addClass("loading");
         $.ajax({
             url: url_create_file_prefix + category,
             type: "POST",
@@ -168,7 +194,7 @@ function create_image_upload_function() {
             data: formData,
             contentType: false,
             processData: false,
-            sucess: on_success,
+            success: on_success,
             error: on_fail
         });
     };

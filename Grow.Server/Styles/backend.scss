@@ -58,6 +58,13 @@ tr.inactive {
     background-color: rgba(0,0,0,0.05);
 }
 
+/* Loading form elements (in case of ajax call) */
+.form-control.loading {
+    background: linear-gradient(270deg, rgba(255,255,255,0), rgba(135,228,252,0.35), rgba(255,255,255,0));
+    background-size: 400% 100%;
+    animation: loading-back 1.5s ease infinite;
+}
+
 /* Entity search box */
 #search-box {
 
@@ -75,12 +82,6 @@ tr.inactive {
         100% {
             background-position: 0% 50%
         }
-    }
-
-    #search-input.loading {
-        background: linear-gradient(270deg, rgba(255,255,255,0), rgba(135,228,252,0.35), rgba(255,255,255,0));
-        background-size: 400% 100%;
-        animation: loading-back 1.5s ease infinite;
     }
 
     ul#search-results {

@@ -104,7 +104,7 @@ namespace Grow.Server.Model.TagHelpers
             selectTagHelper.Process(context, selectOutput);
 
             selectOutput.AddClass("form-control", HtmlEncoder.Default);
-            selectOutput.Attributes.Add("id", $"file-selector-{Id}");
+            selectOutput.Attributes.SetAttribute("id", $"file-selector-{Id}");
 
             return selectOutput;
         }

@@ -33,7 +33,7 @@ namespace Grow.Server.Model.Helpers
                 }
             };
 
-            foreach (var entity in context.Set<T>())
+            foreach (var entity in context.Set<T>().OrderBy(e => e.Name))
             {
                 var name = entity.Name ?? entity.GetType().Name + " " + entity.Id;
                 list.Add(new SelectListItem(name, entity.Id.ToString()));

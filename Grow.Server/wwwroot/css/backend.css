@@ -21,6 +21,15 @@ input[type=checkbox] {
   #contest-selector option {
     color: black; }
 
+/* Image selector input in the Backend entity forms */
+.form-group div.img-selector {
+  padding: 0;
+  border: 0;
+  display: grid;
+  grid-template-columns: auto 38px; }
+  .form-group div.img-selector a:hover {
+    background-color: rgba(0, 0, 0, 0.05); }
+
 /* Column containing actions on /Type/Index pages */
 .options-column {
   word-wrap: normal; }

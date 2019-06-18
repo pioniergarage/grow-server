@@ -17,10 +17,10 @@ $(document).ready(function () {
     });
 
     // image uploader
-    $(".img-selector input[type=file]").change(create_image_upload_function(this));
+    $(".img-selector input[type=file]").change(create_image_upload_function());
 
     // entity search
-    // TODO
+    $("#search-box #search-input").keyup(create_search_entity_function());
 });
 
 // FUNCTION DEFINITIONS
@@ -41,15 +41,18 @@ $(document).ready(function () {
  * @param {string} output_id ID of the element in which to display the search results
  * @returns {Function} Handler function that fetches and displays entities
  */
-function create_search_entity_function(type, output_id) {
+function create_search_entity_function() {
 
     var search_timer;
-    var url = url_search_entities_prefix + type;
-    var output_element = $("#" + output_id);
 
-    // Return a handler function
+    // Return the handler function
     return (event) => {
         var input_element = event.target;
+        var type = $(input_element).attr("dat-type");
+        var url = url_search_entities_prefix + type;
+        var output_id = $(input_element).attr("dat-output");
+        var output_element = $("#" + output_id);
+
         var searchString = $(input_element).val();
         var timestamp = $.now();
 
@@ -90,7 +93,7 @@ function create_search_entity_function(type, output_id) {
             data.forEach(elem => {
                 var text = elem.name;
                 if (elem.contestId)
-                    text += " (" + elem.contestId + ")";
+                    text += " (" + contest_years[elem.contestId] + ")";
                 else
                     text += " (created at " + elem.createdAt.substring(0, 10) + ")";
                 var li = document.createElement("li");
@@ -108,8 +111,13 @@ function create_search_entity_function(type, output_id) {
             output_element.append("<li>" + text + "</li>");
         };
 
-        // delayed ajax to execute search (to avoid constant updates while typing)
         clearTimeout(search_timer);
+        if (searchString === "") {
+            output_element.hide();
+            return;
+        }
+
+        // delayed ajax to execute search (to avoid constant updates while typing)
         search_timer = setTimeout(() => {
             $(input_element).addClass("loading");
             $.get(url, { search: searchString }, on_success)

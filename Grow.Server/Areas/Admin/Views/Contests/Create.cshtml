@@ -4,18 +4,12 @@
     ViewData["Title"] = "Create";
 }
 
-@section Scripts {
-    <script type="text/javascript">
-        $("#search-box #search-input").keyup(create_search_entity_function('contests', 'search-results'));
-    </script>
-}
-
 <h2>Create</h2>
 
 <h4>Contest</h4>
 
 <hr />
-<partial name="Partials/_SearchEntitiesBox" />
+<entitysearch asp-type="contests" />
 <hr />
 
 <div class="row">

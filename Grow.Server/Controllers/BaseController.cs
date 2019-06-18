@@ -17,7 +17,7 @@ namespace Grow.Server.Controllers
 
         protected AppSettings AppSettings { get; }
 
-        protected ICollection<string> ContestYears { get; private set; }
+        protected IDictionary<int, string> ContestYears { get; private set; }
 
         protected int SelectedContestId { get; private set; }
 
@@ -61,12 +61,12 @@ namespace Grow.Server.Controllers
         {
             base.OnActionExecuting(context);
 
-            ContestYears = DbContext.Contests.Where(c => c.IsActive).Select(c => c.Year).ToList();
+            ContestYears = DbContext.Contests.Where(c => c.IsActive).ToDictionary(c => c.Id, c => c.Year);
             ChooseSelectedContestYear(context);
 
             // Default values for all controller actions
             ViewBag.ContestYears = ContestYears;
-            ViewBag.LatestContestYear = ContestYears.Max();
+            ViewBag.LatestContestYear = ContestYears.Max(c => c.Value);
             ViewBag.SelectedContestYear = SelectedContestYear;
             ViewBag.SelectedContestName = SelectedContestName;
         }
@@ -95,7 +95,7 @@ namespace Grow.Server.Controllers
                 SelectedContestYear = yearInCookie.Trim();
             }
             // fallback: use latest public year
-            if (SelectedContestYear == null || !ContestYears.Contains(SelectedContestYear))
+            if (SelectedContestYear == null || !ContestYears.Values.Contains(SelectedContestYear))
             {
                 SelectedContestYear = DbContext.Contests.Where(c => c.IsActive).Select(c => c.Year).Max();
             }

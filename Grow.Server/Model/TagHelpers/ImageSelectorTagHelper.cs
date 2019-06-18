@@ -29,7 +29,7 @@ namespace Grow.Server.Model.TagHelpers
 
         [HtmlAttributeName(CategoryAttributeName)]
         public string Category { get; set; }
-        
+
         public string Class { get; set; }
 
         public string Style { get; set; }

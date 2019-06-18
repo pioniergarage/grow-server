@@ -55,6 +55,25 @@
 
 	$pattern-background-size: 25em;
 
+/* Index-specific */
+
+.countdown {
+    font-family: 'Space Mono';
+    font-weight: bold;
+    font-size: 200%;
+
+    @media screen and (max-width: 599px) {
+        
+        font-size: 7.5vw;
+
+    }
+}
+
+.img-block img {
+    width: 100px;
+    margin: 15px;
+}
+
 /* Basic */
 
     html {
@@ -901,6 +920,11 @@ input[type="reset"],
 				display: inline-block;
 			}
 
+            img {
+                width: 350px;
+                max-width: 85vw;
+            }
+
 			p {
 				letter-spacing: 0.1em;
                 font-size: 80%;
@@ -997,11 +1021,13 @@ input[type="reset"],
 
     a {
         border-bottom-width: 0;
+        color: inherit;
     }
 
     .icons {
         img {
-            vertical-align: middle;
+            vertical-align: text-top;
+            height: 16px;
         }
     }
 

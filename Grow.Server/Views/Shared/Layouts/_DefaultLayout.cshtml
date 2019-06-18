@@ -44,12 +44,12 @@
     <!--[if lte IE 9]><link rel="stylesheet" href="/css/ie9.css" /><![endif]-->
 
     <meta charset="utf-8" />
-    <meta property="og:title" content="GROW Student Founding Contest - by PionierGarage" />
-    <meta property="og:image" content="http://grow.pioniergarage.de/img/crawler_banner.jpg" />
+    <meta property="og:title" content="GROW - the Student Founding Contest" />
+    <meta property="og:image" content="http://grow.pioniergarage.de/img/crawler_banner.jpg?v=1ba4c2" />
     <meta property="og:site_name" content="GROW by PionierGarage" />
-    <meta property="og:url" content="http://grow.pioniergarage.de" />
+    <meta property="og:url" content="https://grow.pioniergarage.de" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="GROW is an 11-week long founding contest for students. Realise your ideas and advance your startup and win prizes based on your progress." />
+    <meta property="og:description" content="GROW is an 11-week long founding contest for students. Realise your ideas, advance your startup and win prizes based on your progress." />
 
     @RenderSection("Styles", required: false)
 </head>
@@ -64,23 +64,18 @@
                         @Html.ActionLink("Home", "Index", "Home", new { year = "" })
                     </li>
                     <li>
-                        @Html.ActionLink("Program", "Program", "Home", new { year = ViewBag.SelectedContestYear })
+                        @Html.ActionLink("Program", "Program", "Home", new { year = ViewBag.LatestContestYear })
                     </li>
                     <li class="submenu">
-                        @Html.ActionLink("Contest", "Index", "Home", new { year = "" })
+                        <a href="javascript:void(0);">Contest</a>
                         <ul>
-                            <li>@Html.ActionLink("Teams", "Teams", "Home", new { year = ViewBag.SelectedContestYear })</li>
-                            <li>@Html.ActionLink("Mentors", "Mentors", "Home", new { year = ViewBag.SelectedContestYear })</li>
-                            <li>@Html.ActionLink("Judges", "Judges", "Home", new { year = ViewBag.SelectedContestYear })</li>
+                            <li>@Html.ActionLink("Teams", "Teams", "Home", new { year = ViewBag.LatestContestYear })</li>
+                            <li>@Html.ActionLink("Mentors", "Mentors", "Home", new { year = ViewBag.LatestContestYear })</li>
+                            <li>@Html.ActionLink("Judges", "Judges", "Home", new { year = ViewBag.LatestContestYear })</li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="http://pioniergarage.de">About us</a>
-                        <ul>
-                            <li>@Html.ActionLink("Organizers", "Organizers", "Home", new { year = ViewBag.SelectedContestYear })</li>
-                            <li><a href="https://pioniergarage.de/kontakt/">Contact</a></li>
-                            <li><a href="https://pioniergarage.de">PionierGarage</a></li>
-                        </ul>
+                    <li>
+                        @Html.ActionLink("About us", "About", "Home", new { year = ViewBag.LatestContestYear })
                     </li>
                 </ul>
             </nav>
@@ -90,19 +85,20 @@
 
         <footer id="footer">
             <ul class="icons">
-                <li><a href="https://pioniergarage.de" class="icon"> <img alt="PionierGarage Website" src="/img/icon/shortcutIcon_scaled_bw_1.png" width="19px" height="19px"></a></li>
-                <li><a href="https://www.facebook.com/Pioniergarage/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                <li><a href="mailto:grow@pioniergarage.de" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+                <li><a href="https://pioniergarage.de" target="_blank" class="icon"> <img alt="PionierGarage Website" src="/img/icon/shortcutIcon_scaled_bw_1.png" /></a></li>
+                <li><a href="mailto:grow@pioniergarage.de" target="_blank" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+                <li><a href="https://www.facebook.com/Pioniergarage/" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="https://www.instagram.com/pioniergarage/" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
             </ul>
             <ul class="copyright">
-                <li><a href="http://html5up.net">Design</a></li>
-                <li><a href="https://pioniergarage.de/impressum">Imprint</a></li>
-                <li><a href="https://pioniergarage.de/datenschutz">Privacy</a></li>
+                <li><a href="http://html5up.net" target="_blank">Design</a></li>
+                <li><a href="https://pioniergarage.de/impressum" target="_blank">Imprint</a></li>
+                <li><a href="https://pioniergarage.de/datenschutz" target="_blank">Privacy</a></li>
             </ul>
             <div>
-                <p>
+                <p style="text-align: center;">
                     Made with ❤ by
-                    <a href="https://pioniergarage.de"><img src="/img/pg_logo.png" alt="PionierGarage" style="height: 24px; vertical-align: sub; margin-bottom: -1px" /></a>
+                    <a href="https://pioniergarage.de" target="_blank"><img src="/img/pg_logo.png" alt="PionierGarage" style="height: 24px; vertical-align: sub; margin-bottom: -1px" /></a>
                 </p>
             </div>
         </footer>

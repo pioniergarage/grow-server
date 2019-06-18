@@ -1,0 +1,99 @@
+﻿@model ICollection<Grow.Data.Entities.Organizer>
+
+@{
+    ViewBag.Title = "About us";
+}
+
+@section Styles {
+    <style>
+        .image-block {
+            display: inline-block;
+            padding: 30px 20px;
+            margin-right: -5px;
+            box-sizing: border-box;
+        }
+
+        .image-block img {
+            width: 100%;
+        }
+    </style>
+}
+
+<article id="main">
+
+    <header class="special container">
+        <span class="icon fa-male"></span>
+        <h2>GROW can only exist due to a strong <strong>Team</strong></h2>
+    </header>
+
+    @if (Model.Any())
+    {
+        <section id="organizers" class="wrapper style4 container">
+            <div class="content">
+                <header>
+                    <h3>The team</h3>
+                </header>
+                @foreach (var orga in Model)
+                {
+                <div class="3u 12u(narrower) image-block">
+                    <h3>@orga.Name</h3>
+                    <h4>@orga.JobTitle</h4>
+                    <img src="@orga.Image.Url" />
+                </div>
+                }
+            </div>
+        </section>
+    }
+    else
+    {
+        <section id="organizers" class="wrapper style4 container">
+            <div class="content">
+                <section style="text-align: center">
+                    <header>
+                        <h3>The team</h3>
+                    </header>
+                    <p>
+                        No organizers have been publicized yet. Check back later for more details or follow us on Social Media (see below).
+                    </p>
+                </section>
+            </div>
+        </section>
+    }
+
+    <section id="pioniergarage" class="wrapper style4 container">
+        <div class="content">
+            <section style="text-align: center">
+                <header>
+                    <h3>The organizer: PionierGarage e.V.</h3>
+                </header>
+                <p>
+                    The <a href="https://pioniergarage.de/" target="_blank">PionierGarage</a> is Germany's largest student club focused on entrepreneurship. 
+                    Located at the Karlsruhe Institute of Technology (KIT) we made it our mission to promote the topic of entrepreneurship 
+                    by raising an higher awareness within the student community and supporting StartUps in the earliest stage.
+                </p>
+                <ul class="icons">
+                    <li><a href="https://pioniergarage.de/" target="_blank">Website</a></li>
+                    <li><a href="https://www.facebook.com/Pioniergarage/" target="_blank">Facebook</a></li>
+                    <li><a href="https://instagram.com/pioniergarage" target="_blank">Instagram</a></li>
+                </ul>
+            </section>
+        </div>
+    </section>
+
+    <section id="contact" class="wrapper style4 container">
+        <div class="content">
+            <section style="text-align: center">
+                <header>
+                    <h3>Contact us</h3>
+                </header>
+                <p>
+                    Do you have questions, feedback, offers?
+                </p>
+                <p>
+                    Send us a mail at<br />
+                    <a href="mailto:grow@pioniergarage.de">grow<span>@@</span>pioni<span>ergara</span>ge.de</a>
+                </p>
+            </section>
+        </div>
+    </section>
+</article>

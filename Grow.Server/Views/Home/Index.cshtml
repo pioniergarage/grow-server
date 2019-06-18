@@ -8,7 +8,7 @@
 <section id="banner">
     <div class="inner">
         <header>
-            <h2><img src="/img/grow_logo.png" alt="GROW" style="width: 350px" /></h2>
+            <h2><img src="/img/grow_logo.png" alt="GROW" /></h2>
         </header>
     </div>
     <p>&nbsp;</p>
@@ -20,7 +20,7 @@
             GROW @Model.Contest.Year is starting soon<br />
             @if (Model.MainEvents.Any())
             {
-                <span style="font-family: 'Space Mono'; font-weight: bold; font-size: 200%">
+                <span class="countdown">
                     <span id="countdown-days">@timeLeftBefore.Days</span> :
                     <span id="countdown-hours">@timeLeftBefore.Hours</span> :
                     <span id="countdown-mins">@timeLeftBefore.Minutes</span> :
@@ -130,25 +130,33 @@
         <header class="major">
             <h2>Why GROW?</h2>
         </header>
+        <div class="img-block">
+            <img src="/img/icon/hourGlass.png" />
+        </div>
         <p>
-            <img src="/img/icon/hourGlass.png" class="fitQuarter" /><br />
             <strong>1. We value progress</strong><br />
             It doesn't matter where you start. We only want to see you advance as much as possible during those 11 weeks.
         </p>
+        <div class="img-block">
+            <img src="/img/icon/phoneCall.png" />
+        </div>
         <p>
-            <img src="/img/icon/phoneCall.png" class="fitQuarter" /><br />
             <strong>2. A business is more than a prototype</strong><br />
             Not only your prototype will be judged. A successfull venture includes understanding your customers, having a strong business model, building a network and validating your ideas.
         </p>
+        <div class="img-block">
+            <img src="/img/icon/businessman.png" />
+        </div>
         <p>
-            <img src="/img/icon/businessman.png" class="fitQuarter" /><br />
             <strong>3. GROW actively supports you</strong><br />
             During those 11 weeks we try to help you advance as much as possible. We offer multiple full-day workshops to teach you the necessary soft skills about entrepreneurship. We connect you with experienced mentors that can give you feedback and the right mindset. And we give you access to our network of founders, investors and startups.
         </p>
+        <div class="img-block">
+            <img src="/img/icon/bigGroup.png" />
+        </div>
         <p>
-            <img src="/img/icon/bigGroup.png" class="fitQuarter" /><br />
             <strong>4. GROW is not for profit</strong><br />
-            GROW is organized by the student-run association <a href="pioniergarage.de" style="color: white; font-weight: bold">PionierGarage e.V.</a> Our first and foremost goal is to inspire students to found their own ventures, which is why GROW is financed completely by donations.
+            GROW is organized by the student-run association <a href="https://pioniergarage.de" target="_blank" style="color: white; font-weight: bold">PionierGarage e.V.</a> Our first and foremost goal is to inspire students to found their own ventures, which is why GROW is financed completely by donations.
         </p>
     </section>
 
@@ -163,7 +171,7 @@
                     <blockquote>
                         GROW has provided us with a strong network of founders, investors and also other companies.
                         <cite>Martin Trenkle, Founder of Campusjäger</cite>
-                        <img src="/img/2018/MartinTrenkle.jpg" alt="10-Wochen" class="fitHalf" />
+                        <img src="/img/2018/MartinTrenkle.jpg" class="fitHalf" />
                     </blockquote>
                 </section>
             </div>
@@ -172,7 +180,7 @@
                     <blockquote>
                         We have learned a lot during that time and were able to really take of after that.
                         <cite>Sebastian Murgul, Founder of MelodyScanner</cite>
-                        <img src="/img/2018/SebastianMurgul.jpg" alt="10-Wochen" class="fitHalf" />
+                        <img src="/img/2018/SebastianMurgul.jpg" class="fitHalf" />
                     </blockquote>
                 </section>
             </div>

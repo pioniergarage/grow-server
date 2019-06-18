@@ -61,18 +61,19 @@ namespace Grow.Server.Controllers
         {
             base.OnActionExecuting(context);
 
-            ContestYears = DbContext.Contests.Select(c => c.Year).ToList();
+            ContestYears = DbContext.Contests.Where(c => c.IsActive).Select(c => c.Year).ToList();
             ChooseSelectedContestYear(context);
 
             // Default values for all controller actions
             ViewBag.ContestYears = ContestYears;
+            ViewBag.LatestContestYear = ContestYears.Max();
             ViewBag.SelectedContestYear = SelectedContestYear;
             ViewBag.SelectedContestName = SelectedContestName;
         }
 
         public void ChooseSelectedContestYear(ActionExecutingContext context)
         {
-            string yearInUrl = String.Empty,
+            string yearInUrl = string.Empty,
                 yearInCookie;
 
             var hasYearInUrl = context.RouteData.Values.TryGetValue(Constants.ROUTE_YEAR_SELECTOR, out object value)

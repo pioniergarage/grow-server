@@ -966,6 +966,19 @@ body {
   .\-1u\28mobile\29 {
     margin-left: 8.3333333333%; } }
 
+/* Index-specific */
+.countdown {
+  font-family: 'Space Mono';
+  font-weight: bold;
+  font-size: 200%; }
+  @media screen and (max-width: 599px) {
+    .countdown {
+      font-size: 7.5vw; } }
+
+.img-block img {
+  width: 100px;
+  margin: 15px; }
+
 /* Basic */
 html {
   scroll-behavior: smooth; }
@@ -1654,6 +1667,9 @@ input[type="reset"],
       margin: 0; }
     #banner .inner header {
       display: inline-block; }
+    #banner .inner img {
+      width: 350px;
+      max-width: 85vw; }
     #banner .inner p {
       letter-spacing: 0.1em;
       font-size: 80%;
@@ -1715,9 +1731,11 @@ body.index #main {
   font-size: 0.8em;
   line-height: 1em; }
   #footer a {
-    border-bottom-width: 0; }
+    border-bottom-width: 0;
+    color: inherit; }
   #footer .icons img {
-    vertical-align: middle; }
+    vertical-align: text-top;
+    height: 16px; }
   #footer .copyright a {
     color: inherit; }
   #footer .copyright li {

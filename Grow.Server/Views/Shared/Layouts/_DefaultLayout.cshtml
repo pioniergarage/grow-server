@@ -64,23 +64,18 @@
                         @Html.ActionLink("Home", "Index", "Home", new { year = "" })
                     </li>
                     <li>
-                        @Html.ActionLink("Program", "Program", "Home", new { year = ViewBag.SelectedContestYear })
+                        @Html.ActionLink("Program", "Program", "Home", new { year = ViewBag.LatestContestYear })
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);">Contest</a>
                         <ul>
-                            <li>@Html.ActionLink("Teams", "Teams", "Home", new { year = ViewBag.SelectedContestYear })</li>
-                            <li>@Html.ActionLink("Mentors", "Mentors", "Home", new { year = ViewBag.SelectedContestYear })</li>
-                            <li>@Html.ActionLink("Judges", "Judges", "Home", new { year = ViewBag.SelectedContestYear })</li>
+                            <li>@Html.ActionLink("Teams", "Teams", "Home", new { year = ViewBag.LatestContestYear })</li>
+                            <li>@Html.ActionLink("Mentors", "Mentors", "Home", new { year = ViewBag.LatestContestYear })</li>
+                            <li>@Html.ActionLink("Judges", "Judges", "Home", new { year = ViewBag.LatestContestYear })</li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);">About us</a>
-                        <ul>
-                            <li>@Html.ActionLink("Organizers", "Organizers", "Home", new { year = ViewBag.SelectedContestYear })</li>
-                            <li><a href="https://pioniergarage.de/kontakt/">Contact</a></li>
-                            <li><a href="https://pioniergarage.de">PionierGarage</a></li>
-                        </ul>
+                    <li>
+                        @Html.ActionLink("About us", "About", "Home", new { year = ViewBag.LatestContestYear })
                     </li>
                 </ul>
             </nav>
@@ -96,14 +91,14 @@
                 <li><a href="https://www.instagram.com/pioniergarage/" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
             </ul>
             <ul class="copyright">
-                <li><a href="http://html5up.net">Design</a></li>
-                <li><a href="https://pioniergarage.de/impressum">Imprint</a></li>
-                <li><a href="https://pioniergarage.de/datenschutz">Privacy</a></li>
+                <li><a href="http://html5up.net" target="_blank">Design</a></li>
+                <li><a href="https://pioniergarage.de/impressum" target="_blank">Imprint</a></li>
+                <li><a href="https://pioniergarage.de/datenschutz" target="_blank">Privacy</a></li>
             </ul>
             <div>
                 <p style="text-align: center;">
                     Made with ❤ by
-                    <a href="https://pioniergarage.de"><img src="/img/pg_logo.png" alt="PionierGarage" style="height: 24px; vertical-align: sub; margin-bottom: -1px" /></a>
+                    <a href="https://pioniergarage.de" target="_blank"><img src="/img/pg_logo.png" alt="PionierGarage" style="height: 24px; vertical-align: sub; margin-bottom: -1px" /></a>
                 </p>
             </div>
         </footer>

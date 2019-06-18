@@ -75,7 +75,7 @@ namespace Grow.Server.Controllers
             return View(model);
         }
 
-        public IActionResult Organizers()
+        public IActionResult About()
         {
             var model = OrganizersInSelectedYear
                 .Include(p => p.Image)

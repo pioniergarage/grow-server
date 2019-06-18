@@ -78,7 +78,7 @@
     <Content Update="Views\Home\Mentors.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\Organizers.cshtml">
+    <Content Update="Views\Home\About.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Home\Error.cshtml">

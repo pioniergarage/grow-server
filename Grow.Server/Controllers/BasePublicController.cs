@@ -1,5 +1,6 @@
 ﻿using Grow.Data;
 using Grow.Server.Model;
+using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 
@@ -7,7 +8,8 @@ namespace Grow.Server.Controllers
 {
     public abstract class BasePublicController : BaseController
     {
-        protected BasePublicController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        protected BasePublicController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
 

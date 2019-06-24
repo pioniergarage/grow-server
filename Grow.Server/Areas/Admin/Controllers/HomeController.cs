@@ -1,5 +1,6 @@
 ﻿using Grow.Data;
 using Grow.Server.Model;
+using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,8 @@ namespace Grow.Server.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : BaseAdminController
     {
-        public HomeController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public HomeController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
 

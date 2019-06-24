@@ -2,6 +2,7 @@
 using Grow.Data;
 using Grow.Data.Entities;
 using Grow.Server.Model;
+using Grow.Server.Model.Helpers;
 using Grow.Server.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,8 @@ namespace Grow.Server.Controllers
 {
     public class HomeController : BasePublicController
     {
-        public HomeController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public HomeController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
 
@@ -31,6 +33,7 @@ namespace Grow.Server.Controllers
             return View(model);
         }
 
+        [Route("/Error")]
         public IActionResult Error(string ErrorMessage = null, string ErrorDetails = null)
         {
             var model = new ErrorViewModel()
@@ -41,6 +44,7 @@ namespace Grow.Server.Controllers
             return View(model);
         }
 
+        [Route("/Error")]
         public IActionResult Error(ErrorViewModel model)
         {
             return View(model);

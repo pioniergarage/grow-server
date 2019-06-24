@@ -17,7 +17,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             .Include(t => t.Contest)
             .Include(t => t.Image);
 
-        public PartnersController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public PartnersController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
 
@@ -48,7 +49,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Partner partner)
@@ -80,7 +81,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View(partner);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Partner partner)

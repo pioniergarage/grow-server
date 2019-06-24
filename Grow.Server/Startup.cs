@@ -1,6 +1,9 @@
 ﻿using Grow.Data;
 using Grow.Server.App_Start;
 using Grow.Server.Model;
+using Grow.Server.Model.Extensions;
+using Grow.Server.Model.Helpers;
+using Grow.Server.Model.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +27,9 @@ namespace Grow.Server
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            // Singletons
+            services.AddSingleton<ILogger, Logger>();
+
             // DB setup
             services.AddGrowDatabase(Configuration);
 
@@ -37,11 +43,7 @@ namespace Grow.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+            if (!env.IsDevelopment())
             {
                 app.UseHsts();
             }
@@ -50,8 +52,10 @@ namespace Grow.Server
             app.UpdateGrowDatabase();
 
             // Setup MVC pipeline
+            app.UseExceptionHandler("/Error");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseLoggingExceptionHandler();
             app.UseGrowAuthentication();
             app.UseMvc(RouteConfig.GetGrowRoutes());
         }

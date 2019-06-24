@@ -18,7 +18,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             .Include(t => t.GivenBy)
             .Include(t => t.Winner);
 
-        public PrizesController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public PrizesController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
 
@@ -49,7 +50,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Prize prize)
@@ -81,7 +82,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View(prize);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Prize prize)

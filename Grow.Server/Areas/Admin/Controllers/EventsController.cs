@@ -18,7 +18,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             .Include(t => t.Image)
             .Include(t => t.HeldBy);
 
-        public EventsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public EventsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
 
@@ -83,7 +84,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View(@event);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Event @event)

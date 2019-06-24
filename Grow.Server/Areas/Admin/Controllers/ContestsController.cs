@@ -6,21 +6,23 @@ using Grow.Server.Model;
 using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ContestsController : BaseAdminController
     {
-        public ContestsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public ContestsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
-        
+
         public async Task<IActionResult> Index()
         {
             return View(await DbContext.Contests.ToListAsync().ConfigureAwait(false));
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,12 +39,12 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(contest);
         }
-        
+
         public IActionResult Create()
         {
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Contest contest)
@@ -55,7 +57,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(contest);
         }
-        
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -70,7 +72,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(contest);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Contest contest)
@@ -102,7 +104,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
             return View(contest);
         }
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -119,7 +121,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
             return View(contest);
         }
-        
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Grow.Data;
 using Microsoft.Extensions.Options;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers.Api
 {
@@ -16,9 +17,9 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
     {
         private readonly StorageConnector _storage;
 
-        public FileController(GrowDbContext context, IOptions<AppSettings> settings) : base(context)
+        public FileController(GrowDbContext context, IOptions<AppSettings> settings, ILogger logger) : base(context, logger)
         {
-            _storage = new StorageConnector(settings.Value);
+            _storage = new StorageConnector(settings.Value, logger);
         }
         
         public ActionResult<IEnumerable<File>> Find(string folder, string search = null)

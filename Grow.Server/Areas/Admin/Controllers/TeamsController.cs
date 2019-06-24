@@ -18,14 +18,15 @@ namespace Grow.Server.Areas.Admin.Controllers
             .Include(t => t.LogoImage)
             .Include(t => t.TeamPhoto);
 
-        public TeamsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public TeamsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
 
         public async Task<IActionResult> Index()
         {
             var teams = await SelectedTeamsWithAllIncluded.ToListAsync().ConfigureAwait(false);
-            
+
             return View(teams);
         }
 
@@ -42,7 +43,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            
+
             return View(team);
         }
 
@@ -51,7 +52,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Team team)
@@ -81,7 +82,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View(team);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Team team)
@@ -128,7 +129,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            
+
             return View(team);
         }
 

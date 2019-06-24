@@ -8,6 +8,7 @@ using Grow.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Controllers
 {
@@ -16,6 +17,8 @@ namespace Grow.Server.Controllers
         protected GrowDbContext DbContext { get; }
 
         protected AppSettings AppSettings { get; }
+
+        protected ILogger Logger { get; }
 
         protected IDictionary<int, string> ContestYears { get; private set; }
 
@@ -51,10 +54,11 @@ namespace Grow.Server.Controllers
         protected IQueryable<Team> TeamsInSelectedYear => DbContext.Teams
             .Where(t => t.Contest.Year == SelectedContestYear && GlobalFilter(t));
 
-        protected BaseController(GrowDbContext dbContext, IOptions<AppSettings> appSettings)
+        protected BaseController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
         {
             DbContext = dbContext;
             AppSettings = appSettings.Value;
+            Logger = logger;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)

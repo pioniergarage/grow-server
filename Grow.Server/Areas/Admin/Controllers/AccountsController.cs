@@ -11,6 +11,7 @@ using Grow.Server.Areas.Admin.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using Grow.Server.Areas.Admin.Models;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -20,7 +21,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         private readonly UserManager<Account> _userManager;
         private readonly AccountVmMapper _mapper;
 
-        public AccountsController(UserManager<Account> userManager, GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public AccountsController(UserManager<Account> userManager, GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger) : base(dbContext, appSettings, logger)
         {
             _userManager = userManager;
             _mapper = new AccountVmMapper(userManager, DbContext);
@@ -84,7 +85,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                     ModelState.AddModelError(string.Empty, result.Errors.First().Description);
                     return View(vm);
                 }
-                
+
                 // Set admin roles (but only if self is Superadmin)
                 if (await IsCurrentUserSuperAdminAsync().ConfigureAwait(false))
                 {
@@ -230,7 +231,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             var self = await GetCurrentUserAsync().ConfigureAwait(false);
             return await _userManager.IsInRoleAsync(self, Constants.SUPERADMIN_ROLE_NAME).ConfigureAwait(false);
         }
-        
+
         private async Task<bool> IsCurrentUserAllowedToEditAsync(Account other)
         {
             bool selfIsSuperAdmin = await IsCurrentUserSuperAdminAsync().ConfigureAwait(false);

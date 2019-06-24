@@ -1,4 +1,5 @@
 ﻿using Grow.Data.Entities;
+using Grow.Server.Model.Helpers;
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Auth;
 using Microsoft.Azure.Storage.Blob;
@@ -14,7 +15,7 @@ namespace Grow.Server.Model
     {
         public CloudBlobClient CloudBlobClient { get; set; }
 
-        public StorageConnector(AppSettings settings)
+        public StorageConnector(AppSettings settings, ILogger logger)
         {
             var connectionString = settings.StorageConnectionString;
             if (!CloudStorageAccount.TryParse(connectionString, out CloudStorageAccount storageAccount))
@@ -23,8 +24,15 @@ namespace Grow.Server.Model
                 return;
             }
 
-            CloudBlobClient = storageAccount.CreateCloudBlobClient();
-            
+            try
+            {
+                CloudBlobClient = storageAccount.CreateCloudBlobClient();
+            }
+            catch (Exception e)
+            {
+                logger.LogError("Could not connect to storage", e);
+            }
+
             EnsureContainersAreCreated();
         }
 
@@ -51,7 +59,7 @@ namespace Grow.Server.Model
             var cloudBlobContainer = GetContainerFor(category);
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
             cloudBlockBlob.UploadFromStream(imageData);
-            
+
             return new File()
             {
                 Name = fileName,

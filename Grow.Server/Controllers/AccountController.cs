@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using System.Net;
 using System.Threading.Tasks;
 using Grow.Data;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Controllers
 {
@@ -17,8 +18,8 @@ namespace Grow.Server.Controllers
         private readonly UserManager<Account> _userManager;
         private readonly SignInManager<Account> _signInManager;
 
-        public AccountController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, SignInManager<Account> signInManager, UserManager<Account> userManager)
-            : base(dbContext, appSettings)
+        public AccountController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, SignInManager<Account> signInManager, UserManager<Account> userManager, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;

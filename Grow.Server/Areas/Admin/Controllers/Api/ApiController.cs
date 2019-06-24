@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Grow.Data;
 using Grow.Data.Entities;
+using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,12 +15,14 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
     public abstract class ApiController<T> : ControllerBase where T : BaseDbEntity
     {
         public GrowDbContext Context { get; }
-        
-        protected ApiController(GrowDbContext context)
+        public ILogger Logger { get; }
+
+        protected ApiController(GrowDbContext context, ILogger logger)
         {
             Context = context;
+            Logger = logger;
         }
-        
+
         [HttpGet]
         public virtual ActionResult<IEnumerable<T>> Find(string search = null)
         {
@@ -28,7 +31,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
                 query = query.Where(e => e.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase));
             return Ok(query);
         }
-        
+
         [HttpGet("{id}")]
         public ActionResult<T> Get(int id)
         {
@@ -40,12 +43,43 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
         }
     }
 
-    public class ContestsController : ApiController<Contest> { public ContestsController(GrowDbContext context) : base(context) { } }
-    public class EventsController : ApiController<Event> { public EventsController(GrowDbContext context) : base(context) { } }
-    public class JudgesController: ApiController<Judge> { public JudgesController(GrowDbContext context) : base(context) { } }
-    public class MentorsController: ApiController<Mentor> { public MentorsController(GrowDbContext context) : base(context) { } }
-    public class OrganizersController : ApiController<Organizer> { public OrganizersController(GrowDbContext context) : base(context) { } }
-    public class PartnersController : ApiController<Partner> { public PartnersController(GrowDbContext context) : base(context) { } }
-    public class PrizesController : ApiController<Prize> { public PrizesController(GrowDbContext context) : base(context) { } }
-    public class TeamsController : ApiController<Team> { public TeamsController(GrowDbContext context) : base(context) { } }
+    public class ContestsController : ApiController<Contest>
+    {
+        public ContestsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
+    }
+
+    public class EventsController : ApiController<Event>
+    {
+        public EventsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
+    }
+
+    public class JudgesController : ApiController<Judge>
+    {
+        public JudgesController(GrowDbContext context, ILogger logger) : base(context, logger) { }
+    }
+
+    public class MentorsController : ApiController<Mentor>
+    {
+        public MentorsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
+    }
+
+    public class OrganizersController : ApiController<Organizer>
+    {
+        public OrganizersController(GrowDbContext context, ILogger logger) : base(context, logger) { }
+    }
+
+    public class PartnersController : ApiController<Partner>
+    {
+        public PartnersController(GrowDbContext context, ILogger logger) : base(context, logger) { }
+    }
+
+    public class PrizesController : ApiController<Prize>
+    {
+        public PrizesController(GrowDbContext context, ILogger logger) : base(context, logger) { }
+    }
+
+    public class TeamsController : ApiController<Team>
+    {
+        public TeamsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
+    }
 }

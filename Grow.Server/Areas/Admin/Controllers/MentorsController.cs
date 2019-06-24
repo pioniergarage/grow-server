@@ -20,7 +20,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             .Include(t => t.Contest)
             .Include(t => t.Image);
 
-        public MentorsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings) : base(dbContext, appSettings)
+        public MentorsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+            : base(dbContext, appSettings, logger)
         {
         }
 
@@ -51,7 +52,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Mentor mentor)
@@ -83,7 +84,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             AddEntityListsToViewBag();
             return View(mentor);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Mentor mentor)

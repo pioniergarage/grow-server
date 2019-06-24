@@ -41,6 +41,11 @@ input[type=checkbox] {
             background-color: rgba(0,0,0,0.05);
         }
     }
+
+    img {
+        padding: 10px;
+        max-height: 200px;
+    }
 }
 
 /* Column containing actions on /Type/Index pages */

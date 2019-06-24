@@ -1,4 +1,5 @@
 ﻿using Grow.Data.Entities;
+using Grow.Data.Helpers.Attributes;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -18,7 +20,7 @@ namespace Grow.Server.Model.TagHelpers
     {
         private const string ItemsAttributeName = "asp-items";
         private const string ForAttributeName = "asp-for";
-        private const string CategoryAttributeName = "asp-category";
+        private const string CategoryAttributeName = "asp-prop";
         private const string WrapperClassName = "img-selector";
 
         [HtmlAttributeName(ForAttributeName)]
@@ -28,7 +30,19 @@ namespace Grow.Server.Model.TagHelpers
         public ICollection<SelectListItem> Items { get; set; }
 
         [HtmlAttributeName(CategoryAttributeName)]
-        public string Category { get; set; }
+        public ModelExpression FileProperty { get; set; }
+        private string CategoryString
+        {
+            get
+            {
+                var category = FileCategory.Misc;
+                var attr = FileProperty?.Metadata.ContainerType.GetProperty(FileProperty.Name).GetCustomAttribute<FileCategoryAttribute>();
+                if (attr != null)
+                    category = attr.Category;
+
+                return category.ToString().ToLower();
+            }
+        }
 
         public string Class { get; set; }
 
@@ -64,7 +78,8 @@ namespace Grow.Server.Model.TagHelpers
             var select = CreateSelectElement(context);
             var file = CreateFileElement(context);
             var btn = CreateButtonElement(context);
-            var wrapper = WrapInDiv(new[] { select, file, btn });
+            var pre = CreatePreviewElement(context);
+            var wrapper = WrapInDiv(new[] { select, file, btn, pre });
 
             // Pass-through attributes to select
             if (Class != null)
@@ -93,18 +108,28 @@ namespace Grow.Server.Model.TagHelpers
 
         private IHtmlContent CreateSelectElement(TagHelperContext context)
         {
+            if (Items != null)
+            {
+                foreach (var item in Items)
+                {
+                    if ((item.Value ?? string.Empty).Equals(For.Model?.ToString()))
+                        item.Selected = true;
+                }
+            }
+
             var selectTagHelper = new SelectTagHelper(Generator)
             {
                 For = For,
                 Items = Items,
-                ViewContext = ViewContext,
+                ViewContext = ViewContext
             };
 
             TagHelperOutput selectOutput = CreateTagHelperOutput("select");
             selectTagHelper.Process(context, selectOutput);
 
             selectOutput.AddClass("form-control", HtmlEncoder.Default);
-            selectOutput.Attributes.SetAttribute("id", $"file-selector-{Id}");
+            selectOutput.Attributes.SetAttribute("id", For.Name);
+            selectOutput.Attributes.Add("dat-preview", $"file-preview-{Id}");
 
             return selectOutput;
         }
@@ -115,8 +140,16 @@ namespace Grow.Server.Model.TagHelpers
             input.Attributes.Add("type", "file");
             input.Attributes.Add("id", $"file-upload-{Id}");
             input.Attributes.Add("style", "display: none");
-            input.Attributes.Add("dat-category", Category);
-            input.Attributes.Add("dat-output", $"file-selector-{Id}");
+            input.Attributes.Add("dat-category", CategoryString);
+            input.Attributes.Add("dat-output", For.Name);
+            return input;
+        }
+
+        private IHtmlContent CreatePreviewElement(TagHelperContext context)
+        {
+            var input = new TagBuilder("img");
+            input.Attributes.Add("id", $"file-preview-{Id}");
+            input.Attributes.Add("style", "display: none");
             return input;
         }
 
@@ -128,7 +161,7 @@ namespace Grow.Server.Model.TagHelpers
                 Controller = "File",
                 RouteValues =
                 {
-                    { "category", Category }
+                    { "category", CategoryString }
                 },
                 ViewContext = ViewContext
             };

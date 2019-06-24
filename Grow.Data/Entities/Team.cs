@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Grow.Data.Helpers.Attributes;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Grow.Data.Entities
@@ -9,9 +10,11 @@ namespace Grow.Data.Entities
 
         public string Description { get; set; }
 
+        [FileCategory(FileCategory.TeamLogos)]
         public virtual File LogoImage { get; set; }
         public int? LogoImageId { get; set; }
 
+        [FileCategory(FileCategory.Teams)]
         public virtual File TeamPhoto { get; set; }
         public int? TeamPhotoId { get; set; }
 

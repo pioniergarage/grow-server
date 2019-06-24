@@ -25,6 +25,11 @@ namespace Grow.Server.Model.Extensions
             return value;
         }
 
+        public static string GetController<TEntity>(this IHtmlHelper<TEntity> html)
+        {
+            return typeof(TEntity).Name.ToLower() + "s";
+        }
+
         public static IHtmlContent ContestSelect(this IHtmlHelper helper, string selectedYear, ICollection<Contest> allContests)
         {
             if (allContests == null)

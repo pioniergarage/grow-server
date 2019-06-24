@@ -1,9 +1,13 @@
 ﻿using Grow.Data;
 using Grow.Data.Entities;
+using Grow.Data.Helpers.Attributes;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Grow.Server.Model.Helpers
@@ -24,24 +28,47 @@ namespace Grow.Server.Model.Helpers
 
         public static IEnumerable<SelectListItem> SelectListFromEntities<T>(GrowDbContext context) where T : BaseDbEntity
         {
-            var list = new List<SelectListItem>
-            {
-                new SelectListItem
-                {
-                    Text = "",
-                    Value = null
-                }
-            };
+            var files = context
+                .Set<T>()
+                .OrderBy(e => e.Name);
 
-            foreach (var entity in context.Set<T>().OrderBy(e => e.Name))
-            {
-                var name = entity.Name ?? entity.GetType().Name + " " + entity.Id;
-                list.Add(new SelectListItem(name, entity.Id.ToString()));
-            }
-            return list;
+            return SelectListFromEntityList(files);
         }
 
         public static IEnumerable<SelectListItem> SelectListFromEntities<T>(GrowDbContext context, int currentContestId) where T : ContestDependentEntity
+        {
+            var files = context
+                .Set<T>()
+                .Where(e => e.ContestId == currentContestId)
+                .OrderBy(e => e.Name);
+
+            return SelectListFromEntityList(files);
+        }
+        
+        public static IEnumerable<SelectListItem> SelectListFromFiles<TSource>(GrowDbContext context, Expression<Func<TSource, File>> propertyLambda)
+        {
+            var member = propertyLambda.Body as MemberExpression;
+            if (member == null)
+                throw new ArgumentException("Invalid referenced member", nameof(propertyLambda));
+
+            var propInfo = member.Member as PropertyInfo;
+            if (propInfo == null)
+                throw new ArgumentException("Referenced member is not a property", nameof(propertyLambda));
+
+            var fileCategory = FileCategory.Misc;
+            var attr = propInfo.GetCustomAttribute<FileCategoryAttribute>();
+            if (attr != null)
+                fileCategory = attr.Category;
+
+            var files = context
+                .Set<File>()
+                .Where(e => (e.Category ?? "misc").Equals(fileCategory.ToString(), StringComparison.CurrentCultureIgnoreCase))
+                .OrderBy(e => e.Name);
+
+            return SelectListFromEntityList(files);
+        }
+
+        private static IEnumerable<SelectListItem> SelectListFromEntityList(IEnumerable<BaseEntity> entities)
         {
             var list = new List<SelectListItem>
             {
@@ -52,11 +79,13 @@ namespace Grow.Server.Model.Helpers
                 }
             };
 
-            foreach (var entity in context.Set<T>().Where(e => e.ContestId == currentContestId))
+            foreach (var entity in entities)
             {
                 var name = entity.Name ?? entity.GetType().Name + " " + entity.Id;
-                list.Add(new SelectListItem(name, entity.Id.ToString()));
+                var item = new SelectListItem(name, entity.Id.ToString());
+                list.Add(item);
             }
+
             return list;
         }
     }

@@ -11,4 +11,15 @@ namespace Grow.Data.Entities
         public string Extension { get; set; }
         public string Category { get; set; }
     }
+
+    public enum FileCategory
+    {
+        Misc,
+        Events,
+        Partners,
+        People,
+        Teams,
+        TeamLogos,
+        Slides
+    }
 }

@@ -156,7 +156,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         private void AddEntityListsToViewBag()
         {
-            ViewBag.Images = ViewHelpers.SelectListFromEntities<File>(DbContext);
+            ViewBag.Images = ViewHelpers.SelectListFromFiles<Person>(DbContext, p => p.Image);
         }
 
         private bool MentorExists(int id)

@@ -2,6 +2,7 @@
 url_select_year            = "/Admin/Home/SetYear";
 url_create_file_prefix     = "/Admin/Api/File?category=";
 url_search_entities_prefix = "/Admin/Api/";
+url_get_file_prefix        = "/Admin/Api/File/";
 var debug;
 
 // ADD GLOBAL EVENT HANDLERS
@@ -18,6 +19,8 @@ $(document).ready(function () {
 
     // image uploader
     $(".img-selector input[type=file]").change(create_image_upload_function());
+    $(".img-selector select").change(create_load_preview_function());
+    $(".img-selector select").trigger("change");
 
     // entity search
     $("#search-box #search-input").keyup(create_search_entity_function());
@@ -72,6 +75,8 @@ function create_search_entity_function() {
                 // check box
                 if ($(input).attr("type") === "checkbox")
                     $(input).prop("checked", elem[name]);
+                // trigger change event
+                $(input).trigger("change");
             });
         };
 
@@ -205,5 +210,49 @@ function create_image_upload_function() {
             success: on_success,
             error: on_fail
         });
+    };
+}
+
+/**
+ * Creates a (change) event handler function for displaying a preview of selected images.
+ *
+ * The event handler will take the id of the selected image <option> and request the file from the server to display it.
+ *
+ * @returns {Function} Handler function that fetches a selected file and previews it
+ */
+function create_load_preview_function() {
+
+    return (event) => {
+        // get selected element
+        var select_element = $(event.target);
+        var option_element = select_element.find(":selected");
+        var preview_element = $("#" + select_element.attr("dat-preview"));
+        var image_id = option_element.val();
+        if (!image_id)
+            return;
+
+        // function to process received image
+        var on_success = (data) => {
+            var image_url = data.url;
+            preview_element.attr("src", image_url);
+            preview_element.css("display", "block");
+        };
+
+        // function to log error
+        var on_fail = (xhr, status, error) => {
+            var text = "Error fetching selected image via AJAX: " + xhr.status;
+            console.log(text);
+        };
+
+        // selection cleared => remove img
+        if (!image_id) {
+            preview_element.css("display", "none");
+            return;
+        }
+
+        // send request to fetch image
+        $.getJSON(url_get_file_prefix + image_id)
+            .done(on_success)
+            .error(on_fail);
     };
 }

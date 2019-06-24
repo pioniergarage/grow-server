@@ -155,7 +155,6 @@ namespace Grow.Server.Areas.Admin.Controllers
         private void AddEntityListsToViewBag()
         {
             ViewBag.Types = ViewHelpers.SelectListFromEnum<Prize.PrizeType>();
-            ViewBag.Images = ViewHelpers.SelectListFromEntities<File>(DbContext);
             ViewBag.Teams = ViewHelpers.SelectListFromEntities<Team>(DbContext, SelectedContestId);
             ViewBag.Partners = ViewHelpers.SelectListFromEntities<Partner>(DbContext, SelectedContestId);
         }

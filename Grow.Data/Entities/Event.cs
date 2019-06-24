@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grow.Data.Helpers.Attributes;
+using System;
 
 namespace Grow.Data.Entities
 {
@@ -16,6 +17,7 @@ namespace Grow.Data.Entities
 
         public string Address { get; set; }
 
+        [FileCategory(FileCategory.Events)]
         public virtual File Image { get; set; }
         public int? ImageId { get; set; }
 

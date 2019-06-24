@@ -120,16 +120,5 @@ namespace Grow.Server.Model
         {
             return container.ToString().ToLower();
         }
-
-        public enum FileCategory
-        {
-            Events,
-            Partners,
-            People,
-            Teams,
-            TeamLogos,
-            Slides,
-            Misc
-        }
     }
 }

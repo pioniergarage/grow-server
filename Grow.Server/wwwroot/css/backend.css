@@ -29,6 +29,9 @@ input[type=checkbox] {
   grid-template-columns: auto 38px; }
   .form-group div.img-selector a:hover {
     background-color: rgba(0, 0, 0, 0.05); }
+  .form-group div.img-selector img {
+    padding: 10px;
+    max-height: 200px; }
 
 /* Column containing actions on /Type/Index pages */
 .options-column {

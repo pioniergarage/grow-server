@@ -25,7 +25,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await SelectedEventsWithAllIncluded.ToListAsync().ConfigureAwait(false));
+            return View(await SelectedEventsWithAllIncluded.Include(e => e.Responses).ToListAsync().ConfigureAwait(false));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -36,6 +36,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
 
             var @event = await SelectedEventsWithAllIncluded
+                .Include(e => e.Responses)
                 .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
             if (@event == null)
             {
@@ -159,6 +160,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
             ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
+            ViewBag.RegistrationTypes = ViewHelpers.SelectListFromEnum<Event.EventRegistration>();
             ViewBag.Partners = ViewHelpers.SelectListFromEntities<Partner>(DbContext, SelectedContestId);
             ViewBag.Images = ViewHelpers.SelectListFromFiles<Event>(DbContext, e => e.Image);
         }

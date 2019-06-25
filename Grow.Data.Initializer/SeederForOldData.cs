@@ -785,7 +785,7 @@ namespace Grow.Data.Initializer
                     Address = "Karlstraße 36 - 38, 76133 Karlsruhe",
                     Location = "Karlshochschule",
                     Description = "The kickoff is where the fun starts, no matter whether you have already applied or whether you're still undecided. We will present everything you need to know about the contest and give you a chance to find an idea and/or teammates. And the 11 weeks of work will start right away.",
-                    FacebookLink = "https://www.facebook.com/events/328499797707535/",
+                    ExternalEventUrl = "https://www.facebook.com/events/328499797707535/",
                     Start = new DateTime(2018, 11, 12, 18, 0, 0).ToUniversalTime(),
                     End = new DateTime(2018, 11, 12, 21, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -801,7 +801,7 @@ namespace Grow.Data.Initializer
                     Address = "Rintheimer Str. 15, 76131 Karlsruhe",
                     Location = "PionierGarage Launchpad",
                     Description = "At the seed day we want to connect teams and mentors. First, you get a short chance to pitch both your idea and what you need help with in front of everyone. Then you can find the most suitable mentors in short one-on-one talks. ",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2018, 11, 19, 19, 0, 0).ToUniversalTime(),
                     End = new DateTime(2018, 11, 19, 22, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -816,7 +816,7 @@ namespace Grow.Data.Initializer
                     Address = "Rintheimer Str. 15, 76131 Karlsruhe",
                     Location = "PionierGarage Launchpad",
                     Description = "It\'s important to understand your customers - observe, ask the right questions and structure information.\r\nIn this workshop you will learn both theoretical principles and practical methods such as Design Thinking and Jobs-To-Be-Done that can be applied to improve your own business model right away.\r\n\r\nHeld by the EnTechnon, the entrepreneurship institute at the KIT, in the format of their own upCat accelerator.",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2018, 11, 20, 9, 30, 0).ToUniversalTime(),
                     End = new DateTime(2018, 11, 20, 16, 30, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -831,7 +831,7 @@ namespace Grow.Data.Initializer
                     Address = "Rintheimer Str. 15, 76131 Karlsruhe",
                     Location = "PionierGarage Launchpad",
                     Description = "To execute your own business means to understand who you are and what you do.\r\nIn this workshop you will use multiple methods and formats to display all relevant activities and aspects of your venture. With differing levels of abstraction those help you to understand the relationship between your processes and guide you through the phases of ideation, feasability, prototyping and decision-making.\r\n\r\nHeld by the EnTechnon, the entrepreneurship institute at the KIT, in the format of their own upCat accelerator.",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2018, 11, 21, 9, 30, 0).ToUniversalTime(),
                     End = new DateTime(2018, 11, 21, 16, 30, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -846,7 +846,7 @@ namespace Grow.Data.Initializer
                     Address = "Rintheimer Str. 15, 76131 Karlsruhe",
                     Location = "PionierGarage Launchpad",
                     Description = "So much to say and so little time to do so.\r\nPitching your project requires you to be authentic, deliver a lot of information, help your audience to understand you emotionally and keep listeners engaged. This workshop aims to help you persuade both potential customers as well as judges and investors and improve your pitch-deck.\r\n\r\nHeld by the EnTechnon, the entrepreneurship institute at the KIT, in the format of their own upCat accelerator.",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2018, 12, 05, 9, 30, 0).ToUniversalTime(),
                     End = new DateTime(2018, 12, 05, 16, 30, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -861,7 +861,7 @@ namespace Grow.Data.Initializer
                     Address = "Kaiserstraße 146, 76133 Karlsruhe",
                     Location = "Knuddels Office",
                     Description = "Half time break! Pitch what you've done in the last 5 weeks in front of a small audience and a jury. The judges will select 10 teams out of all participants to continue with the second half of the content and ultimately the final.",
-                    FacebookLink = "https://www.facebook.com/events/592799921164435/",
+                    ExternalEventUrl = "https://www.facebook.com/events/592799921164435/",
                     Start = new DateTime(2018, 12, 09, 19, 0, 0).ToUniversalTime(),
                     End = new DateTime(2018, 12, 09, 22, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -877,7 +877,7 @@ namespace Grow.Data.Initializer
                     Address = "Rintheimer Str. 15, 76131 Karlsruhe",
                     Location = "PionierGarage Launchpad",
                     Description = "Financing is about getting the funds necessary to build your idea and/or project, especially using investment money. And who would be better suited to tutor you than the two Karlsruhe-based Venture Capital companies LEA Partners and First Momentum Ventures.",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2019, 01, 10, 09, 30, 0).ToUniversalTime(),
                     End = new DateTime(2019, 01, 10, 13, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -892,7 +892,7 @@ namespace Grow.Data.Initializer
                     Address = "Building 30.95, Karlsruhe Institute of Technology, 76131 Karlsruhe",
                     Location = "Audimax",
                     Description = "This is what you\'ve been working for!\r\nPitch one last time in front of a huge audience and show what you\'ve learned and how far you have come. Every pitch is followed by a short round of questions by the judges before you can get a chance at winning one of the prizes. ",
-                    FacebookLink = "https://www.facebook.com/events/288450928456010/",
+                    ExternalEventUrl = "https://www.facebook.com/events/288450928456010/",
                     Start = new DateTime(2019, 01, 30, 19, 0, 0).ToUniversalTime(),
                     End = new DateTime(2019, 01, 30, 22, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -911,7 +911,7 @@ namespace Grow.Data.Initializer
                     Address = "Haid-und-Neu-Straße 18, 76131 Karlsruhe",
                     Location = "Hoepfner Burg, CyberForum",
                     Description = "Dies ist der Startschuss für einen Gründungswettbewerb, der über die nächsten 11 Wochen alles von den Teams abverlangen wird. Los geht es mit dem Grow Kickoff am 09. November um 19 Uhr. Alle Teams, Mentoren, Partner und Besucher sind herzlich zu diesem Anlass in die Hoepfner Burg, genauer dem Cyberforum eingeladen. Der Abend ist vor allem als ein Teamup zu betrachten. Jedes Team darf kurz seine Idee vorstellen. Studenten, die noch keine Idee haben können anschließend schauen, ob Sie sich einem Team anschließen wollen. Des Weiteren haben die Teams und Mentoren Zeit sich zu finden. Bei Getränken und Snacks wollen wir dann den Abend entspannt ausklinken lassen.",
-                    FacebookLink = "https://www.facebook.com/events/198332300709658/",
+                    ExternalEventUrl = "https://www.facebook.com/events/198332300709658/",
                     Start = new DateTime(2017, 11, 09, 19, 0, 0).ToUniversalTime(),
                     End = new DateTime(2017, 11, 09, 22, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -935,7 +935,7 @@ Tag 2: Team Core Values
 Die Teilnehmer wenden Methoden aus der empirischen Psychologie an, um mehr Klarheit über ihre persönlichen Werte zu erlangen. Basis bildet hierbei ein umfassender wissenschaftlicher Persönlichkeitstest zu persönlichen Werten. Darauf aufbauend einigen sich die Teams auf gemeinsame Kernwerte, die als Leitprinzipien für das Unternehmen dienen können. Aus diesen Kernwerten wird ein Unternehmenszweck abgeleitet.
 
 Im zweiten Teil des Workshops am 04. Dez. wird der Unternehmensweck über die strukturierte Einbettung in die einzelnen Facetten des Geschäftsmodells operationalisiert. Hierdurch wird die Wertekongruenz im Unternehmen gefördert. Sowohl Wissenschaft als auch Praxis deuten darauf hin, dass Wertekongruenz und die damit verbundene intrinsische Motivation ein wichtiger Erfolgsfaktor für Unternehmer ist. ",
-                    FacebookLink = "https://www.facebook.com/events/198332300709658/",
+                    ExternalEventUrl = "https://www.facebook.com/events/198332300709658/",
                     Start = new DateTime(2017, 11, 13, 9, 30, 0).ToUniversalTime(),
                     End = new DateTime(2017, 11, 14, 16, 30, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -950,7 +950,7 @@ Im zweiten Teil des Workshops am 04. Dez. wird der Unternehmensweck über die st
                     Address = "Rintheimer Str. 15, 76131 Karlsruhe",
                     Location = "PionierGarage Launchpad",
                     Description = "Mit diesen Treffen möchten wir gezielt den Austausch mit den Mentoren fördern. In einer geselligen Runde könnte ihr mit den Mentoren Probleme diskutieren, Fragen stellen und Feedback einholen.",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2017, 11, 16, 19, 30, 0).ToUniversalTime(),
                     End = new DateTime(2017, 11, 16, 21, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -965,7 +965,7 @@ Im zweiten Teil des Workshops am 04. Dez. wird der Unternehmensweck über die st
                     Address = "Rintheimer Str. 15, 76131 Karlsruhe",
                     Location = "PionierGarage Launchpad",
                     Description = "Mit diesen Treffen möchten wir gezielt den Austausch mit den Mentoren fördern. In einer geselligen Runde könnte ihr mit den Mentoren Probleme diskutieren, Fragen stellen und Feedback einholen.",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2017, 11, 30, 19, 30, 0).ToUniversalTime(),
                     End = new DateTime(2017, 11, 30, 21, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -984,7 +984,7 @@ Fortsetzung vom Workshop vom 13. Nov.
 
 Tag 2: Fast Forward Business Modeling
 Das Design von Business Models hat erheblichen Einfluss auf die Entwicklung und den Erfolg einer Unternehmung. In diesem Workshop nutzen die Teilnehmer verschiedene Methoden zur vereinfachten und aggregierten Abbildung der relevanten Aktivitäten einer Unternehmung. Der Abstraktionsgrad der Methoden ermöglicht zum einen eine schnelle Konkretisierung der relevanten Aspekte. Zum anderen erzeugen die Methoden ein ganzheitliches Verständnis der Unternehmensstruktur und –prozesse. Somit können alle wesentlichen Faktoren auf konzeptioneller Ebene durchdacht werden. Die Teilnehmer durchlaufen dabei die vier Phasen der Ideengenerierung, Machbarkeitsanalyse, Prototyping sowie Entscheidungsfindung und schließt damit nahtlos an die vorherigen Workshops an. ",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2017, 12, 04, 9, 30, 0).ToUniversalTime(),
                     End = new DateTime(2017, 12, 05, 16, 30, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -999,7 +999,7 @@ Das Design von Business Models hat erheblichen Einfluss auf die Entwicklung und 
                     Address = "Rintheimer Str. 15, 76131 Karlsruhe",
                     Location = "PionierGarage Launchpad",
                     Description = @"Bei einem Pitch bleibt nicht viel Zeit, die eigene Idee zu erläutern. Deswegen kommt es darauf an, eine spannende Botschaft zu senden und die Aufmerksamkeit der Zuhörer zu gewinnen. Egal ob vor Mitstreitern, Investoren oder einer Jury - die Teilnehmer lernen an diesem Tag intensiv die wichtigsten Inhalte für ihr Pitch-Deck und wie sie ihre Kommunikation Schritt für Schritt auf das Wesentliche reduzieren.",
-                    FacebookLink = null,
+                    ExternalEventUrl = null,
                     Start = new DateTime(2017, 12, 11, 9, 30, 0).ToUniversalTime(),
                     End = new DateTime(2017, 12, 11, 16, 30, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -1015,7 +1015,7 @@ Das Design von Business Models hat erheblichen Einfluss auf die Entwicklung und 
                     Location = "Knuddels Büro",
                     Description = @"Nach 5 Wochen in denen die Teams sich intensiv mit ihrem Produkt und ihren Kunden auseinandergesetzt haben, ist es an der Zeit eine Zwischenbilanz zu ziehen. Hierfür präsentieren die angehenden Gründer ihre Ergebnisse am 14. Dezember um 19 Uhr im Büro von Knuddels vor der Gründerszene Karlsruhes.
 Nach Feedback von einer hochkarätigen Jury werden die 10 Teams von der Jury ausgewählt, die an der zweiten Hälfte von GROW teilnehmen. Die Pitches sind öffentlich. Jeder ist herzlich eingeladen sich diese anzuschauen! ",
-                    FacebookLink = "https://www.facebook.com/events/539954286348103/",
+                    ExternalEventUrl = "https://www.facebook.com/events/539954286348103/",
                     Start = new DateTime(2017, 11, 14, 19, 0, 0).ToUniversalTime(),
                     End = new DateTime(2017, 11, 14, 22, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -1033,7 +1033,7 @@ Nach Feedback von einer hochkarätigen Jury werden die 10 Teams von der Jury aus
                     Description = @"Am 25. Januar findet das Finale des Gründungswettbewerbs statt. Alle zehn verbleibenden Teams pitchen ein letztes Mal vor einer Jury aus fünf bekannten Persönlichkeiten der Karlsruher Gründerszene. Jedem Pitch folgt ein Q&A, beim dem den angehenden Gründern auf den Zahn gefühlt wird.
 
 Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die Umsetzung und die Innovativität der Idee, sowie der Gesamtfortschritt in den vergangenen elf Wochen. Es wird Preisgeld im Wert von 5.000€ vergeben, außerdem bekommen die Gewinner die Möglichkeit für bis zu sechs Monate ein Büro in unserem Inkubator und Coworking-Space, dem Launchpad zu beziehen. Das Finale ist eine öffentliche Veranstaltung. Wir freuen uns über zahlreiche Besucher! ",
-                    FacebookLink = "https://www.facebook.com/events/155018338475708/",
+                    ExternalEventUrl = "https://www.facebook.com/events/155018338475708/",
                     Start = new DateTime(2018, 01, 25, 19, 0, 0).ToUniversalTime(),
                     End = new DateTime(2018, 01, 25, 22, 0, 0).ToUniversalTime(),
                     HasTimesSet = true,
@@ -2387,14 +2387,14 @@ Anschließend entscheidet die Jury über die drei Gewinner. Bewertet werden die 
             };
         }
         
-        private static ICollection<TEntity> SetIds<TEntity>(this IEnumerable<TEntity> enumerable, int contestId) where TEntity : BaseDbEntity
+        private static ICollection<TEntity> SetIds<TEntity>(this IEnumerable<TEntity> enumerable, int contestId) where TEntity : BaseTimestampedEntity
         {
             var list = new List<TEntity>();
             foreach (var elem in enumerable)
             {
-                if (elem is ContestDependentEntity)
+                if (elem is BaseContestSubEntity)
                 {
-                    (elem as ContestDependentEntity).ContestId = contestId;
+                    (elem as BaseContestSubEntity).ContestId = contestId;
                 }
                 elem.IsActive = true;
                 list.Add(elem);

@@ -2,7 +2,7 @@
 
 namespace Grow.Data.Entities
 {
-    public class Contest : BaseDbEntity
+    public class Contest : BaseTimestampedEntity
     {
         public string Year { get; set; }
         

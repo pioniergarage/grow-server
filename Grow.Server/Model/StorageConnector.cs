@@ -70,7 +70,7 @@ namespace Grow.Server.Model
             };
         }
 
-        public static string GetFolderNameForEntityType<T>() where T : BaseDbEntity
+        public static string GetFolderNameForEntityType<T>() where T : BaseTimestampedEntity
         {
             FileCategory container;
             switch (typeof(T).Name)

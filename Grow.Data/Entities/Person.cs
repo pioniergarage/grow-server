@@ -2,7 +2,7 @@
 
 namespace Grow.Data.Entities
 {
-    public abstract class Person : ContestDependentEntity
+    public abstract class Person : BaseContestSubEntity
     {
         public string JobTitle { get; set; }
 

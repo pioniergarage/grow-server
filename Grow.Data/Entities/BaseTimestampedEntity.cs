@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Grow.Data.Entities
 {
-    public abstract class BaseDbEntity : BaseEntity
+    public abstract class BaseTimestampedEntity : BaseNamedEntity
     {
         public DateTime CreatedAt { get; set; }
 

@@ -1,0 +1,63 @@
+﻿@model Grow.Data.Entities.EventResponse
+
+<article id="main">
+
+    <header class="special container">
+        <span class="icon fa-calendar-o"></span>
+        <h2>Event Response</h2>
+    </header>
+
+    <section class="wrapper style4 container" style="text-align: center">
+        <header>
+            <h3>Can we expect you at the @(Model.Event?.Name ?? "event")?</h3>
+            @if (Model.Event != null)
+            {
+                <div style="border: 1px solid rgba(0,0,0,0.2); max-width: 80%; display: inline-block; padding: 10px 20px; text-align: left;">
+                    <strong>Event:</strong>
+                    @Model.Event.Name<br />
+                    <strong>When:</strong> 
+                    @Model.Event.Start.ToShortDateString() @Model.Event.Start.ToShortTimeString()<br />
+                    <strong>Where:</strong>
+                    @Model.Event.Location, <br />@Model.Event.Address
+                </div>
+            }
+        </header>
+
+        <hr />
+
+        <div style="display: inline-block">
+            <form asp-action="Respond">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @{
+                    var disabledString = ViewBag.IsLoggedIn
+                        ? "readonly"
+                        : "";
+                }
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" readonly="@disabledString" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" readonly="@disabledString" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="ParticipantCount" class="control-label"></label>
+                    <input asp-for="ParticipantCount" type="text" class="form-control" />
+                    <span asp-validation-for="ParticipantCount" class="text-danger"></span>
+                </div>
+                <br />
+                <input type="hidden" asp-for="EventId" />
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="I can't come" class="btn btn-default" onclick="$('#ParticipantCount').val(0); return true;" style="color: white; background-color: rgba(0,0,0,0.2)" />
+                    <input type="submit" value="I'll come" class="btn btn-fill" />
+                </div>
+            </form>
+        </div>
+    </section>
+</article>

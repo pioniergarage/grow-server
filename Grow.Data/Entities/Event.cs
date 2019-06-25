@@ -1,9 +1,11 @@
 ﻿using Grow.Data.Helpers.Attributes;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Grow.Data.Entities
 {
-    public class Event : ContestDependentEntity
+    public class Event : BaseContestSubEntity
     {
         public string Description { get; set; }
 
@@ -11,7 +13,8 @@ namespace Grow.Data.Entities
 
         public DateTime End { get; set; }
 
-        public string FacebookLink { get; set; }
+        [Url]
+        public string ExternalEventUrl { get; set; }
 
         public string Location { get; set; }
 
@@ -25,12 +28,16 @@ namespace Grow.Data.Entities
 
         public EventType Type { get; set; }
 
+        public EventRegistration Registration { get; set; }
+
         public bool HasTimesSet { get; set; }
 
         public bool IsMandatory { get; set; }
 
         public virtual Partner HeldBy { get; set; }
         public int? HeldById { get; set; }
+
+        public virtual ICollection<EventResponse> Responses { get; set; }
 
 
         public enum EventVisibility
@@ -46,6 +53,13 @@ namespace Grow.Data.Entities
             MainEvent,
             Workshop,
             Mentoring
+        }
+
+        public enum EventRegistration
+        {
+            None,
+            Optional,
+            Mandatory
         }
     }
 }

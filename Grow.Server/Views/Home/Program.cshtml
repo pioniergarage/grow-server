@@ -61,10 +61,13 @@
                             <h3>@evnt.Name</h3>
                         </header>
                         <p style="white-space: pre-line">@evnt.Description</p>
-                        @if (!string.IsNullOrEmpty(evnt.FacebookLink))
-                        {
-                            <p><a href="@evnt.FacebookLink">View on Facebook</a></p>
-                        }
+                        <p>
+                            @Html.ActionLink("More Details", "View", "Event", new { id = evnt.Id })
+                            @if (!string.IsNullOrEmpty(evnt.ExternalEventUrl))
+                            {
+                                <a href="@evnt.ExternalEventUrl">View on Facebook</a>
+                            }
+                        </p>
                         <div class="row">
                             <div class="2u 5u(narrower)"><img src="/img/icon/eventdate.png" width="50%" /></div>
                             <div class="3u 10u(narrower)" align="left" style="font-weight: 400;">
@@ -116,6 +119,19 @@
                                 }
                             </div>
                         </div>
+                        @{
+                            var canRegister = evnt.Registration != Event.EventRegistration.None;
+                            var isInFuture = evnt.Start > DateTime.UtcNow;
+                            var isLimited = evnt.Visibility != Event.EventVisibility.Public;
+                            var isLoggedIn = ViewBag.IsLoggedIn;
+                            // TODO: logged in but not active team?
+                        }
+                        @if (canRegister && isInFuture && (!isLimited || isLoggedIn))
+                        {
+                            <div style="text-align: center; margin: 40px;">
+                                @Html.ActionLink("Register now", "Respond", "Event", new { id = evnt.Id }, new { @class = "button btn btn-default" })
+                            </div>
+                        }
                     </section>
                 </div>
             </section>
@@ -134,8 +150,8 @@
                         No events have been publicized yet. Check back later for more details or follow us on Social Media:
                     </p>
                     <ul class="icons">
-                        <li><a href="https://www.facebook.com/Pioniergarage/">Facebook</a></li>
-                        <li><a href="https://instagram.com/pioniergarage">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/Pioniergarage/" target="_blank">Facebook</a></li>
+                        <li><a href="https://instagram.com/pioniergarage" target="_blank">Instagram</a></li>
                     </ul>
                     @{
                         var lastYear = (ViewBag.ContestYears as IDictionary<int, string>).Values

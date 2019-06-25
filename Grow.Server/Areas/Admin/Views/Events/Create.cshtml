@@ -38,9 +38,9 @@
                 <span asp-validation-for="End" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FacebookLink" class="control-label"></label>
-                <input asp-for="FacebookLink" class="form-control" />
-                <span asp-validation-for="FacebookLink" class="text-danger"></span>
+                <label asp-for="ExternalEventUrl" class="control-label"></label>
+                <input asp-for="ExternalEventUrl" class="form-control" />
+                <span asp-validation-for="ExternalEventUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
@@ -71,6 +71,11 @@
                 <label asp-for="Type" class="control-label"></label>
                 <select asp-for="Type" asp-items="ViewBag.Types" class="form-control"></select>
                 <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Registration" class="control-label"></label>
+                <select asp-for="Registration" asp-items="ViewBag.RegistrationTypes" class="form-control"></select>
+                <span asp-validation-for="Registration" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">

@@ -52,10 +52,10 @@ namespace Grow.Server
             app.UpdateGrowDatabase();
 
             // Setup MVC pipeline
+            app.UseLoggingExceptionHandler();
             app.UseExceptionHandler("/Error");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseLoggingExceptionHandler();
             app.UseGrowAuthentication();
             app.UseMvc(RouteConfig.GetGrowRoutes());
         }

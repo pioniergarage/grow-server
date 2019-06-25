@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Grow.Server.Areas.Admin.Models.ViewModels
 {
-    public class AccountViewModel : BaseEntity
+    public class AccountViewModel : BaseNamedEntity
     {
         public string CompleteId { get; set; }
 

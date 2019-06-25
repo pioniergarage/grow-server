@@ -1,6 +1,6 @@
 ﻿namespace Grow.Data.Entities
 {
-    public class Prize : ContestDependentEntity
+    public class Prize : BaseContestSubEntity
     {
         public string Reward { get; set; }
 

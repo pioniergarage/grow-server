@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Grow.Data.Entities
 {
-    public class Team : ContestDependentEntity
+    public class Team : BaseContestSubEntity
     {
         public string TagLine { get; set; }
 

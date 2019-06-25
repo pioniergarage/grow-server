@@ -1103,6 +1103,10 @@ blockquote {
   margin-bottom: 15px;
   margin-top: 10px; }
 
+input[disabled="disabled"], input.form-control[disabled="disabled"], input[readonly="readonly"], input.form-control[readonly="readonly"] {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-style: italic; }
+
 /* Section/Article */
 section.special, article.special {
   text-align: center; }

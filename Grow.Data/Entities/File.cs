@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Grow.Data.Entities
 {
-    public class File : BaseDbEntity
+    public class File : BaseTimestampedEntity
     {
         [Required]
         public string Url { get; set; }

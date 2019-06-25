@@ -1,0 +1,137 @@
+﻿@model Grow.Data.Entities.Event
+
+<article id="main">
+
+    <header class="special container">
+        <span class="icon fa-calendar-o"></span>
+        <h2>@Model.Name</h2>
+    </header>
+
+    <section class="wrapper style4 container">
+
+        <div class="row" style="font-size: 120%">
+            <a href="javascript:window.history.back()">&lt;- Back</a>
+        </div>
+
+        <div class="row">
+            <p style="white-space: pre-line">
+                @Model.Description
+            </p>
+
+            @if (!string.IsNullOrEmpty(Model.ExternalEventUrl))
+            {
+                <p>
+                    <a href="@Model.ExternalEventUrl">View on Facebook</a>
+                </p>
+            }
+        </div>
+
+
+        @if (Model.Image != null)
+        {
+            <img src="@Model.Image.Url" style="max-height: 300px" />
+        }
+
+        <div class="row">
+            <div class="2u 12u(narrower)"></div>
+            <div class="2u 6u(narrower)"><img src="/img/icon/eventdate.png" style="max-width: 50%" /></div>
+            <div class="8u 12u(narrower)">
+                @{
+                    string formatString = string.Empty;
+                    if (Model.Start.Month == Model.End.Month)
+                    {
+                        formatString = (Model.Start.DayOfYear == Model.Start.DayOfYear)
+                            ? "{0:MMMM dd}{1}, {0:yyyy}"
+                            : "{0:MMMM dd}{1} - {2:dd}{3}, {0:yyyy}";
+                    }
+                    else if (Model.Start.Year == Model.End.Year)
+                    {
+                        formatString = "{0:MM dd}{1} - {2:MM dd}{3}, {0:yyyy}";
+                    }
+                    else
+                    {
+                        formatString = "{0:MM dd yy} - {2:MM dd yy}";
+                    }
+                }
+                @string.Format(formatString, Model.Start, Model.Start.GetDayExtension(), Model.End, Model.End.GetDayExtension())
+                @if (Model.HasTimesSet)
+                {
+                    <br />
+                    @(Model.Start.ToShortTimeString()) @:- @(Model.End.ToShortTimeString())
+                }
+            </div>
+        </div>
+
+        @if (Model.HeldBy != null)
+        {
+            <div class="row">
+                <div class="2u 12u(narrower)"></div>
+                <div class="2u 6u(narrower)"><img src="/img/icon/microphone.png" style="max-width: 50%" /></div>
+                <div class="8u 12u(narrower)">
+                    Held by: <br />
+                    @Model.HeldBy.Name
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="2u 12u(narrower)"></div>
+            <div class="2u 6u(narrower)"><img src="/img/icon/placeholder.png" style="max-width: 50%" /></div>
+            <div class="8u 12u(narrower)">
+                @Model.Location<br />@Model.Address
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="2u 12u(narrower)"></div>
+            <div class="2u 6u(narrower)"><img src="/img/icon/visibility.png" style="max-width: 50%" /></div>
+            <div class="8u 12u(narrower)">
+                @switch (Model.Visibility)
+                {
+                    case Event.EventVisibility.Public:
+                        @: Public<br />Everyone can come and watch
+                        break;
+                    case Event.EventVisibility.ForActiveTeams:
+                        @: Private<br />Only for actively enrolled teams
+                        break;
+                    case Event.EventVisibility.ForAllTeams:
+                        @: Private<br />Only for registered teams
+                        break;
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="2u 12u(narrower)"></div>
+            <div class="2u 6u(narrower)"><img src="/img/icon/exclamation.png" style="max-width: 50%" /></div>
+            <div class="8u 12u(narrower)">
+                @if (Model.IsMandatory)
+                {
+                    @: Mandatory for all enrolled teams
+                }
+                else
+                {
+                    @: Optional event to help the teams succeed
+                }
+            </div>
+        </div>
+
+        @{ 
+            var canRegister = Model.Registration != Event.EventRegistration.None;
+            var isInFuture = Model.Start > DateTime.UtcNow;
+            var isLimited = Model.Visibility != Event.EventVisibility.Public;
+            var isLoggedIn = ViewBag.IsLoggedIn;
+            // TODO: logged in but not active team?
+        }
+        @if (canRegister && isInFuture && (!isLimited || isLoggedIn))
+        {
+            <div style="text-align: center; margin: 40px;">
+                @Html.ActionLink("Register now", "Respond", "Event", new { id = Model.Id }, new { @class = "button btn btn-default" })
+            </div>
+        }
+
+        <div class="row" style="font-size: 120%">
+            <a href="javascript:window.history.back()">&lt;- Back</a>
+        </div>
+    </section>
+</article>

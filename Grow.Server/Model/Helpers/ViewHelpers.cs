@@ -26,7 +26,7 @@ namespace Grow.Server.Model.Helpers
             return list;
         }
 
-        public static IEnumerable<SelectListItem> SelectListFromEntities<T>(GrowDbContext context) where T : BaseDbEntity
+        public static IEnumerable<SelectListItem> SelectListFromEntities<T>(GrowDbContext context) where T : BaseTimestampedEntity
         {
             var files = context
                 .Set<T>()
@@ -35,7 +35,7 @@ namespace Grow.Server.Model.Helpers
             return SelectListFromEntityList(files);
         }
 
-        public static IEnumerable<SelectListItem> SelectListFromEntities<T>(GrowDbContext context, int currentContestId) where T : ContestDependentEntity
+        public static IEnumerable<SelectListItem> SelectListFromEntities<T>(GrowDbContext context, int currentContestId) where T : BaseContestSubEntity
         {
             var files = context
                 .Set<T>()
@@ -68,7 +68,7 @@ namespace Grow.Server.Model.Helpers
             return SelectListFromEntityList(files);
         }
 
-        private static IEnumerable<SelectListItem> SelectListFromEntityList(IEnumerable<BaseEntity> entities)
+        private static IEnumerable<SelectListItem> SelectListFromEntityList(IEnumerable<BaseNamedEntity> entities)
         {
             var list = new List<SelectListItem>
             {

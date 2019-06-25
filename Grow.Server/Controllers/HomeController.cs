@@ -103,6 +103,8 @@ namespace Grow.Server.Controllers
                 .Include(e => e.HeldBy)
                 .OrderBy(e => e.Start)
                 .ToList();
+
+            ViewBag.IsLoggedIn = User.Identity.IsAuthenticated;
             return View(model);
         }
     }

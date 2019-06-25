@@ -31,13 +31,19 @@ namespace Grow.Server.Model.Middleware
             catch (Exception ex)
             {
                 HandleException(context, ex);
+                throw;
             }
         }
 
         private void HandleException(HttpContext context, Exception exception)
         {
             string errorCode = CalculateErrorCode(context.TraceIdentifier);
-            string message = string.Format("Unhandled Exception: Error Code '{0}'  [{1}]", errorCode, context.TraceIdentifier);
+            string message = string.Format(
+                "Unhandled Exception: Error Code '{0}'  [{1}] \r\n {2}",
+                errorCode, 
+                context.TraceIdentifier,
+                exception.Message
+            );
 
             Logger.LogError(message, exception);
         }

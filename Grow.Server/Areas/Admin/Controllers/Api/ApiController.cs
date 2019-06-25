@@ -12,7 +12,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
     [Route("Admin/Api/[controller]")]
     [ApiController]
     [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
-    public abstract class ApiController<T> : ControllerBase where T : BaseDbEntity
+    public abstract class ApiController<T> : ControllerBase where T : BaseTimestampedEntity
     {
         public GrowDbContext Context { get; }
         public ILogger Logger { get; }

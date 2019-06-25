@@ -37,6 +37,8 @@ namespace Grow.Data
 
         public DbSet<Prize> Prizes { get; set; }
 
+        public DbSet<EventResponse> EventResponses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -86,7 +88,7 @@ namespace Grow.Data
         private void AddTimestamps()
         {
             var entities = ChangeTracker.Entries()
-                .Where(x => x.Entity is BaseDbEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+                .Where(x => x.Entity is BaseTimestampedEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
             foreach (var entity in entities)
             {
@@ -94,14 +96,14 @@ namespace Grow.Data
 
                 if (entity.State == EntityState.Added)
                 {
-                    entity.CurrentValues[nameof(BaseDbEntity.CreatedAt)] = now;
+                    entity.CurrentValues[nameof(BaseTimestampedEntity.CreatedAt)] = now;
                 }
                 else
                 {
                     // avoid resetting of CreatedAt timestamp
-                    entity.Property(nameof(BaseDbEntity.CreatedAt)).IsModified = false;
+                    entity.Property(nameof(BaseTimestampedEntity.CreatedAt)).IsModified = false;
                 }
-                entity.CurrentValues[nameof(BaseDbEntity.UpdatedAt)] = now;
+                entity.CurrentValues[nameof(BaseTimestampedEntity.UpdatedAt)] = now;
             }
         }
     }

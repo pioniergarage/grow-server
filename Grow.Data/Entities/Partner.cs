@@ -2,7 +2,7 @@
 
 namespace Grow.Data.Entities
 {
-    public class Partner : ContestDependentEntity
+    public class Partner : BaseContestSubEntity
     {
         public string Description { get; set; }
 

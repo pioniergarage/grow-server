@@ -57,15 +57,53 @@
 
 /* Index-specific */
 
-.countdown {
-    font-family: 'Space Mono';
-    font-weight: bold;
-    font-size: 200%;
+#clockdiv {
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
 
-    @media screen and (max-width: 599px) {
-        
-        font-size: 7.5vw;
+    & > div {
+        padding: 10px;
+        border-radius: 3px;
+        background: rgba(_palette(pg, bg), 0.5);
+        display: inline-block;
+        color: _palette(pg, fg);
+        font-weight: bold;
 
+        & > span {
+            border-radius: 3px;
+            background: rgba(_palette(pg, bg), 0.5);
+            width: 70px;
+            height: 70px;
+            display: grid;
+            align-items: center;
+        }
+    }
+
+    .smalltext {
+        padding-top: 5px;
+        font-size: 16px;
+    }
+
+    @media screen and (max-width: 499px) {
+        font-size: 20px;
+
+        & > div {
+            padding: 10px;
+            line-height: 100%;
+
+            & > span {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        .smalltext {
+            font-size: 12px;
+        }
     }
 }
 

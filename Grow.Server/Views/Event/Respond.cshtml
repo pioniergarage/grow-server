@@ -1,4 +1,8 @@
-﻿@model Grow.Data.Entities.EventResponse
+﻿@{
+    ViewData["Title"] = "Event Response";
+}
+
+@model Grow.Data.Entities.EventResponse
 
 <article id="main">
 
@@ -15,7 +19,7 @@
                 <div style="border: 1px solid rgba(0,0,0,0.2); max-width: 80%; display: inline-block; padding: 10px 20px; text-align: left;">
                     <strong>Event:</strong>
                     @Model.Event.Name<br />
-                    <strong>When:</strong> 
+                    <strong>When:</strong>
                     @Model.Event.Start.ToShortDateString() @Model.Event.Start.ToShortTimeString()<br />
                     <strong>Where:</strong>
                     @Model.Event.Location, <br />@Model.Event.Address

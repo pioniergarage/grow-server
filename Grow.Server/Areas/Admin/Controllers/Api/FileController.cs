@@ -15,11 +15,12 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
 {
     public class FileController : ApiController<File>
     {
-        private readonly StorageConnector _storage;
+        private StorageConnector Storage => _storage.Value;
+        private readonly Lazy<StorageConnector> _storage;
 
         public FileController(GrowDbContext context, IOptions<AppSettings> settings, ILogger logger) : base(context, logger)
         {
-            _storage = new StorageConnector(settings.Value, logger);
+            _storage = new Lazy<StorageConnector>(() => new StorageConnector(settings.Value, Logger));
         }
         
         public ActionResult<IEnumerable<File>> Find(string folder, string search = null)
@@ -34,7 +35,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
         [HttpPost]
         public ActionResult<File> Upload(IList<IFormFile> fileData, string category = "misc")
         {
-            if (!_storage.FolderExists(category))
+            if (!Storage.FolderExists(category))
             {
                 return NotFound();
             }
@@ -43,15 +44,10 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
             foreach (var formFile in fileData)
             {
                 string filename = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim('"');
-
-                if (_storage.FileExists(category, filename))
-                {
-                    return Conflict();
-                }
-
+                
                 using (var stream = formFile.OpenReadStream())
                 {
-                    var file = _storage.Create(category, filename, stream);
+                    var file = Storage.Create(category, filename, stream);
                     files.Add(file);
                 }
             }

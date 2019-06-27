@@ -56,6 +56,8 @@ namespace Grow.Server.Model
 
         public File Create(string category, string fileName, System.IO.Stream imageData)
         {
+            fileName = ProcessFileName(category, fileName);
+
             var cloudBlobContainer = GetContainerFor(category);
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
             cloudBlockBlob.UploadFromStream(imageData);
@@ -69,32 +71,39 @@ namespace Grow.Server.Model
                 Url = cloudBlockBlob.Uri.AbsoluteUri
             };
         }
-
-        public static string GetFolderNameForEntityType<T>() where T : BaseTimestampedEntity
+        
+        public void Delete(File file)
         {
-            FileCategory container;
-            switch (typeof(T).Name)
+            var url = file.Url;
+            var fileName = System.IO.Path.GetFileName(url);
+
+            if (FileExists(file.Category, fileName))
             {
-                case nameof(Event):
-                    container = FileCategory.Events;
-                    break;
-                case nameof(Partner):
-                    container = FileCategory.Partners;
-                    break;
-                case nameof(Person):
-                case nameof(Judge):
-                case nameof(Organizer):
-                case nameof(Mentor):
-                    container = FileCategory.People;
-                    break;
-                case nameof(Team):
-                    container = FileCategory.Teams;
-                    break;
-                default:
-                    container = FileCategory.Misc;
-                    break;
+                var cloudBlobContainer = GetContainerFor(file.Category);
+                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
+                cloudBlockBlob.Delete();
             }
-            return container.ToString().ToLower();
+        }
+
+        private string ProcessFileName(string category, string fileName)
+        {
+            if (fileName.Split('.').Length < 2)
+                throw new ArgumentException("File was uploaded without extension");
+
+            var randomSuffix = "";
+            if (FileExists(category, fileName))
+            {
+                randomSuffix = "_" + new Random().Next(4096, 65535).ToString("X4");
+            }
+
+            var fileNameWithoutExt = System.IO.Path.GetFileNameWithoutExtension(fileName);
+            var fileExtension = fileName.Split('.').Last();
+
+            return string.Format("{0}{1}.{2}",
+                fileNameWithoutExt,
+                randomSuffix,
+                fileExtension
+            );
         }
 
         private void EnsureContainersAreCreated()

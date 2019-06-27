@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Grow.Data.Entities.File>
+@using Grow.Data.Entities
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "Layouts/_AdminLayout";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // filter images based on selected category
+            var categorySelector = $("#category-selector");
+            var cards = $(".img-card");
+            categorySelector.on("change", event => {
+
+                // which category has been selected
+                var selected = $(event.target).find(":selected");
+                var categoryId = selected.val();
+                var category = selected.text().toLowerCase();
+
+                // none? => show all
+                if (categoryId === "") {
+                    cards.css("display", "block");
+                    return;
+                }
+
+                // show only cards of that category
+                cards.each((index, card) => {
+                    if ($(card).hasClass(category)) {
+                        $(card).css("display", "block");
+                    } else {
+                        $(card).css("display", "none");
+                    }
+                });
+            });
+
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body row">
+                <div class="col-sm-6">
+                    <a asp-action="Create" style="font-size: 200%"><i class="nc-icon nc-cloud-upload-94" style="vertical-align: text-top"></i></a>
+                </div>
+                <div class="col-sm-6" style="text-align: right">
+                    <select asp-items="ViewBag.Categories" id="category-selector" class="form-control">
+                        <option value="">-- All --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    @foreach (var file in Model)
+    {
+        <div class="col-sm-6 col-md-4 col-xl-3 img-card @file.Category">
+            <div class="card">
+                <div class="card-body">
+                    @{
+                        var previewTypes = new[] { "jpg", "png", "svg" };
+                        var detailsLink = Url.Action("Details", "Files", new { id = file.Id });
+                    }
+                    @if (previewTypes.Contains(file.Extension))
+                    {
+                        <a href="@detailsLink">
+                            <img src="@file.Url" clas="preview-large" style="max-width: 100%" title="@file.Url" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@detailsLink">
+                            @Html.DisplayFor(modelItem => file.Url)
+                        </a>
+                    }
+                </div>
+                <div class="card-footer">
+                    <p>
+                        <strong>Name:</strong> @file.Name
+                    </p>
+                    <p>
+                        <strong>Category:</strong> @file.Category
+                    </p>
+                    <p>
+                        @file.AltText
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

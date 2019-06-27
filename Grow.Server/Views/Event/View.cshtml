@@ -1,4 +1,8 @@
-﻿@model Grow.Data.Entities.Event
+﻿@{
+    ViewData["Title"] = Model.Name;
+}
+
+@model Grow.Data.Entities.Event
 
 <article id="main">
 
@@ -116,7 +120,7 @@
             </div>
         </div>
 
-        @{ 
+        @{
             var canRegister = Model.Registration != Event.EventRegistration.None;
             var isInFuture = Model.Start > DateTime.UtcNow;
             var isLimited = Model.Visibility != Event.EventVisibility.Public;

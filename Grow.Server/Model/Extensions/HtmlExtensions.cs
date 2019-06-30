@@ -30,6 +30,16 @@ namespace Grow.Server.Model.Extensions
             return typeof(TEntity).Name.ToLower() + "s";
         }
 
+        public static IHtmlContent PaginationLinks(this IHtmlHelper helper)
+        {
+            var htmlString = string.Format(
+                "<div class=\"pagination\" current=\"{0}\" max=\"{1}\"></div>",
+                helper.ViewBag.CurrentPage ?? 1,
+                helper.ViewBag.PageCount ?? 1
+            );
+            return new HtmlString(htmlString);
+        }
+
         public static IHtmlContent ContestSelect(this IHtmlHelper helper, string selectedYear, ICollection<Contest> allContests)
         {
             if (allContests == null)

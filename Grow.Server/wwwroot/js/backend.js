@@ -17,6 +17,14 @@ $(document).ready(function () {
         });
     });
 
+    // rig up pagination links
+    $(".pagination").each((index, element) => {
+        $(element).pagination({
+            pages: $(element).attr('max'),
+            currentPage: $(element).attr('current')
+        });
+    });
+
     // image uploader
     $(".img-selector input[type=file]").change(create_image_upload_function());
     $(".img-selector select").change(create_load_preview_function());
@@ -27,6 +35,68 @@ $(document).ready(function () {
 });
 
 // FUNCTION DEFINITIONS
+
+/** 
+ * Helper function to create links with a single query parameter change and the rest kept as-is.
+ * 
+ * Based on updateURLParameter function by Sujoy (http://stackoverflow.com/a/10997390/11236)
+ * 
+ * @param {string} param The query parameter name to be changed
+ * @param {string} paramVal The new query parameter value
+ * @param {string} url The url that should be changed (leave empty to use current url) 
+ * @returns {string} The adapted url with a changed parameter
+ */
+function update_url_parameter(param, paramVal, url = window.location.href) {
+    var newAdditionalUrl = "";
+    var tempArray = url.split("?");
+    var baseUrl = tempArray[0];
+    var additionalUrl = tempArray[1];
+    var temp = "";
+    if (additionalUrl) {
+        tempArray = additionalUrl.split("&");
+        for (var i = 0; i < tempArray.length; i++) {
+            if (tempArray[i].split('=')[0] !== String(param)) {
+                newAdditionalUrl += temp + tempArray[i];
+                temp = "&";
+            }
+        }
+    }
+    if (paramVal === 0 || paramVal) {
+        var rows_txt = temp + "" + param + "=" + paramVal;
+        return baseUrl + "?" + newAdditionalUrl + rows_txt;
+    }
+    if (newAdditionalUrl) {
+        return baseUrl + "?" + newAdditionalUrl;
+    }
+    return baseUrl;
+}
+
+/**
+ * Returns the value for a given url query parameter
+ * 
+ * @param {string} name Name of the query parameter
+ * @returns {string} Value of the query parameter or false if it doesnt exist
+ */
+function get_url_parameter(name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+        .exec(window.location.search);
+
+    return (results !== null) ? results[1] || 0 : false;
+}
+
+/**
+ * Performs a case insensitive comparison between two values parsed to strings
+ * 
+ * @param {any} string1 First value
+ * @param {any} string2 Second value
+ * @returns {bool} Two if both values are equal when parsed to string and compared case-insensitively
+ */
+function string_compare_case_insensitive(string1, string2) {
+    if (string1 === string2)
+        return true;
+
+    return String(string1).toLowerCase() === String(string2).toLowerCase();
+}
 
 /**
  * Creates a (key) event handler function for searching entities that can be assigned to a javascript event.
@@ -39,9 +109,9 @@ $(document).ready(function () {
  * The returned results are displayed in as <li> elements inside the given output DOM element.
  * 
  * When one of the <li> elements is clicked, the form on the same page is filled with data from the chosen element.
+ *
+ * The attached input element needs to contain the attributes "dat-type" and "dat-output".
  * 
- * @param {string} type Entity type to search for
- * @param {string} output_id ID of the element in which to display the search results
  * @returns {Function} Handler function that fetches and displays entities
  */
 function create_search_entity_function() {

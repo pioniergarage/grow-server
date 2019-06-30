@@ -26,12 +26,17 @@ namespace Grow.Server.Areas.Admin.Controllers
             _storage = new Lazy<StorageConnector>(() => new StorageConnector(AppSettings, Logger));
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(PaginationOptions options)
         {
             AddEntityListsToViewBag();
-            return View(await DbContext.Files.ToListAsync().ConfigureAwait(false));
+            var entities = new PaginatedList<File>(DbContext.Files, options);
+
+            ViewBag.PaginationOptions = options;
+            ViewBag.CurrentPage = options.PageIndex;
+            ViewBag.PageCount = entities.PageCount;
+            return View(entities);
         }
-        
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

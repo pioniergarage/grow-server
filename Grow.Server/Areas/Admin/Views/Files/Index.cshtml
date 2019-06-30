@@ -1,39 +1,47 @@
 ﻿@model IEnumerable<Grow.Data.Entities.File>
 @using Grow.Data.Entities
+@using Grow.Server.Model.Helpers
 
 @{
     ViewData["Title"] = "Index";
     Layout = "Layouts/_AdminLayout";
+    PaginationOptions paginationOptions = ViewBag.PaginationOptions;
 }
 
 @section Scripts {
+    <script src="/js/jquery.simplePagination.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
 
-            // filter images based on selected category
+            /* Filter by file category */
             var categorySelector = $("#category-selector");
-            var cards = $(".img-card");
+
+            // pre-select current filter column
+            if (string_compare_case_insensitive(get_url_parameter("filterColumn"), "category")) {
+                categorySelector.find("option").each((index, element) => {
+                    if (string_compare_case_insensitive($(element).text(), get_url_parameter("filterValue"))) {
+                        $(element).attr("selected", "selected");
+                    }
+                });
+            }
+
+            // update filter options when changing select
             categorySelector.on("change", event => {
 
                 // which category has been selected
                 var selected = $(event.target).find(":selected");
                 var categoryId = selected.val();
                 var category = selected.text().toLowerCase();
-
-                // none? => show all
+                
+                var url = update_url_parameter("pageIndex", "1");
                 if (categoryId === "") {
-                    cards.css("display", "block");
-                    return;
+                    url = update_url_parameter("filterColumn", "", url);
+                    url = update_url_parameter("filterValue", "", url);
+                } else {
+                    url = update_url_parameter("filterColumn", "category", url);
+                    url = update_url_parameter("filterValue", category, url);
                 }
-
-                // show only cards of that category
-                cards.each((index, card) => {
-                    if ($(card).hasClass(category)) {
-                        $(card).css("display", "block");
-                    } else {
-                        $(card).css("display", "none");
-                    }
-                });
+                window.location.href = url;
             });
 
         });
@@ -55,6 +63,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="row no-card centered">
+    @Html.PaginationLinks()
 </div>
 
 <div class="row">
@@ -96,4 +108,8 @@
         </div>
     }
 
+</div>
+
+<div class="row no-card centered">
+    @Html.PaginationLinks()
 </div>

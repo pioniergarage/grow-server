@@ -13,6 +13,9 @@
   },
   {
     "inputFiles": [
+      "wwwroot/js/grow.helpers.js",
+      "wwwroot/js/jquery.entitysearch.js",
+      "wwwroot/js/jquery.imageUploader.js",
       "wwwroot/js/backend.js"
     ],
     "outputFileName": "wwwroot/js/backend.min.js"

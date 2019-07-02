@@ -25,7 +25,7 @@
     </li>
     <li>
         <div class="form-group col-md-12">
-            @Html.ContestSelect((string)ViewBag.SelectedContestYear, (ICollection<Contest>)ViewBag.AllContests)
+            @Html.ContestSelect((string)ViewBag.SelectedContestYear, (IDictionary<int,string>)ViewBag.ContestYears)
         </div>
     </li>
     <li class="@SetActiveIfIsCurrentController("Program")">

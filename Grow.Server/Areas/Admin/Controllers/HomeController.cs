@@ -42,8 +42,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 Expires = DateTime.Now.AddHours(6)
             };
-
-            if (DbContext.Contests.Any(c => c.Year.Equals(year)))
+            
+            if (ContestYears.Any(c => c.Value.Equals(year)))
             {
                 Response.Cookies.Append(Constants.COOKIE_SELECTED_YEAR_KEY, year, options);
                 return Ok();

@@ -23,7 +23,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
             _storage = new Lazy<StorageConnector>(() => new StorageConnector(settings.Value, Logger));
         }
         
-        public ActionResult<IEnumerable<File>> Find(string folder, string search = null)
+        public ActionResult<IEnumerable<File>> Find(string folder, string search = null, string year = null)
         {
             IQueryable<File> query = Context.Files
                 .Where(e => e.Category.Equals(folder, StringComparison.CurrentCultureIgnoreCase));

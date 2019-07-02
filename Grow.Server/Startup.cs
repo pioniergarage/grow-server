@@ -1,6 +1,7 @@
 ﻿using Grow.Data;
 using Grow.Server.App_Start;
 using Grow.Server.Model;
+using Grow.Server.Model.Config;
 using Grow.Server.Model.Extensions;
 using Grow.Server.Model.Helpers;
 using Grow.Server.Model.Middleware;
@@ -25,7 +26,9 @@ namespace Grow.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new IgnoreNavigationsJsonResolver())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Singletons
             services.AddSingleton<ILogger, Logger>();

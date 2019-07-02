@@ -17,9 +17,9 @@
             var categorySelector = $("#category-selector");
 
             // pre-select current filter column
-            if (string_compare_case_insensitive(get_url_parameter("filterColumn"), "category")) {
+            if ($.stringCompareInsensitive($.getUrlParameter("filterColumn"), "category")) {
                 categorySelector.find("option").each((index, element) => {
-                    if (string_compare_case_insensitive($(element).text(), get_url_parameter("filterValue"))) {
+                    if ($.stringCompareInsensitive($(element).text(), $.getUrlParameter("filterValue"))) {
                         $(element).attr("selected", "selected");
                     }
                 });
@@ -33,13 +33,13 @@
                 var categoryId = selected.val();
                 var category = selected.text().toLowerCase();
                 
-                var url = update_url_parameter("pageIndex", "1");
+                var url = $.updateUrlParameter("pageIndex", "1");
                 if (categoryId === "") {
-                    url = update_url_parameter("filterColumn", "", url);
-                    url = update_url_parameter("filterValue", "", url);
+                    url = $.updateUrlParameter("filterColumn", "", url);
+                    url = $.updateUrlParameter("filterValue", "", url);
                 } else {
-                    url = update_url_parameter("filterColumn", "category", url);
-                    url = update_url_parameter("filterValue", category, url);
+                    url = $.updateUrlParameter("filterColumn", "category", url);
+                    url = $.updateUrlParameter("filterValue", category, url);
                 }
                 window.location.href = url;
             });

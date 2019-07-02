@@ -70,24 +70,23 @@ img.preview-large {
   max-height: 250px; }
 
 /* Entity search box */
-#search-box {
+#copy-entity-box {
   padding: 0 20px; }
 
-@keyframes loading-back {
-  0% {
-    background-position: 0% 50%; }
-  50% {
-    background-position: 100% 50%; }
-  100% {
-    background-position: 0% 50%; } }
-  #search-box ul#search-results {
-    list-style-type: none;
-    padding-left: 0px; }
-    #search-box ul#search-results li {
-      padding: 3px 10px; }
-      #search-box ul#search-results li:hover:not([disabled]) {
-        cursor: pointer;
-        background-color: rgba(0, 0, 0, 0.1); }
+ul[id^=search-results] {
+  list-style: none;
+  position: absolute;
+  z-index: 100;
+  background-color: #f4f3ef;
+  border-radius: 0 0 5px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-width: 0 1px 1px;
+  padding: 0; }
+  ul[id^=search-results] li {
+    padding: 3px 25px; }
+    ul[id^=search-results] li:hover:not([disabled]) {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.1); }
 
 /**
 * Pagination links

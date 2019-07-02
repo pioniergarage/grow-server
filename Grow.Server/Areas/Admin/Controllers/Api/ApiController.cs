@@ -24,11 +24,17 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
         }
 
         [HttpGet]
-        public virtual ActionResult<IEnumerable<T>> Find(string search = null)
+        public virtual ActionResult<IEnumerable<T>> Find(string search = null, string year = null)
         {
             IQueryable<T> query = Context.Set<T>();
             if (search != null)
                 query = query.Where(e => e.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase));
+            if (year != null && typeof(BaseContestSubEntity).IsAssignableFrom(typeof(T)))
+            {
+                var contest = Context.Contests.SingleOrDefault(c => c.Year.Equals(year));
+                if (contest != null)
+                    query = query.Where(e => (e as BaseContestSubEntity).ContestId == contest.Id);
+            }
             return Ok(query);
         }
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Grow.Server.Model.Extensions
@@ -25,9 +26,16 @@ namespace Grow.Server.Model.Extensions
             return value;
         }
 
-        public static string GetController<TEntity>(this IHtmlHelper<TEntity> html)
+        public static string GetController<TEntity>(this IHtmlHelper<TEntity> html) 
+            where TEntity : BaseEntity
         {
             return typeof(TEntity).Name.ToLower() + "s";
+        }
+
+        public static string GetControllerFor<TEntity,TProperty>(this IHtmlHelper<TEntity> html, Expression<Func<TEntity,TProperty>> expression) 
+            where TEntity : BaseEntity where TProperty : BaseEntity
+        {
+            return typeof(TProperty).Name.ToLower() + "s";
         }
 
         public static IHtmlContent PaginationLinks(this IHtmlHelper helper)
@@ -40,9 +48,9 @@ namespace Grow.Server.Model.Extensions
             return new HtmlString(htmlString);
         }
 
-        public static IHtmlContent ContestSelect(this IHtmlHelper helper, string selectedYear, ICollection<Contest> allContests)
+        public static IHtmlContent ContestSelect(this IHtmlHelper helper, string selectedYear, IDictionary<int, string> contestYears)
         {
-            if (allContests == null)
+            if (contestYears == null)
             {
                 return new HtmlString("<i class='text-danger'>Error: Contests not loaded");
             }
@@ -50,15 +58,16 @@ namespace Grow.Server.Model.Extensions
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("<select id='contest-selector' class='form-control'>");
 
-            foreach (var contest in allContests.OrderByDescending(c => c.Year))
+            foreach (var contestYear in contestYears.Values.OrderByDescending(c => c))
             {
-                var selectedString = contest.Year.Equals(selectedYear)
+                var selectedString = contestYear.Equals(selectedYear)
                     ? " selected='selected' "
                     : "";
-                var contestName = contest.Year.Equals(selectedYear)
-                    ? "- " + contest.Name + " -"
-                    : contest.Name;
-                sb.AppendFormat("<option value='{2}' {0}>{1}</option>", selectedString, contestName, contest.Year).AppendLine();
+                var contestName = "GROW " + contestYear;
+                contestName = contestYear.Equals(selectedYear)
+                    ? "- " + contestName + " -"
+                    : contestName;
+                sb.AppendFormat("<option value='{2}' {0}>{1}</option>", selectedString, contestName, contestYear).AppendLine();
             }
 
             sb.AppendLine("</select>");

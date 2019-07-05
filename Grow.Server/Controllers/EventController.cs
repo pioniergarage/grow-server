@@ -9,6 +9,7 @@ using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Grow.Server.Model.Extensions;
 
 namespace Grow.Server.Controllers
 {
@@ -105,20 +106,7 @@ namespace Grow.Server.Controllers
             if (evnt == null)
                 return false;
 
-            var canRegister = evnt.Registration != Event.EventRegistration.None;
-            var isInFuture = evnt.Start > DateTime.UtcNow;
-            var isEventLimited = evnt.Visibility != Event.EventVisibility.Public;
-            var isLoggedIn = User.Identity.IsAuthenticated;
-
-            // TODO: check that logged in user is part of team
-            // TODO: check that team is still active if EventVisibility.ActiveTeams
-
-            return canRegister && isInFuture && (!isEventLimited || isLoggedIn);
-        }
-
-        private bool CheckEventVisibility(int eventId)
-        {
-            return CheckEventVisibility(DbContext.Events.Find(eventId));
+            return evnt.CanUserRegisterNow(User.Identity.IsAuthenticated);
         }
     }
 }

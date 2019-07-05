@@ -12,11 +12,17 @@ input[disabled=disabled] {
   background-color: rgba(0, 0, 0, 0.05);
   font-style: italic; }
 
+textarea.form-control {
+  max-height: inherit; }
+
 .row.no-card {
   margin-bottom: 20px; }
 
 .row.centered {
   justify-content: center; }
+
+.indent {
+  padding-left: 20px; }
 
 /* Column selector input in the Backend vertical navbar */
 #contest-selector {
@@ -59,6 +65,17 @@ tr.inactive {
   background: linear-gradient(270deg, rgba(255, 255, 255, 0), rgba(135, 228, 252, 0.35), rgba(255, 255, 255, 0));
   background-size: 400% 100%;
   animation: loading-back 1.5s ease infinite; }
+
+/* Theme for inline cards */
+.card.bg-flat {
+  box-shadow: none; }
+  .card.bg-flat .card-header {
+    padding-left: 0px; }
+  .card.bg-flat .card-body {
+    border: 1px solid rgba(40, 24, 24, 0.14);
+    border-width: 0 0 0 2px; }
+  .card.bg-flat h1, .card.bg-flat h2, .card.bg-flat h3, .card.bg-flat h4, .card.bg-flat h5 {
+    margin-top: 0; }
 
 /* Preview images */
 img.preview {

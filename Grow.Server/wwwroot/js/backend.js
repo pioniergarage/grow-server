@@ -5,6 +5,8 @@
 // MAGIC NUMBERS / STRINGS
 url_select_year = "/Admin/Home/SetYear";
 
+var debug;
+
 // RIG UP PLUGINS AND GLOBAL EVENT HANDLERS
 $(document).ready(function () {
 
@@ -24,6 +26,9 @@ $(document).ready(function () {
             currentPage: $(element).attr('current')
         });
     });
+
+    // conditional collapsibles
+    $(".conditional").conditionalCollapse();
 
     // image uploader
     $(".img-selector input[type=file]").imageUploader();

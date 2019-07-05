@@ -160,7 +160,7 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
             ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
-            ViewBag.RegistrationTypes = ViewHelpers.SelectListFromEnum<Event.EventRegistration>();
+            ViewBag.RegistrationTypes = ViewHelpers.SelectListFromEnum<Event.RegistrationType>();
             ViewBag.Partners = ViewHelpers.SelectListFromEntities<Partner>(DbContext, SelectedContestId);
             ViewBag.Images = ViewHelpers.SelectListFromFiles<Event>(DbContext, e => e.Image);
         }

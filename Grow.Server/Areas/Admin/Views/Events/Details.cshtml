@@ -65,10 +65,22 @@
             @Html.DisplayFor(model => model.Type)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Registration)
+            Registration Type
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Registration)
+            @Html.DisplayFor(model => model.RegistrationOptions.Type)
+        </dd>
+        <dt>
+            Registration From
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationOptions.From)
+        </dd>
+        <dt>
+            Registration Until
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationOptions.Until)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.HasTimesSet)

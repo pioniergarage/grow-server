@@ -1,4 +1,5 @@
 ﻿@using Grow.Data.Entities
+@using Grow.Server.Model.Extensions
 @model ICollection<Grow.Data.Entities.Event>
 
 @{
@@ -120,13 +121,9 @@
                             </div>
                         </div>
                         @{
-                            var canRegister = evnt.Registration != Event.EventRegistration.None;
-                            var isInFuture = evnt.Start > DateTime.UtcNow;
-                            var isLimited = evnt.Visibility != Event.EventVisibility.Public;
-                            var isLoggedIn = ViewBag.IsLoggedIn;
-                            // TODO: logged in but not active team?
+                            var canRegister = evnt.CanUserRegisterNow((bool) ViewBag.IsLoggedIn);
                         }
-                        @if (canRegister && isInFuture && (!isLimited || isLoggedIn))
+                        @if (canRegister)
                         {
                             <div style="text-align: center; margin: 40px;">
                                 @Html.ActionLink("Register now", "Respond", "Event", new { id = evnt.Id }, new { @class = "button btn btn-default" })

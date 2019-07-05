@@ -121,13 +121,9 @@
         </div>
 
         @{
-            var canRegister = Model.Registration != Event.EventRegistration.None;
-            var isInFuture = Model.Start > DateTime.UtcNow;
-            var isLimited = Model.Visibility != Event.EventVisibility.Public;
-            var isLoggedIn = ViewBag.IsLoggedIn;
-            // TODO: logged in but not active team?
+            var canRegister = Model.CanUserRegisterNow((bool)ViewBag.IsLoggedIn);
         }
-        @if (canRegister && isInFuture && (!isLimited || isLoggedIn))
+        @if (canRegister)
         {
             <div style="text-align: center; margin: 40px;">
                 @Html.ActionLink("Register now", "Respond", "Event", new { id = Model.Id }, new { @class = "button btn btn-default" })

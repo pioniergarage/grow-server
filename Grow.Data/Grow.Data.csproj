@@ -9,6 +9,7 @@
     <Compile Remove="Migrations\20190614151534_Generalize-Files.cs" />
     <Compile Remove="Migrations\20190624175918_Add-EventResponse.cs" />
     <Compile Remove="Migrations\20190625171705_Test.cs" />
+    <Compile Remove="Migrations\20190703114749_Add-Event.RegistrationOptions.cs" />
   </ItemGroup>
 
   <ItemGroup>

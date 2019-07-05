@@ -1,4 +1,5 @@
 ﻿using Grow.Data.Helpers.Attributes;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,8 @@ namespace Grow.Data.Entities
 {
     public class Event : BaseContestSubEntity
     {
+        /* Value properties */
+
         public string Description { get; set; }
 
         public DateTime Start { get; set; }
@@ -20,19 +23,25 @@ namespace Grow.Data.Entities
 
         public string Address { get; set; }
 
-        [FileCategory(FileCategory.Events)]
-        public virtual File Image { get; set; }
-        public int? ImageId { get; set; }
-
         public EventVisibility Visibility { get; set; }
 
         public EventType Type { get; set; }
 
-        public EventRegistration Registration { get; set; }
-
         public bool HasTimesSet { get; set; }
 
         public bool IsMandatory { get; set; }
+
+        /* Navigation Properties */
+
+        public RegistrationOptions RegistrationOptions { get; set; }
+
+        [FileCategory(FileCategory.Events)]
+        public virtual File Image { get; set; }
+        public int? ImageId { get; set; }
+
+        [FileCategory(FileCategory.Slides)]
+        public virtual File Slides { get; set; }
+        public int? SlidesId { get; set; }
 
         public virtual Partner HeldBy { get; set; }
         public int? HeldById { get; set; }
@@ -55,11 +64,21 @@ namespace Grow.Data.Entities
             Mentoring
         }
 
-        public enum EventRegistration
+        public enum RegistrationType
         {
             None,
             Optional,
             Mandatory
         }
+    }
+
+    [Owned]
+    public class RegistrationOptions
+    {
+        public Event.RegistrationType Type { get; set; }
+
+        public DateTime? From { get; set; }
+
+        public DateTime? Until { get; set; }
     }
 }

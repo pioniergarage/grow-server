@@ -1,0 +1,36 @@
+$.fn.conditionalCollapse = function () {
+    this.each((index, element) => {
+
+        // get data properties
+        var propertyName = $(element).attr("data-if");
+        var dataEquals = $(element).attr("data-eq");
+        var dataNotEquals = $(element).attr("data-neq");
+
+        // helper variables
+        var comparisonShouldBe = dataEquals !== undefined
+            ? true
+            : false;
+        var comparisonValue = dataEquals !== undefined
+            ? dataEquals
+            : dataNotEquals;
+        var deciderElement = $("[name='" + propertyName + "']");
+
+        // input validity check
+        if (comparisonValue === undefined || !deciderElement)
+            return;
+
+        // add conditional handler to collapse/extend
+        deciderElement.on("change", event => {
+            if (($(event.target).val() === comparisonValue) === comparisonShouldBe) {
+                $(element).collapse('show');
+            } else {
+                $(element).collapse('hide');
+            }
+        });
+
+        // start out collapsed?
+        if ((deciderElement.val() === comparisonValue) !== comparisonShouldBe) {
+            $(element).addClass("collapse");
+        }
+    });
+};

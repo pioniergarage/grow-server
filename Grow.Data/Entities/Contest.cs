@@ -9,7 +9,7 @@ namespace Grow.Data.Entities
         public string RegistrationUrl { get; set; }
 
         public string Language { get; set; }
-
+        
         public virtual ICollection<Event> Events { get; set; }
 
         public virtual ICollection<Partner> Partners { get; set; }

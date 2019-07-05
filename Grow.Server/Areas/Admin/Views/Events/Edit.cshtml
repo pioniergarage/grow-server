@@ -9,83 +9,125 @@
 <h4>Event</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-lg-6 col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Start" class="control-label"></label>
-                <input asp-for="Start" class="form-control" />
-                <span asp-validation-for="Start" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="End" class="control-label"></label>
-                <input asp-for="End" class="form-control" />
-                <span asp-validation-for="End" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExternalEventUrl" class="control-label"></label>
-                <input asp-for="ExternalEventUrl" class="form-control" />
-                <span asp-validation-for="ExternalEventUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <imgselector asp-items="ViewBag.Images" asp-for="ImageId" asp-prop="Image" class="form-control" />
-                <span asp-validation-for="ImageId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HeldBy" class="control-label"></label>
-                <select asp-items="ViewBag.Partners" asp-for="HeldById" class="form-control"></select>
-                <span asp-validation-for="HeldById" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Visibility" class="control-label"></label>
-                <select asp-for="Visibility" asp-items="ViewBag.Visibilities" class="form-control"></select>
-                <span asp-validation-for="Visibility" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" asp-items="ViewBag.Types" class="form-control"></select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Registration" class="control-label"></label>
-                <select asp-for="Registration" asp-items="ViewBag.RegistrationTypes" class="form-control"></select>
-                <span asp-validation-for="Registration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="HasTimesSet" /> @Html.DisplayNameFor(model => model.HasTimesSet)
-                    </label>
+
+            <div class="card bg-flat">
+                <div class="card-header">
+                    <h6>Base Information</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" rows="4" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Type" class="control-label"></label>
+                        <select asp-for="Type" asp-items="ViewBag.Types" class="form-control"></select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ExternalEventUrl" class="control-label"></label>
+                        <input asp-for="ExternalEventUrl" class="form-control" />
+                        <span asp-validation-for="ExternalEventUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImageId" class="control-label">Image</label>
+                        <imgselector asp-items="ViewBag.Images" asp-for="ImageId" asp-prop="Image" class="form-control" />
+                        <span asp-validation-for="ImageId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SlidesId" class="control-label">Slides</label>
+                        <imgselector asp-items="ViewBag.Images" asp-for="SlidesId" asp-prop="Slides" class="form-control" />
+                        <span asp-validation-for="SlidesId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HeldBy" class="control-label"></label>
+                        <select asp-items="ViewBag.Partners" asp-for="HeldById" class="form-control"></select>
+                        <span asp-validation-for="HeldById" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsMandatory" /> @Html.DisplayNameFor(model => model.IsMandatory)
-                    </label>
+
+            <div class="card bg-flat">
+                <div class="card-header">
+                    <h6>Time &amp; Location</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Start" class="control-label"></label>
+                        <input asp-for="Start" class="form-control" />
+                        <span asp-validation-for="Start" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="End" class="control-label"></label>
+                        <input asp-for="End" class="form-control" />
+                        <span asp-validation-for="End" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="HasTimesSet" /> @Html.DisplayNameFor(model => model.HasTimesSet)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Location" class="control-label"></label>
+                        <input asp-for="Location" class="form-control" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
+
+            <div class="card bg-flat">
+                <div class="card-header">
+                    <h6>Attendance</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Visibility" class="control-label"></label>
+                        <select asp-for="Visibility" asp-items="ViewBag.Visibilities" class="form-control"></select>
+                        <span asp-validation-for="Visibility" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RegistrationOptions.Type" class="control-label">Registration</label>
+                        <select asp-for="RegistrationOptions.Type" asp-items="ViewBag.RegistrationTypes" class="form-control"></select>
+                        <span asp-validation-for="RegistrationOptions.Type" class="text-danger"></span>
+                    </div>
+                    <div class="conditional indent" data-if="RegistrationOptions.Type" data-neq="@((int)Grow.Data.Entities.Event.RegistrationType.None)">
+                        <div class="form-group">
+                            <label asp-for="RegistrationOptions.From" class="control-label"></label>
+                            <input asp-for="RegistrationOptions.From" type="date" class="form-control" />
+                            <span asp-validation-for="RegistrationOptions.From" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RegistrationOptions.Until" class="control-label"></label>
+                            <input asp-for="RegistrationOptions.Until" type="date" class="form-control" />
+                            <span asp-validation-for="RegistrationOptions.Until" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsMandatory" /> @Html.DisplayNameFor(model => model.IsMandatory)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="checkbox">
                     <label>

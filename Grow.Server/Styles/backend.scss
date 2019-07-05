@@ -32,6 +32,11 @@ textarea.form-control {
     padding-left: 20px;
 }
 
+.form-control.flatpickr-input, .form-control.flatpickr-input+.form-control[readonly=readonly] {
+    background-color: inherit;
+    cursor: pointer; 
+}
+
 /* Column selector input in the Backend vertical navbar */
 #contest-selector {
     background-color: transparent;

@@ -27,6 +27,17 @@ $(document).ready(function () {
         });
     });
 
+    // datepicker
+    $("input[type='date']").flatpickr({
+        dateFormat: "d.m.Y"
+    });
+    $("input[type='datetime-local']").flatpickr({
+        altInput: true,
+        altFormat: "d.m.Y H:i",
+        enableTime: true,
+        time_24hr: true
+    });
+
     // conditional collapsibles
     $(".conditional").conditionalCollapse();
 

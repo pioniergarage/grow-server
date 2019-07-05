@@ -26,5 +26,16 @@
       "wwwroot/plugins/paper-dashboard/css/paper-dashboard.css"
     ],
     "outputFileName": "wwwroot/plugins/paper-dashboard/css/paper-dashboard.min.css"
+  },
+  {
+    "inputFiles": [
+      "wwwroot/plugins/paper-dashboard/js/core/popper.min.js",
+      "wwwroot/plugins/paper-dashboard/js/core/bootstrap.min.js",
+      "wwwroot/plugins/paper-dashboard/js/plugins/perfect-scrollbar.jquery.min.js",
+      "wwwroot/plugins/paper-dashboard/js/plugins/chartjs.min.js",
+      "wwwroot/plugins/paper-dashboard/js/plugins/bootstrap-notify.js",
+      "wwwroot/plugins/paper-dashboard/js/paper-dashboard.min.js"
+    ],
+    "outputFileName": "wwwroot/plugins/paper-dashboard/js/paper-dashboard-bundled.min.js"
   }
 ]

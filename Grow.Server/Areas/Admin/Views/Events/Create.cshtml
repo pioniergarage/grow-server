@@ -4,6 +4,20 @@
     ViewData["Title"] = "Create";
 }
 
+@section Scripts {
+    <script type="text/javascript">
+        // auto set date of "End" field when "Start" is set
+        $(document).ready(() => {
+            $("#Start").on("change", (event) => {
+                var start_value = $(event.target).val();
+                var end_element = $("#End");
+                if (!end_element.val() && start_value)
+                    end_element[0]._flatpickr.setDate(start_value);
+            });
+        });
+    </script>
+}
+
 <h2>Create</h2>
 
 <h4>Event</h4>

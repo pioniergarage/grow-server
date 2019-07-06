@@ -9,5 +9,7 @@
         public const string SUPERADMIN_ROLE_NAME = "Superadmin";
         public const string COOKIE_SELECTED_YEAR_KEY = "SelectedContestYear";
         public const string ROUTE_YEAR_SELECTOR = "year";
+        public const string TEAM_CLAIM_POLICY_NAME = "IsEnrolledTeam";
+        public const string TEAM_CLAIM_TYPE = "Team";
     }
 }

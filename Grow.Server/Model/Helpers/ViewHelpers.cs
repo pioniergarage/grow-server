@@ -14,6 +14,11 @@ namespace Grow.Server.Model.Helpers
 {
     public static class ViewHelpers
     {
+        public static string GetControllerFor(Type type)
+        {
+            return type.Name.ToLower() + "s";
+        }
+
         public static IEnumerable<SelectListItem> SelectListFromEnum<T>()
         {
             if (!typeof(Enum).IsAssignableFrom(typeof(T)))

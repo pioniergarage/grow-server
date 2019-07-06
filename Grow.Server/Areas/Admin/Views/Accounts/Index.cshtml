@@ -36,25 +36,21 @@
             </td>
             <td>
                 @{
-                    string role;
+                    var roles = new List<string>();
                     if (item.IsSuperAdmin)
                     {
-                        role = "Super-Admin";
+                        roles.Add("User-Admin");
                     }
-                    else if (item.IsAdmin)
+                    if (item.IsAdmin)
                     {
-                        role = "Admin";
+                        roles.Add("Content-Admin");
                     }
-                    else if (item.Team != null)
+                    if (item.Team != null)
                     {
-                        role = "Team " + item.Team.Name;
-                    }
-                    else
-                    {
-                        role = string.Empty;
+                        roles.Add("Team " + item.Team.Name);
                     }
                 }
-                @role
+                @string.Join(", ", roles)
             </td>
             @{
                 var partialViewData = new ViewDataDictionary(ViewData);

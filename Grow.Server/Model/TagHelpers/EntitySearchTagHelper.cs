@@ -23,6 +23,8 @@ namespace Grow.Server.Model.TagHelpers
         [HtmlAttributeName(YearAttributeName)]
         public string Year { get; set; }
 
+        public string Value { get; set; }
+
         public EntitySearchTagHelper(IHtmlGenerator generator) : base(generator, "div", TagMode.StartTagAndEndTag)
         {
         }
@@ -56,6 +58,7 @@ namespace Grow.Server.Model.TagHelpers
             input.AddCssClass("form-control");
             input.AddCssClass("search-input");
             input.Attributes.Add("type", "text");
+            input.Attributes.Add("value", Value);
             input.Attributes.Add("id", "search-input-" + Id);
             input.Attributes.Add("placeholder", "search by name...");
             input.Attributes.Add("dat-type", Type);

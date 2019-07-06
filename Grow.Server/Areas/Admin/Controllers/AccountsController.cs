@@ -65,37 +65,28 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AccountCreateViewModel vm)
+        public async Task<IActionResult> Create(AccountEditViewModel vm)
         {
-            Account account = _mapper.ViewModelToAccount(vm);
             if (ModelState.IsValid)
             {
                 if (string.IsNullOrEmpty(vm.Password))
                 {
-                    ModelState.AddModelError(nameof(AccountCreateViewModel.Password), "A Password must be set");
+                    ModelState.AddModelError(nameof(AccountEditViewModel.Password), "A Password must be set");
                     return View(vm);
                 }
+                
+                if (!await IsCurrentUserSuperAdminAsync().ConfigureAwait(false))
+                {
+                    vm.IsAdmin = false;
+                    vm.IsSuperAdmin = false;
+                }
 
-                // Create entity
-                account.Id = Guid.NewGuid().ToString();
-                account.IsEnabled = true;
-                var result = await _userManager.CreateAsync(account, vm.Password).ConfigureAwait(false);
+                var result = await _mapper.CreateAccountAsync(vm).ConfigureAwait(false);
                 if (!result.Succeeded)
                 {
                     ModelState.AddModelError(string.Empty, result.Errors.First().Description);
                     return View(vm);
                 }
-
-                // Set admin roles (but only if self is Superadmin)
-                if (await IsCurrentUserSuperAdminAsync().ConfigureAwait(false))
-                {
-                    if (vm.IsAdmin)
-                        await _userManager.AddToRoleAsync(account, Constants.ADMIN_ROLE_NAME).ConfigureAwait(false);
-                    if (vm.IsSuperAdmin)
-                        await _userManager.AddToRoleAsync(account, Constants.SUPERADMIN_ROLE_NAME).ConfigureAwait(false);
-                }
-
-                // TODO: add team claim
 
                 return RedirectToAction(nameof(Index));
             }
@@ -115,13 +106,13 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vm = await _mapper.AccountToViewModelAsync(account, new AccountCreateViewModel()).ConfigureAwait(false);
+            var vm = await _mapper.AccountToViewModelAsync(account, new AccountEditViewModel()).ConfigureAwait(false);
             return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, AccountCreateViewModel vm)
+        public async Task<IActionResult> Edit(int? id, AccountEditViewModel vm)
         {
             if (id != vm.Id)
             {

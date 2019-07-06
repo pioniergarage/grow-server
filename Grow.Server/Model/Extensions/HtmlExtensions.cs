@@ -1,4 +1,5 @@
 ﻿using Grow.Data.Entities;
+using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -35,7 +36,7 @@ namespace Grow.Server.Model.Extensions
         public static string GetControllerFor<TEntity,TProperty>(this IHtmlHelper<TEntity> html, Expression<Func<TEntity,TProperty>> expression) 
             where TEntity : BaseEntity where TProperty : BaseEntity
         {
-            return typeof(TProperty).Name.ToLower() + "s";
+            return ViewHelpers.GetControllerFor(typeof(TProperty));
         }
 
         public static IHtmlContent PaginationLinks(this IHtmlHelper helper)

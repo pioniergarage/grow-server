@@ -20,6 +20,11 @@ namespace Grow.Server.App_Start
                 .AddEntityFrameworkStores<GrowDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Constants.TEAM_CLAIM_POLICY_NAME, policy => policy.RequireClaim(Constants.TEAM_CLAIM_TYPE));
+            });
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using Grow.Data.Entities;
+using Grow.Server.Model.Helpers;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -9,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace Grow.Server.Model.TagHelpers
 {
-    [HtmlTargetElement("search", Attributes = ForAttributeName + "," + TypeAttributeName, TagStructure = TagStructure.WithoutEndTag)]
+    [HtmlTargetElement("search", Attributes = ForAttributeName + "," + ValueAttributeName, TagStructure = TagStructure.WithoutEndTag)]
     public class PropertySearchTagHelper : BaseTagHelper
     {
         private const string ForAttributeName = "asp-for";
-        private const string TypeAttributeName = "asp-type";
+        private const string ValueAttributeName = "asp-value";
         private const string CurrentYearOnlyAttributeName = "asp-current-only";
 
         [HtmlAttributeName(ForAttributeName)]
         public ModelExpression For { get; set; }
         
-        [HtmlAttributeName(TypeAttributeName)]
-        public string Type { get; set; }
+        [HtmlAttributeName(ValueAttributeName)]
+        public ModelExpression ValueExpression { get; set; }
 
         [HtmlAttributeName(CurrentYearOnlyAttributeName)]
         public bool CurrentOnly { get; set; }
@@ -60,11 +62,15 @@ namespace Grow.Server.Model.TagHelpers
 
         private IHtmlContent CreateSearchElement(TagHelperContext context)
         {
+            var value = typeof(BaseNamedEntity).IsAssignableFrom(ValueExpression.ModelExplorer.ModelType)
+                ? ((BaseNamedEntity)ValueExpression.Model).Name
+                : ValueExpression.Model.ToString();
             var input = new EntitySearchTagHelper(Generator)
             {
-                Type = Type,
+                Type = ViewHelpers.GetControllerFor(ValueExpression.ModelExplorer.ModelType),
                 Class = Class,
                 Style = Style,
+                Value = value,
                 ViewContext = ViewContext
             };
             if (CurrentOnly)

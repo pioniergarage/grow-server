@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Grow.Server.Areas.Admin.Models.ViewModels
 {
-    public class AccountCreateViewModel : AccountViewModel
+    public class AccountEditViewModel : AccountViewModel
     {
         [DataType(DataType.Password)]
         public string Password { get; set; }

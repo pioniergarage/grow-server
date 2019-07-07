@@ -13,7 +13,7 @@ using Grow.Server.Model.Extensions;
 
 namespace Grow.Server.Controllers
 {
-    public class EventController : BasePublicController
+    public class EventController : BaseFrontendController
     {
         public UserManager<Account> UserManager { get; }
 

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Teams | " + ViewBag.SelectedContestYear;
 }
 
-<h2>Teams for @ViewBag.SelectedContestName</h2>
+<h2>Teams for @Html.ContestSelector()</h2>
 
 <p>
     <a asp-action="Create">Create New</a>

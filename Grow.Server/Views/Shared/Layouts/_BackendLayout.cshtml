@@ -1,7 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Grow.Data.Entities
-@inject SignInManager<Account> SignInManager
-@inject UserManager<Account> UserManager
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -38,7 +36,99 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    @RenderSection("Navbar", required: true)
+                    @if (ViewBag.IsLoggedIn)
+                    {
+                        @if (ViewBag.IsAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="collapse-toggle" href="#" data-toggle="collapse" data-target="#navbarDropdown" aria-controls="#navbarDropdown" aria-expanded="false">
+                                    <i class="nc-icon nc-bullet-list-67"></i>
+                                    Content
+                                    <span class="caret arrow"></span>
+                                </a>
+                                <ul class="collapse" id="navbarDropdown">
+                                    <li conditional-active asp-area="Admin" asp-controller="Contests">
+                                        <a asp-controller="Contests" asp-action="Index" asp-area="Admin">
+                                            <i class="nc-icon nc-bank"></i> Contests
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li conditional-active asp-area="Admin" asp-controller="Events">
+                                        <a asp-controller="Events" asp-action="Index" asp-area="Admin">
+                                            <i class="nc-icon nc-pin-3"></i> Events
+                                        </a>
+                                    </li>
+                                    <li conditional-active asp-area="Admin" asp-controller="Teams">
+                                        <a asp-controller="Teams" asp-action="Index" asp-area="Admin">
+                                            <i class="nc-icon nc-bulb-63"></i> Teams
+                                        </a>
+                                    </li>
+                                    <li conditional-active asp-area="Admin" asp-controller="Prizes">
+                                        <a asp-controller="Prizes" asp-action="Index" asp-area="Admin">
+                                            <i class="nc-icon nc-trophy"></i> Prizes
+                                        </a>
+                                    </li>
+                                    <li conditional-active asp-area="Admin" asp-controller="Partners">
+                                        <a asp-controller="Partners" asp-action="Index" asp-area="Admin">
+                                            <i class="nc-icon nc-support-17"></i> Partners
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li conditional-active asp-area="Admin" asp-controller="Mentors">
+                                        <a asp-controller="Mentors" asp-action="Index" asp-area="Admin">
+                                            <i class="nc-icon nc-chat-33"></i> Mentors
+                                        </a>
+                                    </li>
+                                    <li conditional-active asp-area="Admin" asp-controller="Judges">
+                                        <a asp-controller="Judges" asp-action="Index" asp-area="Admin">
+                                            <i class="nc-icon nc-glasses-2"></i> Judges
+                                        </a>
+                                    </li>
+                                    <li conditional-active asp-area="Admin" asp-controller="Organizers">
+                                        <a asp-controller="Organizers" asp-action="Index" asp-area="Admin">
+                                            <i class="nc-icon nc-tie-bow"></i> Organizers
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li conditional-active asp-area="Admin" asp-controller="Files">
+                                <a asp-controller="Files" asp-action="Index" asp-area="Admin">
+                                    <i class="nc-icon nc-image"></i>
+                                    Files
+                                </a>
+                            </li>
+                            <li conditional-active asp-area="Admin" asp-controller="Accounts">
+                                <a asp-controller="Accounts" asp-action="Index" asp-area="Admin">
+                                    <i class="nc-icon nc-single-02"></i>
+                                    Accounts
+                                </a>
+                            </li>
+                        }
+                        if (ViewBag.TeamId > 0)
+                        {
+                            <li conditional-active asp-area="Team">
+                                <a asp-controller="Home" asp-action="Index" asp-area="Team">
+                                    <i class="nc-icon nc-bulb-63"></i>
+                                    My Team
+                                </a>
+                            </li>
+                        }
+                        <li conditional-active asp-controller="Account" asp-area="">
+                            <a asp-controller="Account" asp-action="Index" asp-area="">
+                                <i class="nc-icon nc-badge"></i>
+                                My Account
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a asp-controller="Home" asp-action="Index" asp-area="">
+                                <i class="nc-icon nc-minimal-left"></i>
+                                Back
+                            </a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

@@ -49,15 +49,17 @@ namespace Grow.Server.Model.Extensions
             return new HtmlString(htmlString);
         }
 
-        public static IHtmlContent ContestSelect(this IHtmlHelper helper, string selectedYear, IDictionary<int, string> contestYears)
+        public static IHtmlContent ContestSelector(this IHtmlHelper helper)
         {
+            string selectedYear = helper.ViewBag.SelectedContestYear;
+            IDictionary<int, string> contestYears = helper.ViewBag.ContestYears;
             if (contestYears == null)
             {
                 return new HtmlString("<i class='text-danger'>Error: Contests not loaded");
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<select id='contest-selector' class='form-control'>");
+            sb.AppendLine("<select id='contest-selector'>");
 
             foreach (var contestYear in contestYears.Values.OrderByDescending(c => c))
             {
@@ -65,9 +67,6 @@ namespace Grow.Server.Model.Extensions
                     ? " selected='selected' "
                     : "";
                 var contestName = "GROW " + contestYear;
-                contestName = contestYear.Equals(selectedYear)
-                    ? "- " + contestName + " -"
-                    : contestName;
                 sb.AppendFormat("<option value='{2}' {0}>{1}</option>", selectedString, contestName, contestYear).AppendLine();
             }
 

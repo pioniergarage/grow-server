@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace Grow.Server.Controllers
 {
-    public class HomeController : BasePublicController
+    public class HomeController : BaseFrontendController
     {
         public HomeController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
             : base(dbContext, appSettings, logger)

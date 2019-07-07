@@ -15,21 +15,11 @@ namespace Grow.Server.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
-    public abstract class BaseAdminController : BaseController
+    public abstract class BaseAdminController : BaseBackendController
     {
         protected BaseAdminController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
             : base(dbContext, appSettings, logger)
         {
-            GlobalFilter = _ => true; // show all entities in admin area
-        }
-
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            base.OnActionExecuting(context);
-
-            // Default values for all controller actions
-            ViewBag.IsAdmin = User.IsInRole(Constants.ADMIN_ROLE_NAME);
-            ViewBag.IsSuperAdmin = User.IsInRole(Constants.SUPERADMIN_ROLE_NAME);
         }
     }
 }

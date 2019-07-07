@@ -98,10 +98,7 @@
     <Content Update="Views\Home\Error.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\Layouts\_AdminSingleCardLayout.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\Layouts\_AdminLayout.cshtml">
+    <Content Update="Views\Shared\Layouts\_BackendSingleCardLayout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Layouts\_BackendLayout.cshtml">

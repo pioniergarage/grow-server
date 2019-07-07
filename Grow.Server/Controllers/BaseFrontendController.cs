@@ -6,11 +6,12 @@ using Microsoft.Extensions.Options;
 
 namespace Grow.Server.Controllers
 {
-    public abstract class BasePublicController : BaseController
+    public abstract class BaseFrontendController : BaseController
     {
-        protected BasePublicController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
+        protected BaseFrontendController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
             : base(dbContext, appSettings, logger)
         {
+            GlobalFilter = (e => e.IsActive);
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)

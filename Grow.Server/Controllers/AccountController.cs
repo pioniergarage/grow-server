@@ -13,7 +13,7 @@ using Grow.Server.Model.Helpers;
 namespace Grow.Server.Controllers
 {
     [Authorize]
-    public class AccountController : BasePublicController
+    public class AccountController : BaseBackendController
     {
         private readonly UserManager<Account> _userManager;
         private readonly SignInManager<Account> _signInManager;

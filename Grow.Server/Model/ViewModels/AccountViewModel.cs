@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Grow.Server.Areas.Admin.Models.ViewModels
+namespace Grow.Server.Model.ViewModels
 {
     public class AccountViewModel : BaseNamedEntity
     {

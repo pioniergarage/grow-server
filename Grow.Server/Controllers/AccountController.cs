@@ -9,6 +9,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Grow.Data;
 using Grow.Server.Model.Helpers;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Grow.Server.Models.Helpers;
 
 namespace Grow.Server.Controllers
 {
@@ -17,17 +19,45 @@ namespace Grow.Server.Controllers
     {
         private readonly UserManager<Account> _userManager;
         private readonly SignInManager<Account> _signInManager;
+        private readonly AccountVmMapper _mapper;
 
         public AccountController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, SignInManager<Account> signInManager, UserManager<Account> userManager, ILogger logger)
             : base(dbContext, appSettings, logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _mapper = new AccountVmMapper(_userManager, DbContext);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var vm = await _mapper.AccountToViewModelAsync(user).ConfigureAwait(false);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(AccountViewModel vm)
+        {
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            // Change email
+            if (ModelState.GetValidationState(nameof(AccountViewModel.Email)) != ModelValidationState.Valid)
+            {
+                return View(vm);
+            }
+            await _userManager.SetEmailAsync(user, vm.Email).ConfigureAwait(false);
+
+            return View(vm);
         }
 
         [AllowAnonymous]

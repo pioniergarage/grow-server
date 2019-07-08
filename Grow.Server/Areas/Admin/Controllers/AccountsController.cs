@@ -7,11 +7,13 @@ using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
 using Microsoft.AspNetCore.Identity;
-using Grow.Server.Areas.Admin.Models.ViewModels;
+using Grow.Server.Areas.Admin.Model.ViewModels;
 using System;
 using System.Collections.Generic;
-using Grow.Server.Areas.Admin.Models;
+using Grow.Server.Areas.Admin.Model;
 using Grow.Server.Model.Helpers;
+using Grow.Server.Models.Helpers;
+using Grow.Server.Model.ViewModels;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -74,7 +76,7 @@ namespace Grow.Server.Areas.Admin.Controllers
                     ModelState.AddModelError(nameof(AccountEditViewModel.Password), "A Password must be set");
                     return View(vm);
                 }
-                
+
                 if (!await IsCurrentUserSuperAdminAsync().ConfigureAwait(false))
                 {
                     vm.IsAdmin = false;

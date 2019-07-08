@@ -1,6 +1,7 @@
 ﻿using Grow.Data;
 using Grow.Data.Entities;
-using Grow.Server.Areas.Admin.Models.ViewModels;
+using Grow.Server.Areas.Admin.Model.ViewModels;
+using Grow.Server.Model.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Grow.Server.Areas.Admin.Models
+namespace Grow.Server.Models.Helpers
 {
     public class AccountVmMapper
     {

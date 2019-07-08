@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Grow.Server.Areas.Admin.Models.ViewModels
+namespace Grow.Server.Areas.Admin.Model.ViewModels
 {
     public class FileCreateViewModel
     {

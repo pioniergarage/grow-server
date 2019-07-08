@@ -10,7 +10,7 @@ using Grow.Data.Entities;
 using Grow.Server.Model;
 using Grow.Server.Model.Helpers;
 using Microsoft.Extensions.Options;
-using Grow.Server.Areas.Admin.Models.ViewModels;
+using Grow.Server.Areas.Admin.Model.ViewModels;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {

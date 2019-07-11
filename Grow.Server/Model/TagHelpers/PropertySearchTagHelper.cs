@@ -63,8 +63,8 @@ namespace Grow.Server.Model.TagHelpers
         private IHtmlContent CreateSearchElement(TagHelperContext context)
         {
             var value = typeof(BaseNamedEntity).IsAssignableFrom(ValueExpression.ModelExplorer.ModelType)
-                ? ((BaseNamedEntity)ValueExpression.Model).Name
-                : ValueExpression.Model.ToString();
+                ? ((BaseNamedEntity)ValueExpression.Model)?.Name
+                : ValueExpression.Model?.ToString();
             var input = new EntitySearchTagHelper(Generator)
             {
                 Type = ViewHelpers.GetControllerFor(ValueExpression.ModelExplorer.ModelType),

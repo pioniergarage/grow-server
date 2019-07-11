@@ -13,7 +13,7 @@ namespace Grow.Server.Areas.Admin.Controllers
     [Area("Admin")]
     public class TeamsController : BaseAdminController
     {
-        private IQueryable<Team> SelectedTeamsWithAllIncluded => TeamsInSelectedYear
+        private IQueryable<Data.Entities.Team> SelectedTeamsWithAllIncluded => TeamsInSelectedYear
             .Include(t => t.Contest)
             .Include(t => t.LogoImage)
             .Include(t => t.TeamPhoto);
@@ -55,7 +55,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Team team)
+        public async Task<IActionResult> Create(Data.Entities.Team team)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Team team)
+        public async Task<IActionResult> Edit(int id, Data.Entities.Team team)
         {
             if (id != team.Id)
             {
@@ -154,8 +154,8 @@ namespace Grow.Server.Areas.Admin.Controllers
 
         private void AddEntityListsToViewBag()
         {
-            ViewBag.TeamPhotos = ViewHelpers.SelectListFromFiles<Team>(DbContext, t => t.TeamPhoto);
-            ViewBag.LogoImages = ViewHelpers.SelectListFromFiles<Team>(DbContext, t => t.LogoImage);
+            ViewBag.TeamPhotos = ViewHelpers.SelectListFromFiles<Data.Entities.Team>(DbContext, t => t.TeamPhoto);
+            ViewBag.LogoImages = ViewHelpers.SelectListFromFiles<Data.Entities.Team>(DbContext, t => t.LogoImage);
         }
 
         private bool TeamExists(int id)

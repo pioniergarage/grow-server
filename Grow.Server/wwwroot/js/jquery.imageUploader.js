@@ -48,6 +48,7 @@ $.fn.imageUploader = function () {
                 // select last uploaded image
                 if (option)
                     option.selected = true;
+                output_element.trigger("change");
             }
         };
 

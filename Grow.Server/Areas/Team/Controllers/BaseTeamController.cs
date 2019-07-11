@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace Grow.Server.Areas.Admin.Controllers
+namespace Grow.Server.Areas.Team.Controllers
 {
     [Area("Team")]
     [Authorize(Policy = Constants.TEAM_CLAIM_POLICY_NAME)]
@@ -21,6 +21,14 @@ namespace Grow.Server.Areas.Admin.Controllers
         protected BaseTeamController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
             : base(dbContext, appSettings, logger)
         {
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (MyTeamQuery.Any() == false)
+                throw new UnauthorizedAccessException("User has no access to a team");
+
+            base.OnActionExecuting(context);
         }
     }
 }

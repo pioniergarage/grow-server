@@ -1,0 +1,251 @@
+﻿@model Grow.Server.Areas.Team.Model.ViewModels.TeamViewModel
+
+@{
+    ViewData["Title"] = "My Team";
+    Layout = "Layouts/_BackendLayout";
+    var imagePlaceholderUrl = "/img/icon/unknown.jpg";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        function addNewMember(name) {
+            var id = Math.floor(Math.random() * 899) + 100;
+            var template = $("#member-template");
+            var clone = template.clone();
+            clone.find(".member-name").val(name);
+            clone.show();
+            clone.insertBefore($("#member-form"));
+        }
+    </script>
+}
+
+@if (ViewBag.Success == true)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        Profile has been saved!
+    </div>
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image border-gray border-bottom">
+                    <img src="@(Model.TeamPhoto?.Url ?? imagePlaceholderUrl)" alt="Team Photo">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <a href="@Url.Action("Teams", "Home", new { area = "", })#@Model.Id">
+                            <img class="avatar border-gray" src="@(Model.LogoImage?.Url ?? imagePlaceholderUrl)" alt="Team Logo">
+                            <h5 class="title">@Model.Name</h5>
+                        </a>
+                    </div>
+                    <p class="description text-center">
+                        @if (Model.TagLine != null)
+                        {
+                            @Model.TagLine
+                        }
+                        else
+                        {
+                            <i>No tagline set</i>
+                        }
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    <div class="button-container">
+                        <div class="row icons">
+                            <div class="col-lg-3 col-md-6 ml-auto">
+                                <h5>
+                                    <a href="@Model.WebsiteUrl">
+                                        <img src="/img/icon/www.png" />
+                                    </a>
+                                </h5>
+                            </div>
+                            <div class="col-lg-3 col-md-6 ml-auto mr-auto">
+                                <h5>
+                                    <a href="mailto:@Model.Email">
+                                        <img src="/img/icon/mail.png" />
+                                    </a>
+                                </h5>
+                            </div>
+                            <div class="col-lg-3 col-md-6 ml-auto mr-auto">
+                                <h5>
+                                    <a href="https://www.facebook.com/@Model.InstagramUrl" target="_blank">
+                                        <img src="/img/icon/insta.png" />
+                                    </a>
+                                </h5>
+                            </div>
+                            <div class="col-lg-3 col-md-6 mr-auto">
+                                <h5>
+                                    <a href="https://www.facebook.com/@Model.FacebookUrl" target="_blank">
+                                        <img src="/img/icon/fb.png" />
+                                    </a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Team Members</h4>
+                </div>
+                <div class="card-body">
+                    <ul id="member-list" class="list-unstyled">
+                        <li id="member-template" style="display: none">
+                            <div class="row">
+                                <div class="col-md-2 col-2">
+                                    <div class="avatar">
+                                        <img src="@imagePlaceholderUrl" alt="Member avatar" class="img-circle img-no-padding img-responsive">
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-7 pr-1">
+                                    <input type="text" readonly="readonly" name="Members[]" class="form-control member-name" />
+                                </div>
+                                <div class="col-md-3 col-3 text-right">
+                                    <a href="#" onclick="$(this).closest('li').remove()"><i class="nc-icon nc-simple-remove"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        @foreach (var member in Model.Members)
+                        {
+                            var id = new Random().Next(100, 999);
+                            <li id="member-@id">
+                                <div class="row">
+                                    <div class="col-md-2 col-2">
+                                        <div class="avatar">
+                                            <img src="@imagePlaceholderUrl" alt="Member avatar" class="img-circle img-no-padding img-responsive">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 col-7 pr-1">
+                                        <input type="text" readonly="readonly" name="Members[]" value="@member" class="form-control member-name" />
+                                    </div>
+                                    <div class="col-md-3 col-3 text-right">
+                                        <a href="#" onclick="$(this).closest('li').remove()"><i class="nc-icon nc-simple-remove"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        <li id="member-form">
+                            <div class="row">
+                                <div class="col-md-9 col-9 pr-1">
+                                    <input class="form-control" id="member-name" type="text" placeholder="Add new member" />
+                                </div>
+                                <div class="col-md-3 col-3 text-right" style="line-height: 30px">
+                                    <a href="#" onclick="addNewMember($('#member-name').val())"><i class="nc-icon nc-simple-add"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h5 class="card-title">Edit Profile</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" readonly="readonly" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label asp-for="ActiveSince" class="control-label"></label>
+                                <input asp-for="ActiveSince" class="form-control" />
+                                <span asp-validation-for="ActiveSince" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="TagLine" class="control-label"></label>
+                                <input asp-for="TagLine" class="form-control" />
+                                <span asp-validation-for="TagLine" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" rows="6" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label asp-for="LogoImage" class="control-label"></label>
+                                <imgselector asp-items="ViewBag.LogoImages" asp-for="LogoImageId" asp-prop="LogoImage" class="form-control" />
+                                <span asp-validation-for="LogoImageId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label asp-for="TeamPhoto" class="control-label"></label>
+                                <imgselector asp-items="ViewBag.TeamPhotos" asp-for="TeamPhotoId" asp-prop="TeamPhoto" class="form-control" />
+                                <span asp-validation-for="TeamPhotoId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label asp-for="WebsiteUrl" class="control-label"></label>
+                                <input asp-for="WebsiteUrl" class="form-control" />
+                                <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label asp-for="FacebookUrl" class="control-label"></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">https://facebook.com/</span>
+                                    </div>
+                                    <input asp-for="FacebookUrl" class="form-control" />
+                                </div>
+                                <span asp-validation-for="FacebookUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label asp-for="InstagramUrl" class="control-label"></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon3">https://instagram.com/</span>
+                                    </div>
+                                    <input asp-for="InstagramUrl" class="form-control" />
+                                </div>
+                                <span asp-validation-for="InstagramUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="update ml-auto mr-auto">
+                            <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

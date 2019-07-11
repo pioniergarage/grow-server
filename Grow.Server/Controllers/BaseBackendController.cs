@@ -18,7 +18,7 @@ namespace Grow.Server.Controllers
     {
         public bool IsLoggedIn => User?.Identity.IsAuthenticated ?? false;
 
-        public Claim TeamClaim
+        public Claim MyTeamClaim
         {
             get
             {
@@ -28,15 +28,25 @@ namespace Grow.Server.Controllers
         }
         private Claim _teamClaim;
 
-        public int TeamId
+        public int MyTeamId
         {
             get
             {
                 return _teamId
-                    ?? (_teamId = int.Parse(_teamClaim?.Value ?? "0")) ?? 0;
+                    ?? (_teamId = int.Parse(MyTeamClaim?.Value ?? "0")) ?? 0;
             }
         }
         private int? _teamId;
+
+        public IQueryable<Team> MyTeamQuery
+        {
+            get
+            {
+                return _team
+                    ?? (_team = DbContext.Teams.Where(t => t.Id == MyTeamId));
+            }
+        }
+        private IQueryable<Team> _team;
 
         protected BaseBackendController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
             : base(dbContext, appSettings, logger)
@@ -48,7 +58,7 @@ namespace Grow.Server.Controllers
             base.OnActionExecuting(context);
 
             // Default values for all controller actions
-            ViewBag.TeamId = TeamId;
+            ViewBag.TeamId = MyTeamId;
             ViewBag.IsLoggedIn = IsLoggedIn;
             ViewBag.IsAdmin = IsLoggedIn && User.IsInRole(Constants.ADMIN_ROLE_NAME);
             ViewBag.IsSuperAdmin = IsLoggedIn && User.IsInRole(Constants.SUPERADMIN_ROLE_NAME);

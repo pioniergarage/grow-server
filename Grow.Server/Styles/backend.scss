@@ -16,6 +16,11 @@ input[disabled=disabled] {
     font-style: italic;
 }
 
+.icons img {
+    max-height: 30px;
+    max-width: 30px;
+}
+
 textarea.form-control {
     max-height: inherit;
 }
@@ -46,6 +51,32 @@ textarea.form-control {
     margin: 10px 10px 0 0 !important;
     /* margin-top: 10px !important; */
     border-color: rgba(255,255,255,0.5);
+}
+
+.card-user .avatar {
+    object-fit: contain;
+    background-color: white;
+}
+
+.border-gray {
+    border-color: #c4c4c4 !important;
+}
+
+.border-bottom {
+    border-style: solid;
+    border-width: 0 0 1px;
+}
+
+.form-group .input-group .input-group-text {
+    background-color: rgba(0,0,0,0.05);
+    font-size: inherit;
+    padding: 0 5px 0 10px;
+    margin-right: -5px;
+    z-index: 10;
+}
+
+::placeholder {
+    font-style: italic;
 }
 
 /* Column selector input in the Backend vertical navbar */
@@ -104,6 +135,20 @@ tr.inactive {
     background: linear-gradient(270deg, rgba(255,255,255,0), rgba(135,228,252,0.35), rgba(255,255,255,0));
     background-size: 400% 100%;
     animation: loading-back 1.5s ease infinite;
+}
+
+@keyframes loading-back {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
 }
 
 /* Theme for inline cards */

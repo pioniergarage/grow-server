@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using Grow.Server.Areas.Admin.Model;
 using Grow.Server.Model.Helpers;
-using Grow.Server.Models.Helpers;
+using Grow.Server.Model.Helpers;
 using Grow.Server.Model.ViewModels;
 
 namespace Grow.Server.Areas.Admin.Controllers

@@ -84,7 +84,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
         public PrizesController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }
 
-    public class TeamsController : ApiController<Team>
+    public class TeamsController : ApiController<Data.Entities.Team>
     {
         public TeamsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }

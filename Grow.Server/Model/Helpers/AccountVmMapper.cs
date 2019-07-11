@@ -10,7 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Grow.Server.Models.Helpers
+namespace Grow.Server.Model.Helpers
 {
     public class AccountVmMapper
     {

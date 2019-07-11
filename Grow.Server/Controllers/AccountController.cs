@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Grow.Data;
 using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Grow.Server.Models.Helpers;
+using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Controllers
 {
@@ -42,6 +42,7 @@ namespace Grow.Server.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(AccountViewModel vm)
         {
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
@@ -73,6 +74,7 @@ namespace Grow.Server.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -115,6 +117,7 @@ namespace Grow.Server.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)

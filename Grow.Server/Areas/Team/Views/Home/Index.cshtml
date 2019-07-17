@@ -8,14 +8,24 @@
 
 @section Scripts {
     <script type="text/javascript">
+
+        // Code to add new members in member panel
         function addNewMember(name) {
             var id = Math.floor(Math.random() * 899) + 100;
             var template = $("#member-template");
             var clone = template.clone();
             clone.find(".member-name").val(name);
+            clone.find(".member-name").attr("name", "Members[]");
             clone.show();
             clone.insertBefore($("#member-form"));
         }
+
+        // Code to show selected file
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
     </script>
 }
 
@@ -26,17 +36,17 @@
     </div>
 }
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-4">
             <div class="card card-user">
-                <div class="image border-gray border-bottom">
-                    <img src="@(Model.TeamPhoto?.Url ?? imagePlaceholderUrl)" alt="Team Photo">
+                <div class="image full-height border-gray border-bottom">
+                    <img src="@(ViewBag.TeamPhotoUrl ?? imagePlaceholderUrl)" alt="Team Photo">
                 </div>
                 <div class="card-body">
                     <div class="author">
-                        <a href="@Url.Action("Teams", "Home", new { area = "", })#@Model.Id">
-                            <img class="avatar border-gray" src="@(Model.LogoImage?.Url ?? imagePlaceholderUrl)" alt="Team Logo">
+                        <a href="@Url.Action("Teams", "Home", new { area = "", year = Model.Contest?.Year })#@Model.Id" target="_blank">
+                            <img class="avatar border-gray" src="@(ViewBag.LogoImageUrl ?? imagePlaceholderUrl)" alt="Team Logo">
                             <h5 class="title">@Model.Name</h5>
                         </a>
                     </div>
@@ -57,30 +67,42 @@
                         <div class="row icons">
                             <div class="col-lg-3 col-md-6 ml-auto">
                                 <h5>
-                                    <a href="@Model.WebsiteUrl">
-                                        <img src="/img/icon/www.png" />
-                                    </a>
+                                    @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
+                                    {
+                                        <a href="@Model.WebsiteUrl">
+                                            <img src="/img/icon/www.png" />
+                                        </a>
+                                    }
                                 </h5>
                             </div>
                             <div class="col-lg-3 col-md-6 ml-auto mr-auto">
                                 <h5>
-                                    <a href="mailto:@Model.Email">
-                                        <img src="/img/icon/mail.png" />
-                                    </a>
+                                    @if (!string.IsNullOrEmpty(Model.Email))
+                                    {
+                                        <a href="mailto:@Model.Email">
+                                            <img src="/img/icon/mail.png" />
+                                        </a>
+                                    }
                                 </h5>
                             </div>
                             <div class="col-lg-3 col-md-6 ml-auto mr-auto">
                                 <h5>
-                                    <a href="https://www.facebook.com/@Model.InstagramUrl" target="_blank">
-                                        <img src="/img/icon/insta.png" />
-                                    </a>
+                                    @if (!string.IsNullOrEmpty(Model.InstagramUrl))
+                                    {
+                                        <a href="https://www.facebook.com/@Model.InstagramUrl" target="_blank">
+                                            <img src="/img/icon/insta.png" />
+                                        </a>
+                                    }
                                 </h5>
                             </div>
                             <div class="col-lg-3 col-md-6 mr-auto">
                                 <h5>
-                                    <a href="https://www.facebook.com/@Model.FacebookUrl" target="_blank">
-                                        <img src="/img/icon/fb.png" />
-                                    </a>
+                                    @if (!string.IsNullOrEmpty(Model.FacebookUrl))
+                                    {
+                                        <a href="https://www.facebook.com/@Model.FacebookUrl" target="_blank">
+                                            <img src="/img/icon/fb.png" />
+                                        </a>
+                                    }
                                 </h5>
                             </div>
                         </div>
@@ -101,7 +123,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-7 col-7 pr-1">
-                                    <input type="text" readonly="readonly" name="Members[]" class="form-control member-name" />
+                                    <input type="text" readonly="readonly" class="form-control member-name" />
                                 </div>
                                 <div class="col-md-3 col-3 text-right">
                                     <a href="#" onclick="$(this).closest('li').remove()"><i class="nc-icon nc-simple-remove"></i></a>
@@ -151,14 +173,14 @@
                         <div class="col-md-6 pr-1">
                             <div class="form-group">
                                 <label asp-for="Name" class="control-label"></label>
-                                <input asp-for="Name" readonly="readonly" class="form-control" />
+                                <input asp-for="Name" class="form-control" />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6 pl-1">
                             <div class="form-group">
                                 <label asp-for="ActiveSince" class="control-label"></label>
-                                <input asp-for="ActiveSince" class="form-control" />
+                                <input asp-for="ActiveSince" placeholder="e.g. Oct. 2019" class="form-control" />
                                 <span asp-validation-for="ActiveSince" class="text-danger"></span>
                             </div>
                         </div>
@@ -184,16 +206,22 @@
                     <div class="row">
                         <div class="col-md-6 pr-1">
                             <div class="form-group">
-                                <label asp-for="LogoImage" class="control-label"></label>
-                                <imgselector asp-items="ViewBag.LogoImages" asp-for="LogoImageId" asp-prop="LogoImage" class="form-control" />
-                                <span asp-validation-for="LogoImageId" class="text-danger"></span>
+                                <label asp-for="NewLogoImage" class="control-label"></label>
+                                <div class="custom-file">
+                                    <input asp-for="NewLogoImage" type="file" class="form-control custom-file-input" />
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <span asp-validation-for="NewLogoImage" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6 pl-1">
                             <div class="form-group">
-                                <label asp-for="TeamPhoto" class="control-label"></label>
-                                <imgselector asp-items="ViewBag.TeamPhotos" asp-for="TeamPhotoId" asp-prop="TeamPhoto" class="form-control" />
-                                <span asp-validation-for="TeamPhotoId" class="text-danger"></span>
+                                <label asp-for="NewTeamPhoto" class="control-label"></label>
+                                <div class="custom-file">
+                                    <input asp-for="NewTeamPhoto" type="file" class="form-control custom-file-input" />
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <span asp-validation-for="NewTeamPhoto" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -239,6 +267,8 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ContestId" />
                     <div class="row">
                         <div class="update ml-auto mr-auto">
                             <button type="submit" class="btn btn-primary btn-round">Update Profile</button>

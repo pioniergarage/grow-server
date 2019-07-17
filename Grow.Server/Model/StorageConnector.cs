@@ -56,7 +56,10 @@ namespace Grow.Server.Model
 
         public File Create(string category, string fileName, System.IO.Stream imageData)
         {
-            fileName = ProcessFileName(category, fileName);
+            if (fileName.Split('.').Length < 2)
+                throw new ArgumentException("File was uploaded without extension");
+
+            fileName = ExtendFileNameIfExists(category, fileName);
 
             var cloudBlobContainer = GetContainerFor(category);
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
@@ -71,7 +74,20 @@ namespace Grow.Server.Model
                 Url = cloudBlockBlob.Uri.AbsoluteUri
             };
         }
-        
+
+        public File Replace(File file, string fileName, System.IO.Stream imageData)
+        {
+            var cloudBlobContainer = GetContainerFor(file.Category);
+            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
+            cloudBlockBlob.UploadFromStream(imageData);
+
+            file.Name = fileName;
+            file.Extension = fileName.Split('.').Last();
+            file.Url = cloudBlockBlob.Uri.AbsoluteUri;
+
+            return file;
+        }
+
         public void Delete(File file)
         {
             var url = file.Url;
@@ -85,11 +101,8 @@ namespace Grow.Server.Model
             }
         }
 
-        private string ProcessFileName(string category, string fileName)
+        private string ExtendFileNameIfExists(string category, string fileName)
         {
-            if (fileName.Split('.').Length < 2)
-                throw new ArgumentException("File was uploaded without extension");
-
             var randomSuffix = "";
             if (FileExists(category, fileName))
             {

@@ -7,11 +7,11 @@ using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Grow.Server.Areas.Admin.Controllers.Api
+namespace Grow.Server.Areas.Api.Controllers
 {
-    [Route("Admin/Api/[controller]")]
+    [Route("Api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
+    [Authorize]
     public abstract class ApiController<T> : ControllerBase where T : BaseTimestampedEntity
     {
         public GrowDbContext Context { get; }
@@ -39,7 +39,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
         }
 
         [HttpGet("{id}")]
-        public ActionResult<T> Get(int id)
+        public virtual ActionResult<T> Get(int id)
         {
             var entity = Context.Set<T>().Find(id);
             if (entity == null)
@@ -49,41 +49,49 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
         }
     }
 
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class ContestsController : ApiController<Contest>
     {
         public ContestsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }
 
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class EventsController : ApiController<Event>
     {
         public EventsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }
 
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class JudgesController : ApiController<Judge>
     {
         public JudgesController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }
 
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class MentorsController : ApiController<Mentor>
     {
         public MentorsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }
 
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class OrganizersController : ApiController<Organizer>
     {
         public OrganizersController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }
 
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class PartnersController : ApiController<Partner>
     {
         public PartnersController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }
 
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class PrizesController : ApiController<Prize>
     {
         public PrizesController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }
 
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class TeamsController : ApiController<Data.Entities.Team>
     {
         public TeamsController(GrowDbContext context, ILogger logger) : base(context, logger) { }

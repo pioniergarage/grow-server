@@ -55,7 +55,7 @@ namespace Grow.Server.Model.TagHelpers
         public ViewContext ViewContext { get; set; }
 
         public string Id { get; }
-
+        
         public ImageSelectorTagHelper(IHtmlGenerator generator)
         {
             Generator = generator;
@@ -108,9 +108,25 @@ namespace Grow.Server.Model.TagHelpers
 
         private IHtmlContent CreateSelectElement(TagHelperContext context)
         {
-            if (Items != null)
+            var itemList = Items;
+            if (Items == null)
             {
-                foreach (var item in Items)
+                // no list? => list with just selected file as item
+                itemList = new List<SelectListItem>();
+                if (FileProperty.Model is File file)
+                {
+                    itemList.Add(new SelectListItem()
+                    {
+                        Selected = true,
+                        Text = file.Name,
+                        Value = file.Id.ToString()
+                    });
+                }
+            }
+            else
+            {
+                // select correct item
+                foreach (var item in itemList)
                 {
                     if ((item.Value ?? string.Empty).Equals(For.Model?.ToString()))
                         item.Selected = true;
@@ -120,7 +136,7 @@ namespace Grow.Server.Model.TagHelpers
             var selectTagHelper = new SelectTagHelper(Generator)
             {
                 For = For,
-                Items = Items,
+                Items = itemList,
                 ViewContext = ViewContext
             };
 
@@ -130,6 +146,10 @@ namespace Grow.Server.Model.TagHelpers
             selectOutput.AddClass("form-control", HtmlEncoder.Default);
             selectOutput.Attributes.SetAttribute("id", For.Name);
             selectOutput.Attributes.Add("dat-preview", $"file-preview-{Id}");
+            if (Items == null)
+            {
+                selectOutput.Attributes.Add("disabled", "disabled");
+            }
 
             return selectOutput;
         }

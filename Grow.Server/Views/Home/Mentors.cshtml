@@ -74,7 +74,7 @@
                 <section class="wrapper style4 container mentors">
                     <div class="content" id="@mentor.Id" style="overflow-y: auto">
                         <div class="3u 12u(narrower)" style="float: right">
-                            <img src="@Html.PrintIfNonEmpty(mentor.Image.Url, "/img/2018/mentors/_unknown_profile.jpg")" class="with-text" />
+                            <img src="@Html.PrintIfNonEmpty(mentor.Image?.Url, "/img/icon/unknown.jpg")" class="with-text" />
                         </div>
                         <header>
                             <h3 data-if="Web">

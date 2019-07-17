@@ -1,6 +1,5 @@
-﻿// MAGIC NUMBERS
-url_create_file_prefix = "/Admin/Api/File?category=";
-url_get_file_prefix = "/Admin/Api/File/";
+﻿/* MAGIC NUMBERS */
+let file_api_url = "/Api/File";
 
 /**
  * Execute on an input[type=file] to add AJAX functionality to upload files to the server.
@@ -24,6 +23,9 @@ $.fn.imageUploader = function () {
         var input_element = event.target;
         var category = $(input_element).attr("dat-category");
         var output_element = $("#" + $(input_element).attr("dat-output"));
+
+        if (!category)
+            return;
 
         var files = input_element.files;
         var formData = new FormData();
@@ -75,7 +77,7 @@ $.fn.imageUploader = function () {
         // Make API call to create image
         output_element.addClass("loading");
         $.ajax({
-            url: url_create_file_prefix + category,
+            url: file_api_url + "?category=" + category,
             type: "POST",
             dataType: "json",
             data: formData,
@@ -102,12 +104,11 @@ $.fn.imageUploader = function () {
 $.fn.imagePreviewer = function() {
 
     this.on("change", (event) => {
-        // get selected element
-        var select_element = $(event.target);
-        var option_element = select_element.find(":selected");
-        var preview_element = $("#" + select_element.attr("dat-preview"));
-        var image_id = option_element.val();
-        if (!image_id)
+        // get selected image
+        var input_element = $(event.target);
+        var preview_element = $("#" + input_element.attr("dat-preview"));
+        var image_id = $(input_element).val();
+        if (!image_id || !preview_element)
             return;
 
         // function to process received image
@@ -130,7 +131,7 @@ $.fn.imagePreviewer = function() {
         }
 
         // send request to fetch image
-        $.getJSON(url_get_file_prefix + image_id)
+        $.getJSON(file_api_url + "/" + image_id)
             .done(on_success)
             .error(on_fail);
     });

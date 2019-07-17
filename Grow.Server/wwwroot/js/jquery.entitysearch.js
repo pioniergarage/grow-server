@@ -1,5 +1,5 @@
 ﻿// MAGIC NUMBERS
-url_search_entities_prefix = "/Admin/Api/";
+url_search_entities_prefix = "/Api/";
 
 /**
  * Execute on a input[type=text] to add AJAX functionality to search for entities on the server.

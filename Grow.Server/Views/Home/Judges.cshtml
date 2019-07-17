@@ -43,7 +43,7 @@
                     <div class="4u 12u(narrower) image-block">
                         <h3>@judge.Name</h3>
                         <h4>@judge.Description</h4>
-                        <img src="@judge.Image.Url" />
+                        <img src="@Html.PrintIfNonEmpty(judge.Image?.Url, "/img/icon/unknown.jpg")" />
                     </div>
                 }
             </div>

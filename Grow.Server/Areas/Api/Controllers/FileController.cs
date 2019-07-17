@@ -10,9 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using Grow.Data;
 using Microsoft.Extensions.Options;
 using Grow.Server.Model.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Grow.Server.Areas.Admin.Controllers.Api
+namespace Grow.Server.Areas.Api.Controllers
 {
+    [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
     public class FileController : ApiController<File>
     {
         private StorageConnector Storage => _storage.Value;
@@ -23,7 +25,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
             _storage = new Lazy<StorageConnector>(() => new StorageConnector(settings.Value, Logger));
         }
         
-        public ActionResult<IEnumerable<File>> Find(string folder, string search = null, string year = null)
+        public override ActionResult<IEnumerable<File>> Find(string folder, string search = null)
         {
             IQueryable<File> query = Context.Files
                 .Where(e => e.Category.Equals(folder, StringComparison.CurrentCultureIgnoreCase));
@@ -44,7 +46,7 @@ namespace Grow.Server.Areas.Admin.Controllers.Api
             foreach (var formFile in fileData)
             {
                 string filename = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim('"');
-                
+
                 using (var stream = formFile.OpenReadStream())
                 {
                     var file = Storage.Create(category, filename, stream);

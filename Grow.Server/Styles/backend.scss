@@ -79,6 +79,14 @@ textarea.form-control {
     font-style: italic;
 }
 
+.custom-file > *, .custom-file > *::after {
+    line-height: calc(1.4rem + 2px);
+}
+
+.card-user .image.full-height {
+    height: 100%;
+}
+
 /* Column selector input in the Backend vertical navbar */
 #contest-selector {
     background-color: transparent;

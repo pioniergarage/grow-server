@@ -50,20 +50,9 @@ namespace Grow.Server.Model.Helpers
             return SelectListFromEntityList(files);
         }
         
-        public static IEnumerable<SelectListItem> SelectListFromFiles<TSource>(GrowDbContext context, Expression<Func<TSource, File>> propertyLambda)
+        public static IEnumerable<SelectListItem> SelectListFromFiles<TSource>(GrowDbContext context, Expression<Func<TSource, File>> propertyLambda) where TSource : BaseEntity
         {
-            var member = propertyLambda.Body as MemberExpression;
-            if (member == null)
-                throw new ArgumentException("Invalid referenced member", nameof(propertyLambda));
-
-            var propInfo = member.Member as PropertyInfo;
-            if (propInfo == null)
-                throw new ArgumentException("Referenced member is not a property", nameof(propertyLambda));
-
-            var fileCategory = FileCategory.Misc;
-            var attr = propInfo.GetCustomAttribute<FileCategoryAttribute>();
-            if (attr != null)
-                fileCategory = attr.Category;
+            var fileCategory = GetFileCategoryForProperty(propertyLambda);
 
             var files = context
                 .Set<File>()
@@ -71,6 +60,22 @@ namespace Grow.Server.Model.Helpers
                 .OrderBy(e => e.Name);
 
             return SelectListFromEntityList(files);
+        }
+
+        public static string GetFileCategoryForProperty<TSource>(Expression<Func<TSource,File>> propertyLambda) where TSource : BaseEntity
+        {
+            if (!(propertyLambda.Body is MemberExpression member))
+                throw new ArgumentException("Invalid referenced member", nameof(propertyLambda));
+
+            if (!(member.Member is PropertyInfo propInfo))
+                throw new ArgumentException("Referenced member is not a property", nameof(propertyLambda));
+
+            var fileCategory = FileCategory.Misc;
+            var attr = propInfo.GetCustomAttribute<FileCategoryAttribute>();
+            if (attr != null)
+                fileCategory = attr.Category;
+
+            return fileCategory.ToString();
         }
 
         private static IEnumerable<SelectListItem> SelectListFromEntityList(IEnumerable<BaseNamedEntity> entities)

@@ -14,7 +14,7 @@
     <link href="~/css/flatpickr.min.css" rel="stylesheet">
     <link href="~/plugins/paper-dashboard/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/plugins/paper-dashboard/css/paper-dashboard.min.css" rel="stylesheet" />
-    <link href="~/css/backend.min.css" rel="stylesheet">
+    <link href="~/css/backend.min.css" asp-append-version="true" rel="stylesheet">
 
     @* Some scripts may be placed outside of @sections (jQuery is the only allowed dependency) *@
     <script src="/js/jquery.min.js"></script>
@@ -204,8 +204,11 @@
     </div>
 
     <script src="/js/flatpickr.min.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="/js/flatpickr.min.js"></script>
     <script src="/plugins/paper-dashboard/js/paper-dashboard-bundled.min.js"></script>
-    <script src="/js/backend.min.js"></script>
+    <script src="/js/backend.min.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 

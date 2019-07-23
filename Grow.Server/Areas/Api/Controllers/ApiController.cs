@@ -35,7 +35,7 @@ namespace Grow.Server.Areas.Api.Controllers
                 if (contest != null)
                     query = query.Where(e => (e as BaseContestSubEntity).ContestId == contest.Id);
             }
-            return Ok(query);
+            return Ok(query.Take(10));
         }
 
         [HttpGet("{id}")]

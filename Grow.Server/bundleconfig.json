@@ -15,7 +15,7 @@
     "inputFiles": [
       "wwwroot/js/grow.helpers.js",
       "wwwroot/js/jquery.entitysearch.js",
-      "wwwroot/js/jquery.imageUploader.js",
+      "wwwroot/js/jquery.fileUploader.js",
       "wwwroot/js/jquery.conditionalCollapse.js",
       "wwwroot/js/backend.js"
     ],

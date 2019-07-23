@@ -25,13 +25,14 @@ namespace Grow.Server.Areas.Api.Controllers
             _storage = new Lazy<StorageConnector>(() => new StorageConnector(settings.Value, Logger));
         }
         
-        public override ActionResult<IEnumerable<File>> Find(string folder, string search = null)
+        public override ActionResult<IEnumerable<File>> Find(string category, string search = null)
         {
-            IQueryable<File> query = Context.Files
-                .Where(e => e.Category.Equals(folder, StringComparison.CurrentCultureIgnoreCase));
+            IQueryable<File> query = Context.Files;
+            if (category != null)
+                query = query.Where(e => e.Category.Equals(category, StringComparison.CurrentCultureIgnoreCase));
             if (search != null)
                 query = query.Where(e => e.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase));
-            return Ok(query);
+            return Ok(query.Take(10));
         }
 
         [HttpPost]

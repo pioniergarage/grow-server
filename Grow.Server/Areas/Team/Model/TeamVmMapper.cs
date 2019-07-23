@@ -73,6 +73,7 @@ namespace Grow.Server.Areas.Team.Model
                         stream
                     );
                 }
+                oldTeam.TeamPhoto.Name = string.Format("{0}.{1}", newViewModel.Name, extension);
             }
         }
 

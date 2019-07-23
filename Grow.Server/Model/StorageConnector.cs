@@ -136,11 +136,11 @@ namespace Grow.Server.Model
             }
         }
 
-        private CloudBlobContainer GetContainerFor(string folder)
+        private CloudBlobContainer GetContainerFor(string category)
         {
-            if (!Enum.TryParse(folder, true, out FileCategory container))
+            if (!Enum.TryParse(category, true, out FileCategory container))
             {
-                throw new ArgumentException("Given folder does not exist");
+                throw new ArgumentException("Given file category does not exist");
             }
             var containerName = GetContainerName(container);
             return CloudBlobClient.GetContainerReference(containerName);

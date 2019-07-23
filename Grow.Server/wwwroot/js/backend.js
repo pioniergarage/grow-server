@@ -42,9 +42,8 @@ $(document).ready(function () {
     $(".conditional").conditionalCollapse();
 
     // image uploader
-    $(".img-selector input[type=file]").imageUploader();
-    $(".img-selector select").imagePreviewer();
-    $(".img-selector select").trigger("change");
+    $(".file-uploader").fileUploader();
+    $(".file-uploader").imagePreviewer();
 
     // entity search
     $("#copy-entity-box .search-input").entitySearch(createFillFormAction());

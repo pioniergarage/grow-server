@@ -10,159 +10,31 @@ using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
 using Grow.Server.Model.Helpers;
+using System.Linq.Expressions;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class OrganizersController : BaseAdminController
+    public class OrganizersController : BaseEntityAdminController<Organizer>
     {
-        private IQueryable<Organizer> SelectedOrganizersWithAllIncluded => OrganizersInSelectedYear
-            .Include(t => t.Contest)
-            .Include(t => t.Image);
-
         public OrganizersController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
             : base(dbContext, appSettings, logger)
         {
         }
 
-        public async Task<IActionResult> Index()
+        protected override void AddEntityListsToViewBag()
         {
-            return View(await SelectedOrganizersWithAllIncluded.ToListAsync().ConfigureAwait(false));
         }
 
-        public async Task<IActionResult> Details(int? id)
+        protected override Expression<Func<Contest, ICollection<Organizer>>> EntitiesInContestExpression()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var organizer = await SelectedOrganizersWithAllIncluded
-                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
-            if (organizer == null)
-            {
-                return NotFound();
-            }
-
-            return View(organizer);
+            return c => c.Organizers;
         }
 
-        public IActionResult Create()
+        protected override IQueryable<Organizer> IncludeNavigationProperties(IQueryable<Organizer> query)
         {
-            AddEntityListsToViewBag();
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Organizer organizer)
-        {
-            if (ModelState.IsValid)
-            {
-                SelectedContest.Include(c => c.Organizers).Single().Organizers.Add(organizer);
-                await DbContext.SaveChangesAsync().ConfigureAwait(false);
-                return RedirectToAction(nameof(Index));
-            }
-
-            AddEntityListsToViewBag();
-            return View(organizer);
-        }
-
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var organizer = await DbContext.Organizers.FindAsync(id).ConfigureAwait(false);
-            if (organizer == null)
-            {
-                return NotFound();
-            }
-
-            AddEntityListsToViewBag();
-            return View(organizer);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Organizer organizer)
-        {
-            if (id != organizer.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    DbContext.Update(organizer);
-                    await DbContext.SaveChangesAsync().ConfigureAwait(false);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrganizerExists(organizer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-
-            AddEntityListsToViewBag();
-            return View(organizer);
-        }
-
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var organizer = await SelectedOrganizersWithAllIncluded
-                .FirstOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
-            if (organizer == null)
-            {
-                return NotFound();
-            }
-
-            return View(organizer);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var organizer = await DbContext.Organizers.FindAsync(id).ConfigureAwait(false);
-            DbContext.Organizers.Remove(organizer);
-            await DbContext.SaveChangesAsync().ConfigureAwait(false);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Toggle(int id, bool value)
-        {
-            var entity = await DbContext.Organizers.FindAsync(id).ConfigureAwait(false);
-            entity.IsActive = value;
-            DbContext.SaveChanges();
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        private void AddEntityListsToViewBag()
-        {
-            ViewBag.Images = ViewHelpers.SelectListFromFiles<Person>(DbContext, p => p.Image);
-        }
-
-        private bool OrganizerExists(int id)
-        {
-            return DbContext.Organizers.Any(e => e.Id == id);
+            return query
+                .Include(t => t.Contest)
+                .Include(t => t.Image);
         }
     }
 }

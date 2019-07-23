@@ -19,6 +19,40 @@ namespace Grow.Server.Model.Helpers
             return type.Name.ToLower() + "s";
         }
 
+        /// <summary>
+        /// Data cleaner method that removes all navigation properties to BaseEntity entities where only partial data is contained. 
+        /// 
+        /// The goal is to avoid data loss due to partial data.
+        /// 
+        /// Partial data is detected when the property is not null, no id is set in the object, but the id property is set.
+        /// </summary>
+        /// <typeparam name="T">Type of the entity that will be cleaned</typeparam>
+        /// <param name="entity">The entity that should be cleaned</param>
+        public static void RemovePartialNavigationProperties<T>(T entity) where T : BaseEntity
+        {
+            PropertyInfo idProp;
+            BaseEntity navEntity;
+
+            // We want all navigation properties...
+            var partialNavProperties =
+                from navProp in typeof(T).GetProperties()
+                where navProp.GetMethod.IsVirtual
+                    // ...where navigation property has some data, but no id...
+                    && typeof(BaseEntity).IsAssignableFrom(navProp.PropertyType)
+                    && (navEntity = navProp.GetValue(entity) as BaseEntity) != null
+                    && navEntity.Id == 0
+                    // ...but id property has a value 
+                    && (idProp = typeof(T).GetProperty(navProp.Name + "Id")) != null
+                    && (idProp.GetValue(entity) as int?) > 0
+                select navProp;
+
+            // Clear nav property
+            foreach (var propertyToBeCleared in partialNavProperties)
+            {
+                propertyToBeCleared.SetValue(entity, null);
+            }
+        }
+
         public static IEnumerable<SelectListItem> SelectListFromEnum<T>()
         {
             if (!typeof(Enum).IsAssignableFrom(typeof(T)))

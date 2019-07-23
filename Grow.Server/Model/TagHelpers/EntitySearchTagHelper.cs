@@ -11,19 +11,43 @@ using System.Threading.Tasks;
 
 namespace Grow.Server.Model.TagHelpers
 {
+    /// <summary>
+    /// Taghelper that creates a search bar with a search result popup to search for entities by name
+    /// </summary>
     [HtmlTargetElement("search", Attributes = TypeAttributeName, TagStructure = TagStructure.WithoutEndTag)]
     public class EntitySearchTagHelper : BaseTagHelper
     {
         private const string TypeAttributeName = "asp-type";
-        private const string YearAttributeName = "asp-year";
+        private const string FilterNameAttributeName = "asp-filter-name";
+        private const string FilterValueAttributeName = "asp-filter-value";
 
+        /// <summary>
+        /// Type name of the entities that selects the search table. Must fit a type tracked by the database context
+        /// </summary>
         [HtmlAttributeName(TypeAttributeName)]
         public string Type { get; set; }
 
-        [HtmlAttributeName(YearAttributeName)]
-        public string Year { get; set; }
+        /// <summary>
+        /// Limit the search by adding a filter that is applied on the REST call. Set together with FilterValue.
+        /// </summary>
+        [HtmlAttributeName(FilterNameAttributeName)]
+        public string FilterName { get; set; }
 
+        /// <summary>
+        /// Limit the search by adding a filter that is applied on the REST call. Set together with FilterName.
+        /// </summary>
+        [HtmlAttributeName(FilterValueAttributeName)]
+        public string FilterValue { get; set; }
+
+        /// <summary>
+        /// Allows for a value to be pre-selected in the search field
+        /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// Assign a name to the search bar input
+        /// </summary>
+        public string Name { get; set; }
 
         public EntitySearchTagHelper(IHtmlGenerator generator) : base(generator, "div", TagMode.StartTagAndEndTag)
         {
@@ -42,7 +66,7 @@ namespace Grow.Server.Model.TagHelpers
             var list = CreateListElement();
             IHtmlContent script = CreateContestJson(contestYears);
 
-            return WrapInDiv(new[] { input, list, script }, "search-box", "form-group");
+            return WrapInDiv(new[] { input, list, script }, "search-box");
         }
         
         private IHtmlContent CreateInputElement()
@@ -58,14 +82,20 @@ namespace Grow.Server.Model.TagHelpers
             input.AddCssClass("form-control");
             input.AddCssClass("search-input");
             input.Attributes.Add("type", "text");
-            input.Attributes.Add("value", Value);
+            if (Value != null)
+                input.Attributes.Add("value", Value);
+            if (Name != null)
+                input.Attributes.Add("name", Name);
             input.Attributes.Add("id", "search-input-" + Id);
             input.Attributes.Add("placeholder", "search by name...");
             input.Attributes.Add("dat-type", Type);
             input.Attributes.Add("dat-output", "search-results-" + Id);
 
-            if (!string.IsNullOrEmpty(Year))
-                input.Attributes.Add("dat-year", Year);
+            if (!string.IsNullOrEmpty(FilterValue) && !string.IsNullOrEmpty(FilterName))
+            {
+                input.Attributes.Add("dat-filter-name", FilterName);
+                input.Attributes.Add("dat-filter-value", FilterValue);
+            }
 
             return input;
         }

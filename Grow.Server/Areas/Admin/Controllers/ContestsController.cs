@@ -10,7 +10,6 @@ using Grow.Server.Model.Helpers;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
-    [Area("Admin")]
     public class ContestsController : BaseAdminController
     {
         public ContestsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)

@@ -16,7 +16,8 @@ url_search_entities_prefix = "/Api/";
  * Data attributes:
  * dat-type - Entity type for which to search for (required)
  * dat-output - DOM Id of the output element to add the found entities to (optional)
- * dat-year - Search only for entities in the selected contest year (optional)
+ * dat-filter-name - Add additional parameter to the search REST call (optional)
+ * dat-filter-value - Add additional parameter to the search REST call (optional)
  *
  * @param {Function} onElementChosen The Function that will be executed when an element is selected
  * 
@@ -32,7 +33,8 @@ $.fn.entitySearch = function (onElementChosen) {
     this.on("keyup", (event) => {
         var input_element = event.target;
         var type = $(input_element).attr("dat-type");
-        var year = $(input_element).attr("dat-year");
+        var filterName = $(input_element).attr("dat-filter-name");
+        var filterValue = $(input_element).attr("dat-filter-value");
         var url = url_search_entities_prefix + type;
         var output_id = $(input_element).attr("dat-output");
         var output_element = $("#" + output_id);
@@ -57,17 +59,18 @@ $.fn.entitySearch = function (onElementChosen) {
             // add search results (as <li>)
             var counter = 0;
             for (var i = 0; i < data.length && i < 6; i++) {
-                var elem = data[i];
-                var text = elem.name;
+                let elem = data[i];
+                let text = elem.name;
                 if (elem.contestId)
                     text += " (" + contest_years[elem.contestId] + ")";
                 else if (elem.createdAt)
                     text += " (created at " + elem.createdAt.substring(0, 10) + ")";
-                var li = document.createElement("li");
+                let li = document.createElement("li");
                 li.innerHTML = text;
                 li.addEventListener("click", () => {
+                    let clicked_elem = elem;
                     $(output_element).hide();
-                    onElementChosen(elem);
+                    onElementChosen(clicked_elem);
                 });
                 output_element.append(li);
             }
@@ -94,8 +97,8 @@ $.fn.entitySearch = function (onElementChosen) {
             $(input_element).addClass("loading");
 
             var payload = { search: searchString };
-            if (year)
-                payload.year = year;
+            if (filterName !== undefined && filterValue !== undefined)
+                payload[filterName] = filterValue;
 
             $.get(url, payload, on_success)
                 .fail(on_fail);

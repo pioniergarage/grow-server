@@ -62,19 +62,32 @@ namespace Grow.Server.Model.TagHelpers
 
         private IHtmlContent CreateSearchElement(TagHelperContext context)
         {
-            var value = typeof(BaseNamedEntity).IsAssignableFrom(ValueExpression.ModelExplorer.ModelType)
-                ? ((BaseNamedEntity)ValueExpression.Model)?.Name
-                : ValueExpression.Model?.ToString();
+            string value, name;
+            if (typeof(BaseNamedEntity).IsAssignableFrom(ValueExpression.ModelExplorer.ModelType))
+            {
+                value = ((BaseNamedEntity)ValueExpression.Model)?.Name;
+                name = ValueExpression.ModelExplorer.Metadata.PropertyName + ".Name";
+            }
+            else
+            {
+                value = ValueExpression.Model?.ToString();
+                name = null;
+            }
+
             var input = new EntitySearchTagHelper(Generator)
             {
                 Type = ViewHelpers.GetControllerFor(ValueExpression.ModelExplorer.ModelType),
                 Class = Class,
                 Style = Style,
                 Value = value,
+                Name = name,
                 ViewContext = ViewContext
             };
             if (CurrentOnly)
-                input.Year = ViewContext.ViewBag.SelectedContestYear;
+            {
+                input.FilterName = "year";
+                input.FilterValue = ViewContext.ViewBag.SelectedContestYear;
+            }
 
             TagHelperOutput inputOutput = CreateTagHelperOutput("search");
             input.Process(context, inputOutput);

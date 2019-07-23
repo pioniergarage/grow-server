@@ -55,6 +55,7 @@ namespace Grow.Server.Model.TagHelpers
 
             TagHelperOutput inputOutput = CreateTagHelperOutput("search");
             input.Process(context, inputOutput);
+            inputOutput.Attributes.Add("class", "form-group");
 
             return inputOutput;
         }

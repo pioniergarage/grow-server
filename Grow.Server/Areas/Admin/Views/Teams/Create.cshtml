@@ -33,12 +33,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="LogoImage" class="control-label"></label>
-                <imgselector asp-items="ViewBag.LogoImages" asp-for="LogoImageId" asp-prop="LogoImage" class="form-control" />
+                <upload asp-enable-search asp-for="LogoImageId" asp-prop="LogoImage" class="form-control" />
                 <span asp-validation-for="LogoImageId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TeamPhoto" class="control-label"></label>
-                <imgselector asp-items="ViewBag.TeamPhotos" asp-for="TeamPhotoId" asp-prop="TeamPhoto" class="form-control" />
+                <upload asp-enable-search asp-for="TeamPhotoId" asp-prop="TeamPhoto" class="form-control" />
                 <span asp-validation-for="TeamPhotoId" class="text-danger"></span>
             </div>
             <div class="form-group">

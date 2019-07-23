@@ -38,5 +38,7 @@ namespace Grow.Data.Entities
 
         [NotMapped]
         public virtual ICollection<string> Members { get; set; }
+        
+        public virtual ICollection<TeamResponse> EventResponses { get; set; }
     }
 }

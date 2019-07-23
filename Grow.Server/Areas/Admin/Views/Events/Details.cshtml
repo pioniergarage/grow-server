@@ -1,4 +1,5 @@
-﻿@model Grow.Data.Entities.Event
+﻿@using Grow.Data.Entities
+@model Grow.Data.Entities.Event
 
 @{
     ViewData["Title"] = "Details";
@@ -65,22 +66,28 @@
             @Html.DisplayFor(model => model.Type)
         </dd>
         <dt>
-            Registration Type
+            @Html.DisplayNameFor(model => model.CanVisitorsRegister)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RegistrationOptions.Type)
+            @Html.DisplayFor(model => model.CanVisitorsRegister)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CanTeamsRegister)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CanTeamsRegister)
         </dd>
         <dt>
             Registration From
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RegistrationOptions.From)
+            @Html.DisplayFor(model => model.TeamRegistrationOptions.From)
         </dd>
         <dt>
             Registration Until
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RegistrationOptions.Until)
+            @Html.DisplayFor(model => model.TeamRegistrationOptions.Until)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.HasTimesSet)
@@ -121,7 +128,20 @@
         <dd>
             @foreach (var response in Model.Responses.OrderBy(e => e.Created))
             {
-                <div>@response.Name &lt;@response.Email&gt; - @response.ParticipantCount</div>
+                string name;
+                switch (response)
+                {
+                    case TeamResponse tr:
+                        name = tr.Team?.Name ?? "Team " + tr.Id;
+                        break;
+                    case VisitorResponse vr:
+                        name = vr.Name;
+                        break;
+                    default:
+                        name = string.Empty;
+                        break;
+                }
+                <div>@name - @response.ParticipantCount</div>
             }
         </dd>
     </dl>

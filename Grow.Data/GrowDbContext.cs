@@ -45,6 +45,9 @@ namespace Grow.Data
 
             builder.Entity<Contest>()
                 .HasIndex(c => c.Year);
+
+            builder.Entity<VisitorResponse>();
+            builder.Entity<TeamResponse>();
         }
 
         public override int SaveChanges()

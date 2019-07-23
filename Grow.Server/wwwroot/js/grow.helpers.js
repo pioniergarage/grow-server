@@ -4,7 +4,7 @@
  * @param {string} name Name of the query parameter
  * @returns {string} Value of the query parameter or false if it doesnt exist
  */
-$.prototype.getUrlParameter = function (name) {
+$.getUrlParameter = function (name) {
     var results = new RegExp('[\?&]' + name + '=([^&#]*)')
         .exec(window.location.search);
 
@@ -18,7 +18,7 @@ $.prototype.getUrlParameter = function (name) {
  * @param {any} string2 Second value
  * @returns {bool} Two if both values are equal when parsed to string and compared case-insensitively
  */
-$.prototype.stringCompareInsensitive = function (string1, string2) {
+$.stringCompareInsensitive = function (string1, string2) {
     if (string1 === string2)
         return true;
 
@@ -35,7 +35,7 @@ $.prototype.stringCompareInsensitive = function (string1, string2) {
  * @param {string} url The url that should be changed (leave empty to use current url) 
  * @returns {string} The adapted url with a changed parameter
  */
-$.prototype.updateUrlParameter = function(param, paramVal, url = window.location.href) {
+$.updateUrlParameter = function (param, paramVal, url = window.location.href) {
     var newAdditionalUrl = "";
     var tempArray = url.split("?");
     var baseUrl = tempArray[0];
@@ -58,4 +58,4 @@ $.prototype.updateUrlParameter = function(param, paramVal, url = window.location
         return baseUrl + "?" + newAdditionalUrl;
     }
     return baseUrl;
-}
+};

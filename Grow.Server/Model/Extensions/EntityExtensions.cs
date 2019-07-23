@@ -8,7 +8,7 @@ namespace Grow.Server.Model.Extensions
 {
     public static class EntityExtensions
     {
-        public static bool IsInRange(this RegistrationOptions options,DateTime date)
+        public static bool IsInRange(this TeamRegistrationOptions options,DateTime date)
         {
             var from = options.From ?? DateTime.MinValue;
             var until = options.Until ?? DateTime.MaxValue;
@@ -20,8 +20,8 @@ namespace Grow.Server.Model.Extensions
             if (evnt == null)
                 throw new ArgumentNullException(nameof(evnt));
 
-            var canRegisterInGeneral = evnt.RegistrationOptions.Type != Event.RegistrationType.None;
-            var isInRegistrationRange = evnt.RegistrationOptions.IsInRange(DateTime.UtcNow);
+            var canRegisterInGeneral = evnt.CanVisitorsRegister;
+            var isInRegistrationRange = evnt.TeamRegistrationOptions.IsInRange(DateTime.UtcNow);
             var isInFuture = evnt.Start > DateTime.UtcNow;
             var onlyForLoggedInUsers = evnt.Visibility != Event.EventVisibility.Public;
 

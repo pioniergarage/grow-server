@@ -66,22 +66,28 @@
             @Html.DisplayFor(model => model.Type)
         </dd>
         <dt>
-            Registration Type
+            @Html.DisplayNameFor(model => model.CanVisitorsRegister)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RegistrationOptions.Type)
+            @Html.DisplayFor(model => model.CanVisitorsRegister)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CanTeamsRegister)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CanTeamsRegister)
         </dd>
         <dt>
             Registration From
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RegistrationOptions.From)
+            @Html.DisplayFor(model => model.TeamRegistrationOptions.From)
         </dd>
         <dt>
             Registration Until
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RegistrationOptions.Until)
+            @Html.DisplayFor(model => model.TeamRegistrationOptions.Until)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.HasTimesSet)

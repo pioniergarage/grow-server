@@ -24,7 +24,6 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
             ViewBag.Visibilities = ViewHelpers.SelectListFromEnum<Event.EventVisibility>();
             ViewBag.Types = ViewHelpers.SelectListFromEnum<Event.EventType>();
-            ViewBag.RegistrationTypes = ViewHelpers.SelectListFromEnum<Event.RegistrationType>();
         }
 
         protected override Expression<Func<Contest, ICollection<Event>>> EntitiesInContestExpression()

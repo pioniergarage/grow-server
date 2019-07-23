@@ -23,5 +23,7 @@ namespace Grow.Data.Entities
         public virtual ICollection<Team> Teams { get; set; }
 
         public virtual ICollection<Prize> Prizes { get; set; }
+
+        public virtual ICollection<CommonQuestion> CommonQuestions { get; set; }
     }
 }

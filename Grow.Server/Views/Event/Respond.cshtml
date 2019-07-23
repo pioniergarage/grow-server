@@ -2,7 +2,7 @@
     ViewData["Title"] = "Event Response";
 }
 
-@model Grow.Data.Entities.EventResponse
+@model Grow.Data.Entities.VisitorResponse
 
 <article id="main">
 
@@ -41,12 +41,6 @@
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" readonly="@disabledString" />
                     <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <br />
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" readonly="@disabledString" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <br />
                 <div class="form-group">

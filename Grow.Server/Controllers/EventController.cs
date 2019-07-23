@@ -42,7 +42,7 @@ namespace Grow.Server.Controllers
                 return Unauthorized();
 
             // Default values
-            var model = new EventResponse()
+            var model = new VisitorResponse()
             {
                 Event = evnt,
                 EventId = evnt.Id,
@@ -54,7 +54,6 @@ namespace Grow.Server.Controllers
             {
                 var user = await GetCurrentUserAsync().ConfigureAwait(false);
                 model.Name = user.UserName;
-                model.Email = user.Email;
             }
 
             ViewBag.IsLoggedIn = User.Identity.IsAuthenticated;
@@ -63,7 +62,7 @@ namespace Grow.Server.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Respond(EventResponse response)
+        public async Task<IActionResult> Respond(VisitorResponse response)
         {
             var evnt = DbContext.Events.Find(response.EventId);
             if (evnt == null)
@@ -83,7 +82,6 @@ namespace Grow.Server.Controllers
             {
                 var user = await GetCurrentUserAsync().ConfigureAwait(false);
                 response.Name = user.UserName;
-                response.Email = user.Email;
             }
 
             // Set other values

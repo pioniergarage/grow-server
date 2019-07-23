@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Grow.Data.Entities
 {
@@ -31,9 +32,13 @@ namespace Grow.Data.Entities
 
         public bool IsMandatory { get; set; }
 
+        public bool CanVisitorsRegister { get; set; }
+
+        public bool CanTeamsRegister { get; set; }
+
         /* Navigation Properties */
 
-        public RegistrationOptions RegistrationOptions { get; set; }
+        public TeamRegistrationOptions TeamRegistrationOptions { get; set; }
 
         [FileCategory(FileCategory.Events)]
         public virtual File Image { get; set; }
@@ -63,22 +68,24 @@ namespace Grow.Data.Entities
             Workshop,
             Mentoring
         }
-
-        public enum RegistrationType
-        {
-            None,
-            Optional,
-            Mandatory
-        }
     }
 
     [Owned]
-    public class RegistrationOptions
+    public class TeamRegistrationOptions
     {
-        public Event.RegistrationType Type { get; set; }
-
         public DateTime? From { get; set; }
 
         public DateTime? Until { get; set; }
+
+        public bool AcceptFileUploads { get; set; }
+
+        public string AllowedFileExtensionsString { get; set; }
+
+        [NotMapped]
+        public ICollection<string> AllowedFileExtensions
+        {
+            get => AllowedFileExtensionsString?.Split(',', StringSplitOptions.RemoveEmptyEntries) ?? new string[0];
+            set => AllowedFileExtensionsString = string.Join(',', value ?? new string[0]);
+        }
     }
 }

@@ -146,6 +146,18 @@
                             <input asp-for="TeamRegistrationOptions.Until" type="date" class="form-control" />
                             <span asp-validation-for="TeamRegistrationOptions.Until" class="text-danger"></span>
                         </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="TeamRegistrationOptions.AcceptFileUploads" /> @Html.DisplayNameFor(model => model.TeamRegistrationOptions.AcceptFileUploads)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TeamRegistrationOptions.AllowedFileExtensionsString" class="control-label">Allowed File Extensions</label>
+                            <input asp-for="TeamRegistrationOptions.AllowedFileExtensionsString" class="form-control" />
+                            <span asp-validation-for="TeamRegistrationOptions.AllowedFileExtensionsString" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="checkbox">

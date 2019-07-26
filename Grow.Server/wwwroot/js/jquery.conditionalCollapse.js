@@ -21,7 +21,11 @@ $.fn.conditionalCollapse = function () {
 
         // add conditional handler to collapse/extend
         deciderElement.on("change", event => {
-            if (($(event.target).val() === comparisonValue) === comparisonShouldBe) {
+            var inputValue = $(event.target).is(":checkbox")
+                ? ($(event.target).is(":checked") ? "true" : "false")
+                : $(event.target).val();
+
+            if ((inputValue === comparisonValue) === comparisonShouldBe) {
                 $(element).collapse('show');
             } else {
                 $(element).collapse('hide');
@@ -29,7 +33,10 @@ $.fn.conditionalCollapse = function () {
         });
 
         // start out collapsed?
-        if ((deciderElement.val() === comparisonValue) !== comparisonShouldBe) {
+        var inputValue = $(element).is(":checkbox")
+            ? ($(element).is(":checked") ? "true" : "false")
+            : $(element).val();
+        if ((inputValue === comparisonValue) !== comparisonShouldBe) {
             $(element).addClass("collapse");
         }
     });

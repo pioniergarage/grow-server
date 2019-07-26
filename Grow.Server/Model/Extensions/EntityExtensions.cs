@@ -15,20 +15,46 @@ namespace Grow.Server.Model.Extensions
             return date >= from && date <= until;
         }
 
-        public static bool CanUserRegisterNow(this Event evnt, bool isLoggedIn)
+        public static bool CanVisitorRespondNow(this Event evnt)
         {
             if (evnt == null)
                 throw new ArgumentNullException(nameof(evnt));
 
-            var canRegisterInGeneral = evnt.CanVisitorsRegister;
-            var isInRegistrationRange = evnt.TeamRegistrationOptions.IsInRange(DateTime.UtcNow);
-            var isInFuture = evnt.Start > DateTime.UtcNow;
-            var onlyForLoggedInUsers = evnt.Visibility != Event.EventVisibility.Public;
+            if (!evnt.CanVisitorsRegister)
+                return false;
 
-            // TODO: check that logged in user is part of team
-            // TODO: check that team is still active if EventVisibility.ActiveTeams
+            if (evnt.Start <= DateTime.UtcNow)
+                return false;
 
-            return canRegisterInGeneral && isInRegistrationRange && isInFuture && (!onlyForLoggedInUsers || isLoggedIn);
+            if (evnt.Visibility != Event.EventVisibility.Public)
+                return false;
+
+            return true;
+        }
+
+        public static bool CanTeamRespondNow(this Event evnt, Team team)
+        {
+            if (evnt == null)
+                throw new ArgumentNullException(nameof(evnt));
+            if (team == null)
+                throw new ArgumentNullException(nameof(team));
+
+            if (!evnt.CanTeamsRegister)
+                return false;
+
+            if (evnt.Start <= DateTime.UtcNow)
+                return false;
+
+            if (!evnt.TeamRegistrationOptions.IsInRange(DateTime.Now))
+                return false;
+
+            if (evnt.ContestId != team.ContestId)
+                return false;
+
+            if (evnt.Visibility == Event.EventVisibility.ForActiveTeams && team.HasDroppedOut)
+                return false;
+
+            return true;
         }
     }
 }

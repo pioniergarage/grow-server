@@ -20,6 +20,29 @@ namespace Grow.Server.Model.Helpers
         }
 
         /// <summary>
+        /// Data cleaner method that removes all navigation properties to BaseEntity entities. 
+        /// 
+        /// The goal is to avoid updating data of navigation properties.
+        /// </summary>
+        /// <typeparam name="T">Type of the entity that will be cleaned</typeparam>
+        /// <param name="entity">The entity that should be cleaned</param>
+        public static void RemoveAllNavigationProperties<T>(T entity) where T : BaseEntity
+        {
+            var partialNavProperties =
+                from navProp in typeof(T).GetProperties()
+                where navProp.GetMethod.IsVirtual
+                    && typeof(BaseEntity).IsAssignableFrom(navProp.PropertyType)
+                    && navProp.GetValue(entity) is BaseEntity
+                select navProp;
+
+            // Clear nav property
+            foreach (var propertyToBeCleared in partialNavProperties)
+            {
+                propertyToBeCleared.SetValue(entity, null);
+            }
+        }
+
+        /// <summary>
         /// Data cleaner method that removes all navigation properties to BaseEntity entities where only partial data is contained. 
         /// 
         /// The goal is to avoid data loss due to partial data.

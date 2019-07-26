@@ -30,16 +30,11 @@
         <hr />
 
         <div style="display: inline-block">
-            <form asp-action="Respond">
+            <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                @{
-                    var disabledString = ViewBag.IsLoggedIn
-                        ? "readonly"
-                        : "";
-                }
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" readonly="@disabledString" />
+                    <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <br />

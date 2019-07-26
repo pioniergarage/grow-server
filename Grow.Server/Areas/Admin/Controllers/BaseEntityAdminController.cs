@@ -138,9 +138,10 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            RemoveNavigationPropertiesFromModelState();
             if (ModelState.IsValid)
             {
-                ViewHelpers.RemovePartialNavigationProperties(entity);
+                ViewHelpers.RemoveAllNavigationProperties(entity);
                 try
                 {
                     DbContext.Update(entity);
@@ -224,6 +225,19 @@ namespace Grow.Server.Areas.Admin.Controllers
         protected bool EntityExists(int id)
         {
             return SelectedEntities.Any(e => e.Id == id);
+        }
+
+        private void RemoveNavigationPropertiesFromModelState()
+        {
+            var navProperties = typeof(T)
+                .GetProperties()
+                .Where(p => p.GetMethod.IsVirtual && typeof(BaseEntity).IsAssignableFrom(p.PropertyType));
+            foreach (var property in navProperties)
+            {
+                var navKeys = ModelState.Keys.Where(k => k.StartsWith(property.Name + "."));
+                foreach (var key in navKeys)
+                    ModelState.Remove(key);
+            }
         }
 
         /// <summary>

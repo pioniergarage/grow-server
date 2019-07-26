@@ -36,6 +36,12 @@
             @Html.DisplayFor(model => model.End)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.HasTimesSet)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HasTimesSet)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.ExternalEventUrl)
         </dt>
         <dd>
@@ -90,10 +96,16 @@
             @Html.DisplayFor(model => model.TeamRegistrationOptions.Until)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HasTimesSet)
+            File Uploads allowed for Registration
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.HasTimesSet)
+            @Html.DisplayFor(model => model.TeamRegistrationOptions.AcceptFileUploads)
+        </dd>
+        <dt>
+            Allowed File Extensions for Registration
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TeamRegistrationOptions.AllowedFileExtensionsString)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.IsMandatory)

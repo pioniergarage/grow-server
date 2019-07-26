@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Grow.Data.Entities.Event>
+﻿@using Grow.Data.Entities
+@model IEnumerable<Grow.Data.Entities.Event>
 
 @{
     ViewData["Title"] = "Events | " + ViewBag.SelectedContestYear;
@@ -59,7 +60,8 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @item.Responses.Sum(r => r.ParticipantCount)
+                Teams: @item.Responses.Count(r => r is TeamResponse)<br />
+                Visitors: @item.Responses.Where(r => !(r is TeamResponse)).Sum(r => r.ParticipantCount)
             </td>
             <partial name="Partials/_OptionCell" model="item" />
         </tr>

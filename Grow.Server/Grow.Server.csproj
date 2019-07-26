@@ -88,6 +88,9 @@
     <Content Update="Views\Account\_ViewStart.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Event\Closed.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\Program.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

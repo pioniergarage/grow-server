@@ -28,18 +28,17 @@ namespace Grow.Server.Controllers
             var evnt = DbContext.Events.Find(id);
             if (evnt == null)
                 return NotFound();
-
-            ViewBag.IsLoggedIn = User.Identity.IsAuthenticated;
+            
             return View(evnt);
         }
 
-        public async Task<IActionResult> Respond(int id)
+        public IActionResult Respond(int id)
         {
             var evnt = DbContext.Events.Find(id);
             if (evnt == null)
                 return NotFound();
-            if (!CheckEventVisibility(evnt))
-                return Unauthorized();
+            if (!evnt.CanVisitorRespondNow())
+                return View("Closed", evnt);
 
             // Default values
             var model = new VisitorResponse()
@@ -49,39 +48,24 @@ namespace Grow.Server.Controllers
                 ParticipantCount = 1
             };
 
-            // Logged in => Prefill name and email
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = await GetCurrentUserAsync().ConfigureAwait(false);
-                model.Name = user.UserName;
-            }
-
-            ViewBag.IsLoggedIn = User.Identity.IsAuthenticated;
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Respond(VisitorResponse response)
+        public IActionResult Respond(int id, VisitorResponse response)
         {
-            var evnt = DbContext.Events.Find(response.EventId);
+            var evnt = DbContext.Events.Find(id);
             if (evnt == null)
                 return NotFound();
-            if (!CheckEventVisibility(evnt))
+            if (!evnt.CanVisitorRespondNow())
                 return Unauthorized();
 
             if (!ModelState.IsValid)
             {
+                response.EventId = evnt.Id;
                 response.Event = evnt;
-                ViewBag.IsLoggedIn = User.Identity.IsAuthenticated;
                 return View(response);
-            }
-
-            // Logged in => auto-set name and email
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = await GetCurrentUserAsync().ConfigureAwait(false);
-                response.Name = user.UserName;
             }
 
             // Set other values
@@ -92,19 +76,6 @@ namespace Grow.Server.Controllers
             DbContext.Add(response);
             DbContext.SaveChanges();
             return View("ResponseConfirmation");
-        }
-
-        private Task<Account> GetCurrentUserAsync()
-        {
-            return UserManager.GetUserAsync(User);
-        }
-
-        private bool CheckEventVisibility(Event evnt)
-        {
-            if (evnt == null)
-                return false;
-
-            return evnt.CanUserRegisterNow(User.Identity.IsAuthenticated);
         }
     }
 }

@@ -23,6 +23,17 @@
   },
   {
     "inputFiles": [
+      "wwwroot/js/jquery.dropotron.edited.min.js",
+      "wwwroot/js/jquery.scrolly.js",
+      "wwwroot/js/jquery.scrollgress.js",
+      "wwwroot/js/skel.min.js",
+      "wwwroot/js/util.js",
+      "wwwroot/js/main.js"
+    ],
+    "outputFileName": "wwwroot/js/main.min.js"
+  },
+  {
+    "inputFiles": [
       "wwwroot/plugins/paper-dashboard/css/paper-dashboard.css"
     ],
     "outputFileName": "wwwroot/plugins/paper-dashboard/css/paper-dashboard.min.css"

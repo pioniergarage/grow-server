@@ -13,15 +13,18 @@
         </h2>
     </header>
 
-    <section class="wrapper style4 container">
+    <section class="wrapper style4 container" style="text-align: center">
         <div class="content">
             <section>
                 <header>
                     <h2>@Model.ErrorMessage</h2>
                 </header>
-                <div>
+                <p>
                     @Model.ErrorDetails
-                </div>
+                </p>
+                <footer>
+                    <a href="javascript:window.history.back()" class="btn btn-default">Go back</a>
+                </footer>
             </section>
         </div>
     </section>

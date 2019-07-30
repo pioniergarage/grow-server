@@ -32,22 +32,17 @@ namespace Grow.Server.Controllers
             };
             return View(model);
         }
-
-        [Route("/Error")]
-        public IActionResult Error(string ErrorMessage = null, string ErrorDetails = null)
-        {
-            var model = new ErrorViewModel()
-            {
-                ErrorMessage = ErrorMessage ?? "Unknown Server Error",
-                ErrorDetails = ErrorDetails ?? string.Empty
-            };
-            return View(model);
-        }
-
+        
         [Route("/Error")]
         public IActionResult Error(ErrorViewModel model)
         {
             return View(model);
+        }
+
+        [Route("/ErrorCode")]
+        public IActionResult ErrorCode(string code)
+        {
+            return View("Error", ErrorViewModel.FromStatusCode(code));
         }
 
         public IActionResult Teams()

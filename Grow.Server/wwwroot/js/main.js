@@ -153,7 +153,8 @@
                 updateClock();
                 var timeinterval = setInterval(updateClock, 1000);
             }
-            
+
+        if (typeof contestStart !== 'undefined')
             initializeClock('clockdiv', contestStart);
 	});
 

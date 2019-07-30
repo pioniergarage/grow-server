@@ -53,10 +53,11 @@ namespace Grow.Server
 
             // DB setup
             app.UpdateGrowDatabase();
-
+            
             // Setup MVC pipeline
             app.UseLoggingExceptionHandler();
             app.UseExceptionHandler("/Error");
+            app.UseStatusCodePagesWithRedirects("/ErrorCode?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseGrowAuthentication();

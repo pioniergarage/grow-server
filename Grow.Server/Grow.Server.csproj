@@ -94,6 +94,9 @@
     <Content Update="Views\Event\Closed.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Home\Newsletter.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\Program.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

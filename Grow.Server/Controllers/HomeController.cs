@@ -45,6 +45,11 @@ namespace Grow.Server.Controllers
             return View("Error", ErrorViewModel.FromStatusCode(code));
         }
 
+        public IActionResult Newsletter()
+        {
+            return View();
+        }
+
         public IActionResult Teams()
         {
             var teams = TeamsInSelectedYear

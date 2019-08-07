@@ -24,8 +24,8 @@
   {
     "inputFiles": [
       "wwwroot/js/jquery.dropotron.edited.min.js",
-      "wwwroot/js/jquery.scrolly.js",
-      "wwwroot/js/jquery.scrollgress.js",
+      "wwwroot/js/jquery.scrolly.min.js",
+      "wwwroot/js/jquery.scrollgress.min.js",
       "wwwroot/js/skel.min.js",
       "wwwroot/js/util.js",
       "wwwroot/js/main.js"

@@ -1014,24 +1014,39 @@ input[type="reset"],
 
 /* CTA */
 
-	#cta {
-		background-attachment: scroll, scroll, scroll, fixed;
-		background-color: _palette(three, bg);
-		background-image: url('/css/images/light-tl.svg'), 
-            url('/css/images/light-tr.svg'), 
-            url('/css/images/overlay.png'), 
-            url('/css/images/background_2.jpg');
-		background-position: top left, top right, top left, bottom center;
-		background-repeat: no-repeat, no-repeat, repeat, no-repeat;
-		background-size: $pattern-background-size, $pattern-background-size, auto, cover;
-		color: _palette(three, fg);
-		padding: 5em;
-		text-align: center;
+#cta {
+    background-attachment: scroll, scroll, scroll, fixed;
+    background-color: _palette(three, bg);
+    background-image: url('/css/images/light-tl.svg'), url('/css/images/light-tr.svg'), url('/css/images/overlay.png'), url('/css/images/background_2.jpg');
+    background-position: top left, top right, top left, bottom center;
+    background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+    background-size: $pattern-background-size, $pattern-background-size, auto, cover;
+    color: _palette(three, fg);
+    padding: 5em;
+    text-align: center;
 
-		header {
-			margin-bottom: 2em;
-		}
-	}
+    header {
+        margin-bottom: 2em;
+    }
+}
+
+/* Newsletter */
+
+#newsletter {
+    background-attachment: scroll, scroll, scroll, fixed;
+    background-color: _palette(three, bg);
+    background-image: url('/css/images/light-tl.svg'), url('/css/images/light-tr.svg'), url('/css/images/overlay.png'), url('/css/images/background_2.jpg');
+    background-position: top left, top right, top left, bottom center;
+    background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+    background-size: $pattern-background-size, $pattern-background-size, auto, cover;
+    color: _palette(three, fg);
+    padding: 5em;
+    text-align: center;
+
+    header {
+        margin-bottom: 2em;
+    }
+}
 
 /* Partners */
 

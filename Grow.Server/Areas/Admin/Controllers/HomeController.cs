@@ -30,7 +30,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             var contest = query.Single();
 
             ViewBag.SelectedContestYear = contest.Year;
-            ViewBag.LatestContestYear = DbContext.Contests.OrderByDescending(c => c.Year).First().Year;
+            ViewBag.LatestContestYear = DbContext.Contests.AsNoTracking().OrderByDescending(c => c.Year).First().Year;
 
             return View(contest);
         }

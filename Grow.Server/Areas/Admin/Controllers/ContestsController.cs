@@ -7,6 +7,7 @@ using Grow.Data.Entities;
 using Microsoft.Extensions.Options;
 using Grow.Data;
 using Grow.Server.Model.Helpers;
+using System;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
@@ -85,7 +86,10 @@ namespace Grow.Server.Areas.Admin.Controllers
             {
                 try
                 {
-                    DbContext.Update(contest);
+                    var oldContest = DbContext.Contests.Find(id);
+                    DbContext.Entry(oldContest).State = EntityState.Detached;
+                    DbContext.Attach(contest);
+                    DbContext.Entry(contest).State = EntityState.Modified;
                     await DbContext.SaveChangesAsync().ConfigureAwait(false);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -98,6 +102,11 @@ namespace Grow.Server.Areas.Admin.Controllers
                     {
                         throw;
                     }
+                }
+                catch (Exception e)
+                {
+                    Logger.LogError(e);
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }

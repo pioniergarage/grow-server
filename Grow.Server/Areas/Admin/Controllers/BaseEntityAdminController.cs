@@ -84,8 +84,11 @@ namespace Grow.Server.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public virtual async Task<IActionResult> Create(T entity)
         {
+            RemoveNavigationPropertiesFromModelState();
             if (ModelState.IsValid)
             {
+                ViewHelpers.RemoveAllNavigationProperties(entity);
+
                 // Add entity to entity list in contest
                 var contest = SelectedContest.Include(EntitiesInContestExpression()).Single();
                 var entityList = EntitiesInContestExpression().Compile()(contest);

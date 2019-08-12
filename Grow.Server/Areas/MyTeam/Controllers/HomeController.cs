@@ -6,15 +6,15 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Grow.Data;
 using Grow.Data.Entities;
-using Grow.Server.Areas.Team.Model;
-using Grow.Server.Areas.Team.Model.ViewModels;
+using Grow.Server.Areas.MyTeam.Model;
+using Grow.Server.Areas.MyTeam.Model.ViewModels;
 using Grow.Server.Model;
 using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace Grow.Server.Areas.Team.Controllers
+namespace Grow.Server.Areas.MyTeam.Controllers
 {
     public class HomeController : BaseTeamController
     {
@@ -23,7 +23,7 @@ namespace Grow.Server.Areas.Team.Controllers
         public HomeController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger) 
             : base(dbContext, appSettings, logger)
         {
-            var storage = new StorageConnector(appSettings.Value, logger);
+            var storage = new Lazy<StorageConnector>(() => new StorageConnector(appSettings.Value, logger));
             _mapper = new TeamVmMapper(DbContext, storage);
         }
 
@@ -38,9 +38,20 @@ namespace Grow.Server.Areas.Team.Controllers
             return View(vm);
         }
 
+        public IActionResult Profile()
+        {
+            var team = MyTeamQuery
+                .Include(t => t.Contest)
+                .Single();
+            var vm = _mapper.TeamToViewModel(team);
+
+            FillViewBag();
+            return View(vm);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(TeamViewModel vm)
+        public IActionResult Profile(TeamViewModel vm)
         {
             if (!ModelState.IsValid)
             {

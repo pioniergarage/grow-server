@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 
 namespace Grow.Server.Areas.Admin.Controllers
 {
-    public class TeamsController : BaseEntityAdminController<Data.Entities.Team>
+    public class TeamsController : BaseEntityAdminController<Team>
     {
         public TeamsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
             : base(dbContext, appSettings, logger)
@@ -24,12 +24,12 @@ namespace Grow.Server.Areas.Admin.Controllers
         {
         }
 
-        protected override Expression<Func<Contest, ICollection<Data.Entities.Team>>> EntitiesInContestExpression()
+        protected override Expression<Func<Contest, ICollection<Team>>> EntitiesInContestExpression()
         {
             return c => c.Teams;
         }
 
-        protected override IQueryable<Data.Entities.Team> IncludeNavigationProperties(IQueryable<Data.Entities.Team> query)
+        protected override IQueryable<Team> IncludeNavigationProperties(IQueryable<Team> query)
         {
             return query
                 .Include(t => t.Contest)

@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace Grow.Server.Areas.Team.Controllers
+namespace Grow.Server.Areas.MyTeam.Controllers
 {
-    [Area("Team")]
+    [Area("MyTeam")]
     [Authorize(Policy = Constants.TEAM_CLAIM_POLICY_NAME)]
     public abstract class BaseTeamController : BaseBackendController
     {

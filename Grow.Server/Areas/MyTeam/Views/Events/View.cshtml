@@ -1,5 +1,5 @@
-﻿@using Grow.Server.Model.ViewModels
-@model Grow.Data.Entities.Event
+﻿@using Grow.Server.Areas.MyTeam.Model.ViewModels
+@model TeamEventViewModel
 
 @{
     ViewData["Title"] = Model.Name;
@@ -18,9 +18,9 @@
             <a href="javascript:window.history.back()">&lt;- Back</a>
         </div>
 
-        <partial name="Partials/_EventDetailsPartial" model="new EventViewModel(Model)" />
+        <partial name="Partials/_EventDetailsPartial" model="Model" />
 
-        @if (Model.CanVisitorRespondNow())
+        @if (Model.CanTeamRespondNow)
         {
             <div style="text-align: center; margin: 40px;">
                 @Html.ActionLink("Are you coming?", "Respond", "Event", new { id = Model.Id }, new { @class = "button btn btn-default" })

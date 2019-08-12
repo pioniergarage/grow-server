@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Grow.Server.Areas.Team.Model.ViewModels
+namespace Grow.Server.Areas.MyTeam.Model.ViewModels
 {
     public class TeamViewModel
     {

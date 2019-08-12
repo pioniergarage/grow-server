@@ -2,13 +2,13 @@
     ViewData["Title"] = "Event Response";
 }
 
-@model Grow.Data.Entities.VisitorResponse
+@model Grow.Server.Areas.MyTeam.Model.ViewModels.TeamResponseViewModel
 
 <article id="main">
 
     <header class="special container">
         <span class="icon fa-calendar-o"></span>
-        <h2>Respond as visitor</h2>
+        <h2>Respond for your team</h2>
     </header>
 
     <section class="wrapper style4 container" style="text-align: center">
@@ -33,22 +33,36 @@
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Name" class="control-label">What's your Name?</label>
-                    <input asp-for="Name" class="form-control" style="text-align: center" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <label asp-for="TeamName" class="control-label"></label>
+                    <input asp-for="TeamName" readonly="readonly" class="form-control" style="text-align: center" />
                 </div>
                 <br />
                 <div class="form-group">
-                    <label asp-for="ParticipantCount" class="control-label">How many are coming? (you included)</label>
+                    <label asp-for="ParticipantCount" class="control-label">How many are coming?</label>
                     <input asp-for="ParticipantCount" type="text" class="form-control" style="text-align: center" />
                     <span asp-validation-for="ParticipantCount" class="text-danger"></span>
                 </div>
                 <br />
+                @if (Model.Event?.TeamRegistrationOptions.AcceptFileUploads == true)
+                {
+                    <div class="form-group">
+                        <label asp-for="File" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="File" type="file" class="form-control custom-file-input" />
+                            <label class="custom-file-label">Choose file</label>
+                        </div>
+                        <span asp-validation-for="File" class="text-danger"></span>
+                        <p class="small">
+                            Allowed file types: @Model.Event.TeamRegistrationOptions.AllowedFileExtensionsString
+                        </p>
+                    </div>
+                    <br />
+                }
                 <input type="hidden" asp-for="EventId" />
                 <br />
                 <div class="form-group">
-                    <input type="submit" value="I can't come" class="btn btn-default" onclick="$('#ParticipantCount').val(0); return true;" style="color: white; background-color: rgba(0,0,0,0.2)" />
-                    <input type="submit" value="I'll come" class="btn btn-fill" />
+                    <input type="submit" value="We can't come" class="btn btn-default" onclick="$('#ParticipantCount').val(0); return true;" style="color: white; background-color: rgba(0,0,0,0.2)" />
+                    <input type="submit" value="We'll come" class="btn btn-fill" />
                 </div>
             </form>
         </div>

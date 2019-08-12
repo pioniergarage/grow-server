@@ -1,6 +1,6 @@
 ﻿using Grow.Data;
 using Grow.Data.Entities;
-using Grow.Server.Areas.Team.Model.ViewModels;
+using Grow.Server.Areas.MyTeam.Model.ViewModels;
 using Grow.Server.Model;
 using Grow.Server.Model.Helpers;
 using Microsoft.EntityFrameworkCore;
@@ -9,20 +9,20 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Grow.Server.Areas.Team.Model
+namespace Grow.Server.Areas.MyTeam.Model
 {
     public class TeamVmMapper
     {
         private readonly GrowDbContext _dbContext;
-        private readonly StorageConnector _storage;
+        private readonly Lazy<StorageConnector> _storage;
 
-        public TeamVmMapper(GrowDbContext dbContext, StorageConnector storage)
+        public TeamVmMapper(GrowDbContext dbContext, Lazy<StorageConnector> storage)
         {
             _dbContext = dbContext;
             _storage = storage;
         }
 
-        public void UpdateTeam(Data.Entities.Team oldTeam, TeamViewModel newViewModel)
+        public void UpdateTeam(Team oldTeam, TeamViewModel newViewModel)
         {
             if (oldTeam.Id != newViewModel.Id)
             {
@@ -45,7 +45,7 @@ namespace Grow.Server.Areas.Team.Model
             _dbContext.SaveChanges();
         }
 
-        private void UpdateTeamPhoto(Data.Entities.Team oldTeam, TeamViewModel newViewModel)
+        private void UpdateTeamPhoto(Team oldTeam, TeamViewModel newViewModel)
         {
             if (newViewModel.NewTeamPhoto == null)
                 return;
@@ -58,8 +58,8 @@ namespace Grow.Server.Areas.Team.Model
 
                 if (oldFile == null)
                 {
-                    var category = ViewHelpers.GetFileCategoryForProperty<Data.Entities.Team>(t => t.TeamPhoto);
-                    oldTeam.TeamPhoto = _storage.Create(
+                    var category = ViewHelpers.GetFileCategoryForProperty<Team>(t => t.TeamPhoto);
+                    oldTeam.TeamPhoto = _storage.Value.Create(
                         category,
                         fileName,
                         stream
@@ -67,7 +67,7 @@ namespace Grow.Server.Areas.Team.Model
                 }
                 else
                 {
-                    oldTeam.TeamPhoto = _storage.Replace(
+                    oldTeam.TeamPhoto = _storage.Value.Replace(
                         oldFile,
                         fileName,
                         stream
@@ -77,7 +77,7 @@ namespace Grow.Server.Areas.Team.Model
             }
         }
 
-        private void UpdateLogoImage(Data.Entities.Team oldTeam, TeamViewModel newViewModel)
+        private void UpdateLogoImage(Team oldTeam, TeamViewModel newViewModel)
         {
             if (newViewModel.NewLogoImage == null)
                 return;
@@ -90,8 +90,8 @@ namespace Grow.Server.Areas.Team.Model
 
                 if (oldFile == null)
                 {
-                    var category = ViewHelpers.GetFileCategoryForProperty<Data.Entities.Team>(t => t.LogoImage);
-                    oldTeam.LogoImage = _storage.Create(
+                    var category = ViewHelpers.GetFileCategoryForProperty<Team>(t => t.LogoImage);
+                    oldTeam.LogoImage = _storage.Value.Create(
                         category,
                         fileName,
                         stream
@@ -99,7 +99,7 @@ namespace Grow.Server.Areas.Team.Model
                 }
                 else
                 {
-                    oldTeam.LogoImage = _storage.Replace(
+                    oldTeam.LogoImage = _storage.Value.Replace(
                         oldFile,
                         fileName,
                         stream
@@ -108,7 +108,7 @@ namespace Grow.Server.Areas.Team.Model
             }
         }
 
-        public TeamViewModel TeamToViewModel(Data.Entities.Team team, TeamViewModel entityToFill = null)
+        public TeamViewModel TeamToViewModel(Team team, TeamViewModel entityToFill = null)
         {
             var vm = entityToFill ?? new TeamViewModel();
             

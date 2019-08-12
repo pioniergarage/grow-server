@@ -92,7 +92,7 @@ namespace Grow.Server.Areas.Api.Controllers
     }
 
     [Authorize(Roles = Constants.ADMIN_ROLE_NAME)]
-    public class TeamsController : ApiController<Data.Entities.Team>
+    public class TeamsController : ApiController<Team>
     {
         public TeamsController(GrowDbContext context, ILogger logger) : base(context, logger) { }
     }

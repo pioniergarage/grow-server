@@ -109,7 +109,7 @@ $.fn.entitySearch = function (onElementChosen) {
 
 function createFillFormAction() {
     return (elem) => {
-        $("input, select").each((index, input) => {
+        $("input, select, textarea").each((index, input) => {
             // fill values on current form from selected entity
             var name = $(input).attr("name");
             if (!name) return;

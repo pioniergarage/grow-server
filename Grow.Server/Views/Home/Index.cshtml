@@ -239,19 +239,19 @@
             <header>
                 <h2>Made possible thanks to</h2>
             </header>
-            <div class="row logos">
+            <div class="logos">
                 @foreach (var partner in Model.Partners)
                 {
                     if (partner.Image != null)
                     {
-                        <div class="3u 6u(narrower)">
+                        <div>
                             <img src="@partner.Image.Url" />
                         </div>
                     }
                     else
                     {
-                        <div class="3u 6u(narrower)">
-                            <h3>@partner.Name</h3>
+                        <div>
+                            <strong style="font-size: 200%">@partner.Name</strong>
                         </div>
                     }
                 }

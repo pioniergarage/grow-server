@@ -27,7 +27,7 @@
     <Content Include="Styles\libs\_skel.scss" />
     <Content Include="Styles\libs\_vars.scss" />
     <Content Include="Styles\backend.scss" />
-    <Content Include="Styles\main.scss" />
+    <Content Include="Styles\frontend.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +37,7 @@
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
-    <None Include="wwwroot\js\main.min.js" />
+    <None Include="wwwroot\js\frontend.min.js" />
   </ItemGroup>
 
   <ItemGroup>

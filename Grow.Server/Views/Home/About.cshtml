@@ -16,6 +16,16 @@
         .image-block img {
             width: 100%;
         }
+
+        .header-image {
+            margin-bottom: -8px;
+            border-radius: 2px 2px 0 0;
+            overflow: hidden;
+        }
+
+        .header-image img {
+            width: 100%;
+        }
     </style>
 }
 
@@ -25,7 +35,7 @@
         <span class="icon fa-male"></span>
         <h2>GROW can only exist due to a strong <strong>Team</strong></h2>
     </header>
-
+    
     @if (Model.Any())
     {
         <section id="organizers" class="wrapper style4 container">
@@ -60,6 +70,9 @@
         </section>
     }
 
+    <section class="style4 container header-image">
+        <img src="/img/banners/pg_banner.jpg"/>
+    </section>
     <section id="pioniergarage" class="wrapper style4 container">
         <div class="content">
             <section style="text-align: center">
@@ -73,13 +86,20 @@
                 </p>
                 <ul class="icons">
                     <li><a href="https://pioniergarage.de/" target="_blank">Website</a></li>
+                    <li><a href="mailto:info@pioniergarage.de" target="_blank">Email</a></li>
                     <li><a href="https://www.facebook.com/Pioniergarage/" target="_blank">Facebook</a></li>
                     <li><a href="https://instagram.com/pioniergarage" target="_blank">Instagram</a></li>
                 </ul>
+                <p>
+                    <img src="/img/pg_logo.png" alt="PionierGarage Logo" style="max-width: 100%; max-width: 300px;" />
+                </p>
             </section>
         </div>
     </section>
-
+    
+    <section class="style4 container header-image">
+        <img src="/img/banners/lp_banner.jpg"/>
+    </section>
     <section id="pioniergarage" class="wrapper style4 container">
         <div class="content">
             <section style="text-align: center">
@@ -113,7 +133,10 @@
             </section>
         </div>
     </section>
-
+    
+    <section class="style4 container header-image">
+        <img src="/img/banners/grow_banner.jpg"/>
+    </section>
     <section id="contact" class="wrapper style4 container">
         <div class="content">
             <section style="text-align: center">

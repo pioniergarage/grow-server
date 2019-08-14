@@ -1,15 +1,15 @@
 [
   {
     "inputFiles": [
-      "wwwroot/css/main.css"
-    ],
-    "outputFileName": "wwwroot/css/main.min.css"
-  },
-  {
-    "inputFiles": [
       "wwwroot/css/backend.css"
     ],
     "outputFileName": "wwwroot/css/backend.min.css"
+  },
+  {
+    "inputFiles": [
+      "wwwroot/css/frontend.css"
+    ],
+    "outputFileName": "wwwroot/css/frontend.min.css"
   },
   {
     "inputFiles": [
@@ -28,9 +28,9 @@
       "wwwroot/js/jquery.scrollgress.min.js",
       "wwwroot/js/skel.min.js",
       "wwwroot/js/util.js",
-      "wwwroot/js/main.js"
+      "wwwroot/js/frontend.js"
     ],
-    "outputFileName": "wwwroot/js/main.min.js"
+    "outputFileName": "wwwroot/js/frontend.min.js"
   },
   {
     "inputFiles": [

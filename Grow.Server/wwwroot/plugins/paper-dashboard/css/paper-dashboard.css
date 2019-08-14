@@ -4337,16 +4337,16 @@ License - nucleoapp.com/license/
   .timeline > li > .timeline-panel {
     float: right !important;
     width: 82% !important; }
-  .timeline > li > .timeline-panel:before {
-    border-left-width: 0 !important;
-    border-right-width: 15px !important;
-    left: -15px !important;
-    right: auto !important; }
-  .timeline > li > .timeline-panel:after {
-    border-left-width: 0 !important;
-    border-right-width: 14px !important;
-    left: -14px !important;
-    right: auto !important; } 
+    .timeline > li > .timeline-panel:before {
+      border-left-width: 0 !important;
+      border-right-width: 15px !important;
+      left: -15px !important;
+      right: auto !important; }
+    .timeline > li > .timeline-panel:after {
+      border-left-width: 0 !important;
+      border-right-width: 14px !important;
+      left: -14px !important;
+      right: auto !important; } }
 
 @media (max-width: 991px) and (min-width: 768px) {
   .nav-tabs-navigation.verical-navs {

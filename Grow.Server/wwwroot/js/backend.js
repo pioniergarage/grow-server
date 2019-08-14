@@ -26,8 +26,14 @@ $(document).ready(function () {
             currentPage: $(element).attr('current')
         });
     });
-
+    
     // datepicker
+    $("input[type='date'],input[type='datetime-local']").on("change", (evnt) => {
+        var fp = evnt.target._flatpickr;
+        var newVal = $(evnt.target).val();
+        if (fp && newVal)
+            fp.setDate(newVal);
+    });
     $("input[type='date']").flatpickr({
         dateFormat: "d.m.Y"
     });

@@ -7,13 +7,11 @@ let file_api_url = "/Api/File";
  * After a triggered change event it will take the the linked file and send an AJAX request
  * to upload the selected file in a given category (e.g. TeamLogos).
  *
- * The class "loading" will be assigned to the output DOM object while the ajax request runs.
- *
  * A linked search bar allows to search for preexisting files by name.
  * 
  * Data attributes:
  * dat-category - Category name in which to upload the file (required)
- * dat-output - DOM Id of the output element to add the uploaded file to (optional)
+ * dat-output - DOM Id of the output element to update with the uploaded file id (optional)
  * 
  * @returns {IQuery<HTMLElement>} Input selector
  */
@@ -38,29 +36,15 @@ $.fn.fileUploader = function () {
 
             // function to process created image
             var on_success = (data) => {
-                output_element.removeClass("loading");
-
-                if (output_element.length > 0) {
-                    var option;
-                    // write new image to select list
-                    for (var i = 0; i < data.length; i++) {
-                        var file = data[i];
-                        option = document.createElement("option");
-                        option.innerText = file.name;
-                        option.value = file.id;
-                        output_element.append(option);
-                    }
-                    // select last uploaded image
-                    if (option)
-                        option.selected = true;
+                if (output_element) {
+                    output_element.val(data[0].id);
                     output_element.trigger("change");
+
                 }
             };
 
             // function to alert in case of error
             var on_fail = (xhr, status, error) => {
-                output_element.removeClass("loading");
-
                 switch (xhr.status) {
                     case 409:
                         alert("Error: A file with this name has already been uploaded.");
@@ -78,7 +62,6 @@ $.fn.fileUploader = function () {
             };
 
             // Make API call to create image
-            output_element.addClass("loading");
             $.ajax({
                 url: file_api_url + "?category=" + category,
                 type: "POST",

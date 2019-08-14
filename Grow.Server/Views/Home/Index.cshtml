@@ -5,25 +5,6 @@
     ViewBag.TransparentNavbar = true;
 }
 
-@section Scripts {
-
-    <script type="text/javascript">
-        $(document).ready(() => {
-            $("#signup").click(() => {
-                // add JB tracker
-                var _paq = _paq || []; (function () { if (window.apScriptInserted) return; _paq.push(['clientToken', 'P%2bsIjEMd6oQ%3d']); var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0]; g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = 'https://prod.benchmarkemail.com/tracker.bundle.js'; s.parentNode.insertBefore(g, s); window.apScriptInserted = true; })();
-
-                // include benchmark code
-                $.ajax({
-                    type: "GET",
-                    url: "https://lb.benchmarkemail.com//de/code/lbformnew.js?mFcQnoBFKMTsK6pJMlXEB1cgGr0xQgnhhpzUQIyvOqERo7EOPCQKdMj9ybR%252Bnt%252Fk",
-                    dataType: "script"
-                });
-            });
-        });
-    </script>
-}
-
 <section id="banner">
     <div class="inner">
         <header>
@@ -190,7 +171,7 @@
         </div>
         <p>
             <strong>4. GROW is not for profit</strong><br />
-            GROW is organized by the student-run association <a href="https://pioniergarage.de" target="_blank" style="color: white; font-weight: bold">PionierGarage e.V.</a> Our first and foremost goal is to inspire students to found their own ventures, which is why GROW is financed completely by donations.
+            GROW is organized by the student-run association <a href="https://pioniergarage.de" target="_blank" style="color: white; font-weight: bold">PionierGarage e.V.</a> Our first and foremost goal is to inspire students to found their own ventures.
         </p>
     </section>
 
@@ -208,27 +189,24 @@
 
     <section class="wrapper style3 container special" style="margin-top: 100px">
         <header class="major">
-            <h2>That's what alumni have to say about <strong>GROW</strong></h2>
+            <h2>Some of our successfull <strong>Alumni</strong></h2>
         </header>
-
-        <div class="row">
-            <div class="6u 12u(narrower)">
-                <section>
-                    <blockquote>
-                        GROW has provided us with a strong network of founders, investors and also other companies.
-                        <cite>Martin Trenkle, Founder of Campusjäger</cite>
-                        <img src="/img/2018/MartinTrenkle.jpg" class="fitHalf" />
-                    </blockquote>
-                </section>
+        <div class="logos">
+            <div>
+                <a href="https://www.campusjaeger.de/" target="_blank"><img src="/img/startups/campusjaeger.png" alt="Campusjäger" /></a>
+                1st place 2013/14
             </div>
-            <div class="6u 12u(narrower)">
-                <section>
-                    <blockquote>
-                        We have learned a lot during that time and were able to really take of after that.
-                        <cite>Sebastian Murgul, Founder of MelodyScanner</cite>
-                        <img src="/img/2018/SebastianMurgul.jpg" class="fitHalf" />
-                    </blockquote>
-                </section>
+            <div>
+                <a href="https://usertimes.de/" target="_blank"><img src="/img/startups/usertimes.png" alt="Usertimes" /></a>
+                1st place 2017/18
+            </div>
+            <div>
+                <a href="https://melodyscanner.com/" target="_blank"><img src="/img/startups/melodyscanner.png" alt="Melody Scanner" /></a>
+                2nd place 2016/17
+            </div>
+            <div>
+                <a href="https://www.heliopas.com/" target="_blank"><img src="/img/startups/heliopas.svg" alt="HelioPas AI" /></a>
+                Most Scalable 2018/19
             </div>
         </div>
     </section>
@@ -239,19 +217,19 @@
             <header>
                 <h2>Made possible thanks to</h2>
             </header>
-            <div class="row logos">
+            <div class="logos">
                 @foreach (var partner in Model.Partners)
                 {
                     if (partner.Image != null)
                     {
-                        <div class="3u 6u(narrower)">
-                            <img src="@partner.Image.Url" />
+                        <div>
+                            <img src="@partner.Image.Url" alt="@partner.Name" />
                         </div>
                     }
                     else
                     {
-                        <div class="3u 6u(narrower)">
-                            <h3>@partner.Name</h3>
+                        <div>
+                            <strong style="font-size: 200%">@partner.Name</strong>
                         </div>
                     }
                 }

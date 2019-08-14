@@ -1,7 +1,7 @@
 ﻿[
   {
-    "inputFile": "Styles/main.scss",
-    "outputFile": "wwwroot/css/main.css"
+    "inputFile": "Styles/frontend.scss",
+    "outputFile": "wwwroot/css/frontend.css"
   },
   {
     "inputFile": "Styles/backend.scss",

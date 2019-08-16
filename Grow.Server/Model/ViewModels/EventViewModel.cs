@@ -53,6 +53,10 @@ namespace Grow.Server.Model.ViewModels
         [DisplayName("Held by")]
         public string HeldByName { get; set; }
 
+        public EventViewModel()
+        {
+        }
+
         public EventViewModel(Event evnt)
         {
             CopyPropertiesFrom(evnt);
@@ -80,13 +84,13 @@ namespace Grow.Server.Model.ViewModels
             switch (evnt.Visibility)
             {
                 case Event.EventVisibility.ForActiveTeams:
-                    Visibility = "Only active teams";
+                    Visibility = "Private - Only for actively enrolled teams";
                     break;
                 case Event.EventVisibility.ForAllTeams:
-                    Visibility = "All teams";
+                    Visibility = "Private - For all registered teams";
                     break;
                 default:
-                    Visibility = evnt.Visibility.ToString();
+                    Visibility = "Public - Everyone can come and watch";
                     break;
             }
             switch (evnt.Type)

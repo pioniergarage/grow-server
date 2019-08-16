@@ -13,9 +13,13 @@ namespace Grow.Server.Model.TagHelpers
     [HtmlTargetElement("li", Attributes = ActivateableAttributeName)]
     public class ActiveNavItemTagHelper : TagHelper
     {
+        private const string ActionAttributeName = "asp-action";
         private const string ControllerAttributeName = "asp-controller";
         private const string AreaAttributeName = "asp-area";
         private const string ActivateableAttributeName = "conditional-active";
+
+        [HtmlAttributeName(ActionAttributeName)]
+        public string Action { get; set; }
 
         [HtmlAttributeName(ControllerAttributeName)]
         public string Controller { get; set; }
@@ -29,10 +33,13 @@ namespace Grow.Server.Model.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            var currentAction = ViewContext.RouteData.Values["Action"]?.ToString().ToLower() ?? string.Empty;
             var currentController = ViewContext.RouteData.Values["Controller"]?.ToString().ToLower() ?? string.Empty;
             var currentArea = ViewContext.RouteData.Values["Area"]?.ToString().ToLower() ?? string.Empty;
 
             var isActive = true;
+            if (Action?.Equals(currentAction, StringComparison.CurrentCultureIgnoreCase) == false)
+                isActive = false;
             if (Controller?.Equals(currentController, StringComparison.CurrentCultureIgnoreCase) == false)
                 isActive = false;
             if (Area?.Equals(currentArea, StringComparison.CurrentCultureIgnoreCase) == false)

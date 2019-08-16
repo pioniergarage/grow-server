@@ -14,9 +14,9 @@
 </div>
 
 
-@if (Model.Image != null)
+@if (Model.ImageUrl != null)
 {
-    <img src="@Model.Image.Url" style="max-height: 300px" />
+    <img src="@Model.ImageUrl" style="max-height: 300px" />
 }
 
 <div class="row">
@@ -49,14 +49,14 @@
     </div>
 </div>
 
-@if (Model.HeldBy != null)
+@if (Model.HeldByName != null)
 {
     <div class="row">
         <div class="2u 12u(narrower)"></div>
         <div class="2u 6u(narrower)"><img src="/img/icon/microphone.png" style="max-width: 50%" /></div>
         <div class="8u 12u(narrower)">
             Held by: <br />
-            @Model.HeldBy.Name
+            @Model.HeldByName
         </div>
     </div>
 }
@@ -73,18 +73,7 @@
     <div class="2u 12u(narrower)"></div>
     <div class="2u 6u(narrower)"><img src="/img/icon/visibility.png" style="max-width: 50%" /></div>
     <div class="8u 12u(narrower)">
-        @switch (Model.Visibility)
-        {
-            case Event.EventVisibility.Public:
-                @: Public<br />Everyone can come and watch
-                break;
-            case Event.EventVisibility.ForActiveTeams:
-                @: Private<br />Only for actively enrolled teams
-                break;
-            case Event.EventVisibility.ForAllTeams:
-                @: Private<br />Only for registered teams
-                break;
-        }
+        @Model.Visibility
     </div>
 </div>
 

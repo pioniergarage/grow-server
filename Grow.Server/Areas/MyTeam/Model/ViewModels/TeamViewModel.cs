@@ -36,6 +36,20 @@ namespace Grow.Server.Areas.MyTeam.Model.ViewModels
         [FormFileExtensions(Extensions = "png,jpg,jpeg,gif,svg", ErrorMessage = "Only files of types png, jpg, jpeg, gif, svg are allowed")]
         public IFormFile NewTeamPhoto { get; set; }
 
+        public string LogoImageUrl
+        {
+            get { return _logoImageUrl ?? "/img/icon/unknown.jpg"; }
+            set { _logoImageUrl = value; }
+        }
+        private string _logoImageUrl;
+
+        public string TeamPhotoUrl
+        {
+            get { return _teamPhotoUrl ?? "/img/icon/unknown.jpg"; }
+            set { _teamPhotoUrl = value; }
+        }
+        private string _teamPhotoUrl;
+
         public virtual Contest Contest { get; set; }
         public int ContestId { get; set; }
 

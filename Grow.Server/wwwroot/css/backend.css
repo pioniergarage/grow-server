@@ -43,7 +43,8 @@ textarea.form-control {
 
 .card-user .avatar {
   object-fit: contain;
-  background-color: white; }
+  background-color: white;
+  display: inline-block; }
 
 .border-gray {
   border-color: #c4c4c4 !important; }
@@ -66,7 +67,11 @@ textarea.form-control {
   line-height: calc(1.4rem + 2px); }
 
 .card-user .image.full-height {
+  min-height: 100px;
   height: 100%; }
+  .card-user .image.full-height img {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px; }
 
 /* Column selector input in the Backend vertical navbar */
 #contest-selector {

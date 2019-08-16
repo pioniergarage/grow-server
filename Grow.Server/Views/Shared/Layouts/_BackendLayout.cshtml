@@ -41,12 +41,12 @@
                         @if (ViewBag.IsAdmin)
                         {
                             <li class="nav-item">
-                                <a class="collapse-toggle" href="#" data-toggle="collapse" data-target="#navbarDropdown" aria-controls="#navbarDropdown" aria-expanded="false">
+                                <a class="collapse-toggle" href="#" data-toggle="collapse" data-target="#contentDropdown" aria-controls="#contentDropdown" aria-expanded="false">
                                     <i class="nc-icon nc-bullet-list-67"></i>
                                     Content
                                     <span class="caret arrow"></span>
                                 </a>
-                                <ul class="collapse" id="navbarDropdown">
+                                <ul class="collapse" id="contentDropdown">
                                     <li conditional-active asp-area="Admin" asp-controller="Contests">
                                         <a asp-controller="Contests" asp-action="Index" asp-area="Admin">
                                             <i class="nc-icon nc-bank"></i> Contests
@@ -106,11 +106,29 @@
                         }
                         if (ViewBag.TeamId > 0)
                         {
-                            <li conditional-active asp-area="MyTeam">
-                                <a asp-controller="Home" asp-action="Index" asp-area="MyTeam">
+                            <li class="nav-item">
+                                <a class="collapse-toggle" href="#" data-toggle="collapse" data-target="#teamDropdown" aria-controls="#teamDropdown" aria-expanded="false">
                                     <i class="nc-icon nc-bulb-63"></i>
                                     My Team
+                                    <span class="caret arrow"></span>
                                 </a>
+                                <ul class="collapse" id="teamDropdown">
+                                    <li conditional-active asp-area="MyTeam" asp-controller="Home" asp-action="Index">
+                                        <a asp-controller="Home" asp-action="Index" asp-area="MyTeam">
+                                            <i class="nc-icon nc-chart-bar-32"></i> Dashboard
+                                        </a>
+                                    </li>
+                                    <li conditional-active asp-area="MyTeam" asp-controller="Home" asp-action="Profile">
+                                        <a asp-controller="Home" asp-action="Profile" asp-area="MyTeam">
+                                            <i class="nc-icon nc-ruler-pencil"></i> Edit Profile
+                                        </a>
+                                    </li>
+                                    <li conditional-active asp-area="MyTeam" asp-controller="Events">
+                                        <a asp-controller="Events" asp-action="Index" asp-area="MyTeam">
+                                            <i class="nc-icon nc-pin-3"></i> Events
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         }
                         <li conditional-active asp-controller="Account" asp-area="">

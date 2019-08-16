@@ -74,6 +74,7 @@ namespace Grow.Server.Areas.MyTeam.Model
                     );
                 }
                 oldTeam.TeamPhoto.Name = string.Format("{0}.{1}", newViewModel.Name, extension);
+                newViewModel.TeamPhotoUrl = oldTeam.TeamPhoto.Url;
             }
         }
 
@@ -105,6 +106,8 @@ namespace Grow.Server.Areas.MyTeam.Model
                         stream
                     );
                 }
+                oldTeam.LogoImage.Name = string.Format("{0}.{1}", newViewModel.Name, extension);
+                newViewModel.LogoImageUrl = oldTeam.LogoImage.Url;
             }
         }
 
@@ -124,6 +127,8 @@ namespace Grow.Server.Areas.MyTeam.Model
             vm.Name = team.Name;
             vm.TagLine = team.TagLine;
             vm.WebsiteUrl = team.WebsiteUrl;
+            vm.TeamPhotoUrl = team.TeamPhoto?.Url;
+            vm.LogoImageUrl = team.LogoImage?.Url;
 
             return vm;
         }

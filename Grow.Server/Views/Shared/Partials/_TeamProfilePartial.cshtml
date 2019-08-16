@@ -1,0 +1,72 @@
+﻿@model Grow.Server.Areas.MyTeam.Model.ViewModels.TeamViewModel
+
+<div class="card card-user">
+    <div class="image full-height border-gray border-bottom">
+        <img src="@Model.TeamPhotoUrl" alt="Team Photo">
+    </div>
+    <div class="card-body">
+        <div class="author">
+            <a href="@Url.Action("Teams", "Home", new { area = "", year = Model.Contest?.Year })#@Model.Id" target="_blank">
+                <img class="avatar border-gray" src="@Model.LogoImageUrl" alt="Team Logo">
+                <h5 class="title">@Model.Name</h5>
+            </a>
+        </div>
+        <p class="description text-center">
+            @if (Model.TagLine != null)
+            {
+                @Model.TagLine
+            }
+            else
+            {
+                <i>No tagline set</i>
+            }
+        </p>
+    </div>
+    <div class="card-footer">
+        <hr>
+        <div class="button-container">
+            <div class="row icons">
+                <div class="col-lg-3 col-md-6 ml-auto">
+                    <h5>
+                        @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
+                        {
+                            <a href="@Model.WebsiteUrl">
+                                <img src="/img/icon/www.png" />
+                            </a>
+                        }
+                    </h5>
+                </div>
+                <div class="col-lg-3 col-md-6 ml-auto mr-auto">
+                    <h5>
+                        @if (!string.IsNullOrEmpty(Model.Email))
+                        {
+                            <a href="mailto:@Model.Email">
+                                <img src="/img/icon/mail.png" />
+                            </a>
+                        }
+                    </h5>
+                </div>
+                <div class="col-lg-3 col-md-6 ml-auto mr-auto">
+                    <h5>
+                        @if (!string.IsNullOrEmpty(Model.InstagramUrl))
+                        {
+                            <a href="https://www.facebook.com/@Model.InstagramUrl" target="_blank">
+                                <img src="/img/icon/insta.png" />
+                            </a>
+                        }
+                    </h5>
+                </div>
+                <div class="col-lg-3 col-md-6 mr-auto">
+                    <h5>
+                        @if (!string.IsNullOrEmpty(Model.FacebookUrl))
+                        {
+                            <a href="https://www.facebook.com/@Model.FacebookUrl" target="_blank">
+                                <img src="/img/icon/fb.png" />
+                            </a>
+                        }
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

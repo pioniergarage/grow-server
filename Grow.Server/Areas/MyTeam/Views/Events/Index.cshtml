@@ -10,6 +10,7 @@
         { "upcoming", Model.Where(e => e.Start >= DateTime.Now.Date).OrderBy(e => e.Start) },
         { "past", Model.Where(e => e.Start < DateTime.Now.Date).OrderBy(e => e.Start) },
     };
+    var first = true;
 }
 
 <div class="row">
@@ -26,7 +27,10 @@
                         <h5 style="text-transform: capitalize">@key Events</h5>
                     </a>
                 </div>
-                <div class="card-body collapse show" id="@key-body" data-parent="#events">
+                <div class="card-body collapse @(first ? "show" : "")" id="@key-body" data-parent="#events">
+                    @{ 
+                        first = false;
+                    }
                     <table class="table">
                         <thead>
                             <tr>

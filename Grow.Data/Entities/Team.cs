@@ -33,7 +33,7 @@ namespace Grow.Data.Entities
         public string MembersAsString
         {
             get => string.Join(", ", Members ?? new string[0]);
-            set => Members = value?.Split(", ") ?? new string[0];
+            set => Members = value?.Split(", ", System.StringSplitOptions.RemoveEmptyEntries) ?? new string[0];
         }
 
         [NotMapped]

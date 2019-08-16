@@ -42,11 +42,11 @@ namespace Grow.Server.Controllers
         {
             get
             {
-                return _team
-                    ?? (_team = DbContext.Teams.Where(t => t.Id == MyTeamId));
+                return _teamQuery
+                    ?? (_teamQuery = DbContext.Teams.Where(t => t.Id == MyTeamId));
             }
         }
-        private IQueryable<Team> _team;
+        private IQueryable<Team> _teamQuery;
 
         protected BaseBackendController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger)
             : base(dbContext, appSettings, logger)

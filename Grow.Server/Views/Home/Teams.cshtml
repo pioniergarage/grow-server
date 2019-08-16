@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "Teams";
+    var prizes = Model.Prizes?.Where(p => p.IsActive) ?? new Prize[0];
+    var teams = Model.Teams?.Where(p => p.IsActive) ?? new Team[0];
 }
 
 @section Styles {
@@ -68,7 +70,7 @@
         </h6>
     </header>
 
-    @if (Model.Teams.Any())
+    @if (teams.Any())
     {
         <section id="toc" class="wrapper style4 container teams">
             <div class="content">
@@ -76,32 +78,47 @@
                     <header>
                         <h2>Team overview</h2>
                     </header>
-                    <b>Winners of @ViewBag.SelectedContestName</b><br />
-                    <ul>
-                        @foreach (var prize in Model.Prizes)
-                        {
-                            <li>@prize.Name: <a href="#@prize.Winner.Id">@prize.Winner.Name</a></li>
-                        }
-                    </ul>
-                    <b>Finalists</b><br />
-                    <ul>
-                        @foreach (var team in Model.Teams.Where(t => t.IsActive))
-                        {
-                            <li><a href="#@team.Id">@team.Name</a></li>
-                        }
-                    </ul>
-                    <b>Drop Outs</b><br />
-                    <ul style="font-style: italic; opacity: 0.7;">
-                        @foreach (var team in Model.Teams.Where(t => !t.IsActive))
-                        {
-                            <li><a href="#@team.Id">@team.Name</a></li>
-                        }
-                    </ul>
+                    @if (prizes.Where(p => p.Winner != null).Any())
+                    {
+                        <b>Winners of @ViewBag.SelectedContestName</b><br />
+                        <ul>
+                            @foreach (var prize in prizes)
+                            {
+                                <li>@prize.Name: <a href="#@prize.Winner.Id">@prize.Winner.Name</a></li>
+                            }
+                        </ul>
+                    }
+                    @if (teams.Any(t => t.HasDroppedOut))
+                    {
+                        <b>Active Teams</b><br />
+                        <ul>
+                            @foreach (var team in teams.Where(t => !t.HasDroppedOut))
+                            {
+                                <li><a href="#@team.Id">@team.Name</a></li>
+                            }
+                        </ul>
+                        <b>Drop Outs</b><br />
+                        <ul style="font-style: italic; opacity: 0.7;">
+                            @foreach (var team in teams.Where(t => t.HasDroppedOut))
+                            {
+                                <li><a href="#@team.Id">@team.Name</a></li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul>
+                            @foreach (var team in teams)
+                            {
+                                <li><a href="#@team.Id">@team.Name</a></li>
+                            }
+                        </ul>
+                    }
                 </section>
             </div>
         </section>
 
-        @foreach (var team in Model.Teams)
+        @foreach (var team in teams)
         {
             <section class="wrapper style4 container teams">
                 <div class="content" id="@team.Id">

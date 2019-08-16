@@ -10,8 +10,8 @@ namespace Grow.Server.Model.Extensions
     {
         public static bool IsInRange(this TeamRegistrationOptions options,DateTime date)
         {
-            var from = options.From ?? DateTime.MinValue;
-            var until = options.Until ?? DateTime.MaxValue;
+            var from = options?.From ?? DateTime.MinValue;
+            var until = options?.Until ?? DateTime.MaxValue;
             return date >= from && date <= until;
         }
 

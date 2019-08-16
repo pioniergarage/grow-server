@@ -2,10 +2,13 @@
 using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 
 namespace Grow.Server.Model.Extensions
@@ -25,6 +28,19 @@ namespace Grow.Server.Model.Extensions
                 return textIfEmpty;
 
             return value;
+        }
+
+        public static string DisplayNameFor<TModel, TClass, TProperty>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, IEnumerable<TClass>>> modelExpression, Expression<Func<TClass, TProperty>> propertyExpression)
+        {
+            var prop = propertyExpression.Body as MemberExpression;
+            if (prop == null)
+                throw new ArgumentException("The property expression is not valid");
+
+            var attribute = prop.Member.GetCustomAttribute<DisplayNameAttribute>();
+            if (attribute == null)
+                return prop.Member.Name;
+
+            return attribute.DisplayName;
         }
 
         public static string GetController<TEntity>(this IHtmlHelper<TEntity> html) 

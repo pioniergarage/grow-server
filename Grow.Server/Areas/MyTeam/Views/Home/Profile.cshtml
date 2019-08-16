@@ -1,9 +1,8 @@
-﻿@model Grow.Server.Areas.Team.Model.ViewModels.TeamViewModel
+﻿@model Grow.Server.Areas.MyTeam.Model.ViewModels.TeamViewModel
 
 @{
     ViewData["Title"] = "My Team";
     Layout = "Layouts/_BackendLayout";
-    var imagePlaceholderUrl = "/img/icon/unknown.jpg";
 }
 
 @section Scripts {
@@ -39,76 +38,7 @@
 <form method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-4">
-            <div class="card card-user">
-                <div class="image full-height border-gray border-bottom">
-                    <img src="@(ViewBag.TeamPhotoUrl ?? imagePlaceholderUrl)" alt="Team Photo">
-                </div>
-                <div class="card-body">
-                    <div class="author">
-                        <a href="@Url.Action("Teams", "Home", new { area = "", year = Model.Contest?.Year })#@Model.Id" target="_blank">
-                            <img class="avatar border-gray" src="@(ViewBag.LogoImageUrl ?? imagePlaceholderUrl)" alt="Team Logo">
-                            <h5 class="title">@Model.Name</h5>
-                        </a>
-                    </div>
-                    <p class="description text-center">
-                        @if (Model.TagLine != null)
-                        {
-                            @Model.TagLine
-                        }
-                        else
-                        {
-                            <i>No tagline set</i>
-                        }
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <hr>
-                    <div class="button-container">
-                        <div class="row icons">
-                            <div class="col-lg-3 col-md-6 ml-auto">
-                                <h5>
-                                    @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
-                                    {
-                                        <a href="@Model.WebsiteUrl">
-                                            <img src="/img/icon/www.png" />
-                                        </a>
-                                    }
-                                </h5>
-                            </div>
-                            <div class="col-lg-3 col-md-6 ml-auto mr-auto">
-                                <h5>
-                                    @if (!string.IsNullOrEmpty(Model.Email))
-                                    {
-                                        <a href="mailto:@Model.Email">
-                                            <img src="/img/icon/mail.png" />
-                                        </a>
-                                    }
-                                </h5>
-                            </div>
-                            <div class="col-lg-3 col-md-6 ml-auto mr-auto">
-                                <h5>
-                                    @if (!string.IsNullOrEmpty(Model.InstagramUrl))
-                                    {
-                                        <a href="https://www.facebook.com/@Model.InstagramUrl" target="_blank">
-                                            <img src="/img/icon/insta.png" />
-                                        </a>
-                                    }
-                                </h5>
-                            </div>
-                            <div class="col-lg-3 col-md-6 mr-auto">
-                                <h5>
-                                    @if (!string.IsNullOrEmpty(Model.FacebookUrl))
-                                    {
-                                        <a href="https://www.facebook.com/@Model.FacebookUrl" target="_blank">
-                                            <img src="/img/icon/fb.png" />
-                                        </a>
-                                    }
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <partial name="Partials/_TeamProfilePartial" model="Model" />
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Team Members</h4>
@@ -119,7 +49,7 @@
                             <div class="row">
                                 <div class="col-md-2 col-2">
                                     <div class="avatar">
-                                        <img src="@imagePlaceholderUrl" alt="Member avatar" class="img-circle img-no-padding img-responsive">
+                                        <img src="/img/icon/unknown.jpg" alt="Member avatar" class="img-circle img-no-padding img-responsive">
                                     </div>
                                 </div>
                                 <div class="col-md-7 col-7 pr-1">
@@ -137,7 +67,7 @@
                                 <div class="row">
                                     <div class="col-md-2 col-2">
                                         <div class="avatar">
-                                            <img src="@imagePlaceholderUrl" alt="Member avatar" class="img-circle img-no-padding img-responsive">
+                                            <img src="/img/icon/unknown.jpg" alt="Member avatar" class="img-circle img-no-padding img-responsive">
                                         </div>
                                     </div>
                                     <div class="col-md-7 col-7 pr-1">
@@ -269,6 +199,8 @@
                     </div>
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="ContestId" />
+                    <input type="hidden" asp-for="LogoImageUrl" />
+                    <input type="hidden" asp-for="TeamPhotoUrl" />
                     <div class="row">
                         <div class="update ml-auto mr-auto">
                             <button type="submit" class="btn btn-primary btn-round">Update Profile</button>

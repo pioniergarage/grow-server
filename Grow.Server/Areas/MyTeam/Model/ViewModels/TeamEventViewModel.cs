@@ -21,10 +21,14 @@ namespace Grow.Server.Areas.MyTeam.Model.ViewModels
         [DisplayName("Can the team respond right now?")]
         public bool CanTeamRespondNow { get; set; }
 
+        public TeamEventViewModel() : base()
+        {
+        }
+
         public TeamEventViewModel(Event evnt, Team team) : base(evnt)
         {
             SlidesUrl = evnt.Slides?.Url;
-            HasResponded = evnt.Responses.Any(r => r is TeamResponse tr && tr.TeamId == team.Id);
+            HasResponded = evnt.Responses?.Any(r => r is TeamResponse tr && tr.TeamId == team.Id) ?? false;
             CanTeamRespondNow = evnt.CanTeamRespondNow(team);
         }
     }

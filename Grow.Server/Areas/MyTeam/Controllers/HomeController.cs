@@ -20,6 +20,20 @@ namespace Grow.Server.Areas.MyTeam.Controllers
     {
         private TeamVmMapper _mapper { get; }
 
+        private Team MyTeam
+        {
+            get
+            {
+                return _team 
+                    ?? (_team = MyTeamQuery
+                        .Include(t => t.Contest)
+                        .Include(t => t.LogoImage)
+                        .Include(t => t.TeamPhoto)
+                        .Single());
+            }
+        }
+        private Team _team;
+
         public HomeController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger) 
             : base(dbContext, appSettings, logger)
         {
@@ -29,10 +43,21 @@ namespace Grow.Server.Areas.MyTeam.Controllers
 
         public IActionResult Index()
         {
-            var team = MyTeamQuery
-                .Include(t => t.Contest)
-                .Single();
-            var vm = _mapper.TeamToViewModel(team);
+            var teamVm = _mapper.TeamToViewModel(MyTeam);
+
+            var eventVms = DbContext.Events
+            .Where(e => e.Contest.Year == MyTeam.Contest.Year && e.IsActive && e.Start > DateTime.Now)
+            .Include(e => e.Contest)
+            .Include(e => e.HeldBy)
+            .Include(e => e.Image)
+            .Include(e => e.Responses)
+            .Select(e => new TeamEventViewModel(e, MyTeam));
+
+            var vm = new TeamIndexViewModel()
+            {
+                MyTeam = teamVm,
+                UpcomingEvents = eventVms
+            };
 
             FillViewBag();
             return View(vm);
@@ -40,10 +65,7 @@ namespace Grow.Server.Areas.MyTeam.Controllers
 
         public IActionResult Profile()
         {
-            var team = MyTeamQuery
-                .Include(t => t.Contest)
-                .Single();
-            var vm = _mapper.TeamToViewModel(team);
+            var vm = _mapper.TeamToViewModel(MyTeam);
 
             FillViewBag();
             return View(vm);
@@ -58,12 +80,11 @@ namespace Grow.Server.Areas.MyTeam.Controllers
                 FillViewBag();
                 return View(vm);
             }
-
-            var oldTeam = MyTeamQuery.Single();
-            if (oldTeam.Id != vm.Id)
+            
+            if (MyTeam.Id != vm.Id)
                 return Unauthorized();
             
-            _mapper.UpdateTeam(oldTeam, vm);
+            _mapper.UpdateTeam(MyTeam, vm);
             ViewBag.Success = true;
 
             FillViewBag();
@@ -72,8 +93,6 @@ namespace Grow.Server.Areas.MyTeam.Controllers
 
         private void FillViewBag()
         {
-            ViewBag.TeamPhotoUrl = MyTeamQuery.Select(t => t.TeamPhoto).Select(f => f.Url).SingleOrDefault();
-            ViewBag.LogoImageUrl = MyTeamQuery.Select(t => t.LogoImage).Select(f => f.Url).SingleOrDefault();
         }
     }
 }

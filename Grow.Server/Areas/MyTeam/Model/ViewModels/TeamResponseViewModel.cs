@@ -13,7 +13,7 @@ namespace Grow.Server.Areas.MyTeam.Model.ViewModels
     public class TeamResponseViewModel
     {
         [DefaultValue(1)]
-        [Range(0, 25)]
+        [Range(0, 10, ErrorMessage = "You can only select a number between 0 and 10")]
         [DisplayName("How many are coming?")]
         public int ParticipantCount { get; set; }
 
@@ -24,6 +24,23 @@ namespace Grow.Server.Areas.MyTeam.Model.ViewModels
         public string TeamName { get; set; }
         
         [DisplayName("File to submit")]
-        public IFormFile File { get; set; }
+        public IFormFile UploadedFile { get; set; }
+
+        [DisplayName("File to submit (External)")]
+        [Url]
+        public string ExternalFileUrl { get; set; }
+
+        public TeamResponseViewModel()
+        {
+        }
+
+        public TeamResponseViewModel(TeamResponse response)
+        {
+            ParticipantCount = response.ParticipantCount;
+            Event = response.Event;
+            EventId = response.EventId;
+            TeamName = response.Team?.Name;
+            ExternalFileUrl = response.FileUrl;
+        }
     }
 }

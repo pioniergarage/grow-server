@@ -24,6 +24,7 @@ namespace Grow.Data.Entities
         People,
         Teams,
         TeamLogos,
-        Slides
+        Slides,
+        Submissions
     }
 }

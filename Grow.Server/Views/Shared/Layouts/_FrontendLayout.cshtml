@@ -50,10 +50,10 @@
 
     @RenderSection("Styles", required: false)
 </head>
-<body class="@(ViewBag.TransparentNavbar ? "index" : "no-sidebar")">
+<body class="@((ViewBag.TransparentNavbar ?? false) ? "index" : "no-sidebar")">
     <div id="page-wrapper">
 
-        <header id="header" class="@(ViewBag.TransparentNavbar ? "alt" : "")">
+        <header id="header" class="@((ViewBag.TransparentNavbar ?? false) ? "alt" : "")">
             <h1 id="logo" style="text-transform: none;"><a href="@Url.Action("Index", "Home", new { year = "" })">GROW <span>by <span style="font-family: Philosopher; font-size: 105%">PionierGarage</span></span></a></h1>
             <nav id="nav">
                 <ul>

@@ -1,70 +1,114 @@
-﻿@{
+﻿@model Grow.Server.Areas.MyTeam.Model.ViewModels.TeamResponseViewModel
+
+@{
     ViewData["Title"] = "Event Response";
 }
 
-@model Grow.Server.Areas.MyTeam.Model.ViewModels.TeamResponseViewModel
+@section Scripts {
+    <script type="text/javascript">
 
-<article id="main">
+        function incCount() {
+            $('#@nameof(Model.ParticipantCount)').val((i, oldVal) => {
+                return parseInt(oldVal, 10) + 1;
+            });
+        }
+        
+        function decCount() {
+            $('#@nameof(Model.ParticipantCount)').val((i, oldVal) => {
+                return parseInt(oldVal, 10) - 1;
+            });
+        }
 
-    <header class="special container">
-        <span class="icon fa-calendar-o"></span>
-        <h2>Respond for your team</h2>
-    </header>
+    </script>
+}
 
-    <section class="wrapper style4 container" style="text-align: center">
-        <header>
-            <h3>Can we expect you at the @(Model.Event?.Name ?? "event")?</h3>
-            @if (Model.Event != null)
-            {
-                <div style="border: 1px solid rgba(0,0,0,0.2); max-width: 80%; display: inline-block; padding: 10px 20px; text-align: left;">
-                    <strong>Event:</strong>
-                    @Model.Event.Name<br />
-                    <strong>When:</strong>
-                    @Model.Event.Start.ToShortDateString() @Model.Event.Start.ToShortTimeString()<br />
-                    <strong>Where:</strong>
-                    @Model.Event.Location, <br />@Model.Event.Address
+<div>
+
+    <h3>Can we expect you at the @(Model.Event?.Name ?? "event")?</h3>
+
+    <p>
+        &nbsp;
+    </p>
+
+    @if (Model.Event != null)
+    {
+        <div class="row">
+            <div class="col-lg-6">
+                <table class="table">
+                    <tr>
+                        <th>Event:</th>
+                        <td>@Model.Event.Name</td>
+                    </tr>
+                    <tr>
+                        <th>When:</th>
+                        <td>@Model.Event.Start.ToShortDateString() @Model.Event.Start.ToShortTimeString()</td>
+                    </tr>
+                    <tr>
+                        <th>Where:</th>
+                        <td>
+                            @Model.Event.Location,
+                            <br />@Model.Event.Address
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+
+    <hr />
+
+    <div class="row">
+        <form method="post" class="col-lg-6" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TeamName" class="control-label"></label>
+                <input asp-for="TeamName" readonly="readonly" class="form-control" />
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="ParticipantCount" class="control-label">How many are coming?</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-default" type="button" onclick="decCount()">-</button>
+                    </div>
+                    <input asp-for="ParticipantCount" type="text" class="form-control text-center" />
+                    <div class="input-group-append">
+                        <button class="btn btn-default" type="button" onclick="incCount()">+</button>
+                    </div>
+                </div>
+                <span asp-validation-for="ParticipantCount" class="text-danger"></span>
+            </div>
+            <br />
+            @if (Model.Event?.TeamRegistrationOptions.AcceptFileUploads == true)
+                {
+                <div class="card bg-flat">
+                    <div class="card-header">
+                        You've been asked to upload a file with your response<br />
+                        <span class="small">
+                            Allowed file types: @Model.Event.TeamRegistrationOptions.AllowedFileExtensionsString
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="UploadedFile" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="UploadedFile" type="file" class="form-control custom-file-input" />
+                                <label class="custom-file-label">Upload a file</label>
+                            </div>
+                            <span asp-validation-for="UploadedFile" class="text-danger"></span>
+                            OR
+                            <input asp-for="ExternalFileUrl" placeholder="Enter a file URL (e.g. Dropbox or Google Drive)" class="form-control" />
+                            <span asp-validation-for="ExternalFileUrl" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
             }
-        </header>
-
-        <hr />
-
-        <div style="display: inline-block">
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="TeamName" class="control-label"></label>
-                    <input asp-for="TeamName" readonly="readonly" class="form-control" style="text-align: center" />
-                </div>
-                <br />
-                <div class="form-group">
-                    <label asp-for="ParticipantCount" class="control-label">How many are coming?</label>
-                    <input asp-for="ParticipantCount" type="text" class="form-control" style="text-align: center" />
-                    <span asp-validation-for="ParticipantCount" class="text-danger"></span>
-                </div>
-                <br />
-                @if (Model.Event?.TeamRegistrationOptions.AcceptFileUploads == true)
-                {
-                    <div class="form-group">
-                        <label asp-for="File" class="control-label"></label>
-                        <div class="custom-file">
-                            <input asp-for="File" type="file" class="form-control custom-file-input" />
-                            <label class="custom-file-label">Choose file</label>
-                        </div>
-                        <span asp-validation-for="File" class="text-danger"></span>
-                        <p class="small">
-                            Allowed file types: @Model.Event.TeamRegistrationOptions.AllowedFileExtensionsString
-                        </p>
-                    </div>
-                    <br />
-                }
-                <input type="hidden" asp-for="EventId" />
-                <br />
-                <div class="form-group">
-                    <input type="submit" value="We can't come" class="btn btn-default" onclick="$('#ParticipantCount').val(0); return true;" style="color: white; background-color: rgba(0,0,0,0.2)" />
-                    <input type="submit" value="We'll come" class="btn btn-fill" />
-                </div>
-            </form>
-        </div>
-    </section>
-</article>
+            <input type="hidden" asp-for="EventId" />
+            <br />
+            <div class="form-group text-center">
+                <input type="submit" value="We can't come" class="btn btn-outline-default" onclick="$('#ParticipantCount').val(0); return true;" />
+                <input type="submit" value="We'll come" class="btn btn-outline-success" />
+            </div>
+        </form>
+    </div>
+</div>

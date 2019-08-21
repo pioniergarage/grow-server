@@ -9,154 +9,212 @@
 
 <div>
     <h4>Event</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Start)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Start)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.End)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.End)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HasTimesSet)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HasTimesSet)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ExternalEventUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ExternalEventUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Visibility)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Visibility)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CanVisitorsRegister)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CanVisitorsRegister)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CanTeamsRegister)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CanTeamsRegister)
-        </dd>
-        <dt>
-            Registration From
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TeamRegistrationOptions.From)
-        </dd>
-        <dt>
-            Registration Until
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TeamRegistrationOptions.Until)
-        </dd>
-        <dt>
-            File Uploads allowed for Registration
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TeamRegistrationOptions.AcceptFileUploads)
-        </dd>
-        <dt>
-            Allowed File Extensions for Registration
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TeamRegistrationOptions.AllowedFileExtensionsString)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsMandatory)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsMandatory)
-        </dd>
-        <dd>
-            @Html.DisplayFor(model => model.ImageId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HeldById)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HeldById)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-        <dt>
-            Responses
-        </dt>
-        <dd>
-            @foreach (var response in Model.Responses.OrderBy(e => e.Created))
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Description)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Start)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Start)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.End)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.End)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HasTimesSet)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.HasTimesSet)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExternalEventUrl)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.ExternalEventUrl)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Location)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Visibility)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Visibility)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Type)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CanVisitorsRegister)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CanVisitorsRegister)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CanTeamsRegister)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CanTeamsRegister)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Registration From
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TeamRegistrationOptions.From)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Registration Until
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TeamRegistrationOptions.Until)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                File Uploads allowed for Registration
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TeamRegistrationOptions.AcceptFileUploads)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Allowed File Extensions for Registration
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TeamRegistrationOptions.AllowedFileExtensionsString)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IsMandatory)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.IsMandatory)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageId)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.ImageId)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HeldById)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.HeldById)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CreatedAt)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.UpdatedAt)
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        &nbsp;
+    </p>
+
+    <strong>@Html.DisplayNameFor(model => model.Responses)</strong>
+    <table class="table">
+        @foreach (var response in Model.Responses.OrderBy(e => e.Created))
+        {
+            string name = string.Empty;
+            string submission = null;
+            switch (response)
             {
-                string name;
-                switch (response)
-                {
-                    case TeamResponse tr:
-                        name = tr.Team?.Name ?? "Team " + tr.Id;
-                        break;
-                    case VisitorResponse vr:
-                        name = vr.Name;
-                        break;
-                    default:
-                        name = string.Empty;
-                        break;
-                }
-                <div>@name - @response.ParticipantCount</div>
+                case TeamResponse tr:
+                    name = "Team " + (tr.Team?.Name ?? "Nr. " + tr.Id);
+                    submission = tr.FileUrl;
+                    break;
+                case VisitorResponse vr:
+                    name = "Visitor " + vr.Name;
+                    break;
+                default:
+                    break;
             }
-        </dd>
-    </dl>
+            <tr>
+                <td>@name</td>
+                <td>@response.ParticipantCount</td>
+                <td>
+                    @if (submission != null)
+                    {
+                        <a href="@submission">View Submission</a>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

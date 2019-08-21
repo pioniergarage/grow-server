@@ -37,7 +37,8 @@ namespace Grow.Server.Areas.Admin.Controllers
                 .Include(t => t.Contest)
                 .Include(t => t.Image)
                 .Include(t => t.HeldBy)
-                .Include(t => t.Responses);
+                .Include(t => t.Responses)
+                .ThenInclude(r => ((TeamResponse)r).Team);
         }
     }
 }

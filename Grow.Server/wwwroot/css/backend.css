@@ -64,14 +64,20 @@ textarea.form-control {
   font-style: italic; }
 
 .custom-file > *, .custom-file > *::after {
+  /* Proper heights for custom file upload inputs (bootstrap-defined) */
   line-height: calc(1.4rem + 2px); }
 
 .card-user .image.full-height {
+  /* Using background images in user-cards (paper-dashboard) is suboptimal*/
   min-height: 100px;
   height: 100%; }
   .card-user .image.full-height img {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px; }
+
+.input-group button {
+  /* Appended buttons in input groups (bootstrap-defined) are broken by paper-dashboard */
+  margin: 0px; }
 
 /* Column selector input in the Backend vertical navbar */
 #contest-selector {

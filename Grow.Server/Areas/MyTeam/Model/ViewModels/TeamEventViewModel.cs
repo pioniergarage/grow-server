@@ -15,8 +15,8 @@ namespace Grow.Server.Areas.MyTeam.Model.ViewModels
         [DisplayName("Link to the slides")]
         public string SlidesUrl { get; set; }
         
-        [DisplayName("Responded to event?")]
-        public bool HasResponded { get; set; }
+        [DisplayName("Team Response")]
+        public int? TeamResponse { get; set; }
 
         [DisplayName("Can the team respond right now?")]
         public bool CanTeamRespondNow { get; set; }
@@ -28,7 +28,10 @@ namespace Grow.Server.Areas.MyTeam.Model.ViewModels
         public TeamEventViewModel(Event evnt, Team team) : base(evnt)
         {
             SlidesUrl = evnt.Slides?.Url;
-            HasResponded = evnt.Responses?.Any(r => r is TeamResponse tr && tr.TeamId == team.Id) ?? false;
+            TeamResponse = evnt.Responses
+                ?.Where(r => r is TeamResponse tr && tr.TeamId == team.Id)
+                .Select(r => r.ParticipantCount)
+                .SingleOrDefault();
             CanTeamRespondNow = evnt.CanTeamRespondNow(team);
         }
     }

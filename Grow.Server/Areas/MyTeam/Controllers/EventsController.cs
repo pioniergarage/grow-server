@@ -18,7 +18,10 @@ namespace Grow.Server.Areas.MyTeam.Controllers
 {
     public class EventsController : BaseTeamController
     {
+        private Lazy<StorageConnector> Storage { get; set; }
+
         private Team _myTeam;
+
         private Team MyTeam
         {
             get
@@ -39,6 +42,7 @@ namespace Grow.Server.Areas.MyTeam.Controllers
         
         public EventsController(GrowDbContext dbContext, IOptions<AppSettings> appSettings, ILogger logger) : base(dbContext, appSettings, logger)
         {
+            Storage = new Lazy<StorageConnector>(() => new StorageConnector(AppSettings, logger));
         }
 
         public IActionResult Index()
@@ -46,23 +50,7 @@ namespace Grow.Server.Areas.MyTeam.Controllers
             var list = VisibleEvents.ToList();
             return View(list);
         }
-
-        public IActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var evnt = VisibleEvents.FirstOrDefault(e => e.Id == id);
-            if (evnt == null)
-            {
-                return NotFound();
-            }
-
-            return View(evnt);
-        }
-
+        
         public IActionResult Respond(int id)
         {
             var evnt = DbContext.Events.Find(id);
@@ -71,40 +59,86 @@ namespace Grow.Server.Areas.MyTeam.Controllers
             if (!evnt.CanTeamRespondNow(MyTeam))
                 return View("Closed", evnt);
 
+            // Has already responded?
+            var oldResponse = (TeamResponse) DbContext.EventResponses.FirstOrDefault(e =>
+                e is TeamResponse
+                && ((TeamResponse)e).TeamId == MyTeamId
+                && e.EventId == evnt.Id);
+
             // Default values
-            var model = new TeamResponseViewModel()
-            {
-                Event = evnt,
-                EventId = evnt.Id,
-                TeamName = MyTeam.Name,
-                ParticipantCount = 1
-            };
+            var model = oldResponse != null
+                ? new TeamResponseViewModel(oldResponse)
+                : new TeamResponseViewModel()
+                {
+                    Event = evnt,
+                    EventId = evnt.Id,
+                    TeamName = MyTeam.Name,
+                    ParticipantCount = 1
+                };
 
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Respond(int id, TeamResponseViewModel response)
+        public IActionResult Respond(int id, TeamResponseViewModel vm)
         {
+            // Check input
             var evnt = DbContext.Events.Find(id);
             if (evnt == null)
                 return NotFound();
             if (!evnt.CanTeamRespondNow(MyTeam))
                 return Unauthorized();
+            if (evnt.TeamRegistrationOptions.AcceptFileUploads && vm.UploadedFile == null && vm.ExternalFileUrl == null)
+                ModelState.AddModelError(nameof(vm.ExternalFileUrl), "No submission has been selected");
 
+            // if not valid, return
             if (!ModelState.IsValid)
             {
-                response.EventId = evnt.Id;
-                response.Event = evnt;
-                response.TeamName = MyTeam.Name;
-                return View(response);
+                vm.EventId = evnt.Id;
+                vm.Event = evnt;
+                vm.TeamName = MyTeam.Name;
+                return View(vm);
             }
 
-            /*
-            DbContext.Add(response);
+            // Save file (if uploaded)
+            string fileUrl = vm.ExternalFileUrl;
+            if (evnt.TeamRegistrationOptions.AcceptFileUploads && vm.UploadedFile != null)
+            {
+                using (var stream = vm.UploadedFile.OpenReadStream())
+                {
+                    var file = Storage.Value.Create(
+                        nameof(FileCategory.Submissions),
+                        string.Format("submit-{0}-{1}-{2}", evnt.Id, MyTeamId, vm.UploadedFile.FileName),
+                        stream
+                    );
+                    fileUrl = file.Url;
+                    DbContext.Files.Add(file);
+                }
+            }
+
+            // Has already responded?
+            var response = (TeamResponse)DbContext.EventResponses.FirstOrDefault(e =>
+               e is TeamResponse
+               && ((TeamResponse)e).TeamId == MyTeamId
+               && e.EventId == evnt.Id);
+
+            // Save response
+            if (response == null)
+            {
+                response = new TeamResponse
+                {
+                    EventId = evnt.Id,
+                    TeamId = MyTeamId,
+                };
+                DbContext.EventResponses.Add(response);
+            }
+            response.ParticipantCount = vm.ParticipantCount;
+            response.FileUrl = fileUrl;
+
+            // Save changes
             DbContext.SaveChanges();
-            */
+
             return View("ResponseConfirmation");
         }
 

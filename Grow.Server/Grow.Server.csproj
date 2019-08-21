@@ -76,9 +76,6 @@
     <Content Update="Areas\MyTeam\Views\Events\Closed.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\MyTeam\Views\Events\Details.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Areas\MyTeam\Views\Home\Profile.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

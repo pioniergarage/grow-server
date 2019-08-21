@@ -49,7 +49,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.ActionLink(item.Name, "Details", "Events", new { id = item.Id })
+                                            @Html.ActionLink(item.Name, "Index", "Events", null, null, item.Id.ToString(), null, null)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Type)

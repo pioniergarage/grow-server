@@ -17,6 +17,10 @@
             width: 100%;
         }
 
+        .image-block a {
+            text-decoration: underline;
+        }
+
         .header-image {
             margin-bottom: -8px;
             border-radius: 2px 2px 0 0;
@@ -46,7 +50,16 @@
                 @foreach (var orga in Model)
                 {
                 <div class="3u 12u(narrower) image-block">
-                    <h3>@orga.Name</h3>
+                    <h3>
+                        @if (string.IsNullOrEmpty(orga.Email)) 
+                        {            
+                            @orga.Name
+                        }
+                        else
+                        {
+                            <a href="mailto:@orga.Email" target="_blank">@orga.Name</a>
+                        }
+                    </h3>
                     <h4>@orga.JobTitle</h4>
                     <img src="@orga.Image.Url" />
                 </div>
@@ -54,8 +67,8 @@
             </div>
         </section>
     }
-    else
-    {
+                                else
+                                {
         <section id="organizers" class="wrapper style4 container">
             <div class="content">
                 <section style="text-align: center">
@@ -81,7 +94,7 @@
                 </header>
                 <p>
                     The <a href="https://pioniergarage.de/" target="_blank">PionierGarage</a> is Germany's largest student club focused on entrepreneurship. 
-                    Located at the Karlsruhe Institute of Technology (KIT) we made it our mission to promote the topic of entrepreneurship 
+                    Located at the Karlsruhe Institute of Technology (KIT) we made it our mission to promote the topic of entrepreneurship
                     by raising an higher awareness within the student community and supporting StartUps in the earliest stage.
                 </p>
                 <ul class="icons">
@@ -107,17 +120,17 @@
                     <h3>The <strong>location</strong>: PionierGarage Launchpad</h3>
                 </header>
                 <p>
-                    The <a href="https://pioniergarage.de/launchpad" target="_blank">PionierGarage Launchpad</a> 
+                    The <a href="https://pioniergarage.de/launchpad" target="_blank">PionierGarage Launchpad</a>
                     in Karlsruhe is the first student-run incubator in Germany.
                     Open to all student projects and young founders, it provides cheap offices and a coworking space for the pre-seed stage.
                 </p>
                 <p>
-                    The PionierGarage Launchpad is the center of all activities of the PionierGarage and therefore also of GROW. 
-                    Most workshops and networking events will take place here. 
+                    The PionierGarage Launchpad is the center of all activities of the PionierGarage and therefore also of GROW.
+                    Most workshops and networking events will take place here.
                     Only the big main events will take place in locations more suited to the high visitor counts.
                 </p>
                 <p>
-                    If you need a place to work, want to connect to other founders or surround yourself with creativity, 
+                    If you need a place to work, want to connect to other founders or surround yourself with creativity,
                     feel free to send us a message.
                 </p>
                 <p>
@@ -133,7 +146,8 @@
             </section>
         </div>
     </section>
-    
+
+
     <section class="style4 container header-image">
         <img src="/img/banners/grow_banner.jpg"/>
     </section>

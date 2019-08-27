@@ -10,99 +10,129 @@
 <div>
     <h4>Team</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TagLine)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TagLine)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ActiveSince)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ActiveSince)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WebsiteUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WebsiteUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FacebookUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FacebookUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.InstagramUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.InstagramUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MembersAsString)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MembersAsString)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.LogoImageId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LogoImageId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TeamPhotoId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TeamPhotoId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HasDroppedOut)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HasDroppedOut)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-    </dl>
-    
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TagLine)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TagLine)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Description)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ActiveSince)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.ActiveSince)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WebsiteUrl)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.WebsiteUrl)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FacebookUrl)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.FacebookUrl)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InstagramUrl)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.InstagramUrl)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.IsActive)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MembersAsString)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.MembersAsString)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LogoImageId)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.LogoImageId)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeamPhotoId)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TeamPhotoId)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HasDroppedOut)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.HasDroppedOut)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CreatedAt)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.UpdatedAt)
+            </td>
+        </tr>
+    </table>
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |

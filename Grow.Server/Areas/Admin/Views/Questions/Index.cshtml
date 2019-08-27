@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Grow.Data.Entities.CommonQuestion>
+
+@{
+    ViewData["Title"] = "FAQ | " + ViewBag.SelectedContestYear;
+}
+
+@section Styles {
+    <style>
+        td {
+            vertical-align: top !important;
+        }
+
+        td.wrap {
+            white-space: pre-line;
+        }
+    </style>
+}
+
+<h2>FAQ for @Html.ContestSelector()</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Identifier
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr is-active="@item.IsActive">
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Question)</td>
+            <td class="wrap" title="@item.Answer">@item.Answer.DynamicSubstring(200)</td>
+            <partial name="Partials/_OptionCell" model="item" />
+        </tr>
+        }
+    </tbody>
+</table>

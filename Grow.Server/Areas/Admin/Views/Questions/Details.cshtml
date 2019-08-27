@@ -1,0 +1,58 @@
+﻿@model Grow.Data.Entities.CommonQuestion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FAQ</h4>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                Identifier
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Question)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Answer)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CreatedAt)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.UpdatedAt)
+            </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

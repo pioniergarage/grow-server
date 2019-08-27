@@ -1,0 +1,61 @@
+﻿@model Grow.Data.Entities.CommonQuestion
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FAQ</h4>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                Identifier
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Question)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Answer)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Answer)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CreatedAt)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.UpdatedAt)
+            </td>
+        </tr>
+    </table>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

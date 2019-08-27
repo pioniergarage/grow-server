@@ -1,0 +1,29 @@
+﻿<li class="nav-item">
+    <a class="collapse-toggle" href="#" data-toggle="collapse" data-target="#teamDropdown" aria-controls="#teamDropdown" aria-expanded="false">
+        <i class="nc-icon nc-bulb-63"></i>
+        My Team
+        <span class="caret arrow"></span>
+    </a>
+    <ul class="collapse" id="teamDropdown">
+        <li conditional-active asp-area="MyTeam" asp-controller="Home" asp-action="Index">
+            <a asp-controller="Home" asp-action="Index" asp-area="MyTeam">
+                <i class="nc-icon nc-chart-bar-32"></i> Dashboard
+            </a>
+        </li>
+        <li conditional-active asp-area="MyTeam" asp-controller="Home" asp-action="Profile">
+            <a asp-controller="Home" asp-action="Profile" asp-area="MyTeam">
+                <i class="nc-icon nc-ruler-pencil"></i> Edit Profile
+            </a>
+        </li>
+        <li conditional-active asp-area="MyTeam" asp-controller="Events">
+            <a asp-controller="Events" asp-action="Index" asp-area="MyTeam">
+                <i class="nc-icon nc-pin-3"></i> Events
+            </a>
+        </li>
+        <li conditional-active asp-area="MyTeam" asp-controller="Questions">
+            <a asp-controller="Questions" asp-action="Index" asp-area="MyTeam">
+                <i class="nc-icon nc-alert-circle-i"></i> FAQ
+            </a>
+        </li>
+    </ul>
+</li>

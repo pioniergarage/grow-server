@@ -1,0 +1,69 @@
+﻿<li class="nav-item">
+    <a class="collapse-toggle" href="#" data-toggle="collapse" data-target="#contentDropdown" aria-controls="#contentDropdown" aria-expanded="false">
+        <i class="nc-icon nc-bullet-list-67"></i>
+        Content
+        <span class="caret arrow"></span>
+    </a>
+    <ul class="collapse" id="contentDropdown">
+        <li conditional-active asp-area="Admin" asp-controller="Contests">
+            <a asp-controller="Contests" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-bank"></i> Contests
+            </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li conditional-active asp-area="Admin" asp-controller="Events">
+            <a asp-controller="Events" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-pin-3"></i> Events
+            </a>
+        </li>
+        <li conditional-active asp-area="Admin" asp-controller="Prizes">
+            <a asp-controller="Prizes" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-trophy"></i> Prizes
+            </a>
+        </li>
+        <li conditional-active asp-area="Admin" asp-controller="Partners">
+            <a asp-controller="Partners" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-support-17"></i> Partners
+            </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li conditional-active asp-area="Admin" asp-controller="Mentors">
+            <a asp-controller="Mentors" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-chat-33"></i> Mentors
+            </a>
+        </li>
+        <li conditional-active asp-area="Admin" asp-controller="Judges">
+            <a asp-controller="Judges" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-glasses-2"></i> Judges
+            </a>
+        </li>
+        <li conditional-active asp-area="Admin" asp-controller="Organizers">
+            <a asp-controller="Organizers" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-tie-bow"></i> Organizers
+            </a>
+        </li>
+        <li class="dropdown-divider"></li>
+        <li conditional-active asp-area="Admin" asp-controller="Teams">
+            <a asp-controller="Teams" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-bulb-63"></i> Teams
+            </a>
+        </li>
+        <li conditional-active asp-area="Admin" asp-controller="Questions">
+            <a asp-controller="Questions" asp-action="Index" asp-area="Admin">
+                <i class="nc-icon nc-alert-circle-i"></i> FAQ
+            </a>
+        </li>
+    </ul>
+</li>
+<li conditional-active asp-area="Admin" asp-controller="Files">
+    <a asp-controller="Files" asp-action="Index" asp-area="Admin">
+        <i class="nc-icon nc-image"></i>
+        Files
+    </a>
+</li>
+<li conditional-active asp-area="Admin" asp-controller="Accounts">
+    <a asp-controller="Accounts" asp-action="Index" asp-area="Admin">
+        <i class="nc-icon nc-single-02"></i>
+        Accounts
+    </a>
+</li>

@@ -44,7 +44,7 @@ namespace Grow.Server.Model.Helpers
                 ? adaptedQuery
                     .OrderBy(GetPropertySelector(options.SortColumn))
                 : adaptedQuery
-                    .OrderBy(GetPropertySelector(options.SortColumn));
+                    .OrderByDescending(GetPropertySelector(options.SortColumn));
         }
 
         private static IEnumerable<TEntity> FilterQuery(PaginationOptions options, IEnumerable<TEntity> adaptedQuery)
@@ -129,9 +129,9 @@ namespace Grow.Server.Model.Helpers
             // default values
             PageIndex       = 1;
             PageSize        = 25;
-            SortColumn      = nameof(BaseNamedEntity.Name);
-            SortAscending   = true;
-            OnlyIfActive    = true;
+            SortColumn      = nameof(BaseTimestampedEntity.CreatedAt);
+            SortAscending   = false;
+            OnlyIfActive    = false;
             FilterColumn    = string.Empty;
             FilterValue     = string.Empty;
         }

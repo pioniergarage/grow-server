@@ -34,7 +34,8 @@ namespace Grow.Server.Areas.Admin.Controllers
             ViewBag.PaginationOptions = options;
             ViewBag.CurrentPage = options.PageIndex;
             ViewBag.PageCount = entities.PageCount;
-            return View(entities);
+
+            return View(FileIndexViewModel.ConvertToViewModels(entities, DbContext));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -104,7 +105,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 // ensure read-only fields are not changed
-                var oldFile = DbContext.Files.Find(id);
+                var oldFile = DbContext.Files.AsNoTracking().SingleOrDefault(f => f.Id == id);
                 if (oldFile == null)
                     return NotFound();
                 file.Extension = oldFile.Extension;

@@ -145,7 +145,7 @@ textarea.form-control {
 }
 
 /* Row for inactive entities on /Type/Index pages */
-tr.inactive {
+tr.inactive, .card.inactive {
     background-color: rgba(0,0,0,0.05);
 }
 

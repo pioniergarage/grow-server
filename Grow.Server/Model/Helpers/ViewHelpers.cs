@@ -84,7 +84,7 @@ namespace Grow.Server.Model.Helpers
             var list = new List<SelectListItem>();
 
             foreach (int value in Enum.GetValues(typeof(T)))
-                list.Add(new SelectListItem(Enum.GetName(typeof(T), value), value.ToString()));
+                list.Add(new SelectListItem(Enum.GetName(typeof(T), value), Enum.GetName(typeof(T), value).ToLower()));
             return list;
         }
 

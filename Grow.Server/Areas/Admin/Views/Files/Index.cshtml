@@ -1,11 +1,27 @@
-﻿@model IEnumerable<Grow.Data.Entities.File>
-@using Grow.Data.Entities
+﻿@model IEnumerable<Grow.Server.Areas.Admin.Model.ViewModels.FileIndexViewModel>
 @using Grow.Server.Model.Helpers
 
 @{
     ViewData["Title"] = "Index";
     Layout = "Layouts/_BackendLayout";
     PaginationOptions paginationOptions = ViewBag.PaginationOptions;
+}
+
+@section Styles {
+    <style>
+        .info-tooltip {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            padding: 5px 10px;
+            background-color: rgba(230, 230, 230, 0.55);
+        }
+
+        .img-card img {
+            border: 1px solid rgba(0,0,0,0.1);
+            max-width: 100%;
+        }
+    </style>
 }
 
 @section Scripts {
@@ -74,31 +90,31 @@
     @foreach (var file in Model)
     {
         <div class="col-sm-6 col-md-4 col-xl-3 img-card @file.Category">
-            <div class="card">
+            <div class="card @(file.IsActive ? "active" : "inactive")">
                 <div class="card-body">
                     @{
-                        var previewTypes = new[] { "jpg", "png", "svg" };
+                        var previewTypes = new[] { "jpg", "gif", "jpeg", "png", "svg" };
                         var detailsLink = Url.Action("Details", "Files", new { id = file.Id });
                     }
                     @if (previewTypes.Contains(file.Extension))
                     {
                         <a href="@detailsLink">
-                            <img src="@file.Url" clas="preview-large" style="max-width: 100%" title="@file.Url" />
+                            <img src="@file.Url" class="preview-large" title="@file.Url" />
                         </a>
                     }
                     else
                     {
                         <a href="@detailsLink">
-                            @Html.DisplayFor(modelItem => file.Url)
+                            <img src="/img/icon/attachment.png" class="preview-large" title="@file.Url" />
                         </a>
                     }
+                        <div class="info-tooltip">
+                            @file.Uses.Count @(file.Uses.Count == 1 ? "use" : "uses")
+                        </div>
                 </div>
                 <div class="card-footer">
-                    <p>
-                        <strong>Name:</strong> @file.Name
-                    </p>
-                    <p>
-                        <strong>Category:</strong> @file.Category
+                    <p class="text-center">
+                        @file.Category/<strong>@file.Name</strong>
                     </p>
                     <p>
                         @file.AltText

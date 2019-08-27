@@ -111,7 +111,7 @@ textarea.form-control {
     font-size: 120%; }
 
 /* Row for inactive entities on /Type/Index pages */
-tr.inactive {
+tr.inactive, .card.inactive {
   background-color: rgba(0, 0, 0, 0.05); }
 
 /* Loading form elements (in case of ajax call) */

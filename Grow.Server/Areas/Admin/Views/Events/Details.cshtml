@@ -3,220 +3,278 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "Layouts/_BackendLayout";
 }
 
-<h2>Details</h2>
+@section Styles {
+    <style>
+        div[data-target] {
+            cursor: pointer;
+        }
 
-<div>
-    <h4>Event</h4>
+        h4 {
+            margin-top: 0px;
+        }
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.Name)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.Description)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Start)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.Start)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.End)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.End)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.HasTimesSet)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.HasTimesSet)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ExternalEventUrl)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.ExternalEventUrl)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.Location)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.Address)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Visibility)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.Visibility)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.Type)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CanVisitorsRegister)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.CanVisitorsRegister)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CanTeamsRegister)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.CanTeamsRegister)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Registration From
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.TeamRegistrationOptions.From)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Registration Until
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.TeamRegistrationOptions.Until)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                File Uploads allowed for Registration
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.TeamRegistrationOptions.AcceptFileUploads)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                Allowed File Extensions for Registration
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.TeamRegistrationOptions.AllowedFileExtensionsString)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IsMandatory)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.IsMandatory)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageId)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.ImageId)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.HeldById)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.HeldById)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.CreatedAt)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.UpdatedAt)
-            </td>
-        </tr>
-    </table>
+        h4 .nc-icon {
+            vertical-align: sub;
+        }
+    </style>
+}
 
-    <p>
-        &nbsp;
-    </p>
+<div class="card">
+    <div class="card-header" data-target="#details-body" data-toggle="collapse">
+        <h4><i class="nc-icon nc-minimal-down"></i> Event Details</h4>
+    </div>
+    <div class="card-body collapse show" id="details-body">
 
-    <strong>@Html.DisplayNameFor(model => model.Responses)</strong>
-    <table class="table">
-        @foreach (var response in Model.Responses.OrderBy(e => e.Created))
-        {
-            string name = string.Empty;
-            string submission = null;
-            switch (response)
-            {
-                case TeamResponse tr:
-                    name = "Team " + (tr.Team?.Name ?? "Nr. " + tr.Id);
-                    submission = tr.FileUrl;
-                    break;
-                case VisitorResponse vr:
-                    name = "Visitor " + vr.Name;
-                    break;
-                default:
-                    break;
-            }
+        <table class="table">
             <tr>
-                <td>@name</td>
-                <td>@response.ParticipantCount</td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
                 <td>
-                    @if (submission != null)
-                    {
-                        <a href="@submission">View Submission</a>
-                    }
+                    @Html.DisplayFor(model => model.Name)
                 </td>
             </tr>
-        }
-    </table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Description)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Start)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Start)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.End)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.End)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HasTimesSet)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.HasTimesSet)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExternalEventUrl)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.ExternalEventUrl)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Location)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Address)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visibility)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Visibility)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Type)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CanVisitorsRegister)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.CanVisitorsRegister)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CanTeamsRegister)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.CanTeamsRegister)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Registration From
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.TeamRegistrationOptions.From)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Registration Until
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.TeamRegistrationOptions.Until)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    File Uploads allowed for Registration
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.TeamRegistrationOptions.AcceptFileUploads)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Allowed File Extensions for Registration
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.TeamRegistrationOptions.AllowedFileExtensionsString)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsMandatory)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.IsMandatory)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageId)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.ImageId)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HeldById)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.HeldById)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedAt)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.CreatedAt)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdatedAt)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.UpdatedAt)
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="row">
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header" data-target="#teams-body" data-toggle="collapse">
+                <h4><i class="nc-icon nc-minimal-down"></i> Team Responses</h4>
+            </div>
+            <div class="card-body collapse show" id="teams-body">
+
+                <table class="table" id="teams-table">
+                    <tr>
+                        <th>TOTAL</th>
+                        <th>@Model.Responses.Where(r => r is TeamResponse).Sum(r => r.ParticipantCount)</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var response in Model.Responses.OrderBy(e => e.Created))
+                    {
+                        if (!(response is TeamResponse tr))
+                        {
+                            continue;
+                        }
+                        <tr>
+                            <td>Team @(tr.Team?.Name ?? "Nr. " + tr.Id)</td>
+                            <td>@response.ParticipantCount</td>
+                            <td>
+                                @if (tr.FileUrl != null)
+                                {
+                                    <a href="@tr.FileUrl" title="@tr.FileUrl">View Submission</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <a href="javascript:void(0)" class="export" data-target="#teams-table" data-name="team-responses-@Model.Id">Export</a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header" data-target="#visitors-body" data-toggle="collapse">
+                <h4><i class="nc-icon nc-minimal-down"></i> Visitor Responses</h4>
+            </div>
+            <div class="card-body collapse show" id="visitors-body">
+
+                <table class="table" id="visitors-table">
+                    <tr>
+                        <th>TOTAL</th>
+                        <th>@Model.Responses.Where(r => r is VisitorResponse).Sum(r => r.ParticipantCount)</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var response in Model.Responses.OrderBy(e => e.Created))
+                    {
+                        if (!(response is VisitorResponse vr))
+                        {
+                            continue;
+                        }
+                        <tr>
+                            <td>@vr.Name</td>
+                            <td>@response.ParticipantCount</td>
+                            <td></td>
+                        </tr>
+                    }
+                </table>
+                <a href="javascript:void(0)" class="export" data-target="#visitors-table" data-name="visitor-responses-@Model.Id">Export</a>
+
+            </div>
+        </div>
+    </div>
+
 </div>

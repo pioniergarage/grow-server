@@ -16,6 +16,7 @@
       "wwwroot/js/grow.helpers.js",
       "wwwroot/js/jquery.entitysearch.js",
       "wwwroot/js/jquery.fileUploader.js",
+      "wwwroot/js/jquery.tableExport.js",
       "wwwroot/js/jquery.conditionalCollapse.js",
       "wwwroot/js/backend.js"
     ],

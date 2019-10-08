@@ -9,5 +9,7 @@ namespace Grow.Data.Entities
         [FileCategory(FileCategory.Partners)]
         public virtual File Image { get; set; }
         public int? ImageId { get; set; }
+
+        public bool IsAdvertised { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace Grow.Server.Controllers
             {
                 Partners = PartnersInSelectedYear
                 .Include(t => t.Image)
+                .Where(t => t.IsAdvertised)
                 .ToList(),
                 MainEvents = EventsInSelectedYear
                 .Include(e => e.Image)

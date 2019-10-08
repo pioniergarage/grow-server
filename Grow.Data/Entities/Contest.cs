@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Grow.Data.Entities
 {
@@ -7,6 +8,8 @@ namespace Grow.Data.Entities
         public string Year { get; set; }
         
         public string RegistrationUrl { get; set; }
+
+        public DateTime? RegistrationDeadline { get; set; }
 
         public string Language { get; set; }
         

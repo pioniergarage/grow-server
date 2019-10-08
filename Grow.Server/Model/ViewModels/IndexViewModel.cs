@@ -16,7 +16,7 @@ namespace Grow.Server.Model.ViewModels
         {
             get
             {
-                return MainEvents.Any()
+                return MainEvents.Count > 0
                     ? MainEvents.Min(e => e.Start)
                     : new DateTime(int.Parse(Contest.Year), 12, 31);
             }
@@ -26,9 +26,19 @@ namespace Grow.Server.Model.ViewModels
         {
             get
             {
-                return MainEvents.Any()
+                return MainEvents.Count > 0
                     ? MainEvents.Max(e => e.End)
                     : new DateTime(int.Parse(Contest.Year), 12, 31);
+            }
+        }
+
+        public DateTime RegistrationDeadline
+        {
+            get
+            {
+                return Contest.RegistrationDeadline.HasValue
+                    ? Contest.RegistrationDeadline.Value
+                    : ContestStart;
             }
         }
         

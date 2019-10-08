@@ -80,7 +80,7 @@
     </section>
 
     <section id="cta">
-        @if (Model.IsBeforeContest)
+        @if (Model.RegistrationDeadline > DateTime.Now)
         {
             <header>
                 <h2>You want to participate in @Model.Contest.Year?</h2>
@@ -103,11 +103,28 @@
         }
         else if (Model.IsAfterContest)
         {
-            // TODO
+            <header>
+                <h2>Interested in participating next year?</h2>
+            </header>
+            <p>
+                The contest is over but the next one will start the following winter. So why not stay up to date with our newsletter.
+            </p>
+            <footer>
+                <ul class="buttons">
+                    <li>
+                        @Html.ActionLink("Sign up", "Newsletter", "Home", null, new { @class = "button special" })
+                    </li>
+                </ul>
+            </footer>
         }
         else
         {
-            // TODO
+            <header>
+                <h2>The contest is running right now</h2>
+            </header>
+            <p>
+                Stay up to date with the @Html.ActionLink("Teams", "Teams", "Home") and follow us on social media for all updates.
+            </p>
         }
         <p>
             Do you have any questions? Just write a mail to <a href="mailto:grow@pioniergarage.de" style="color: white; font-weight: bold;">gro<span>w@p</span>ioniergarage.de</a>

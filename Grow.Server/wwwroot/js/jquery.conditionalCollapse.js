@@ -37,7 +37,7 @@ $.fn.conditionalCollapse = function () {
             ? ($(element).is(":checked") ? "true" : "false")
             : $(element).val();
         if ((inputValue === comparisonValue) !== comparisonShouldBe) {
-            $(element).addClass("collapse");
+            $(element).addClass("collapse show");
         }
     });
 };

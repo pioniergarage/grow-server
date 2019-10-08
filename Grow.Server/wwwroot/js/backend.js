@@ -35,7 +35,10 @@ $(document).ready(function () {
             fp.setDate(newVal);
     });
     $("input[type='date']").flatpickr({
-        dateFormat: "d.m.Y"
+        altInput: true,
+        altFormat: "d.m.Y",
+        dateFormat: "Y-m-d",
+        enableTime: false
     });
     $("input[type='datetime-local']").flatpickr({
         altInput: true,

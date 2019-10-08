@@ -2,7 +2,7 @@
 @import 'libs/functions';
 @import 'libs/mixins';
 @import url("/css/font-awesome.min.css");
-@import url("https://fonts.googleapis.com/css?family=Lato:300,400,900");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,900");
 @import url("https://fonts.googleapis.com/css?family=Philosopher:400");
 @import url("https://fonts.googleapis.com/css?family=Space+Mono");
 
@@ -131,7 +131,7 @@
 
 	body, input, select, textarea {
 		color: _palette(fg);
-		font-family: 'Lato', sans-serif;
+		font-family: 'Montserrat', sans-serif;
 		font-size: 15pt;
 		font-weight: 300;
 		letter-spacing: 0.025em;
@@ -150,7 +150,7 @@
 	}
 
 	strong, b {
-		font-weight: 400;
+		font-weight: 900;
 	}
 
 	p, ul, ol, dl, table {

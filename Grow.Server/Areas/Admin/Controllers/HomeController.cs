@@ -24,6 +24,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             var query = DbContext.Contests.Where(c => c.Year == SelectedContestYear);
             query = query
                 .Include(c => c.Events)
+                .ThenInclude(e => e.Responses)
                 .Include(c => c.Mentors)
                 .Include(c => c.Prizes)
                 .Include(c => c.Teams);

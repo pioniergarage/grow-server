@@ -33,10 +33,12 @@ $.fn.conditionalCollapse = function () {
         });
 
         // start out collapsed?
-        var inputValue = $(element).is(":checkbox")
-            ? ($(element).is(":checked") ? "true" : "false")
-            : $(element).val();
+        var inputValue = $(deciderElement).is(":checkbox")
+            ? ($(deciderElement).is(":checked") ? "true" : "false")
+            : $(deciderElement).val();
         if ((inputValue === comparisonValue) !== comparisonShouldBe) {
+            $(element).addClass("collapse");
+        } else {
             $(element).addClass("collapse show");
         }
     });

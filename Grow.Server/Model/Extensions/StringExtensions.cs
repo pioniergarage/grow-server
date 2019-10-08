@@ -1,4 +1,6 @@
-﻿namespace Grow.Server.Model.Extensions
+﻿using System;
+
+namespace Grow.Server.Model.Extensions
 {
     public static class StringExtensions
     {
@@ -21,6 +23,16 @@
             var lastSpace = subtext.LastIndexOfAny(splitChars);
 
             return subtext.Substring(0, lastSpace + 1) + "...";
+        }
+
+        /// <summary>
+        /// Appends a given URL with http if no schema is given. Else the URL is returned unchanged
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string WithProtocol(this string url)
+        {
+            return new UriBuilder(url).Uri.AbsoluteUri;
         }
     }
 }

@@ -59,7 +59,7 @@
                         @foreach (var mentor in Model)
                         {
                             <li>
-                                <a href="#@mentor.Id">@mentor.Name</a> - @mentor.Expertise.DynamicSubstring(35, ',')
+                                <a href="#@mentor.Id">@mentor.Name</a> - @mentor.Expertise
                             </li>
                         }
                     </ul>
@@ -84,7 +84,7 @@
                                 }
                                 else
                                 {
-                                    <a href="@mentor.WebsiteUrl">@mentor.Name</a>
+                                    <a href="@mentor.WebsiteUrl.WithProtocol()" target="_blank">@mentor.Name</a>
                                 }
                             </h3>
                             <h5>@mentor.JobTitle</h5>

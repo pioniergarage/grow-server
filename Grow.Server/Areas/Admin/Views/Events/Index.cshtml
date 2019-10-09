@@ -60,8 +60,15 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                Teams: @item.Responses.Count(r => r is TeamResponse)<br />
-                Visitors: @item.Responses.Where(r => !(r is TeamResponse)).Sum(r => r.ParticipantCount)
+                Teams: 
+                @(item.CanTeamsRegister 
+                    ? item.Responses.Count(r => r is TeamResponse).ToString() 
+                    : "-")
+                <br />
+                Visitors: 
+                @(item.CanVisitorsRegister 
+                    ? item.Responses.Where(r => !(r is TeamResponse)).Sum(r => r.ParticipantCount).ToString() 
+                    : "-")
             </td>
             <partial name="Partials/_OptionCell" model="item" />
         </tr>

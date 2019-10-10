@@ -896,54 +896,41 @@ input[type="reset"],
 		100% { opacity: 1; }
 	}
 
-	#banner {
-		background-attachment: scroll, scroll, scroll, fixed;
-		background-color: _palette(three, bg);
-		background-image: url('/css/images/light-bl.svg'), 
-            url('/css/images/light-br.svg'), 
-            url('/css/images/overlay.png'),
-            url('/css/images/background_1.jpg');
-		background-position: bottom left, bottom right, top left, top center;
-		background-repeat: no-repeat, no-repeat, repeat, no-repeat;
-		background-size: $pattern-background-size, $pattern-background-size, auto, cover;
-		color: _palette(banner, fg);
-		cursor: default;
-		padding: 6em 0;
-		text-align: center;
-        min-height: 100vh;
+#banner {
+    background-attachment: scroll, scroll, scroll, fixed;
+    background-color: _palette(three, bg);
+    background-image: url('/css/images/light-bl.svg'), url('/css/images/light-br.svg'), url('/css/images/overlay.png'), url('/css/images/background_1.jpg');
+    background-position: bottom left, bottom right, top left, top center;
+    background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+    background-size: $pattern-background-size, $pattern-background-size, auto, cover;
+    color: _palette(banner, fg);
+    cursor: default;
+    padding: 6em 0;
+    text-align: center;
+    min-height: 100vh;
 
-		.inner {
-			@include vendor('animation', 'reveal-banner 1s 0.25s ease-in-out');
-			@include vendor('animation-fill-mode', 'forwards');
-			background: transparentize(_palette(banner, inner-bg), 0.2);
-			color: _palette(banner, inner-fg);
-			display: inline-block;
-			opacity: 0;
-			padding: 3em;
-			text-align: center;
+    #inner {
+        width: 550px;
+        max-width: 95vw;
+        margin-left: auto;
+        margin-right: auto;
 
-            h2 {
-                padding: 0;
-                margin: 0;
+        .video-wrapper {
+            width: 100%;
+            height: 0;
+            padding-top: 56.25%;
+            position: relative;
+
+            iframe {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
-
-			header {
-				display: inline-block;
-			}
-
-            img {
-                width: 350px;
-                max-width: 85vw;
-            }
-
-			p {
-				letter-spacing: 0.1em;
-                font-size: 80%;
-				margin: 0;
-				text-transform: uppercase;
-			}
-		}
-	}
+        }
+    }
+}
 
 /* Main */
 

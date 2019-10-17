@@ -49,9 +49,12 @@ namespace Grow.Server.Model.ViewModels
 
         [DisplayName("Link to the event logo")]
         public string ImageUrl { get; set; }
-        
+
         [DisplayName("Held by")]
         public string HeldByName { get; set; }
+
+        [DisplayName("Partner Website")]
+        public string HeldByUrl { get; set; }
 
         public EventViewModel()
         {
@@ -80,6 +83,7 @@ namespace Grow.Server.Model.ViewModels
 
             ImageUrl = evnt.Image?.Url;
             HeldByName = evnt.HeldBy?.Name;
+            HeldByUrl = evnt.HeldBy?.WebsiteUrl;
             
             switch (evnt.Visibility)
             {

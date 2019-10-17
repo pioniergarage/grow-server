@@ -302,18 +302,33 @@
             <div class="logos">
                 @foreach (var partner in Model.Partners)
                 {
-                    if (partner.Image != null)
+                <div>
+                    @if (!string.IsNullOrEmpty(partner.WebsiteUrl))
                     {
-                        <div>
-                            <img src="@partner.Image.Url" alt="@partner.Name" />
-                        </div>
+                        <a href="@partner.WebsiteUrl.WithProtocol()" target="_blank">
+                            @if (partner.Image != null)
+                            {
+                                <img src="@partner.Image.Url" alt="@partner.Name" />
+                            }
+                            else
+                            {
+                                <strong style="font-size: 200%">@partner.Name</strong>
+                            }
+                        </a>
                     }
                     else
                     {
-                        <div>
+
+                        @if (partner.Image != null)
+                        {
+                            <img src="@partner.Image.Url" alt="@partner.Name" />
+                        }
+                        else
+                        {
                             <strong style="font-size: 200%">@partner.Name</strong>
-                        </div>
+                        }
                     }
+                </div>
                 }
             </div>
         </section>

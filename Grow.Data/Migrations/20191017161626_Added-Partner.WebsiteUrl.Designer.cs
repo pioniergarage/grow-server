@@ -4,14 +4,16 @@ using Grow.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Grow.Data.Migrations
 {
     [DbContext(typeof(GrowDbContext))]
-    partial class GrowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191017161626_Added-Partner.WebsiteUrl")]
+    partial class AddedPartnerWebsiteUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

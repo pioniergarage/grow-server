@@ -11,5 +11,7 @@ namespace Grow.Data.Entities
         public int? ImageId { get; set; }
 
         public bool IsAdvertised { get; set; }
+
+        public string WebsiteUrl { get; set; }
     }
 }

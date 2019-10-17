@@ -78,7 +78,16 @@
         <div class="2u 4u(narrower)" style="text-align: right"><img src="/img/icon/microphone.png" style="max-width: 50%" /></div>
         <div class="4u 8u(narrower)">
             Held by: <br />
-            @Model.HeldByName
+            @if (string.IsNullOrEmpty(Model.HeldByUrl))
+            {
+                @Model.HeldByName
+            }
+            else
+            {
+                <a href="@Model.HeldByUrl.WithProtocol()" target="_blank">
+                    @Model.HeldByName
+                </a>
+            }
         </div>
     }
 

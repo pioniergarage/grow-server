@@ -1736,6 +1736,21 @@ body.index #main {
     max-height: 150px;
     display: block; }
 
+.people {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-between;
+  flex-wrap: wrap;
+  position: relative; }
+  .people img {
+    width: 100%;
+    height: 100%;
+    max-width: 250px;
+    max-height: 300px;
+    display: block;
+    margin: 0 0 15px; }
+
 /* Footer */
 #footer {
   background: #E8EEF4;

@@ -19,7 +19,7 @@
             <div class="content">
                 <section>
                     <header>
-                        <h3>Event calendar</h3>
+                        <h3>Event calendar (for the teams)</h3>
                     </header>
 
                     <ul>
@@ -33,7 +33,7 @@
                             foreach (var evnt in Model.Where(e => e.Start.Month == currentMonth.Month && e.Start.Year == currentMonth.Year))
                             {
                                 <li>
-                                    <a href="#@evnt.Id" style="@(evnt.Visibility == Event.EventVisibility.Public ? "font-weight: 400;" : "")">
+                                    <a href="#@evnt.Id" style="@(evnt.IsMandatory ? "font-weight: 900;" : "")">
                                         @(evnt.Start.Day)@(evnt.Start.GetDayExtension()) - @evnt.Name
                                     </a>
                                 </li>
@@ -44,7 +44,10 @@
                     </ul>
 
                     <p>
-                        The support program consists of two main areas: <b>Mentoring</b> to access experience of others and <b>Workshops</b> to improve yourself. More information will follow later on.
+                        Only the <strong>bold</strong> entries are mandatory.
+                    </p>
+                    <p>
+                        The support program consists of two main areas: <b>Mentoring</b> to access experience of others and <b>Workshops</b> to improve yourself. Find more information by clicking on the entries.
                     </p>
                 </section>
             </div>

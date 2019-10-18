@@ -1,14 +1,8 @@
-﻿@model Grow.Data.Entities.Contest
+﻿@model Grow.Server.Areas.Admin.Model.ViewModels.DashboardViewModel
 
 @{
     ViewData["Title"] = "Index";
     Layout = "Layouts/_BackendLayout";
-
-    var editData = new List<int>();
-    for (int i = 30; i >= 0; i--)
-    {
-        editData.Add(new Random().Next(0, 7));
-    }
 }
 
 @section Scripts {
@@ -18,18 +12,13 @@
         type: 'line',
         data: {
             labels: [
-                @for (var i = 30; i > 0; i--)
-                {
-                    if (i % 5 == 0)
-                    {
-                        @:"@(DateTime.Now.AddDays(-i).ToString("dd.MM."))",
-                    }
-                    else
-                    {
-                        @:"",
-                    }
+                @{
+                    var keys = Model
+                        .EditData
+                        .Keys
+                        .Select(dt => string.Format("\"{0}\"", dt.ToString("ddd, dd.MM.")));
                 }
-                "@DateTime.Now.ToString("dd.MM.")"
+                @Html.Raw(string.Join(',', keys))
             ],
             datasets: [{
                 borderColor: "#6bd098",
@@ -38,7 +27,7 @@
                 pointHoverRadius: 0,
                 borderWidth: 3,
                 data: [
-                    @string.Join(",", editData)
+                    @string.Join(",", Model.EditData.Values)
                 ]
             }]
         },
@@ -60,8 +49,7 @@
                     ticks: {
                         fontColor: "#9f9f9f",
                         beginAtZero: true,
-                        maxTicksLimit: 5,
-                        //padding: 20
+                        maxTicksLimit: 5
                     },
                     gridLines: {
                         drawBorder: false,
@@ -75,11 +63,12 @@
                         drawBorder: false,
                         color: 'rgba(0,0,0,0.1)',
                         zeroLineColor: "transparent",
-                        display: false,
+                        display: true,
                     },
                     ticks: {
                         padding: 10,
-                        fontColor: "#9f9f9f"
+                        fontColor: "#9f9f9f",
+                        maxTicksLimit: 8
                     }
                 }]
             },
@@ -95,7 +84,7 @@
                 <h5 class="card-title">Current public contest</h5>
             </div>
             <div class="card-body ">
-                <h2>@ViewBag.SelectedContestYear</h2>
+                <h2>@Model.SelectedContestYear</h2>
             </div>
             <div class="card-footer ">
                 <hr>
@@ -111,7 +100,7 @@
                 <h5 class="card-title">Latest contest in DB</h5>
             </div>
             <div class="card-body ">
-                <h2>@ViewBag.LatestContestYear</h2>
+                <h2>@Model.LatestContestYear</h2>
             </div>
             <div class="card-footer ">
                 <hr>
@@ -122,7 +111,7 @@
         </div>
     </div>
 </div>
-<h2 style="text-align: center">Stats of @ViewBag.SelectedContestYear</h2>
+<h2 style="text-align: center">Stats of @Model.SelectedContestYear</h2>
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
@@ -136,7 +125,7 @@
                     <div class="col-7 col-md-8">
                         <div class="numbers">
                             <p class="card-category">Participants</p>
-                            <p class="card-title">@Model.Teams.Where(t => t.IsActive).Sum(t => t.Members?.Count ?? 0)
+                            <p class="card-title">@Model.ParticipantCount
                             <p>
                         </div>
                     </div>
@@ -162,7 +151,7 @@
                     <div class="col-7 col-md-8">
                         <div class="numbers">
                             <p class="card-category">Visitors</p>
-                            <p class="card-title">@Model.Events.Sum(e => e.Responses?.Sum(r => r.ParticipantCount) ?? 0)
+                            <p class="card-title">@Model.VisitorCount
                             <p>
                         </div>
                     </div>
@@ -188,7 +177,7 @@
                     <div class="col-7 col-md-8">
                         <div class="numbers">
                             <p class="card-category">Public price value</p>
-                            <p class="card-title">@Model.Prizes.Where(p => p.IsActive).Sum(p => p.RewardValue) €
+                            <p class="card-title">@Model.PrizeSum €
                             <p>
                         </div>
                     </div>
@@ -214,7 +203,7 @@
                     <div class="col-7 col-md-8">
                         <div class="numbers">
                             <p class="card-category">Public events</p>
-                            <p class="card-title">@Model.Events.Where(e => e.IsActive).Count()
+                            <p class="card-title">@Model.EventCount
                             <p>
                         </div>
                     </div>

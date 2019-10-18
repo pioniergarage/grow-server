@@ -1,4 +1,5 @@
 ﻿using Grow.Data;
+using Grow.Server.Areas.Admin.Model.ViewModels;
 using Grow.Server.Model;
 using Grow.Server.Model.Helpers;
 using Microsoft.AspNetCore.Http;
@@ -21,19 +22,9 @@ namespace Grow.Server.Areas.Admin.Controllers
         // GET: Admin/Home
         public IActionResult Index()
         {
-            var query = DbContext.Contests.Where(c => c.Year == SelectedContestYear);
-            query = query
-                .Include(c => c.Events)
-                .ThenInclude(e => e.Responses)
-                .Include(c => c.Mentors)
-                .Include(c => c.Prizes)
-                .Include(c => c.Teams);
-            var contest = query.Single();
+            var model = new DashboardViewModel(DbContext, SelectedContestYear);
 
-            ViewBag.SelectedContestYear = contest.Year;
-            ViewBag.LatestContestYear = DbContext.Contests.AsNoTracking().OrderByDescending(c => c.Year).First().Year;
-
-            return View(contest);
+            return View(model);
         }
 
         [HttpPost]

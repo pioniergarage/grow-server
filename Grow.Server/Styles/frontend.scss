@@ -227,6 +227,10 @@
         margin-top: 10px;
     }
 
+    .centered {
+        text-align: center;
+    }
+
     input[disabled="disabled"], input.form-control[disabled="disabled"], input[readonly="readonly"], input.form-control[readonly="readonly"] {
         background-color: rgba(0,0,0,0.05);
         font-style: italic;
@@ -995,7 +999,6 @@ input[type="reset"],
     background-repeat: no-repeat, no-repeat, repeat, no-repeat;
     background-size: $pattern-background-size, $pattern-background-size, auto, cover;
     color: _palette(three, fg);
-    padding: 5em;
     text-align: center;
 
     header {
@@ -1007,7 +1010,6 @@ input[type="reset"],
 
 .logos {
     display: flex;
-    margin: 60px 0;
     justify-content: space-evenly;
     align-items: center;
     align-content: space-between;
@@ -1034,8 +1036,6 @@ input[type="reset"],
     position: relative;
 
     img {
-        width: 100%;
-        height: 100%;
         max-width: 250px;
         max-height: 300px;
         display: block;
@@ -1634,12 +1634,6 @@ input[type="reset"],
 			.wrapper {
 				margin-bottom: 2.5em;
 				padding: 2.25em 1.5em;
-
-				&.special {
-					br {
-						display: none;
-					}
-				}
 
 				&.style1 {
 					padding: 0 1.5em;

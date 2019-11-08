@@ -12,6 +12,16 @@
     };
 }
 
+@section Styles {
+    <style>
+        .past .card {
+            background-color: #D0D0D0;
+            opacity: 0.7;
+            font-style: italic;
+        }
+    </style>
+}
+
 <p>
     <input type="checkbox" data-toggle="collapse" data-target="#past-wrapper" role="button" aria-controls="past-wrapper" aria-expanded="false" />
     Also show past events
@@ -19,7 +29,7 @@
 
 @foreach (var (key, query, isShown) in queries)
 {
-    <div class="collapse @(isShown ? "show" : "")" id="@key-wrapper">
+    <div class="collapse @(isShown ? "show" : "") @key" id="@key-wrapper">
 
         @foreach (var evnt in query)
         {
@@ -62,7 +72,18 @@
                     </div>
                     <div class="col-6 order-md-2 col-md-3">
                         <h6>Need to register?</h6>
-                        @(evnt.CanTeamsRegister ? "Yes" : "No")
+                        @if (evnt.CanTeamsRegister) {
+                            @:Yes<br />
+                            var deadline = evnt.TeamRegistrationOptions.Until;
+                            if (deadline.HasValue)
+                            {
+                                deadline -= new TimeSpan(0, 1, 0);
+                                @:(until @deadline.Value.ToShortDateString(), @deadline.Value.ToShortTimeString())
+                            }
+                        } else
+                        {
+                            @:No
+                        }
                     </div>
                     <div class="col-6 order-md-1 col-md-3">
                         <h6>Mandatory?</h6>

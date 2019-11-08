@@ -7,6 +7,16 @@
     ViewBag.Title = "Program";
 }
 
+@section Styles {
+    <style>
+        .past {
+            text-decoration: line-through;
+            font-style: italic;
+            color: #A0A0A0;
+        }
+    </style>
+}
+
 <article id="main">
 
     <header class="special container">
@@ -33,7 +43,9 @@
                             foreach (var evnt in Model.Where(e => e.Start.Month == currentMonth.Month && e.Start.Year == currentMonth.Year))
                             {
                                 <li>
-                                    <a href="#@evnt.Id" style="@(evnt.IsMandatory ? "font-weight: 900;" : "")">
+                                    <a href="#@evnt.Id" 
+                                       class="@(evnt.Start < DateTime.UtcNow ? "past" : "")" 
+                                       style="@(evnt.IsMandatory ? "font-weight: 900;" : "")">
                                         @(evnt.Start.Day)@(evnt.Start.GetDayExtension()) - @evnt.Name
                                     </a>
                                 </li>

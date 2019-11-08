@@ -6,53 +6,57 @@
 }
 
 @section Scripts {
-    <script>
-        
-        function getTimeRemaining(endtime) {
-            var t = endtime.getTime() - Date.now();
-            var seconds = Math.floor((t / 1000) % 60);
-            var minutes = Math.floor((t / 1000 / 60) % 60);
-            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-            var days = Math.floor(t / (1000 * 60 * 60 * 24));
-            return {
-                'total': t,
-                'days': days,
-                'hours': hours,
-                'minutes': minutes,
-                'seconds': seconds
-            };
-        }
 
-        function initializeClock(id, endtime) {
-            var clock = document.getElementById(id);
-            if (!clock || !endtime) return;
-            var daysSpan = clock.querySelector('.days');
-            var hoursSpan = clock.querySelector('.hours');
-            var minutesSpan = clock.querySelector('.minutes');
-            var secondsSpan = clock.querySelector('.seconds');
+    @if (Model.ContestStart > DateTime.UtcNow)
+    {
+        <script>
 
-            function updateClock() {
-                var t = getTimeRemaining(endtime);
+            function getTimeRemaining(endtime) {
+                var t = endtime.getTime() - Date.now();
+                var seconds = Math.floor((t / 1000) % 60);
+                var minutes = Math.floor((t / 1000 / 60) % 60);
+                var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+                var days = Math.floor(t / (1000 * 60 * 60 * 24));
+                return {
+                    'total': t,
+                    'days': days,
+                    'hours': hours,
+                    'minutes': minutes,
+                    'seconds': seconds
+                };
+            }
 
-                daysSpan.innerHTML = t.days;
-                hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+            function initializeClock(id, endtime) {
+                var clock = document.getElementById(id);
+                if (!clock || !endtime) return;
+                var daysSpan = clock.querySelector('.days');
+                var hoursSpan = clock.querySelector('.hours');
+                var minutesSpan = clock.querySelector('.minutes');
+                var secondsSpan = clock.querySelector('.seconds');
 
-                if (t.total <= 0) {
-                    clearInterval(timeinterval);
+                function updateClock() {
+                    var t = getTimeRemaining(endtime);
+
+                    daysSpan.innerHTML = t.days;
+                    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                    if (t.total <= 0) {
+                        clearInterval(timeinterval);
                 }
             }
 
             updateClock();
-            var timeinterval = setInterval(updateClock, 1000);
-        }
+                var timeinterval = setInterval(updateClock, 1000);
+            }
         
-        var contestStart = new Date('@Model.ContestStart.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")');
-        contestStart.setTime(contestStart.getTime() + contestStart.getTimezoneOffset() * 60 * 1000);
-        initializeClock('clockdiv', contestStart);
+            var contestStart = new Date('@Model.ContestStart.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")');
+            contestStart.setTime(contestStart.getTime() + contestStart.getTimezoneOffset() * 60 * 1000);
+            initializeClock('clockdiv', contestStart);
 
-    </script>
+        </script>
+    }
 }
 
 <section id="banner">
@@ -119,7 +123,7 @@
         </p>
         <p>
             At the end you can get the chance to pitch your progress in front of <strong>500+ people</strong>
-            including an experienced jury and may win one of the prizes from our <strong>prize pool worth over 10.000 €</strong>.
+            including an experienced jury and may win one of the prizes from our <strong>prize pool worth over 8.000 €</strong>.
         </p>
         <h3 style="text-align: center">
             <strong>Supporting young founders - every winter in Karlsruhe</strong>
@@ -129,21 +133,27 @@
     <section id="cta">
         @if (Model.RegistrationDeadline > DateTime.Now)
         {
+            var deadline = Model.RegistrationDeadline - new TimeSpan(0, 1, 0);
             <header>
                 <h2>You want to participate in @Model.Contest.Year?</h2>
             </header>
-            <footer>
-                <ul class="buttons">
+            <p>
+                <ul class="buttons" style="margin: 0">
                     @if (Model.Contest.RegistrationUrl != null)
                     {
-                        <li><a href="@Model.Contest.RegistrationUrl" target="_blank" class="button special">Register now</a></li>
+                        <li>
+                            <a href="@Model.Contest.RegistrationUrl" target="_blank" class="button special">
+                                Register now
+                            </a>
+                        </li>
                     }
                     else
                     {
                         <li><span class="button disabled">Registrations have not yet opened</span></li>
                     }
                 </ul>
-            </footer>
+                <span style="font-size: 80%">(Deadline: @deadline.ToShortDateString() @deadline.ToShortTimeString())</span>
+            </p>
             <p>
                 You can also attend the Kickoff event and enter spontaneously.
             </p>
@@ -169,6 +179,9 @@
             <header>
                 <h2>The contest is running right now</h2>
             </header>
+            <p>
+                Registrations for this year are closed.
+            </p>
             <p>
                 Stay up to date with the @Html.ActionLink("Teams", "Teams", "Home") and follow us on social media for all updates.
             </p>

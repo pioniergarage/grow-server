@@ -1,0 +1,52 @@
+﻿@model Grow.Server.Areas.Admin.Model.ViewModels.AccountBulkCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Accounts</h4>
+
+<p>
+    The following accounts and teams will be created:
+</p>
+
+<hr />
+
+<h6>Emails</h6>
+<ul>
+    @foreach (var (email, teamName) in Model.Emails)
+    {
+        <li>@email</li>
+    }
+</ul>
+
+<h6>Teams</h6>
+<ul>
+    @foreach (var team in Model.TeamNames)
+    {
+        <li>@team</li>
+    }
+</ul>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="BulkCreateResult">
+            <input asp-for="Input" type="hidden" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+                <span class="text-gray">Elements that already exist will be skipped</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="BulkCreate">Back to Input</a>
+    |
+    <a asp-action="Index">Back to List</a>
+</div>
+

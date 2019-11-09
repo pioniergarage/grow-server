@@ -1,0 +1,46 @@
+﻿@model Grow.Server.Areas.Admin.Model.ViewModels.AccountBulkCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Accounts</h4>
+
+<p>
+    Using this bulk create option, you can create multiple teams and corresponding accounts automatically.<br />
+    <br />
+    The following CSV format is required: 
+    <ul>
+        <li>separate email address and team name with a comma</li>
+        <li>each email in a new line</li>
+        <li>multiple emails for the same team must be on separate lines</li>
+    </ul>
+</p>
+<p>
+    Example:<br />
+    <textarea readonly class="form-control" style="font-style: italic" rows="3">john@deer.com, TheAwesomeBros
+oh@deer.com, TheAwesomeBros
+totally@legit.at, Just another Airbnb</textarea>
+</p>
+
+<hr />
+
+<form asp-action="BulkCreateConfirm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Input" class="control-label"></label>
+        <textarea asp-for="Input" class="form-control" cols="30" rows="12"></textarea>
+        <span asp-validation-for="Input" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Process" class="btn btn-default" />
+        <span class="text-gray">You will get to check your data before saving it</span>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

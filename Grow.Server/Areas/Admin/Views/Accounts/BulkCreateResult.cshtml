@@ -1,0 +1,46 @@
+﻿@model Grow.Server.Areas.Admin.Model.ViewModels.AccountBulkCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Accounts</h4>
+
+<hr />
+
+<h6>Errors during creation:</h6>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<hr />
+
+<h6>Created accounts:</h6>
+<table class="table" id="accounts-table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Temporary Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var (email, pw) in Model.TemporaryPasswords)
+        {
+            <tr>
+                <td>@email</td>
+                <td>@pw</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="javascript:void(0)" class="export" data-target="#accounts-table" data-name="new-accounts-@DateTime.Now.ToShortTimeString()">Export</a>
+
+<hr />
+
+<div>
+    <a asp-action="BulkCreate">Back to Mass Input</a>
+    |
+    <a asp-action="Index">Back to List</a>
+</div>
+

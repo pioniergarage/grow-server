@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Grow.Server.Areas.Admin.Model.ViewModels;
 using System;
 using System.Collections.Generic;
-using Grow.Server.Areas.Admin.Model;
 using Grow.Server.Model.Helpers;
 using Grow.Server.Model.ViewModels;
 
@@ -56,6 +55,70 @@ namespace Grow.Server.Areas.Admin.Controllers
             }
 
             var vm = await _mapper.AccountToViewModelAsync(account).ConfigureAwait(false);
+            return View(vm);
+        }
+
+        public IActionResult BulkCreate()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult BulkCreateConfirm(AccountBulkCreateViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(nameof(BulkCreate), vm);
+            }
+
+            try
+            {
+                vm.ParseInput();
+            }
+            catch (InvalidOperationException e)
+            {
+                ModelState.AddModelError(nameof(AccountBulkCreateViewModel.Input), "Parsing error: \r\n" + e.Message);
+                return View(nameof(BulkCreate), vm);
+            }
+            
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BulkCreateResult(AccountBulkCreateViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(nameof(BulkCreate), vm);
+            }
+
+            // Parse input
+            try
+            {
+                vm.ParseInput();
+            }
+            catch (InvalidOperationException e)
+            {
+                ModelState.AddModelError(nameof(AccountBulkCreateViewModel.Input), "Parsing error: \r\n" + e.Message);
+                return View(nameof(BulkCreate), vm);
+            }
+
+            try
+            {
+                // Create teams
+                vm.CreateTeams(DbContext, SelectedContestId);
+
+                // Create accounts
+                await vm.CreateAccounts(DbContext, _mapper).ConfigureAwait(false);
+            }
+            catch (InvalidOperationException e)
+            {
+                ModelState.AddModelError(nameof(AccountBulkCreateViewModel.Input), "Error creating entities: \r\n" + e.Message);
+                return View(vm);
+            }
+
             return View(vm);
         }
 

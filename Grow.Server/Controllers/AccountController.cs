@@ -50,12 +50,28 @@ namespace Grow.Server.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            // Change email
-            if (ModelState.GetValidationState(nameof(AccountViewModel.Email)) != ModelValidationState.Valid)
+            // Change name
+            if (vm.Name != user.UserName)
             {
-                return View(vm);
+                if (ModelState.GetValidationState(nameof(AccountViewModel.Name)) != ModelValidationState.Valid)
+                {
+                    return View(vm);
+                }
+                await _userManager.SetUserNameAsync(user, vm.Name).ConfigureAwait(false);
             }
-            await _userManager.SetEmailAsync(user, vm.Email).ConfigureAwait(false);
+
+            // Change email
+            // TODO: enable email changing - currently disabled since we don't verify the new email
+            /*
+            if (vm.Email != user.Email)
+            {
+                if (ModelState.GetValidationState(nameof(AccountViewModel.Email)) != ModelValidationState.Valid)
+                {
+                    return View(vm);
+                }
+                await _userManager.SetEmailAsync(user, vm.Email).ConfigureAwait(false);
+            }
+            */
 
             return View(vm);
         }

@@ -30,8 +30,8 @@ namespace Grow.Server.Areas.MyTeam.Model.ViewModels
             SlidesUrl = evnt.Slides?.Url;
             TeamResponse = evnt.Responses
                 ?.Where(r => r is TeamResponse tr && tr.TeamId == team.Id)
-                .Select(r => r.ParticipantCount)
-                .SingleOrDefault();
+                .SingleOrDefault()
+                ?.ParticipantCount;
             CanTeamRespondNow = evnt.CanTeamRespondNow(team);
         }
     }

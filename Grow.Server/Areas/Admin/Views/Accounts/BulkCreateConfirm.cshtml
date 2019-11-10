@@ -14,7 +14,7 @@
 
 <hr />
 
-<h6>Emails</h6>
+<h6>Emails (@Model.Emails.Count)</h6>
 <ul>
     @foreach (var (email, teamName) in Model.Emails)
     {
@@ -22,7 +22,7 @@
     }
 </ul>
 
-<h6>Teams</h6>
+<h6>Teams (@Model.TeamNames.Count)</h6>
 <ul>
     @foreach (var team in Model.TeamNames)
     {

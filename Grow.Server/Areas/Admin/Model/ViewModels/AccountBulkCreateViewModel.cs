@@ -30,7 +30,7 @@ namespace Grow.Server.Areas.Admin.Model.ViewModels
             using (StringReader sr = new StringReader(Input))
             {
                 var line = string.Empty;
-                const string regex = @"\s*([\w@.]+)\s*,\s*(.*)\s*";
+                const string regex = @"\s*([^\s,]+)\s*,\s*(.*)\s*";
                 var lineCounter = 0;
 
                 while ((line = sr.ReadLine()) != null)

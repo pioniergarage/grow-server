@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace Grow.Server
 {
@@ -50,6 +51,9 @@ namespace Grow.Server
             {
                 app.UseHsts();
             }
+
+            // Culture
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("de-DE");
 
             // DB setup
             app.UpdateGrowDatabase();

@@ -72,5 +72,10 @@ namespace Grow.Server.Areas.MyTeam.Model.ViewModels
         public string InstagramUrl { get; set; }
         
         public virtual ICollection<string> Members { get; set; }
+
+        public TeamViewModel()
+        {
+            Members = new List<string>();
+        }
     }
 }

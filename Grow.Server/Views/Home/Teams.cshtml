@@ -150,15 +150,13 @@
                         }
                     </div>
                     <div style="clear: both;"></div>
-                    <p>
-                        @if (team.TeamPhoto != null)
-                        {
-                            <div class="3u 12u(narrower)">
-                                <img class="with-text" src="@team.TeamPhoto.Url" />
-                            </div>
-                        }
-                        @team.Description
-                    </p>
+                    @if (team.TeamPhoto != null)
+                    {
+                        <div class="3u 12u(narrower)">
+                            <img class="with-text" src="@team.TeamPhoto.Url" />
+                        </div>
+                    }
+                    <p style="white-space: pre-line;">@team.Description</p>
                     <div style="clear: both;"></div>
                     <div class="icons">
                         @if (!string.IsNullOrEmpty(team.WebsiteUrl))
@@ -181,7 +179,7 @@
                         }
                         @if (!string.IsNullOrEmpty(team.InstagramUrl))
                         {
-                            <a href="https://www.facebook.com/@team.InstagramUrl" target="_blank">
+                            <a href="https://www.instagram.com/@team.InstagramUrl" target="_blank">
                                 <img src="/img/icon/insta.png" />
                             </a>
                         }

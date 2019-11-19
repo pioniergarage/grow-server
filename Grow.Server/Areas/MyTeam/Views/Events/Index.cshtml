@@ -60,7 +60,23 @@
                 </div>
                 <hr />
                 <div class="card-body row">
-                    <div class="col-md-12 include-newline">@evnt.Description</div>
+                    <div class="col-md-12">
+                        <div class="include-newline">@evnt.Description</div>
+                        <br />
+                        <strong>Slides:</strong> 
+                        @if (evnt.End > DateTime.UtcNow)
+                        {
+                            @: <em>not available before the event takes place</em>
+                        }
+                        else if (string.IsNullOrEmpty(evnt.SlidesUrl))
+                        {
+                            @: none uploaded
+                        }
+                        else
+                        {
+                            <a href="@evnt.SlidesUrl">Download here</a>
+                        }
+                    </div>
                 </div>
                 <hr />
                 <div class="card-footer row text-center">

@@ -167,10 +167,22 @@
             </tr>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ImageId)
+                    @Html.DisplayNameFor(model => model.Image)
                 </th>
                 <td>
-                    @Html.DisplayFor(model => model.ImageId)
+                    <a href="@Model.Image?.Url">
+                        @Html.DisplayFor(model => model.Image.Url)
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Slides)
+                </th>
+                <td>
+                    <a href="@Model.Slides?.Url">
+                        @Html.DisplayFor(model => model.Slides.Url)
+                    </a>
                 </td>
             </tr>
             <tr>

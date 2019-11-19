@@ -36,6 +36,7 @@ namespace Grow.Server.Areas.Admin.Controllers
             return query
                 .Include(t => t.Contest)
                 .Include(t => t.Image)
+                .Include(t => t.Slides)
                 .Include(t => t.HeldBy)
                 .Include(t => t.Responses)
                 .ThenInclude(r => ((TeamResponse)r).Team);

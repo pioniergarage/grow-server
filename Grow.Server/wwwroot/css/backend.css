@@ -52,6 +52,9 @@ textarea.form-control {
   border-style: solid;
   border-width: 0 0 1px; }
 
+.include-newline {
+  white-space: pre-line; }
+
 .form-group .input-group .input-group-text {
   background-color: rgba(0, 0, 0, 0.05);
   font-size: inherit;

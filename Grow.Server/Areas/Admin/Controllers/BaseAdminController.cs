@@ -21,5 +21,18 @@ namespace Grow.Server.Areas.Admin.Controllers
             : base(dbContext, appSettings, logger)
         {
         }
+        
+        protected void RemoveNavigationPropertiesFromModelState<T>()
+        {
+            var navProperties = typeof(T)
+                .GetProperties()
+                .Where(p => p.GetMethod.IsVirtual && typeof(BaseEntity).IsAssignableFrom(p.PropertyType));
+            foreach (var property in navProperties)
+            {
+                var navKeys = ModelState.Keys.Where(k => k.StartsWith(property.Name + "."));
+                foreach (var key in navKeys)
+                    ModelState.Remove(key);
+            }
+        }
     }
 }

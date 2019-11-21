@@ -14,8 +14,8 @@ namespace Grow.Server.Model.ViewModels
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
-        public Team Team { get; set; }
+        
+        public virtual Team Team { get; set; }
         public int? TeamId { get; set; }
 
         [DisplayName("Can edit content")]

@@ -131,8 +131,11 @@ namespace Grow.Server.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AccountEditViewModel vm)
         {
+            RemoveNavigationPropertiesFromModelState<AccountEditViewModel>();
             if (ModelState.IsValid)
             {
+                ViewHelpers.RemoveAllNavigationProperties(vm);
+
                 if (string.IsNullOrEmpty(vm.Password))
                 {
                     ModelState.AddModelError(nameof(AccountEditViewModel.Password), "A Password must be set");
@@ -183,8 +186,11 @@ namespace Grow.Server.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            RemoveNavigationPropertiesFromModelState<AccountEditViewModel>();
             if (ModelState.IsValid)
             {
+                ViewHelpers.RemoveAllNavigationProperties(vm);
+
                 // account exists?
                 var oldAccount = _mapper.FindAccountByShortId(vm.Id);
                 if (oldAccount == null)

@@ -62,12 +62,12 @@
             <td>
                 Teams: 
                 @(item.CanTeamsRegister 
-                    ? item.Responses.Count(r => r is TeamResponse).ToString() 
+                    ? item.Responses.Where(r => r is TeamResponse).Sum(r => r.ParticipantCount).ToString() 
                     : "-")
                 <br />
                 Visitors: 
                 @(item.CanVisitorsRegister 
-                    ? item.Responses.Where(r => !(r is TeamResponse)).Sum(r => r.ParticipantCount).ToString() 
+                    ? item.Responses.Where(r => r is VisitorResponse).Sum(r => r.ParticipantCount).ToString() 
                     : "-")
             </td>
             <partial name="Partials/_OptionCell" model="item" />

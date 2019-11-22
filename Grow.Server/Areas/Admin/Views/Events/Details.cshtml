@@ -41,9 +41,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
-                <td>
-                    @Html.DisplayFor(model => model.Description)
-                </td>
+                <td class="include-newline">@Html.DisplayFor(model => model.Description)</td>
             </tr>
             <tr>
                 <th>
@@ -229,11 +227,11 @@
 
                 <table class="table" id="teams-table">
                     <tr>
-                        <th>TOTAL</th>
+                        <th>TOTAL (@Model.Responses.Count(r => r is TeamResponse))</th>
                         <th>@Model.Responses.Where(r => r is TeamResponse).Sum(r => r.ParticipantCount)</th>
                         <th></th>
                     </tr>
-                    @foreach (var response in Model.Responses.OrderBy(e => e.Created))
+                    @foreach (var response in Model.Responses.Where(e => e is TeamResponse).OrderBy(e => ((TeamResponse)e).Team.Name))
                     {
                         if (!(response is TeamResponse tr))
                         {
@@ -241,7 +239,7 @@
                         }
                         <tr>
                             <td>Team @(tr.Team?.Name ?? "Nr. " + tr.Id)</td>
-                            <td>@response.ParticipantCount</td>
+                            <td>@tr.ParticipantCount</td>
                             <td>
                                 @if (tr.FileUrl != null)
                                 {
@@ -270,7 +268,7 @@
                         <th>@Model.Responses.Where(r => r is VisitorResponse).Sum(r => r.ParticipantCount)</th>
                         <th></th>
                     </tr>
-                    @foreach (var response in Model.Responses.OrderBy(e => e.Created))
+                    @foreach (var response in Model.Responses.Where(e => e is VisitorResponse).OrderBy(e => ((VisitorResponse)e).Name))
                     {
                         if (!(response is VisitorResponse vr))
                         {

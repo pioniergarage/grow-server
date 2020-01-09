@@ -36,15 +36,18 @@ $.fn.fileUploader = function () {
 
             // function to process created image
             var on_success = (data) => {
+                $(element).removeClass("loading");
+
                 if (output_element) {
                     output_element.val(data[0].id);
                     output_element.trigger("change");
-
                 }
             };
 
             // function to alert in case of error
             var on_fail = (xhr, status, error) => {
+                $(element).removeClass("loading");
+
                 switch (xhr.status) {
                     case 409:
                         alert("Error: A file with this name has already been uploaded.");
@@ -62,6 +65,7 @@ $.fn.fileUploader = function () {
             };
 
             // Make API call to create image
+            $(element).addClass("loading");
             $.ajax({
                 url: file_api_url + "?category=" + category,
                 type: "POST",

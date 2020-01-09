@@ -153,7 +153,7 @@ tr.inactive, .card.inactive {
 }
 
 /* Loading form elements (in case of ajax call) */
-.form-control.loading {
+.form-control.loading, .loading input.form-control {
     background: linear-gradient(270deg, rgba(255,255,255,0), rgba(135,228,252,0.35), rgba(255,255,255,0));
     background-size: 400% 100%;
     animation: loading-back 1.5s ease infinite;

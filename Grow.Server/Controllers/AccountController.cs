@@ -97,7 +97,7 @@ namespace Grow.Server.Controllers
                 var user = await _userManager.FindByNameAsync(model.UserName).ConfigureAwait(false);
                 if (user == null)
                 {
-                    ModelState.AddModelError("LoginFailed", "The email or password was incorrect");
+                    ModelState.AddModelError("LoginFailed", "The user name or password was incorrect");
                 }
                 else if (!user.IsEnabled)
                 {

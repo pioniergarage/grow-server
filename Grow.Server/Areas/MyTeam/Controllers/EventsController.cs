@@ -105,11 +105,26 @@ namespace Grow.Server.Areas.MyTeam.Controllers
             string fileUrl = vm.ExternalFileUrl;
             if (evnt.TeamRegistrationOptions.AcceptFileUploads && vm.UploadedFile != null)
             {
+                if (!evnt.TeamRegistrationOptions.AllowedFileExtensions.Any(e => vm.UploadedFile.FileName.EndsWith(e)))
+                {
+                    ModelState.AddModelError(nameof(vm.ExternalFileUrl), "Only the following file types are allowed: " + evnt.TeamRegistrationOptions.AllowedFileExtensionsString);
+                    vm.EventId = evnt.Id;
+                    vm.Event = evnt;
+                    vm.TeamName = MyTeam.Name;
+                    return View(vm);
+                }
+
                 using (var stream = vm.UploadedFile.OpenReadStream())
                 {
                     var file = Storage.Value.Create(
                         nameof(FileCategory.Submissions),
-                        string.Format("submit-{0}-{1}-{2}", evnt.Id, MyTeamId, vm.UploadedFile.FileName),
+                        string.Format(
+                            "submit-{0}-{1}-{2}-{3}",
+                            SelectedContestYear,
+                            evnt.Name.Replace(" ", "").ToLower(), 
+                            MyTeam.Name.Replace(" ","").ToLower(), 
+                            vm.UploadedFile.FileName
+                        ),
                         stream
                     );
                     fileUrl = file.Url;

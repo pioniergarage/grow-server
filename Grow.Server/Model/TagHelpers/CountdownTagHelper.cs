@@ -33,7 +33,10 @@ namespace Grow.Server.Model.TagHelpers
             var mins = CreateSection(timeLeft, CountdownSection.Minutes);
             var secs = CreateSection(timeLeft, CountdownSection.Seconds);
 
-            return WrapInDiv(new[] { days, hours, mins, secs }, "clockdiv");
+            var wrapper = WrapInDiv(new[] { days, hours, mins, secs }, "clockdiv");
+            wrapper.Attributes.Add("dat-datetime", TargetTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'"));
+
+            return wrapper;
         }
         
         private IHtmlContent CreateSection(TimeSpan timeLeft, CountdownSection section)

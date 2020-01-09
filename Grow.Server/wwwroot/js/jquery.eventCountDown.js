@@ -2,14 +2,18 @@
 
 $.fn.eventCountDown = function () {
 
-	var targetDateString = $(this).attr("asp-datetime");
-    if (!targetDateString)
-        return;
+    this.each((index, element) => {
 
-    var targetDate = new Date(targetDateString);
-    targetDate.setTime(targetDate.getTime() + targetDate.getTimezoneOffset() * 60 * 1000);
+        var targetDateString = $(element).attr("dat-datetime");
+        if (!targetDateString)
+            return;
 
-    initializeClock(this, targetDate);
+        var targetDate = new Date(targetDateString);
+        targetDate.setTime(targetDate.getTime() + targetDate.getTimezoneOffset() * 60 * 1000);
+
+        initializeClock(element, targetDate);
+
+    });
 
     return this;
 };

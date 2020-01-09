@@ -6,57 +6,12 @@
 }
 
 @section Scripts {
+    <script src="/js/jquery.eventCountDown.js"></script>
+    <script>
 
-    @if (Model.ContestStart > DateTime.UtcNow)
-    {
-        <script>
+        $('#clockdiv').eventCountDown();
 
-            function getTimeRemaining(endtime) {
-                var t = endtime.getTime() - Date.now();
-                var seconds = Math.floor((t / 1000) % 60);
-                var minutes = Math.floor((t / 1000 / 60) % 60);
-                var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-                var days = Math.floor(t / (1000 * 60 * 60 * 24));
-                return {
-                    'total': t,
-                    'days': days,
-                    'hours': hours,
-                    'minutes': minutes,
-                    'seconds': seconds
-                };
-            }
-
-            function initializeClock(id, endtime) {
-                var clock = document.getElementById(id);
-                if (!clock || !endtime) return;
-                var daysSpan = clock.querySelector('.days');
-                var hoursSpan = clock.querySelector('.hours');
-                var minutesSpan = clock.querySelector('.minutes');
-                var secondsSpan = clock.querySelector('.seconds');
-
-                function updateClock() {
-                    var t = getTimeRemaining(endtime);
-
-                    daysSpan.innerHTML = t.days;
-                    hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-                    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-                    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-
-                    if (t.total <= 0) {
-                        clearInterval(timeinterval);
-                }
-            }
-
-            updateClock();
-                var timeinterval = setInterval(updateClock, 1000);
-            }
-        
-            var contestStart = new Date('@Model.ContestStart.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")');
-            contestStart.setTime(contestStart.getTime() + contestStart.getTimezoneOffset() * 60 * 1000);
-            initializeClock('clockdiv', contestStart);
-
-        </script>
-    }
+    </script>
 }
 
 <section id="banner">
@@ -72,24 +27,7 @@
         var timeLeft = Model.ContestStart - DateTime.Now;
         <h2>
             GROW @Model.Contest.Year is starting soon:<br />
-            <div id="clockdiv">
-                <div>
-                    <span class="days">@timeLeft.Days.ToString("#00")</span>
-                    <div class="smalltext">Days</div>
-                </div>
-                <div>
-                    <span class="hours">@timeLeft.Hours.ToString("00")</span>
-                    <div class="smalltext">Hrs</div>
-                </div>
-                <div>
-                    <span class="minutes">@timeLeft.Minutes.ToString("00")</span>
-                    <div class="smalltext">Mins</div>
-                </div>
-                <div>
-                    <span class="seconds">@timeLeft.Seconds.ToString("00")</span>
-                    <div class="smalltext">Secs</div>
-                </div>
-            </div>
+            <countdown asp-datetime="Model.ContestStart" />
         </h2>
     }
     else

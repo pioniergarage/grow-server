@@ -91,7 +91,7 @@ namespace Grow.Server.Model.TagHelpers
                 var nameInput = new TagBuilder("input");
                 nameInput.Attributes.Add("type", "text");
                 nameInput.Attributes.Add("class", "form-control file-name-input");
-                nameInput.Attributes.Add("disabled", "disabled");
+                nameInput.Attributes.Add("readonly", "readonly");
                 nameInput.Attributes.Add("value", (FileProperty.Model as File)?.Name);
                 nameInputContent = nameInput;
             }

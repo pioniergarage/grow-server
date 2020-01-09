@@ -107,22 +107,39 @@ $.fn.entitySearch = function (onElementChosen) {
     return this;
 };
 
+function getFormValue(elem, name) {
+    if (!elem) return;
+    if (!name) return;
+
+    name = name.substring(0, 1).toLowerCase() + name.substring(1);
+    var nameParts = name.split(".", 2);
+
+    if (nameParts.length === 1) {
+        return elem[name];
+    } else {
+        return getFormValue(elem[nameParts[0]], nameParts[1]);
+    }
+}
+
 function createFillFormAction() {
     return (elem) => {
         $("input, select, textarea").each((index, input) => {
             // fill values on current form from selected entity
             var name = $(input).attr("name");
             if (!name) return;
-            name = name.substring(0, 1).toLowerCase() + name.substring(1);
-            // dont change "isActive"
-            if (name === "isActive")
+            // dont change "IsActive"
+            if (name === "IsActive")
                 return;
-            // text box, select
-            if (elem[name])
-                $(input).val(elem[name]);
+            // text box
+            var val = getFormValue(elem, name);
+            if (val)
+                $(input).val(val);
+            // select
+            if ($(input).is("select"))
+                $(input)[0].selectedIndex = val;
             // check box
             if ($(input).attr("type") === "checkbox")
-                $(input).prop("checked", elem[name]);
+                $(input).prop("checked", val);
             // trigger change event
             $(input).trigger("change");
         });
@@ -130,9 +147,26 @@ function createFillFormAction() {
 }
 
 function createSetInputAction(inputForId, inputForName) {
+
+    $("#" + inputForId).on("change", event => {
+        var nameInput = $("#" + inputForName);
+        var type = nameInput.attr("dat-type");
+
+        if (!nameInput.val()) {
+
+            var id = $(event.target).val();
+            var on_success = (elem) => {
+                nameInput.val(elem.name);
+            };
+            var url = url_search_entities_prefix + type + "/" + id;
+
+            $.get(url, { }, on_success);
+        }
+    });
+
     return (element) => {
-        $("#" + inputForId).val(element.id);
         if (inputForName)
             $("#" + inputForName).val(element.name);
+        $("#" + inputForId).val(element.id);
     };
 }

@@ -1700,6 +1700,7 @@ body.index #main {
   background-attachment: scroll, scroll, scroll, fixed;
   background-color: #645862;
   background-image: url("/css/images/light-tl.svg"), url("/css/images/light-tr.svg"), url("/css/images/overlay.png"), url("/css/images/background_2.jpg");
+  background-blend-mode: soft-light;
   background-position: top left, top right, top left, bottom center;
   background-repeat: no-repeat, no-repeat, repeat, no-repeat;
   background-size: 25em, 25em, auto, cover;

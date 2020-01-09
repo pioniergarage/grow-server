@@ -30,6 +30,14 @@
             <countdown asp-datetime="Model.ContestStart" />
         </h2>
     }
+    else if (Model.MainEvents.Any(e => e.Start > DateTime.Now))
+    {
+        var nextMainEvent = Model.MainEvents.OrderBy(e => e.Start).First(e => e.Start > DateTime.Now);
+        <h2>
+            Get ready for the @nextMainEvent.Name<br />
+            <countdown asp-datetime="nextMainEvent.Start" />
+        </h2>
+    }
     else
     {
         <h2>From Student to Startup</h2>
@@ -96,7 +104,28 @@
                 You can also attend the Kickoff event and enter spontaneously.
             </p>
         }
-        else if (Model.IsAfterContest)
+        else if (Model.MainEvents.Any(e => e.Start > DateTime.Now))
+        {
+            var nextMainEvent = Model.MainEvents.OrderBy(e => e.Start).First(e => e.Start > DateTime.Now);
+
+            <header>
+                <h2>GROW is running. Next up: The @nextMainEvent.Name</h2>
+            </header>
+            <p class="container">
+                @nextMainEvent.Description.DynamicSubstring(300, '\n')
+            </p>
+            <p>
+                <ul class="buttons">
+                    <li>
+                        @Html.ActionLink("More about the " + nextMainEvent.Name, "Program", "Home", null, null, nextMainEvent.Name.Replace(" ", String.Empty).ToLower(), null, new { @class = "button special" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("More about the Teams", "Teams", "Home", null, new { @class = "button special" })
+                    </li>
+                </ul>
+            </p>
+        }
+        else
         {
             <header>
                 <h2>Interested in participating next year?</h2>
@@ -111,18 +140,6 @@
                     </li>
                 </ul>
             </footer>
-        }
-        else
-        {
-            <header>
-                <h2>The contest is running right now</h2>
-            </header>
-            <p>
-                Registrations for this year are closed.
-            </p>
-            <p>
-                Stay up to date with the @Html.ActionLink("Teams", "Teams", "Home") and follow us on social media for all updates.
-            </p>
         }
         <p>
             Do you have any questions? Just write a mail to <a href="mailto:grow@pioniergarage.de" style="color: white; font-weight: bold;">gro<span>w@p</span>ioniergarage.de</a>

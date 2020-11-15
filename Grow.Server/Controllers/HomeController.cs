@@ -51,6 +51,11 @@ namespace Grow.Server.Controllers
             return View();
         }
 
+        public IActionResult pbnb()
+        {
+            return View();
+        }
+
         public IActionResult Teams()
         {
             var teams = TeamsInSelectedYear

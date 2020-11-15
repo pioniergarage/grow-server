@@ -1,0 +1,396 @@
+@model Grow.Server.Model.ViewModels.IndexViewModel
+
+@{
+    ViewBag.Title = "Welcome to GROW";
+    ViewBag.TransparentNavbar = true;
+}
+
+
+<section id="banner">
+    <div id="inner">
+        <div class="video-wrapper">
+            <iframe width="600" height="337" src="https://www.youtube-nocookie.com/embed/kqhC5_nmaU8?modestbranding=1&rel=0&autohide=1&showinfo=0&controls=0" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen alt="GROW"></iframe>
+        </div>
+    </div>
+    <p>&nbsp;</p>
+    
+  
+    
+    @if (Model.IsBeforeContest)
+    {
+        // countdown
+        var timeLeft = Model.ContestStart - DateTime.Now;
+        <h2>
+            GROW @Model.Contest.Year is starting soon:<br />
+            <countdown asp-datetime="Model.ContestStart" />
+        </h2>
+    }
+    else if (Model.MainEvents.Any(e => e.Start > DateTime.Now))
+    {
+        var nextMainEvent = Model.MainEvents.OrderBy(e => e.Start).First(e => e.Start > DateTime.Now);
+        <h2>
+            Get ready for the @nextMainEvent.Name<br />
+            <countdown asp-datetime="nextMainEvent.Start" />
+        </h2>
+    }
+    else
+    {
+        <h2>From Student to Startup</h2>
+    }
+    <p>&nbsp;</p>
+    <ul class="buttons">
+        <li><a href="#cta" class="button special">Get involved</a></li>
+    </ul>
+</section>
+
+<article id="main">
+    <section class="wrapper container" style="font-size: 100%; padding-top: 0px; padding-bottom: 0px;">
+        <header>
+            @if (Model.IsBeforeContest)
+            {
+                <h2 style="text-align: center">Stay tuned for @Model.Contest.Name</h2>
+            }
+            else
+            {
+                <h2 style="text-align: center">@Model.Contest.Name</h2>
+            }
+            <p style="font-weight: 500;">
+                Become an entrepreneur and advance your idea over 11 weeks. Get support, build your prototype and test your market.
+            </p>
+        </header>
+        <p>
+            GROW, the student founding contest in <strong>Karlsruhe</strong>, is aimed at helping student entrepreneurs to get the right experience,
+            knowledge and network to found their own company. There are no requirements; some teams start with nothing but an idea and others are already working on their prototype. We value progress; it doesn’t matter where you start, as long as you GROW.
+        </p>
+        <p>
+            At the end you can get the chance to pitch your progress in front of <strong>500+ people</strong>
+            including an experienced jury and may win one of the prizes from our <strong>prize pool worth over 8.000 €</strong>.
+        </p>
+        <h3 style="text-align: center">
+            <strong>Supporting young founders - every winter in Karlsruhe</strong>
+        </h3>
+    </section>
+    
+    <!--Pre-GROW event-->
+    
+    <section class="wrapper container" style="font-size: 100%; padding-top: 0px; padding-bottom: 0px;">
+        <header>
+           
+                <h2 style="text-align: center">Join our brand new Pre-GROW event!</h2>
+            
+            <p style="font-weight: 500;">
+               The entrepreneurial journey often starts with a first business idea. However, valuable business ideas are hard to find. The Opportunity Recognition Workshop is designed for entrepreneurial students to find promising business opportunities and develop valuable business ideas. Teams and individuals with an already existing ideas are also invited to conceptualize and refine their ideas to have a profound start in the GROW contest.
+            </p>
+        </header>
+        <p>
+            In the Opportunity Recognition Workshop, you will analyze and align your core values and core competences with the market needs to identify business opportunities you want to exploit.
+        </p>
+        <h3 style="text-align: center">
+            <strong>Register for the workshop via our registration form!</strong>
+        </h3>
+    </section>
+    
+    
+    <!--stopp-->
+
+    <section id="cta">
+        @if (Model.RegistrationDeadline > DateTime.Now)
+        {
+            var deadline = Model.RegistrationDeadline - new TimeSpan(0, 1, 0);
+            <header>
+                <h2>You want to participate in @Model.Contest.Year?</h2>
+            </header>
+
+        <p>
+            @if (Model.Contest.RegistrationUrl != null) {
+                <ul class="buttons" style="margin: 0">
+                        <li>
+                            <a href="@Model.Contest.RegistrationUrl" target="_blank" class="button special">
+                                Register now
+                            </a>
+                        </li>
+                    </ul>
+                    }
+        
+                    else {
+        <p> 
+            Registrations have not yet opened.
+        </p>
+                <ul class="buttons" style="margin: 0">
+                   <li>
+                            <a href="https://grow.pioniergarage.de/Home/Newsletter" class="button special">
+                                Sign up for our newsletter
+                            </a>
+                        </li>
+                    </ul>
+                    }
+              
+                <span style="font-size: 80%">(Deadline: @deadline.ToShortDateString() @deadline.ToShortTimeString())</span>
+            </p>
+    
+            <p>
+                You can also attend the Kickoff event and enter spontaneously.
+                <br>
+                Take note that for our Pre-GROW Event, you will need to sign up for the contest.
+            </p>
+        }
+        else if (Model.MainEvents.Any(e => e.Start > DateTime.Now))
+        {
+            var nextMainEvent = Model.MainEvents.OrderBy(e => e.Start).First(e => e.Start > DateTime.Now);
+
+            <header>
+                <h2>GROW is running. Next up: The @nextMainEvent.Name</h2>
+            </header>
+            <p class="container">
+                @nextMainEvent.Description.DynamicSubstring(300, '\n')
+            </p>
+            <p>
+                <ul class="buttons">
+                    <li>
+                        @Html.ActionLink("More about the " + nextMainEvent.Name, "Program", "Home", null, null, nextMainEvent.Name.Replace(" ", String.Empty).ToLower(), null, new { @class = "button special" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("More about the Teams", "Teams", "Home", null, new { @class = "button special" })
+                    </li>
+                </ul>
+            </p>
+        }
+        else
+        {
+            <header>
+                <h2>Interested in participating next year?</h2>
+            </header>
+            <p>
+                The contest is over but the next one will start the following winter. So why not stay up to date with our newsletter.
+            </p>
+            <footer>
+                <ul class="buttons">
+                    <li>
+                        @Html.ActionLink("Sign up", "Newsletter", "Home", null, new { @class = "button special" })
+                    </li>
+                </ul>
+            </footer>
+        }
+        <p>
+            Do you have any questions? Just write a mail to <a href="mailto:grow@pioniergarage.de" style="color: white; font-weight: bold;">gro<span>w@p</span>ioniergarage.de</a>
+        </p>
+    </section>
+
+    <section id="divider" class="container special style1 wrapper">
+        &nbsp;
+    </section>
+
+    <section class="wrapper style1 container special">
+        <div class="row">
+            @foreach (var evnt in Model.MainEvents.OrderBy(e => e.Start))
+            {
+                <div class="4u 12u(narrower)">
+                    <section>
+                        <img src="@(evnt.Image?.Url ?? "/img/icon/eventdate.png")" alt="@evnt.Name" class="fitHalf" />
+                        <header>
+                            <h2>@evnt.Start.ToString("MMM dd")</h2>
+                            <h3 style="text-decoration: underline">@Html.ActionLink(evnt.Name, "Program", "Home", null, null, evnt.Name.Replace(" ", String.Empty).ToLower(), null, null)</h3>
+                        </header>
+                        <p style="text-align: justify">
+                            @evnt.Description.DynamicSubstring(250, new[] { '.' })
+                        </p>
+                        <p>
+                            @Html.ActionLink("More info", "Program", "Home", null, null, evnt.Name.Replace(" ", String.Empty).ToLower(), null, null)
+                        </p>
+                    </section>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="wrapper style2 container special">
+        <header class="major">
+            <h2>Why GROW?</h2>
+        </header>
+        <div class="img-block">
+            <img src="/img/icon/hourGlass.png" />
+        </div>
+        <p>
+            <strong>1. We value progress</strong><br />
+            It doesn't matter where you start. We only want to see you advance as much as possible during those 11 weeks.
+        </p>
+        <div class="img-block">
+            <img src="/img/icon/phoneCall.png" />
+        </div>
+        <p>
+            <strong>2. A business is more than a prototype</strong><br />
+            Not only your prototype will be judged. A successfull venture includes understanding your customers, having a strong business model, building a network and validating your ideas.
+        </p>
+        <div class="img-block">
+            <img src="/img/icon/businessman.png" />
+        </div>
+        <p>
+            <strong>3. GROW actively supports you</strong><br />
+            During those 11 weeks we try to help you advance as much as possible. We offer multiple full-day workshops to teach you the necessary soft skills about entrepreneurship. We connect you with experienced mentors that can give you feedback and the right mindset. And we give you access to our network of founders, investors and startups.
+        </p>
+        <div class="img-block">
+            <img src="/img/icon/bigGroup.png" />
+        </div>
+        <p>
+            <strong>4. GROW is not for profit</strong><br />
+            GROW is organized by the student-run association <a href="https://pioniergarage.de" target="_blank" style="color: white; font-weight: bold">PionierGarage e.V.</a> Our first and foremost goal is to inspire students to found their own ventures.
+        </p>
+    </section>
+
+    <section id="newsletter" class="wrapper special">
+        <header>
+            <h2>Become a GROW fan</h2>
+        </header>
+        <p style="max-width: 600px; margin-left: auto; margin-right: auto">
+            Sign up to our GROW newsletter to get updates about the main events, the program and other important news.
+        </p>
+        <p class="centered">
+            @Html.ActionLink("Sign up", "Newsletter", "Home", null, new { @class = "button special" })
+        </p>
+    </section>
+
+<!---FAQ--->
+
+<article id="main">
+    <section class="wrapper container" style="font-size: 100%; padding-top: 0px; padding-bottom: 0px;">
+        <header>
+            
+            <h2 style="text-align: center"><strong>FAQ</strong></h2>
+            
+            <p style="font-weight: 500;">
+                <ol style="list-style: decimal;">                
+                    <li> 
+                        <dl>
+                            <dt><span style="font-style: italic;">In what language does GROW take place?</span></dt>
+                            <dd>The event will be held entirely in English this year.</dd>
+                        </dl>
+                    </li>
+                    <li> 
+                        <dl>
+                            <dt><span style="font-style: italic;">Can I take part if I’m not a student?</span></dt>
+                            <dd>Yes, GROW is for everyone, whether you’re working or not. However, each team must consist out of at least one student.</dd>
+                        </dl>
+                    </li>
+                    <li> 
+                        <dl>
+                            <dt><span style="font-style: italic;">Can we sign up as a team?</span></dt>
+                            <dd>Yes, in the registration form there is the option to enter already existing teams.</dd>
+                        </dl>
+                    </li>
+                    <li> 
+                        <dl>
+                            <dt><span style="font-style: italic;">If we already are a team, should every person sign up?</span></dt>
+                            <dd>No, you would make it easier for us, if you submitted one registration per idea.</dd>
+                        </dl>
+                    </li>
+                    <li> 
+                        <dl>
+                            <dt><span style="font-style: italic;">Can we take part as a university association?</span></dt>
+                            <dd>If your group consists of members of your association you can - of course - participate. However, note that you will need a defined team and should have the intention of founding a company.</dd>
+                        </dl>
+                    </li>
+                    <li> 
+                        <dl>
+                            <dt><span style="font-style: italic;">In what format will the contest take place in Corona times?</span></dt>
+                            <dd>We have decided to hold the event in a hybrid format: The kick-off will at least take place completely digitally, the other main events will depend on the occurrence of infection. Most workshops are - following a hygiene concept - held on site.</dd>
+                        </dl>
+                    </li>
+                    <li> 
+                        <dl>
+                            <dt><span style="font-style: italic;">Can I also participate if I am not in Karlsruhe during the competition?</span></dt>
+                            <dd>Yes, it will be possible to attend the obligatory events remotely. However, you might miss out some workshops that are held on site.</dd>
+                        </dl>
+                    </li>
+                </ol>                 
+            </p>
+        </header>
+    </section>
+<!--stopp-->
+
+    <section class="wrapper style3 container special" style="margin-top: 100px">
+        <header class="major">
+            <h2>Some of our successfull <strong>Alumni</strong></h2>
+        </header>
+        <div class="logos">
+            <div>
+                <a href="https://www.campusjaeger.de/" target="_blank"><img src="/img/startups/campusjaeger.png" alt="Campusjäger" /></a>
+                1st place 2013/14
+            </div>
+            <div>
+                <a href="https://usertimes.de/" target="_blank"><img src="/img/startups/usertimes.png" alt="Usertimes" /></a>
+                1st place 2017/18
+            </div>
+            <div>
+                <a href="https://melodyscanner.com/" target="_blank"><img src="/img/startups/melodyscanner.png" alt="Melody Scanner" /></a>
+                2nd place 2016/17
+            </div>
+            <div>
+                <a href="https://www.heliopas.com/" target="_blank"><img src="/img/startups/heliopas.svg" alt="HelioPas AI" /></a>
+                Most Scalable 2018/19
+            </div>
+        </div>
+    </section>
+
+    <section class="wrapper style3 container special" style="margin-top: 100px">
+        <header class="major">
+            <h2>Our <strong>Patrons</strong></h2>
+        </header>
+        <div class="people">
+            <div class="centered">
+                <img src="/img/mentrup.png" alt="Dr. Frank Mentrup" />
+                <p>
+                    <strong>Dr. Frank Mentrup</strong><br style="display: block;" />
+                    Mayor of Karlsruhe
+                </p>
+            </div>
+            <div class="centered">
+                <img src="/img/hirth.jpg" alt="Prof. Thomas Hirth" />
+                <p>
+                    <strong>Prof. Dr. Thomas Hirth</strong><br style="display: block;" />
+                    Vice-President of KIT
+                </p>
+            </div>
+        </div>
+    </section>
+
+    @if (Model.Partners.Any())
+    {
+        <section class="wrapper style1 container special">
+            <header>
+                <h2>Made possible thanks to</h2>
+            </header>
+            <div class="logos">
+                @foreach (var partner in Model.Partners)
+                {
+                <div>
+                    @if (!string.IsNullOrEmpty(partner.WebsiteUrl))
+                    {
+                        <a href="@partner.WebsiteUrl.WithProtocol()" target="_blank">
+                            @if (partner.Image != null)
+                            {
+                                <img src="@partner.Image.Url" alt="@partner.Name" />
+                            }
+                            else
+                            {
+                                <strong style="font-size: 200%">@partner.Name</strong>
+                            }
+                        </a>
+                    }
+                    else
+                    {
+
+                        @if (partner.Image != null)
+                        {
+                            <img src="@partner.Image.Url" alt="@partner.Name" />
+                        }
+                        else
+                        {
+                            <strong style="font-size: 200%">@partner.Name</strong>
+                        }
+                    }
+                </div>
+                }
+            </div>
+        </section>
+    }
+</article>

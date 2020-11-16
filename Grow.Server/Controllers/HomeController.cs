@@ -93,7 +93,12 @@ namespace Grow.Server.Controllers
                 .ToList();
             return View(model);
         }
-
+        
+        public IActionResult PhotoBooth()
+                {
+                    return View(model);
+                }
+                
         public IActionResult Mentors()
         {
             var model = MentorsInSelectedYear

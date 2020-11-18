@@ -55,6 +55,11 @@ namespace Grow.Server.Controllers
         {
             return View();
         }
+        
+        public IActionResult PhotoBooth()
+         {
+                    return View();
+          }
 
         public IActionResult Teams()
         {
@@ -93,11 +98,7 @@ namespace Grow.Server.Controllers
                 .ToList();
             return View(model);
         }
-        
-        public IActionResult PhotoBooth()
-                {
-                    return View(model);
-                }
+       
                 
         public IActionResult Mentors()
         {

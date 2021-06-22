@@ -18,12 +18,17 @@
     
     @if (Model.IsBeforeContest)
     {
-        // countdown
-        var timeLeft = Model.ContestStart - DateTime.Now;
+     
+		<h2>
+            GROW 2021/22 is starting on 29.10.
+        </h2>
+
+         // countdown
+     /*   var timeLeft = Model.ContestStart - DateTime.Now;
         <h2>
             GROW @Model.Contest.Year is starting soon:<br />
             <countdown asp-datetime="Model.ContestStart" />
-        </h2>
+        </h2>  */
     }
     else if (Model.MainEvents.Any(e => e.Start > DateTime.Now))
     {
@@ -82,16 +87,10 @@
         <p>
             @if (Model.Contest.RegistrationUrl != null) {
                 <ul class="buttons" style="margin: 0">
-                        <li>
-                            <!--
+                        <li>                            
                             <a href="@Model.Contest.RegistrationUrl" target="_blank" class="button special">
                                 Register now
-                            </a>
-                            -->
-                             <a href="https://miro.com/app/board/o9J_lfEU8rU=/" target="_blank" class="button special">
-                                Join here
-                            </a>
-                            
+                            </a>                            
                         </li>
                     </ul>
                     }
@@ -226,11 +225,15 @@
             <h2>Become a GROW fan</h2>
         </header>
         <p style="max-width: 600px; margin-left: auto; margin-right: auto">
-            Sign up to our GROW newsletter to get updates about the main events, the program and other important news.
+            Follow us on Instagram to always stay up-to-date!
         </p>
-        <p class="centered">
-            @Html.ActionLink("Sign up", "Newsletter", "Home", null, new { @class = "button special" })
-        </p>
+        <ul class="buttons" style="margin: 0">
+                   <li>
+                        <a href="https://www.instagram.com/pioniergarage" class="button special">
+                                Follow here
+                        </a>
+                   </li>
+        </ul>
     </section>
 
 <!---FAQ--->

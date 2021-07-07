@@ -1371,6 +1371,7 @@ input[type="reset"],
     padding: 0; }
   .wrapper.style2 {
     background-color: #83d3c9;
+    background-image: url("images/light-bl.svg"), url("images/light-br.svg");
     background-position: bottom left, bottom right;
     background-repeat: no-repeat, no-repeat;
     background-size: 25em, 25em;
@@ -1618,6 +1619,7 @@ input[type="reset"],
 
 /* Main */
 #main {
+  background-image: url("images/dark-tl.svg"), url("images/dark-tr.svg"), url("images/dark-bl.svg"), url("images/dark-br.svg");
   background-position: top left, top right, bottom left, bottom right;
   background-repeat: no-repeat;
   background-size: 25em;

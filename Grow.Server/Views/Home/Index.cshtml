@@ -25,7 +25,7 @@
 
          // countdown
 	
-	@if (DateTime.Now > Model.ContestStart - TimeSpan.FromDays(14) ) {
+	@if (DateTime.Now > Model.ContestStart - TimeSpan.FromDays(300) ) {
         	<h2>
         	    GROW @Model.Contest.Year is starting soon:<br />
         	    <countdown asp-datetime="Model.ContestStart" />

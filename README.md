@@ -1,5 +1,3 @@
-test
-
 # GROW Server
 
 Public-facing website, administration backend and API for the GROW contest.

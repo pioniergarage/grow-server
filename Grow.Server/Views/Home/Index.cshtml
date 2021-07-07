@@ -24,12 +24,13 @@
         </h2>
 
          // countdown
+	/*
         var timeLeft = Model.ContestStart - DateTime.Now;
-	<script>alert(timeLeft);</script>
         <h2>
             GROW @Model.Contest.Year is starting soon:<br />
             <countdown asp-datetime="Model.ContestStart" />
         </h2>
+	*/
     }
     else if (Model.MainEvents.Any(e => e.Start > DateTime.Now))
     {

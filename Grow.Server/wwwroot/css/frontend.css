@@ -1582,6 +1582,30 @@ input[type="reset"],
       #header.alt nav ul li.active > a, #header.alt nav ul li:hover > a {
         border: solid 1px; }
 
+/* Not updating banner above header, by Toni with <3 */
+#header {
+    margin-top: 3em;
+}
+
+#header:before {
+    content: "We're not actively updating this site at the moment. Stay tuned for the launch of our new website soon!";
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    padding: 1em;
+    border-bottom: 1px solid white;
+    background: #b31919;
+    text-align: center;
+    line-height: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 900;
+    color: white;
+    z-index: 2;
+}
+
 /* Dropotron */
 .dropotron {
   background: #fff;
